@@ -1,0 +1,58 @@
+// Ranks, achievements and daily quests — the progression scaffolding.
+window.RANKS = [
+  { xp: 0, name: "Unsubscribed Nobody", icon: "📭", blurb: "You have a list of zero and the confidence to match." },
+  { xp: 250, name: "Autoresponder Peasant", icon: "📬", blurb: "You've sent a welcome email. It said 'Hi there!'" },
+  { xp: 700, name: "Merge Field Apprentice", icon: "✉️", blurb: "You know what a CTA is. You use it once a month." },
+  { xp: 1400, name: "Subject Line Scribbler", icon: "🖊️", blurb: "Your subject lines have started asking questions." },
+  { xp: 2400, name: "Story Hunter", icon: "🔦", blurb: "You keep a notes app full of tiny everyday moments." },
+  { xp: 3800, name: "Daily Sender", icon: "🔥", blurb: "You email every day and nobody has died." },
+  { xp: 5600, name: "List Whisperer", icon: "🎧", blurb: "People reply to you. Some of them are furious. Good." },
+  { xp: 8000, name: "Campaign Strategist", icon: "🗺️", blurb: "You can plan a 5-day sale on the back of a napkin." },
+  { xp: 11000, name: "Inbox Detonator", icon: "💣", blurb: "You sell in every email and your open rates went UP." },
+  { xp: 15000, name: "Persuasive Page Regular", icon: "📜", blurb: "You've stopped asking what a good open rate is." },
+  { xp: 20000, name: "Email Emperor", icon: "👑", blurb: "You send eight emails on the last day and they beg for more." },
+];
+
+window.ACHIEVEMENTS = [
+  { id: "first-blood", name: "First Blood", icon: "🩸", desc: "Answer your first question correctly.", secret: false },
+  { id: "combo-10", name: "On A Tear", icon: "⚡", desc: "Hit a 10-answer streak in one run.", secret: false },
+  { id: "combo-25", name: "Untouchable", icon: "🌪️", desc: "Hit a 25-answer streak in one run.", secret: false },
+  { id: "flawless", name: "Flawless Victory", icon: "💎", desc: "Finish a Rapid Fire run with zero misses.", secret: false },
+  { id: "heresy-hunter", name: "Heresy Hunter", icon: "🔥", desc: "Finish a Heresy run with 90%+ accuracy.", secret: false },
+  { id: "subject-savant", name: "Subject Savant", icon: "🎯", desc: "Get 12 subject line calls right in a row.", secret: false },
+  { id: "triforce", name: "Triforce Bearer", icon: "🔺", desc: "Judge 8 leads perfectly in one Triforce run.", secret: false },
+  { id: "commander", name: "Field Marshal", icon: "🎖️", desc: "Clear a Campaign Commander run without an error.", secret: false },
+  { id: "codex-25", name: "Well Read", icon: "📖", desc: "Read 25 rules in the Codex.", secret: false },
+  { id: "codex-all", name: "The Compendium", icon: "📚", desc: "Read all 101 rules.", secret: false },
+  { id: "mastery-10", name: "Committed", icon: "🧠", desc: "Master 10 rules (5 correct answers each).", secret: false },
+  { id: "mastery-50", name: "Second Nature", icon: "🧬", desc: "Master 50 rules.", secret: false },
+  { id: "mastery-all", name: "Throssell Acknowledged", icon: "🏆", desc: "Master all 101 rules.", secret: false },
+  { id: "streak-3", name: "Three In A Row", icon: "📅", desc: "Train 3 days in a row.", secret: false },
+  { id: "streak-7", name: "Daily Sender", icon: "🗓️", desc: "Train 7 days in a row.", secret: false },
+  { id: "streak-30", name: "Mind Refresh", icon: "🌅", desc: "Train 30 days in a row.", secret: false },
+  { id: "dojo-1", name: "Ink On Paper", icon: "✍️", desc: "Complete your first Dojo rep.", secret: false },
+  { id: "dojo-5", name: "Callused Hands", icon: "🥋", desc: "Complete 5 Dojo reps.", secret: false },
+  { id: "dojo-all", name: "Sensei", icon: "🐉", desc: "Complete every Dojo rep.", secret: false },
+  { id: "vault-10", name: "Story Sense", icon: "🗝️", desc: "Bank 10 entries in the Story Vault.", secret: false },
+  { id: "vault-50", name: "Never Run Dry", icon: "♾️", desc: "Bank 50 entries in the Story Vault.", secret: false },
+  { id: "boss-1", name: "Gauntlet Runner", icon: "🛡️", desc: "Survive your first Gauntlet.", secret: false },
+  { id: "boss-perfect", name: "Not A Scratch", icon: "😇", desc: "Clear a Gauntlet with all three lives intact.", secret: false },
+  { id: "manuals", name: "Field Ready", icon: "🧭", desc: "Read all four Field Manuals.", secret: false },
+  { id: "rule-1", name: "Context Is King", icon: "🗿", desc: "Master Rule #1. Everything else is downstream.", secret: false },
+  { id: "night-owl", name: "Midnight EST", icon: "🌙", desc: "Train between midnight and 4am.", secret: true },
+  { id: "eight-emails", name: "Black Friday 2020", icon: "🎱", desc: "Answer 8 questions correctly inside 60 seconds.", secret: true },
+];
+
+// Daily quests are picked fresh each day from this pool.
+window.QUEST_POOL = [
+  { id: "q-rapid", text: "Land 15 correct answers in Rapid Fire", goal: 15, metric: "rapidCorrect", xp: 120 },
+  { id: "q-heresy", text: "Call 12 statements correctly in Heresy", goal: 12, metric: "heresyCorrect", xp: 100 },
+  { id: "q-subject", text: "Win 8 subject line face-offs", goal: 8, metric: "subjectCorrect", xp: 100 },
+  { id: "q-codex", text: "Read 5 rules in the Codex", goal: 5, metric: "codexRead", xp: 80 },
+  { id: "q-combo", text: "Hit a 10-answer combo", goal: 10, metric: "bestComboToday", xp: 120 },
+  { id: "q-vault", text: "Bank a story in the Story Vault", goal: 1, metric: "vaultToday", xp: 90 },
+  { id: "q-triforce", text: "Judge 6 leads in the Triforce Lab", goal: 6, metric: "triforceCorrect", xp: 100 },
+  { id: "q-campaign", text: "Answer 8 Campaign Commander calls", goal: 8, metric: "campaignCorrect", xp: 100 },
+  { id: "q-any", text: "Answer 30 questions in any mode", goal: 30, metric: "anyCorrect", xp: 140 },
+  { id: "q-research", text: "Clear 8 Field Research questions", goal: 8, metric: "researchCorrect", xp: 100 },
+];
