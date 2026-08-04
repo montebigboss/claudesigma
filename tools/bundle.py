@@ -43,6 +43,17 @@ def main():
         f.write(html)
     print("wrote %s (%.0f KB)" % (out, len(html.encode("utf-8")) / 1024))
 
+    # A second variant for hosts that supply their own document skeleton:
+    # everything between <body> and </body>, plus the <title> and <style>.
+    inner = html.split("<body>", 1)[1].rsplit("</body>", 1)[0].strip()
+    title = re.search(r"<title>(.*?)</title>", html, re.S).group(1)
+    style = re.search(r"<style>.*?</style>", html, re.S).group(0)
+    embed = "<title>" + title + "</title>\n" + style + "\n" + inner
+    out2 = os.path.join(out_dir, "inbox-dojo.embed.html")
+    with open(out2, "w", encoding="utf-8") as f:
+        f.write(embed)
+    print("wrote %s (%.0f KB)" % (out2, len(embed.encode("utf-8")) / 1024))
+
 
 if __name__ == "__main__":
     main()
