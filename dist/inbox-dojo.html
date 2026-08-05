@@ -6760,7 +6760,25 @@ window.QUEST_POOL = [
   function boot() {
     Store.load();
 
-    document.body.innerHTML =
+    // Some hosts inject this page's markup straight into <body> rather than
+    // giving us the whole document. Rescue any <style> from there before we
+    // render, and own a root node instead of overwriting the body — otherwise
+    // we'd delete our own stylesheet on the first paint.
+    Array.prototype.forEach.call(
+      document.querySelectorAll("body style"),
+      function (s) {
+        document.head.appendChild(s);
+      }
+    );
+
+    var root = document.getElementById("dojo-root");
+    if (!root) {
+      root = document.createElement("div");
+      root.id = "dojo-root";
+      document.body.appendChild(root);
+    }
+
+    root.innerHTML =
       '<div class="topbar"><div class="topbar-row">' +
       '<div class="brand"><span class="dot"></span>INBOX DOJO</div>' +
       '<div class="stat-chips">' +
