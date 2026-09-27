@@ -76,6 +76,7 @@ src/
 tools/
   build_rules.py        parses the Compendium transcript → src/data/rules.js
   bundle.py             inlines everything → dist/inbox-dojo.html
+  slides_to_pdf.py      rebuilds a screen-shared document from a video → PDF
 ```
 
 ### Regenerating the rules
@@ -89,6 +90,41 @@ table.
 ```
 COMPENDIUM_TXT=/path/to/transcript.txt python3 tools/build_rules.py
 ```
+
+## Capturing a document from a video
+
+`tools/slides_to_pdf.py` rebuilds the document someone screen-shares in a talk.
+A walkthrough is mostly static — the page holds still while they talk, then
+jumps — so the script samples the video, finds the runs of frames that hold
+still, keeps one clean frame per run, and stacks those into a PDF. A page the
+talk returns to is dropped as a duplicate unless you pass `--keep-repeats`.
+
+Needs `ffmpeg` on `PATH`, plus `pillow` and `numpy`. Give it a local file, or a
+URL if `yt-dlp` is installed and the network allows it.
+
+```
+python3 tools/slides_to_pdf.py talk.mp4 --list          # what it found, no PDF
+python3 tools/slides_to_pdf.py talk.mp4 --out deck.pdf
+```
+
+Two knobs carry most of the work. Geometry is `X,Y,W,H`, in pixels
+(`960,500,300,200`) or as percentages of the frame (`75%,70%,25%,28%`).
+
+| Flag | Use |
+| --- | --- |
+| `--mask` | ignore a box when comparing frames — a webcam overlay or a blinking cursor never stops moving, so without this every frame reads as a page turn (repeatable) |
+| `--crop` | crop every page, so the PDF is the document rather than a screenshot of someone's desktop |
+| `--at` | skip detection and grab exactly these timestamps: `--at 0:12,1:05,2:33.5` |
+| `--area` | floor on how much must change to count as a page turn; lower it if pages differ only subtly |
+| `--min-hold` | seconds a page must hold still to count (default 1.2) |
+| `--frames-dir` | also save the chosen pages as PNGs, so you can check or hand-fix them |
+
+Start with `--list` and tune `--mask` and `--area` until the page count matches
+what you counted by eye. The threshold adapts to the footage — it sits above
+whatever the video does at rest — so noisy recordings raise it on their own.
+
+Use it on material you're entitled to have: your own recordings, a talk whose
+deck was shared with the audience, a course you've bought.
 
 ## Credit
 
