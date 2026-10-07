@@ -18,6 +18,7 @@
     crown: '<path d="M3 8l4 4 5-7 5 7 4-4-2 11H5z"/>',
     column: '<path d="M4 21h16M5 18h14M6 7h12M4 7l8-4 8 4"/><path d="M8 7v11M12 7v11M16 7v11"/>',
     chat: '<path d="M4 5h16v11H10l-5 4v-4H4z"/><path d="M8 9h8M8 12h5"/>',
+    cat: '<path d="M5 20c0-5 2.5-8 7-8s7 3 7 8z"/><circle cx="12" cy="9" r="4.5"/><path d="M8.3 6.2L7.5 2.5l3 2.4M15.7 6.2l.8-3.7-3 2.4"/><path d="M19 18c2 0 3-1.5 2.5-3.5"/>',
     star: '<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>',
     heart: '<path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.3 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/>',
     lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
@@ -42,6 +43,10 @@
     diamond: '<path d="M12 2l10 10-10 10L2 12z" fill="currentColor" stroke="none"/>',
     circle: '<circle cx="12" cy="12" r="9.5" fill="currentColor" stroke="none"/>',
     square: '<rect x="3" y="3" width="18" height="18" rx="2" fill="currentColor" stroke="none"/>'
+  };
+
+  W.iconPath = function (name) {
+    return P[name] || P.spark;
   };
 
   W.icon = function (name, cls) {

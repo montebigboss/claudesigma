@@ -2550,9 +2550,11 @@ aside.extra::before {
 .note table {
   border-collapse: collapse;
   width: 100%;
-  min-width: 520px;
   font-size: 14px;
   line-height: 1.4;
+}
+.note table:has(thead th:nth-child(4)) {
+  min-width: 560px;
 }
 .note th,
 .note td {
@@ -3592,6 +3594,171 @@ aside.extra::before {
   font-size: 14px;
   font-weight: 700;
   color: var(--accent) !important;
+}
+
+
+/* ---------- figures for visual learners ---------- */
+.fig {
+  margin: 4px 0;
+  padding: 14px 12px 10px;
+  border-radius: var(--r);
+  background: var(--paper);
+  border: 2px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--ink);
+}
+.fig > svg {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  margin: 0 auto;
+  overflow: visible;
+}
+.fig figcaption {
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--ink-2);
+  text-align: center;
+  max-width: 52ch;
+  margin: 0 auto;
+}
+.fig-sm {
+  padding: 8px;
+  background: var(--surface);
+  border-style: dashed;
+}
+.fig-sm > svg {
+  max-width: 300px;
+}
+.fig .bx,
+.fig .bx-a,
+.fig .bx-g,
+.fig .bx-r,
+.fig .bx-x {
+  stroke-width: 2;
+}
+.fig .bx {
+  fill: var(--surface);
+  stroke: var(--line);
+}
+.fig .bx-a {
+  fill: var(--accent-soft);
+  stroke: var(--accent);
+}
+.fig .bx-g {
+  fill: var(--gold-soft);
+  stroke: var(--gold);
+}
+.fig .bx-r {
+  fill: var(--red-soft);
+  stroke: var(--red);
+}
+.fig .bx-x {
+  fill: var(--surface-2);
+  stroke: var(--line);
+  stroke-dasharray: 5 4;
+}
+.fig .ln {
+  stroke: var(--ink-2);
+  stroke-width: 1.8;
+  fill: none;
+}
+.fig .ln-a {
+  stroke: var(--accent);
+}
+.fig .ln-d {
+  stroke-dasharray: 5 4;
+}
+.fig .ar {
+  fill: var(--ink-2);
+}
+.fig .ar-a,
+.fig .acf {
+  fill: var(--accent);
+}
+.fig .soft {
+  fill: var(--accent-soft);
+}
+.fig .dot {
+  fill: var(--ink-3);
+}
+.fig .obj {
+  fill: var(--ink-2);
+}
+.fig .obj-a {
+  fill: var(--accent);
+}
+.fig .water {
+  fill: var(--blue-soft);
+}
+.fig .wave {
+  stroke: var(--blue);
+}
+.fig .ice {
+  fill: var(--surface);
+  stroke: var(--ink-2);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.fig .tip-r {
+  fill: var(--red);
+}
+.fig .tip-a {
+  fill: var(--accent);
+}
+.fig .pic {
+  fill: none;
+  stroke: var(--accent);
+}
+.fig text {
+  fill: var(--ink);
+}
+.fig .t {
+  font: 600 13px var(--f-body);
+}
+.fig .tb {
+  font: 700 13px var(--f-display);
+}
+.fig .ts {
+  font: 600 11px var(--f-body);
+  fill: var(--ink-2);
+}
+.fig .ta {
+  fill: var(--accent);
+}
+.fig .tr {
+  fill: var(--red);
+}
+.fig .num {
+  font: 800 12px var(--f-body);
+  fill: var(--on-accent);
+}
+.fig .huge {
+  font: 800 72px var(--f-display);
+}
+.fig .mid {
+  font: 800 26px var(--f-display);
+}
+.fig .huge-s {
+  font: 800 22px var(--f-display);
+}
+.fc-pic {
+  align-self: flex-start;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: grid;
+  place-items: center;
+  transform: rotate(-4deg);
+}
+.fc-pic .ic {
+  width: 30px;
+  height: 30px;
 }
 
 @media (max-width: 420px) {

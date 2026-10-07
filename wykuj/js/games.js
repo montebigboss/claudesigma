@@ -80,14 +80,17 @@
         ? '<span class="fc-k">Po ludzku</span><p>' + esc(c.plain) + '</p><span class="fc-k">Na teście</span><p class="fc-def">' + esc(c.def) + "</p>"
         : '<span class="fc-k">Definicja</span><p>' + esc(c.def) + "</p>";
       var badge = W.srcBadge(c.s);
+      var unit = m.units[m.unitIdx[c.u]];
+      var pic = '<span class="fc-pic">' + W.icon(c.ic || (unit && unit.icon) || "spark") + "</span>";
+      var fig = c.fig ? W.figHtml(m, c.fig, true) : "";
       var s = Store.card(m.id, c.id);
       var meta = '<span class="fc-box">' + (s ? "Pudełko " + s.box : "Nowa karta") + "</span>";
       if (dir === "term") {
-        front.innerHTML = meta + termHtml + badge;
-        back.innerHTML = defHtml + badge;
+        front.innerHTML = meta + pic + termHtml + badge;
+        back.innerHTML = defHtml + fig + badge;
       } else {
-        front.innerHTML = meta + defHtml + badge;
-        back.innerHTML = termHtml + '<p class="fc-small">' + esc(c.sh) + "</p>" + badge;
+        front.innerHTML = meta + pic + defHtml + badge;
+        back.innerHTML = termHtml + '<p class="fc-small">' + esc(c.sh) + "</p>" + fig + badge;
       }
     }
 

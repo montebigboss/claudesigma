@@ -43,6 +43,15 @@ Moduły z Antropologii i Logiki są pisane „po ludzku”: każde pojęcie ma w
 żargonu i obok dokładne sformułowanie z materiałów, a notatki zaczynają się od
 „Minimum na zaliczenie” i mają słowniczek z filozoficznego na zwykły polski.
 
+## Dla wzrokowców
+
+Każda fiszka ma na froncie piktogram tematu (ten sam symbol co lekcja na ścieżce).
+Kluczowe mechanizmy są narysowane jako schematy w `js/figs.js`: pojawiają się
+w notatkach pod blokiem „po ludzku” i na odwrocie fiszek powiązanych pojęć.
+Schematy są w SVG, kolorowane motywem przedmiotu i czytelne w jasnym i ciemnym trybie.
+Nowy schemat to funkcja rysująca plus wpis w `W.addFigs(idModułu, {...})` z polami
+`n` (sekcja notatek), `c` (pojęcia) i `cap` (podpis).
+
 ## Uruchomienie
 
 Otwórz `index.html` w przeglądarce. Wersja w jednym pliku:

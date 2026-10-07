@@ -378,6 +378,12 @@
     Store.save();
 
     var SRC = { S: "lg-s", U: "lg-u", K: "lg-k", D: "lg-d" };
+    function withFigs(n) {
+      var figs = W.figsFor(m, n.id);
+      if (!figs) return n.html;
+      var cut = n.html.indexOf("<div class='plain'>") === 0 ? n.html.indexOf("</div>") + 6 : 0;
+      return n.html.slice(0, cut) + figs + n.html.slice(cut);
+    }
     var story = m.story;
     var toc = [];
     if (m.minimum) toc.push(["min", "min"]);
@@ -416,7 +422,7 @@
       m.notes
         .map(function (n) {
           return (
-            '<section class="note" id="n-' + n.id + '"><h2>' + (n.n ? '<span class="nn">' + n.n + "</span>" : "") + esc(n.title) + "</h2>" + n.html + "</section>"
+            '<section class="note" id="n-' + n.id + '"><h2>' + (n.n ? '<span class="nn">' + n.n + "</span>" : "") + esc(n.title) + "</h2>" + withFigs(n) + "</section>"
           );
         })
         .join("") +
