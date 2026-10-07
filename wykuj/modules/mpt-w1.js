@@ -16,7 +16,7 @@
  */
 Wykuj.registerModule({
   id: "mpt-w1",
-  course: { id: "mpt", name: "Metody pracy twórczej z dziećmi i młodzieżą", short: "MPT" },
+  course: { id: "mpt", name: "Metody pracy twórczej z dziećmi i młodzieżą", short: "MPT", theme: "green", icon: "pencil" },
   number: 1,
   title: "Specyfika",
   lecturer: "dr Barbara Cichy-Jasiocha",
@@ -527,7 +527,8 @@ Wykuj.registerModule({
   ],
 
   /* Pomoc pamięciowa do 10 zasad (★ nie z wykładu). */
-  story: [
+  story: { title: "10 zasad w jednej scenie", extra: true, ordered: true,
+    intro: "★ Pomoc pamięciowa, nie z wykładu. Wyobraź sobie jedne zajęcia od wejścia do wyjścia:", items: [
     ["Proces", "Dziecko rysuje, a nikt nie pyta, na ile to jest."],
     ["Bezpieczeństwo", "Na stole leży tylko zielony ołówek. Czerwony został w szufladzie."],
     ["Zmysły", "Pachnie glina, gra muzyka, farba ląduje na podłodze."],
@@ -538,7 +539,7 @@ Wykuj.registerModule({
     ["Perspektywa", "Ktoś gra zepsutą zabawkę zostawioną na deszczu."],
     ["Sprawczość", "Na rysunku wschodzi czarne słońce i nikt go nie poprawia."],
     ["Sublimacja", "Na koniec ktoś wali pięścią w glinę, a nie w kolegę."]
-  ],
+  ] },
 
   /* Notatki do czytania. Klasy: .oral = ustnie, .extra = dopowiedzenie (★). */
   notes: [
@@ -608,6 +609,7 @@ Wykuj.registerModule({
   ],
 
   table: {
+    title: "Dzieci a młodzież",
     head: ["Wymiar", "Dzieci", "Młodzież"],
     rows: [
       ["Główny cel", "rozwój sensoryczny, ciekawość, przełamywanie schematów poznawczych", "autorefleksja, budowanie tożsamości, kanalizowanie trudnych emocji"],

@@ -17,8 +17,23 @@ moduł ma te same tryby nauki:
 Pytania częściej losują to, czego nie umiesz. Za naukę są XP, seria dni,
 dzienny cel, rangi (od Świeżaka do Profesora) i odznaki.
 
-Każda pozycja ma źródło: slajd, powiedziane ustnie albo ★ dopowiedzenie spoza
-wykładu. Dopowiedzenia można wyłączyć w profilu, a egzamin próbny zawsze je pomija.
+Każda pozycja ma źródło: slajd lub skrypt, powiedziane ustnie, definicja do
+zapamiętania słowo w słowo albo ★ dopowiedzenie spoza materiałów prowadzącego.
+Dopowiedzenia można wyłączyć w profilu, a egzamin próbny zawsze je pomija.
+
+## Przedmioty
+
+| Przedmiot | Moduły |
+| --- | --- |
+| Metody pracy twórczej z dziećmi i młodzieżą (MPT) | Wykład 1: Specyfika |
+| Antropologia filozoficzna (AF) | Wykład 1: Czym jest antropologia filozoficzna |
+
+Każdy przedmiot ma własny kolor i ikonę. Ekran startowy grupuje wykłady pod
+przedmiotami i ma filtr przedmiotów, a „Dalej” prowadzi do ostatnio otwartego wykładu.
+
+Moduł z Antropologii jest pisany „po ludzku”: każde pojęcie ma wyjaśnienie bez
+żargonu i obok dokładne sformułowanie z materiałów, a notatki zaczynają się od
+„Minimum na zaliczenie” i mają słowniczek z filozoficznego na zwykły polski.
 
 ## Uruchomienie
 
@@ -33,12 +48,18 @@ na koncie, więc działa na telefonie i komputerze.
 
 ## Nowy wykład
 
-1. Skopiuj `modules/mpt-w1.js` jako np. `modules/mpt-w2.js` i podmień treść
-   (format ćwiczeń jest opisany w komentarzu na górze pliku).
+1. Skopiuj moduł z tego samego przedmiotu (np. `modules/af-w1.js` jako `modules/af-w2.js`)
+   i podmień treść. Format ćwiczeń jest opisany w komentarzu na górze pliku.
 2. Dodaj `<script src="modules/mpt-w2.js"></script>` w `index.html` obok pierwszego modułu.
 3. Uruchom `python3 tools/bundle.py`.
 
 Moduły z tym samym `course.id` grupują się pod jednym przedmiotem na ekranie startowym.
+Nowy przedmiot to nowe `course.id`, skrót, `theme` (kolor: `green` albo `indigo`;
+kolejne dodaje się w `app.css`) i `icon`.
+
+Opcjonalne pola modułu: `plain` przy pojęciach (wyjaśnienie po ludzku), `minimum`
+(lista „na zaliczenie”), `sets` (własne listy dla pytań „która to…?”), `story`, `table`,
+`examNote` (gdy prowadzący nie podał progu) i `sourceNames` (legenda źródeł).
 
 ## Struktura
 

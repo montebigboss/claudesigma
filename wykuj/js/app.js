@@ -26,6 +26,8 @@
     var screen = W.screens[entry.name];
     var root = document.createElement("div");
     root.className = "screen s-" + entry.name;
+    var mod = entry.params && W.byId[entry.params.mod];
+    if (mod) root.classList.add("theme-" + mod.course.theme);
     app.innerHTML = "";
     app.appendChild(root);
     window.scrollTo(0, 0);

@@ -35,10 +35,20 @@
     var streak = Store.streakAlive();
     var today = Store.todayXP();
     var courses = W.courses();
-    var focus = W.modules[0];
+    var focus = W.lastModule();
     var nu = W.nextUnit(focus);
     var dueN = Store.dueCards(focus).length + Math.min(8, Store.newCards(focus).length);
     var misN = W.mistakes(focus).length;
+    var filter = st.settings.homeCourse || "all";
+    if (filter !== "all" && !courses.some(function (c) { return c.course.id === filter; })) filter = "all";
+    var th = "theme-" + focus.course.theme;
+    var tag = esc(focus.course.short) + " · Wykład " + focus.number;
+
+    function coursePct(c) {
+      var sum = 0;
+      c.modules.forEach(function (m) { sum += W.progress(m).pct; });
+      return sum / c.modules.length;
+    }
 
     root.innerHTML =
       '<header class="apphead">' +
@@ -56,19 +66,34 @@
       (today >= st.goal ? "Każda kolejna powtórka to bonus dla pamięci." : "Brakuje " + (st.goal - today) + " XP do dziennego celu.") +
       '</p><div class="rankline"><span>' + esc(rk.name) + " · poz. " + rk.level + '</span><div class="rbar"><i style="width:' + pct(rk.pct) + '"></i></div>' +
       (rk.nextName ? "<span>" + esc(rk.nextName) + "</span>" : "") + "</div></div></section>" +
+      '<div class="focus ' + th + '">' +
+      '<p class="focus-k">' + W.icon(focus.course.icon) + "Ostatnio: " + esc(focus.course.name) + "</p>" +
       (nu >= 0
         ? '<button class="cta" data-lesson="' + focus.id + ":" + nu + '"><span class="cta-ic">' + W.icon(focus.units[nu].icon) + "</span>" +
-          '<span class="cta-t"><small>' + esc(focus.course.short) + " · Wykład " + focus.number + " · lekcja " + (nu + 1) + "/" + focus.units.length + "</small><b>" +
+          '<span class="cta-t"><small>' + tag + " · lekcja " + (nu + 1) + "/" + focus.units.length + "</small><b>" +
           esc(focus.units[nu].title) + "</b><span>" + esc(focus.units[nu].sub) + '</span></span><span class="cta-go">Dalej</span></button>'
-        : '<button class="cta done" data-go="exam" data-mod="' + focus.id + '"><span class="cta-ic">' + W.icon("crown") + '</span><span class="cta-t"><small>Ścieżka ukończona</small><b>Sprawdź się na egzaminie próbnym</b><span>20 pytań, próg ponad 50%</span></span><span class="cta-go">Start</span></button>') +
+        : '<button class="cta done" data-go="exam" data-mod="' + focus.id + '"><span class="cta-ic">' + W.icon("crown") + '</span><span class="cta-t"><small>' + tag +
+          " · ścieżka ukończona</small><b>Sprawdź się na egzaminie próbnym</b><span>20 pytań zamkniętych</span></span><span class=\"cta-go\">Start</span></button>") +
       '<div class="todo">' +
       '<button class="todo-i" data-go="cards" data-mod="' + focus.id + '">' + W.icon("cards") + "<span><b>" + dueN + "</b> fiszek na dziś</span></button>" +
       '<button class="todo-i" data-go="review" data-mod="' + focus.id + '"' + (misN ? "" : " disabled") + ">" + W.icon("redo") + "<span><b>" + misN + "</b> " + (misN === 1 ? "błąd" : "błędów") + " do poprawki</span></button>" +
+      "</div></div>" +
+      '<section class="subjects"><div class="subj-head"><h2 class="display">Przedmioty</h2><span>' + courses.length + "</span></div>" +
+      '<div class="filter" role="group" aria-label="Filtr przedmiotów">' +
+      '<button data-filter="all" class="' + (filter === "all" ? "on" : "") + '">Wszystkie</button>' +
+      courses
+        .map(function (c) {
+          return '<button data-filter="' + c.course.id + '" class="theme-' + c.course.theme + (filter === c.course.id ? " on" : "") + '"><i class="fdot"></i>' + esc(c.course.short) + "</button>";
+        })
+        .join("") +
       "</div>" +
       courses
         .map(function (c) {
+          var n = c.modules.length;
           return (
-            '<section class="course"><p class="eyebrow">Przedmiot</p><h2 class="display">' + esc(c.course.name) + "</h2>" +
+            '<section class="course theme-' + c.course.theme + '" data-course="' + c.course.id + '"' + (filter !== "all" && filter !== c.course.id ? " hidden" : "") + ">" +
+            '<div class="course-h"><span class="course-ic">' + W.icon(c.course.icon) + "</span><div><h3>" + esc(c.course.name) + "</h3><small>" +
+            n + (n === 1 ? " wykład" : n < 5 ? " wykłady" : " wykładów") + " · " + pct(coursePct(c)) + " opanowane</small></div></div>" +
             '<div class="mods">' +
             c.modules
               .map(function (m) {
@@ -81,15 +106,25 @@
                 );
               })
               .join("") +
-            '<div class="modcard ghost"><span class="mc-num">' + (c.modules.length + 1) + '</span><span class="mc-body"><small>Wykład ' + (c.modules.length + 1) +
-            "</small><b>Kolejny wykład</b><span class=\"mc-meta\">Pojawi się tu, gdy dodasz notatki z następnych zajęć.</span></span></div>" +
+            '<div class="modcard ghost"><span class="mc-num">' + (n + 1) + '</span><span class="mc-body"><small>Wykład ' + (n + 1) +
+            "</small><b>Kolejny wykład</b><span class=\"mc-meta\">Pojawi się tu, gdy dodasz materiały z następnych zajęć.</span></span></div>" +
             "</div></section>"
           );
         })
         .join("") +
-      "</div>";
+      "</section></div>";
 
     root.addEventListener("click", function (e) {
+      var f = e.target.closest("[data-filter]");
+      if (f) {
+        var id = f.dataset.filter;
+        st.settings.homeCourse = id;
+        Store.save();
+        root.querySelectorAll("[data-filter]").forEach(function (b) { b.classList.toggle("on", b === f); });
+        root.querySelectorAll(".course[data-course]").forEach(function (s) { s.hidden = id !== "all" && s.dataset.course !== id; });
+        W.sound("tap");
+        return;
+      }
       var l = e.target.closest("[data-lesson]");
       if (l) {
         var pr = l.dataset.lesson.split(":");
@@ -111,26 +146,31 @@
     var misN = W.mistakes(m).length;
     var lastExam = ms.exams.length ? ms.exams[ms.exams.length - 1] : null;
     var nu = W.nextUnit(m);
+    if (Store.state.lastMod !== m.id) {
+      Store.state.lastMod = m.id;
+      Store.save();
+    }
 
     var modes = [
       { go: "path", ic: "path", t: "Ścieżka", d: "Lekcje krok po kroku, serca i gwiazdki", meta: nu >= 0 ? "Lekcja " + (nu + 1) + " z " + m.units.length : "Ukończona", hero: true },
       { go: "cards", ic: "cards", t: "Fiszki", d: "Powtórki w odstępach", meta: dueN ? dueN + " do powtórki" : newN ? newN + " nowych" : "Na dziś gotowe", badge: dueN },
       { go: "kahoot", ic: "bolt", t: "Quiz na czas", d: "12 pytań, liczy się refleks", meta: ms.best.kahoot ? "Rekord " + ms.best.kahoot + " pkt" : "Bez rekordu" },
       { go: "match", ic: "pairs", t: "Pary", d: "Pojęcie do znaczenia, na czas", meta: ms.best.match ? "Rekord " + ms.best.match.toFixed(1) + " s" : "Bez rekordu" },
-      { go: "sort", ic: "swipe", t: "Sortownia", d: "Dzieci czy młodzież? Zielony czy czerwony?", meta: m.sortDecks.length + " talie" },
+      { go: "sort", ic: "swipe", t: "Sortownia", d: m.sortDecks[0].title + " i inne talie", meta: m.sortDecks.length + " talie" },
       { go: "exam", ic: "exam", t: "Egzamin próbny", d: "20 pytań zamkniętych, próg 50%", meta: lastExam ? "Ostatnio " + pct(lastExam.pct) : "Nie podchodziłeś" },
       { go: "review", ic: "redo", t: "Do poprawki", d: "Pytania, na których się potknąłeś", meta: misN ? misN + " pytań" : "Czysto", badge: misN, off: !misN },
       { go: "notes", ic: "book", t: "Notatki", d: "Cały wykład, tabela i ściąga", meta: m.notes.length + " sekcji" }
     ];
 
     root.innerHTML =
-      top("Wykład " + m.number, m.course.name) +
+      top(m.course.name, "Wykład " + m.number) +
       '<div class="page">' +
       '<section class="mhero"><p class="eyebrow">' + esc(m.course.short) + " · " + esc(m.term) + "</p>" +
-      '<h1 class="display">' + esc(m.title) + "</h1><p class='lect'>" + esc(m.lecturer) + "</p>" +
+      '<h1 class="display">' + esc(m.title) + "</h1>" +
+      (m.official || m.lecturer ? "<p class='lect'>" + esc([m.official ? "Wykład 1: " + m.official : "", m.lecturer || ""].filter(Boolean).join(" · ")).replace("Wykład 1", "Wykład " + m.number) + "</p>" : "") +
       '<div class="mprog"><div class="mprog-bar"><i style="width:' + pct(pr.pct) + '"></i></div><b>' + pct(pr.pct) + "</b></div>" +
-      '<div class="mfacts"><span>' + W.icon("star") + pr.stars + "/" + pr.maxStars + " gwiazdek</span><span>" + W.icon("cards") + pr.learned + "/" + pr.total + " fiszek opanowanych</span><span>" +
-      W.icon("target") + esc(m.passing) + "</span></div></section>" +
+      '<div class="mfacts"><span>' + W.icon("star") + pr.stars + "/" + pr.maxStars + " gwiazdek</span><span>" + W.icon("cards") + pr.learned + "/" + pr.total + " fiszek opanowanych</span>" +
+      (m.passing ? "<span>" + W.icon("target") + esc(m.passing) + "</span>" : "") + "</div></section>" +
       '<div class="modes">' +
       modes
         .map(function (x) {
@@ -328,15 +368,32 @@
     Store.unlock("notes");
     Store.save();
 
+    var SRC = { S: "lg-s", U: "lg-u", K: "lg-k", D: "lg-d" };
+    var story = m.story;
+    var toc = [];
+    if (m.minimum) toc.push(["min", "min"]);
+    m.notes.forEach(function (n) { toc.push([n.id, n.n ? n.n : "·"]); });
+    if (m.table) toc.push(["tab", "tab"]);
+    if (story) toc.push(["story", story.ordered ? story.items.length : "abc"]);
+    toc.push(["gloss", "A–Z"]);
+
     root.innerHTML =
       top("Notatki", "Wykład " + m.number + ": " + m.title) +
       '<div class="page notes ' + (st.extras ? "" : "no-extra") + '">' +
-      '<div class="legend"><span><i class="lg lg-s"></i>slajd</span><span><i class="lg lg-u"></i>ustnie na wykładzie</span>' +
-      '<span><i class="lg lg-d"></i>★ spoza wykładu</span>' +
+      '<div class="legend">' +
+      Object.keys(m.sourceNames)
+        .map(function (k) { return '<span><i class="lg ' + SRC[k] + '"></i>' + esc(m.sourceNames[k]) + "</span>"; })
+        .join("") +
       '<label class="switch"><input type="checkbox" id="notes-extra" ' + (st.extras ? "checked" : "") + '/><span></span>Pokaż ★</label></div>' +
       '<nav class="toc">' +
-      m.notes.map(function (n) { return '<a href="#n-' + n.id + '" data-jump="' + n.id + '">' + (n.n ? n.n : "·") + "</a>"; }).join("") +
-      '<a href="#n-tab" data-jump="tab">tab</a><a href="#n-story" data-jump="story">10</a><a href="#n-gloss" data-jump="gloss">A–Z</a></nav>' +
+      toc.map(function (t) { return '<a href="#n-' + t[0] + '" data-jump="' + t[0] + '">' + t[1] + "</a>"; }).join("") +
+      "</nav>" +
+      (m.minimum
+        ? '<section class="note minimum" id="n-min"><h2>Minimum na zaliczenie</h2><p class="min-k">Jeśli masz mało czasu, opanuj te ' + m.minimum.length +
+          " rzeczy. Reszta notatek je rozwija.</p><ol>" +
+          m.minimum.map(function (x) { return "<li><b>" + esc(x[0]) + "</b><span>" + x[1] + "</span></li>"; }).join("") +
+          "</ol></section>"
+        : "") +
       m.notes
         .map(function (n) {
           return (
@@ -344,20 +401,29 @@
           );
         })
         .join("") +
-      '<section class="note" id="n-tab"><h2>Dzieci a młodzież</h2><div class="tscroll"><table><thead><tr>' +
-      m.table.head.map(function (h) { return "<th>" + esc(h) + "</th>"; }).join("") +
-      "</tr></thead><tbody>" +
-      m.table.rows.map(function (r) { return "<tr>" + r.map(function (c, i) { return i ? "<td>" + esc(c) + "</td>" : "<th>" + esc(c) + "</th>"; }).join("") + "</tr>"; }).join("") +
-      "</tbody></table></div></section>" +
-      '<section class="note extra-sec" id="n-story"><h2>10 zasad w jednej scenie</h2><p class="story-k">★ Pomoc pamięciowa, nie z wykładu. Wyobraź sobie jedne zajęcia od wejścia do wyjścia:</p><ol class="story">' +
-      m.story.map(function (s) { return "<li><b>" + esc(s[0]) + "</b><span>" + esc(s[1]) + "</span></li>"; }).join("") +
-      "</ol></section>" +
+      (m.table
+        ? '<section class="note" id="n-tab"><h2>' + esc(m.table.title) + '</h2><div class="tscroll"><table><thead><tr>' +
+          m.table.head.map(function (h) { return "<th>" + esc(h) + "</th>"; }).join("") +
+          "</tr></thead><tbody>" +
+          m.table.rows.map(function (r) { return "<tr>" + r.map(function (c, i) { return i ? "<td>" + esc(c) + "</td>" : "<th>" + esc(c) + "</th>"; }).join("") + "</tr>"; }).join("") +
+          "</tbody></table></div></section>"
+        : "") +
+      (story
+        ? '<section class="note ' + (story.extra ? "extra-sec" : "") + '" id="n-story"><h2>' + esc(story.title) + '</h2><p class="story-k">' + esc(story.intro) + "</p>" +
+          (story.ordered
+            ? '<ol class="story">' + story.items.map(function (x) { return "<li><b>" + esc(x[0]) + "</b><span>" + esc(x[1]) + "</span></li>"; }).join("") + "</ol>"
+            : '<dl class="xlate">' + story.items.map(function (x) { return "<div><dt>" + esc(x[0]) + "</dt><dd>" + esc(x[1]) + "</dd></div>"; }).join("") + "</dl>") +
+          "</section>"
+        : "") +
       '<section class="note" id="n-gloss"><h2>Słowniczek</h2><input id="gloss-q" class="search" type="search" placeholder="Szukaj pojęcia…" autocomplete="off"/><dl class="gloss">' +
       m.concepts
         .slice()
         .sort(function (a, b) { return a.term.localeCompare(b.term, "pl"); })
         .map(function (c) {
-          return '<div class="gi ' + (c.s === "D" ? "extra" : "") + '" data-k="' + esc(W.norm(c.term + " " + c.def)) + '"><dt>' + esc(c.term) + W.srcBadge(c.s) + "</dt><dd>" + esc(c.def) + "</dd></div>";
+          return (
+            '<div class="gi ' + (c.s === "D" ? "extra" : "") + '" data-k="' + esc(W.norm(c.term + " " + c.def + " " + (c.plain || ""))) + '"><dt>' + esc(c.term) + W.srcBadge(c.s) + "</dt>" +
+            (c.plain ? '<dd class="gi-plain">' + esc(c.plain) + "</dd>" : "") + "<dd>" + esc(c.def) + "</dd></div>"
+          );
         })
         .join("") +
       "</dl></section></div>";

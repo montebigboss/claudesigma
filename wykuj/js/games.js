@@ -76,7 +76,9 @@
 
     function faces(c) {
       var termHtml = '<span class="fc-k">Pojęcie</span><h2 class="display">' + esc(c.term) + "</h2>";
-      var defHtml = '<span class="fc-k">Definicja</span><p>' + esc(c.def) + "</p>";
+      var defHtml = c.plain
+        ? '<span class="fc-k">Po ludzku</span><p>' + esc(c.plain) + '</p><span class="fc-k">Na teście</span><p class="fc-def">' + esc(c.def) + "</p>"
+        : '<span class="fc-k">Definicja</span><p>' + esc(c.def) + "</p>";
       var badge = W.srcBadge(c.s);
       var s = Store.card(m.id, c.id);
       var meta = '<span class="fc-box">' + (s ? "Pudełko " + s.box : "Nowa karta") + "</span>";
@@ -609,8 +611,8 @@
       '<h1 class="display">Test zamknięty</h1>' +
       "<ul class='rules'><li><b>" + N + " pytań</b> jednokrotnego wyboru, losowanych z całego wykładu</li>" +
       "<li>Bez podpowiedzi. Wynik i omówienie dopiero po oddaniu</li>" +
-      "<li>Tylko materiał z wykładu: slajdy i to, co padło ustnie. Bez dopowiedzeń ★</li>" +
-      "<li>Zaliczenie: <b>więcej niż 50%</b>, jak na prawdziwym teście</li></ul>" +
+      "<li>Tylko materiał prowadzącego (" + esc(m.sourceNames.S) + (m.sourceNames.U ? ", " + esc(m.sourceNames.U) : "") + "). Bez dopowiedzeń ★</li>" +
+      (m.examNote ? "<li>" + esc(m.examNote) + "</li>" : "<li>Zaliczenie: <b>więcej niż 50%</b>, jak na prawdziwym teście</li>") + "</ul>" +
       (hist.length
         ? '<div class="hist"><span>Twoje podejścia</span><div class="hist-bars">' +
           hist.slice(-10).map(function (h) {

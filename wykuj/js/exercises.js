@@ -19,7 +19,6 @@
 
   var LABELS = {
     mcq: "Wybierz odpowiedź",
-    which: "Która to zasada?",
     tf: "Prawda czy fałsz?",
     cloze: "Uzupełnij lukę",
     type: "Wpisz z pamięci",
@@ -29,6 +28,7 @@
 
   W.srcBadge = function (s) {
     if (s === "U") return '<span class="src src-u" title="Powiedziane ustnie na wykładzie">ustnie</span>';
+    if (s === "K") return '<span class="src src-k" title="Definicja do zapamiętania słowo w słowo">słowo w słowo</span>';
     if (s === "D") return '<span class="src src-d" title="Dopowiedzenie spoza wykładu">★ spoza wykładu</span>';
     return "";
   };
@@ -37,14 +37,14 @@
   W.asChoice = function (ex, mod) {
     var correct, pool;
     if (ex.t === "which") {
-      correct = ex.a + ". " + mod.principles[ex.a - 1];
-      pool = mod.principles
-        .map(function (p, i) {
-          return i + 1 + ". " + p;
-        })
-        .filter(function (p) {
-          return p !== correct;
-        });
+      var list = ex.set ? mod.sets[ex.set].items : mod.principles;
+      var fmt = function (p, i) {
+        return ex.set ? p : i + 1 + ". " + p;
+      };
+      correct = fmt(list[ex.a - 1], ex.a - 1);
+      pool = list.map(fmt).filter(function (p) {
+        return p !== correct;
+      });
       pool = W.sample(pool, 3);
     } else if (ex.t === "tf") {
       return { q: ex.q, options: ["Prawda", "Fałsz"], correct: ex.a ? 0 : 1, fixed: true };
@@ -306,7 +306,8 @@
   }
 
   W.Ex = {
-    label: function (ex) {
+    label: function (ex, mod) {
+      if (ex.t === "which") return ex.set ? mod.sets[ex.set].label : mod.whichLabel || "Która to zasada?";
       return LABELS[ex.t] || "";
     },
     render: function (ex, mod, api) {

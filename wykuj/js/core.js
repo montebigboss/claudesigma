@@ -92,8 +92,16 @@
       c.s = c.s || "S";
     });
     m.unitIdx = unitIdx;
+    m.sets = m.sets || {};
+    m.sourceNames = m.sourceNames || { S: "slajd", U: "ustnie na wykładzie", D: "★ spoza wykładu" };
+    m.course.theme = m.course.theme || "green";
+    m.course.icon = m.course.icon || "pencil";
     W.modules.push(m);
     W.byId[m.id] = m;
+  };
+
+  W.lastModule = function () {
+    return W.byId[W.Store.state.lastMod] || W.modules[0];
   };
 
   W.courses = function () {

@@ -54,7 +54,7 @@
       skip.hidden = false;
       var prompt = W.Ex.prompt(cur);
       body.innerHTML =
-        '<div class="l-head"><span class="l-label">' + W.Ex.label(cur) + "</span>" + W.srcBadge(cur.s) +
+        '<div class="l-head"><span class="l-label">' + W.Ex.label(cur, m) + "</span>" + W.srcBadge(cur.s) +
         (seen[cur.id] ? '<span class="src src-redo">powtórka błędu</span>' : "") + "</div>" +
         (prompt ? '<h2 class="l-q">' + esc(prompt) + "</h2>" : "") +
         '<div class="l-ex"></div>';
