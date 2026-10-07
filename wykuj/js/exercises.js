@@ -23,7 +23,8 @@
     cloze: "Uzupełnij lukę",
     type: "Wpisz z pamięci",
     match: "Połącz w pary",
-    sort: "Przyporządkuj"
+    sort: "Przyporządkuj",
+    multi: "Zaznacz wszystkie poprawne"
   };
 
   W.srcBadge = function (s) {
@@ -258,6 +259,54 @@
     };
   }
 
+  function multi(ex, mod, api) {
+    var opts = W.shuffle(ex.a.concat(ex.o || []));
+    var picked = {};
+    var root = el(
+      '<div class="opts multi">' +
+        opts
+          .map(function (o, i) {
+            return '<button class="opt" data-i="' + i + '" aria-pressed="false"><span class="box-ic"></span><span>' + esc(o) + "</span></button>";
+          })
+          .join("") +
+        '<p class="hint">Poprawnych odpowiedzi może być kilka.</p></div>'
+    );
+    function toggle(i) {
+      if (root.classList.contains("locked")) return;
+      picked[i] = !picked[i];
+      W.sound("tap");
+      var b = root.children[i];
+      b.classList.toggle("sel", picked[i]);
+      b.setAttribute("aria-pressed", picked[i] ? "true" : "false");
+      api.change();
+    }
+    root.addEventListener("click", function (e) {
+      var b = e.target.closest(".opt");
+      if (b) toggle(+b.dataset.i);
+    });
+    return {
+      el: root,
+      ready: function () {
+        return Object.keys(picked).some(function (k) { return picked[k]; });
+      },
+      grade: function () {
+        root.classList.add("locked");
+        var ok = true;
+        opts.forEach(function (o, i) {
+          var should = ex.a.indexOf(o) >= 0;
+          if (should) root.children[i].classList.add("right");
+          else if (picked[i]) root.children[i].classList.add("wrong");
+          if (!!picked[i] !== should) ok = false;
+        });
+        return { ok: ok, correct: ex.a.map(esc).join(", ") };
+      },
+      key: function (k) {
+        var n = parseInt(k, 10);
+        if (n >= 1 && n <= opts.length) toggle(n - 1);
+      }
+    };
+  }
+
   function sorter(ex, mod, api) {
     var items = W.shuffle(ex.items).slice(0, 6);
     var picks = items.map(function () { return -1; });
@@ -324,6 +373,8 @@
           return match(ex, mod, api);
         case "sort":
           return sorter(ex, mod, api);
+        case "multi":
+          return multi(ex, mod, api);
       }
       return choice(ex, mod, api);
     },

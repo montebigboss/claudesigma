@@ -3100,6 +3100,394 @@ aside.extra::before {
   color: var(--accent);
 }
 
+
+/* ---------- logic: teal subject ---------- */
+.theme-teal {
+  --accent: #0e7a83;
+  --accent-2: #0a5960;
+  --accent-soft: #d3eef0;
+  --on-accent: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-teal {
+    --accent: #4fd0d9;
+    --accent-2: #2a9aa3;
+    --accent-soft: #123a3d;
+    --on-accent: #05211f;
+  }
+}
+:root[data-theme="dark"] .theme-teal {
+  --accent: #4fd0d9;
+  --accent-2: #2a9aa3;
+  --accent-soft: #123a3d;
+  --on-accent: #05211f;
+}
+
+/* ---------- multi-select ---------- */
+.multi .box-ic {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid var(--line);
+  flex: none;
+  display: grid;
+  place-items: center;
+}
+.multi .opt.sel .box-ic {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+.multi .opt.sel .box-ic::after {
+  content: "";
+  width: 10px;
+  height: 6px;
+  border-left: 2.5px solid #fff;
+  border-bottom: 2.5px solid #fff;
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+.multi .opt.right .box-ic {
+  border-color: var(--accent);
+}
+
+/* ---------- guide ---------- */
+.guide-btn {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 2px solid var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 14px;
+  white-space: nowrap;
+  flex: none;
+}
+.guide-btn .ic {
+  width: 18px;
+  height: 18px;
+}
+.guide-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  text-align: left;
+  border-radius: var(--r-lg);
+  border: 2px dashed var(--accent);
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+.guide-card b {
+  display: block;
+  font-family: var(--f-display);
+  font-size: 19px;
+  color: var(--accent);
+}
+.guide-card small {
+  color: var(--ink-2);
+  font-size: 14px;
+}
+.gc-ic {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--on-accent);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.g-sec {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.g-lead,
+.g-note {
+  color: var(--ink-2);
+}
+.g-note {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: st;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.steps li {
+  counter-increment: st;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 16px 14px 58px;
+  border-radius: var(--r);
+  border: 2px solid var(--line);
+  background: var(--surface);
+}
+.steps li::before {
+  content: counter(st);
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+}
+.steps li > b {
+  font-family: var(--f-display);
+  font-size: 18px;
+}
+.steps li span {
+  color: var(--ink-2);
+}
+.shortcuts {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--ink-2);
+}
+.sheet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.sheet-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  padding: 16px;
+  border-radius: var(--r-lg);
+  border: 2px solid var(--line);
+  background: var(--surface);
+  box-shadow: 0 4px 0 var(--line);
+  color: var(--ink-2);
+  font-size: 14px;
+  background-image: linear-gradient(90deg, transparent 22px, var(--red-soft) 22px, var(--red-soft) 24px, transparent 24px);
+}
+.sc-fix {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--red);
+}
+.sheet-card {
+  padding: 14px 12px 14px 34px;
+}
+.sc-name {
+  font-size: 24px;
+  color: var(--ink);
+}
+.sc-best {
+  margin-top: 6px;
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--ink-3);
+}
+.sc-best.pass {
+  color: var(--accent);
+}
+.sc-best.fail {
+  color: var(--red);
+}
+.theory {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: th;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.th {
+  counter-increment: th;
+  border-radius: var(--r);
+  border: 2px solid var(--line);
+  background: var(--surface);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.th.in {
+  border-color: var(--accent);
+}
+.th summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.th summary::-webkit-details-marker {
+  display: none;
+}
+.th-line {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.th-q {
+  font-weight: 700;
+  min-width: 0;
+}
+.th-q::before {
+  content: counter(th) ". ";
+  color: var(--ink-3);
+}
+.th-tag {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  white-space: nowrap;
+  flex: none;
+}
+.th-tag.later {
+  background: var(--surface-2);
+  color: var(--ink-3);
+}
+.th-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 10px;
+  line-height: 1.55;
+}
+.th-k,
+.ans-k {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.th-ok {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-3);
+  align-self: flex-end;
+}
+.th .row {
+  align-items: center;
+  justify-content: space-between;
+}
+.th .row .btn {
+  flex: 0 1 auto;
+  min-height: 44px;
+}
+.task {
+  position: relative;
+  padding: 22px 20px 18px 64px;
+  border-radius: var(--r-lg);
+  border: 2px solid var(--line);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-image: linear-gradient(90deg, transparent 46px, var(--red-soft) 46px, var(--red-soft) 48px, transparent 48px);
+}
+.task-n {
+  position: absolute;
+  left: 14px;
+  top: 16px;
+  font-size: 28px;
+  color: var(--accent);
+}
+.task-q {
+  font-size: 19px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+.task-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.draft-l {
+  font-size: 13px;
+  color: var(--ink-3);
+  font-weight: 700;
+}
+.draft {
+  width: 100%;
+  border-radius: var(--r);
+  border: 2px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font: 400 16px/1.5 var(--f-body);
+  padding: 12px 14px;
+  resize: vertical;
+}
+.draft:focus {
+  outline: none;
+  border-color: var(--blue);
+}
+.reveal {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scroll-margin-top: 80px;
+}
+.answer,
+.how,
+.fixnote {
+  border-radius: var(--r);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  line-height: 1.55;
+}
+.answer {
+  background: var(--accent-soft);
+  border: 2px solid var(--accent);
+}
+.how {
+  background: var(--surface);
+  border: 2px solid var(--line);
+}
+.fixnote {
+  background: var(--red-soft);
+  border: 2px solid var(--red);
+}
+.fixnote .ans-k {
+  color: var(--red);
+}
+.self-k {
+  text-align: center;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.grade.two {
+  grid-template-columns: 1fr 1fr;
+}
+.sheet-act {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 @media (max-width: 420px) {
   .todo {
     grid-template-columns: 1fr;
@@ -3242,6 +3630,15 @@ aside.extra::before {
     W.byId[m.id] = m;
   };
 
+  W.courseMeta = {};
+  W.registerCourse = function (c) {
+    W.courseMeta[c.id] = c;
+  };
+  W.guide = function (courseId) {
+    var c = W.courseMeta[courseId];
+    return c && c.guide ? c.guide : null;
+  };
+
   W.lastModule = function () {
     return W.byId[W.Store.state.lastMod] || W.modules[0];
   };
@@ -3320,6 +3717,7 @@ aside.extra::before {
       streak: { n: 0, last: null, best: 0 },
       settings: { sound: true, extras: true, free: false },
       mods: {},
+      courses: {},
       ach: {},
       stats: { answers: 0, correct: 0, cards: 0 }
     };
@@ -3357,6 +3755,14 @@ aside.extra::before {
   } catch (e) {
     /* storage unavailable: run in memory */
   }
+
+  Store.course = function (id) {
+    var all = (Store.state.courses = Store.state.courses || {});
+    var c = all[id] || (all[id] = { sheets: {}, oral: {} });
+    c.sheets = c.sheets || {};
+    c.oral = c.oral || {};
+    return c;
+  };
 
   Store.mod = function (id) {
     var m = Store.state.mods[id];
@@ -3639,6 +4045,7 @@ aside.extra::before {
     dice: '<rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.2" fill="currentColor"/><circle cx="15" cy="15" r="1.2" fill="currentColor"/><circle cx="15" cy="9" r="1.2" fill="currentColor"/><circle cx="9" cy="15" r="1.2" fill="currentColor"/>',
     crown: '<path d="M3 8l4 4 5-7 5 7 4-4-2 11H5z"/>',
     column: '<path d="M4 21h16M5 18h14M6 7h12M4 7l8-4 8 4"/><path d="M8 7v11M12 7v11M16 7v11"/>',
+    chat: '<path d="M4 5h16v11H10l-5 4v-4H4z"/><path d="M8 9h8M8 12h5"/>',
     star: '<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>',
     heart: '<path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.3 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/>',
     lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
@@ -3872,7 +4279,8 @@ aside.extra::before {
     cloze: "Uzupełnij lukę",
     type: "Wpisz z pamięci",
     match: "Połącz w pary",
-    sort: "Przyporządkuj"
+    sort: "Przyporządkuj",
+    multi: "Zaznacz wszystkie poprawne"
   };
 
   W.srcBadge = function (s) {
@@ -4107,6 +4515,54 @@ aside.extra::before {
     };
   }
 
+  function multi(ex, mod, api) {
+    var opts = W.shuffle(ex.a.concat(ex.o || []));
+    var picked = {};
+    var root = el(
+      '<div class="opts multi">' +
+        opts
+          .map(function (o, i) {
+            return '<button class="opt" data-i="' + i + '" aria-pressed="false"><span class="box-ic"></span><span>' + esc(o) + "</span></button>";
+          })
+          .join("") +
+        '<p class="hint">Poprawnych odpowiedzi może być kilka.</p></div>'
+    );
+    function toggle(i) {
+      if (root.classList.contains("locked")) return;
+      picked[i] = !picked[i];
+      W.sound("tap");
+      var b = root.children[i];
+      b.classList.toggle("sel", picked[i]);
+      b.setAttribute("aria-pressed", picked[i] ? "true" : "false");
+      api.change();
+    }
+    root.addEventListener("click", function (e) {
+      var b = e.target.closest(".opt");
+      if (b) toggle(+b.dataset.i);
+    });
+    return {
+      el: root,
+      ready: function () {
+        return Object.keys(picked).some(function (k) { return picked[k]; });
+      },
+      grade: function () {
+        root.classList.add("locked");
+        var ok = true;
+        opts.forEach(function (o, i) {
+          var should = ex.a.indexOf(o) >= 0;
+          if (should) root.children[i].classList.add("right");
+          else if (picked[i]) root.children[i].classList.add("wrong");
+          if (!!picked[i] !== should) ok = false;
+        });
+        return { ok: ok, correct: ex.a.map(esc).join(", ") };
+      },
+      key: function (k) {
+        var n = parseInt(k, 10);
+        if (n >= 1 && n <= opts.length) toggle(n - 1);
+      }
+    };
+  }
+
   function sorter(ex, mod, api) {
     var items = W.shuffle(ex.items).slice(0, 6);
     var picks = items.map(function () { return -1; });
@@ -4173,6 +4629,8 @@ aside.extra::before {
           return match(ex, mod, api);
         case "sort":
           return sorter(ex, mod, api);
+        case "multi":
+          return multi(ex, mod, api);
       }
       return choice(ex, mod, api);
     },
@@ -5816,6 +6274,702 @@ Wykuj.registerModule({
 });
 
 </script>
+    <script>
+/* Moduł: Logika (praktyczna), wykład 1: Semiotyka i charakterystyka języka.
+ *
+ * Źródła: slajdy „Uwagi wprowadzające oraz definicja semiotyki” i „Semiotyczna
+ * charakterystyka języka” oraz konspekt prowadzącej dla psychologów 2025/2026
+ * (rozdziały I–III).
+ *
+ *   "S" slajd albo konspekt prowadzącej (domyślne, pomijane)
+ *   "K" definicja do zapamiętania słowo w słowo (pada w pytaniach teoretycznych)
+ *   "D" dopowiedzenie spoza materiałów (★). Egzamin próbny je pomija.
+ *
+ * Typ ćwiczenia "multi": zaznacz wszystkie poprawne. a[] = poprawne, o[] = pozostałe opcje.
+ */
+Wykuj.registerModule({
+  id: "lg-w1",
+  course: { id: "lg", name: "Logika", short: "LOG", theme: "teal", icon: "chat" },
+  number: 1,
+  title: "Semiotyka: język i znak",
+  official: "Uwagi wprowadzające, semiotyka, semiotyczna charakterystyka języka",
+  lecturer: "Agnieszka Lekka-Kowalik",
+  term: "KUL · Katedra Metodologii Nauk · konspekt dla psychologii",
+  passing: null,
+  examNote: "Prawdziwy egzamin to 8 zadań praktycznych i część ustna (szczegóły w „Jak zdać logikę”). Ten test sprawdza teorię z wykładu 1.",
+  passRatio: 0.5,
+  sourceNames: { S: "slajdy i konspekt prowadzącej", K: "definicja słowo w słowo", D: "★ dopowiedzenie spoza materiałów" },
+
+  sets: {
+    dzial: { label: "Który dział semiotyki?", items: ["Syntaktyka", "Semantyka", "Pragmatyka"] },
+    regula: { label: "Jaka to reguła?", items: ["Syntaktyczna", "Semantyczna", "Pragmatyczna"] },
+    geneza: { label: "Jaki to znak?", items: ["Naturalny", "Konwencjonalny", "Ikoniczny"] },
+    badania: { label: "Jakie to badania nad językiem?", items: ["Humanistyczne", "Formalne", "Filozoficzne", "Przyrodnicze"] },
+    funkcja: { label: "Jaka to funkcja języka?", items: ["Poznawcza (deskryptywna)", "Ekspresywna", "Ewokatywna", "Perswazyjna", "Dyrektywna", "Performatywna", "Interrogatywna", "Estymatywna", "Fatyczna", "Ludyczna", "Integrująca / dzieląca"] },
+    szczegolny: { label: "Jaki to szczególny typ znaku?", items: ["Symptom", "Oznaka", "Ślad", "Indeks", "Hasło"] },
+    poziom: { label: "Na jakim poziomie mówimy?", items: ["Język przedmiotowy", "Metajęzyk"] }
+  },
+
+  units: [
+    { id: "logika", title: "Po co ta logika?", sub: "Narzędzie, trzy działy, cele zajęć", icon: "spark" },
+    { id: "przedmiot", title: "Przedmiot materialny i formalny", sub: "Co badamy i z jakiej strony", icon: "target" },
+    { id: "badania", title: "Kto bada język?", sub: "Cztery typy badań, Cambridge i Oxford", icon: "split" },
+    { id: "semiotyka", title: "Definicja semiotyki", sub: "Do wykucia, z objaśnieniem słowo po słowie", icon: "star" },
+    { id: "dzialy", title: "Syntaktyka, semantyka, pragmatyka", sub: "Znak–znak, znak–świat, znak–człowiek", icon: "pairs" },
+    { id: "jezyk", title: "Język i znak", sub: "Definicje i relacja trójczłonowa", icon: "chat" },
+    { id: "znaki", title: "Rodzaje znaków", sub: "Naturalne, konwencjonalne, ikoniczne i inne", icon: "eye" },
+    { id: "reguly", title: "Reguły używania znaków", sub: "Syntaktyczne, semantyczne, pragmatyczne", icon: "wall" },
+    { id: "funkcje", title: "Funkcje języka", sub: "Zwłaszcza performatywna (pytanie z egzaminu)", icon: "bolt" },
+    { id: "typy", title: "Typy języków", sub: "W tym język przedmiotowy i metajęzyk", icon: "book" },
+    { id: "mix", title: "Rozpoznaj w praktyce", sub: "Zadania jak z kartki egzaminacyjnej", icon: "dice" },
+    { id: "boss", title: "Test końcowy", sub: "Wszystko z wykładu 1, 15 pytań", icon: "crown", boss: true }
+  ],
+
+  concepts: [
+    { id: "logika", u: "logika", term: "Logika",
+      plain: "Narzędzie do porządnego myślenia i mówienia: żeby nie robić błędów i wyłapywać cudze, także manipulację.",
+      def: "Logika jest narzędziem poprawnego myślenia i mówienia.", sh: "narzędzie poprawnego myślenia i mówienia" },
+    { id: "dzialy-logiki", u: "logika", term: "Działy logiki ogólnej",
+      plain: "Trzy części: o języku (semiotyka), o wynikaniu jednych zdań z drugich (logika formalna) i o tym, jak się robi naukę (metodologia).",
+      def: "Tradycyjnie: semiotyka logiczna (teoria języka rozumianego jako system znaków), logika formalna (teoria wynikania), metodologia nauk (teoria procedur badawczych i ich wytworów).",
+      sh: "semiotyka, logika formalna, metodologia nauk" },
+    { id: "kultura", u: "logika", term: "Kultura logiczna",
+      plain: "Znasz podstawowe pojęcia logiki i w praktyce myślisz jasno, argumentujesz, sprawdzasz cudze argumenty i widzisz manipulację.",
+      def: "Cel zajęć: opanowanie podstawowej aparatury pojęciowej logiki ogólnej oraz sprawność w jasnym, ścisłym i uporządkowanym myśleniu i wypowiadaniu myśli, argumentowaniu, kontrolowaniu poprawności argumentów, dostrzeganiu zabiegów manipulacyjnych.",
+      sh: "pojęcia logiki + sprawność myślenia i argumentacji" },
+    { id: "p-materialny", u: "przedmiot", term: "Przedmiot materialny",
+      plain: "CO badamy, wzięte w całości, ze wszystkim, co to ma.",
+      def: "Wyznaczony przedmiot badań, wzięty w całym uposażeniu.", sh: "przedmiot badań wzięty w całości" },
+    { id: "p-formalny", u: "przedmiot", term: "Przedmiot formalny",
+      plain: "Z JAKIEJ STRONY to badamy. Ten sam człowiek to dla anatoma ciało, a dla psychologa psychika.",
+      def: "Przedmiot materialny rozpatrywany z pewnego punktu widzenia.", sh: "przedmiot widziany z pewnego punktu widzenia" },
+    { id: "problemy", u: "przedmiot", term: "Problem przedmiotowy i metaprzedmiotowy",
+      plain: "Przedmiotowy pyta o świat („czy wieloryb jest ssakiem?”). Metaprzedmiotowy pyta o poglądy na świat („co Arystoteles sądził o wielorybach?”).",
+      def: "Problem przedmiotowy dotyczy rzeczywistości (świata); metaprzedmiotowy dotyczy poglądów na rzeczywistość.",
+      sh: "pytanie o świat / o poglądy na świat" },
+    { id: "b-hum", u: "badania", term: "Badania humanistyczne nad językiem",
+      plain: "Język jako coś, co ludzie stworzyli i czego używają. Tu mieści się też psychologia.",
+      def: "Język jako twór człowieka: historia języka, lingwistyka, filologie, psychologia, socjologia, etnolingwistyka.",
+      sh: "język jako twór człowieka" },
+    { id: "b-form", u: "badania", term: "Badania formalne nad językiem",
+      plain: "Język jak mechanizm: z jakich części się składa i jak one działają. Tu mieści się semiotyka.",
+      def: "Język jako struktura: logika formalna, semiotyka, teoria informacji, teoria komunikacji, cybernetyka.",
+      sh: "język jako struktura" },
+    { id: "b-fil", u: "badania", term: "Badania filozoficzne nad językiem",
+      plain: "Czym w ogóle jest język? Czy tylko opisuje świat (filozofia klasyczna), czy współtworzy to, jak go poznajemy (filozofia współczesna)?",
+      def: "Język jako byt szczególnego rodzaju. Filozofia klasyczna: język bierny w poznaniu (Platon, Arystoteles, Krąpiec, Gilson). Filozofia współczesna: język współtworzy poznanie.",
+      sh: "język jako byt szczególnego rodzaju" },
+    { id: "b-przyr", u: "badania", term: "Badania przyrodnicze nad językiem",
+      plain: "Język jako dźwięki i praca narządów mowy.",
+      def: "Język jako zjawisko przyrodnicze: akustyka, fonetyka, fizjologia mowy, logopedia.",
+      sh: "język jako zjawisko przyrodnicze" },
+    { id: "szkoly", u: "badania", term: "Szkoła języka idealnego i potocznego",
+      plain: "Cambridge chciała języka idealnego, precyzyjnego jak wzór. Oxford badała zwykły, codzienny język. Wittgenstein jest w obu: wczesny (I) w szkole języka idealnego, późny (II) w szkole języka potocznego.",
+      def: "Szkoła języka idealnego (Cambridge): Frege, Russell, Wittgenstein I, Salamucha. Szkoła języka potocznego (Oxford): Ayer, Wittgenstein II, Strawson, Searle, Austin.",
+      sh: "Cambridge: język idealny / Oxford: potoczny" },
+    { id: "semiotyka", u: "semiotyka", s: "K", term: "Semiotyka",
+      plain: "Logiczna teoria języka. Traktuje język jak system znaków i sprawdza, jak dobrze nadaje się do poznawania świata i porozumiewania się.",
+      def: "Semiotyka to ogólna, formalna (logiczna) teoria języka rozumianego jako system znakowy, która zajmuje się językiem w aspekcie jego racjonalności i sprawności w aktach poznania i komunikowania.",
+      sh: "ogólna, formalna teoria języka jako systemu znaków" },
+    { id: "sem-elementy", u: "semiotyka", term: "Semiotyka: ogólna, formalna, teoria",
+      plain: "Ogólna: szuka tego, co ma każdy język. Formalna: patrzy na budowę wyrażeń, nie na ich treść. Teoria: uporządkowany zbiór twierdzeń, który opisuje i wyjaśnia język.",
+      def: "Ogólna: poszukuje konstytutywnych własności języka jako takiego. Formalna: nie interesuje się treścią wyrażeń, ale ich strukturą. Teoria: uporządkowany logicznie i rzeczowo zbiór twierdzeń opisujący i wyjaśniający język.",
+      sh: "cechy każdego języka; budowa, nie treść" },
+    { id: "sem-przedmiot", u: "semiotyka", s: "K", term: "Przedmiot materialny i formalny semiotyki",
+      plain: "CO bada: język. JAK na niego patrzy: jak na system znaków, którym ludzie poznają świat i się porozumiewają.",
+      def: "Przedmiot materialny: język. Przedmiot formalny: język jako system znaków, będący narzędziem poznania i komunikowania się.",
+      sh: "język / język jako system znaków do poznania i komunikacji" },
+    { id: "syntaktyka", u: "dzialy", term: "Syntaktyka",
+      plain: "Znak ↔ znak. Bada język „od środka”: jak wyrażenia łączą się ze sobą i co z czego wynika.",
+      def: "Bada język „od wewnątrz”: własności i funkcje elementów języka oraz relacje między nimi. Pojęcia: kategorie syntaktyczne, wynikanie, zastępowanie, dowodzenie, tekst, system.",
+      sh: "relacje znak – znak" },
+    { id: "semantyka", u: "dzialy", term: "Semantyka",
+      plain: "Znak ↔ świat. O czym jest dane słowo i kiedy zdanie jest prawdziwe.",
+      def: "Bada relacje między znakami językowymi a światem pozajęzykowym. Pojęcia: prawda (Tarski 1933), oznaczanie, denotowanie, desygnowanie, supozycja, model.",
+      sh: "relacje znak – świat" },
+    { id: "pragmatyka", u: "dzialy", term: "Pragmatyka",
+      plain: "Znak ↔ człowiek. Kto mówi, do kogo, po co i jak to rozumie.",
+      def: "Bada relacje między znakiem a użytkownikiem znaku (twórca, nadawca, odbiorca). Pojęcia: znaczenie, rozumienie, wyrażanie, komunikowanie, asercja.",
+      sh: "relacje znak – użytkownik" },
+    { id: "jezyk", u: "jezyk", s: "K", term: "Język (definicja semiotyczna)",
+      plain: "Słownik plus reguły, jak go używać. Służy grupie ludzi do poznawania świata i porozumiewania się.",
+      def: "Język jest zbiorem znaków formalnych scharakteryzowanych możliwie jednoznacznie za pomocą reguł używania i służącym grupie ludzi do poznania i komunikowania się.",
+      sh: "znaki formalne + reguły, do poznania i komunikacji" },
+    { id: "struktura", u: "jezyk", term: "Struktura formalna języka",
+      plain: "Język = słownik + reguły.",
+      def: "J = {zbiór znaków formalnych, czyli słownik; reguły użycia}.", sh: "J = {słownik, reguły}" },
+    { id: "znak", u: "jezyk", s: "K", term: "Znak",
+      plain: "Coś, co widzisz albo słyszysz, a co naprowadza cię na coś innego niż ono samo. Dym naprowadza na ogień.",
+      def: "Znak to coś podpadającego pod zmysły (zawsze istnieje substrat materialny znaku), przy pomocy czego ktoś (użytkownik znaku) dochodzi do poznania czegoś innego niż ów znak (bytu oznaczanego przez znak).",
+      sh: "coś zmysłowego, co prowadzi do poznania czegoś innego" },
+    { id: "trojczlonowa", u: "jezyk", term: "Znak jako relacja trójczłonowa",
+      plain: "Zawsze trzy elementy: znak, to, co oznacza, i ktoś, kto go odczytuje.",
+      def: "Z punktu widzenia semiotyki znak to relacja trójczłonowa: coś jest znakiem czegoś dla kogoś.", sh: "coś – czegoś – dla kogoś" },
+    { id: "naturalny", u: "znaki", term: "Znak naturalny",
+      plain: "Nikt go nie ustalał, natura sama go „zrobiła”.",
+      def: "Znak i przedmiot oznaczany są powiązane relacjami naturalnymi (przyczynowo-skutkowymi, współwystępowania), np. dym i ogień.",
+      sh: "powiązany z przedmiotem naturalnie" },
+    { id: "konwencjonalny", u: "znaki", term: "Znak konwencjonalny",
+      plain: "Ludzie umówili się, że coś znaczy.",
+      def: "Relację między znakiem a przedmiotem oznaczanym ustanawia ludzka interwencja, np. czarna opaska i śmierć bliskiej osoby.",
+      sh: "znaczenie ustalone przez ludzi" },
+    { id: "ikoniczny", u: "znaki", term: "Znak ikoniczny",
+      plain: "Umowny, ale wygląda jak to, co oznacza.",
+      def: "Ustanawiany jak konwencjonalny, ale konwencja opiera się na podobieństwie znaku do przedmiotu, np. makieta, mapa, zdjęcie.",
+      sh: "umowny, oparty na podobieństwie" },
+    { id: "instrumentalny", u: "znaki", term: "Znak instrumentalny",
+      plain: "Najpierw musisz go zauważyć jako rzecz, dopiero potem odczytujesz, co znaczy. Ślad na śniegu.",
+      def: "Pełni funkcję znaku, o ile sam zostanie poznany (np. ślady).", sh: "działa, gdy sam zostanie poznany" },
+    { id: "formalny", u: "znaki", term: "Znak formalny",
+      plain: "Nie zatrzymujesz się na nim, od razu myślisz o rzeczy. Czytając „kot”, myślisz o kocie, nie o literach.",
+      def: "Odnosi użytkownika wprost do przedmiotu oznaczanego (znaki językowe).", sh: "prowadzi wprost do przedmiotu" },
+    { id: "natura", u: "znaki", term: "Natura znaku językowego",
+      plain: "Ma budowę jak każdy znak, ale jest przezroczysty (patrzysz przez niego na rzecz) i wielopostaciowy (to samo słowo powiedziane, napisane czy wystukane).",
+      def: "(a) ma taką samą strukturę jak inne znaki (nośnik materialny, relacja trójczłonowa); (b) jest przezroczysty: odnosi do przedmiotu, nie zatrzymując uwagi na sobie; (c) jest wielopostaciowy: może mieć różny nośnik materialny bez zmiany znaczenia.",
+      sh: "przezroczysty i wielopostaciowy" },
+    { id: "symptom", u: "znaki", term: "Symptom",
+      plain: "Kawałek samego zjawiska, który je zdradza.",
+      def: "Znak naturalny, który jest częścią właściwą zjawiska, np. wysypka.", sh: "część zjawiska, np. wysypka" },
+    { id: "oznaka", u: "znaki", term: "Oznaka",
+      plain: "Skutek, po którym poznajesz przyczynę.",
+      def: "Znak naturalny powiązany przyczynowo-skutkowo z czymś innym, np. zamarzanie wody i temperatura poniżej 0.", sh: "skutek wskazujący przyczynę" },
+    { id: "slad", u: "znaki", term: "Ślad",
+      plain: "To, co zostało po czymś, co już zadziałało: odcisk buta, rysa.",
+      def: "Znak naturalny: pozostałość po zadziałaniu przyczyny.", sh: "pozostałość po zadziałaniu przyczyny" },
+    { id: "indeks", u: "znaki", term: "Indeks",
+      plain: "Pozwala coś rozpoznać, ale nic o tym nie mówi, jak numer na koszulce.",
+      def: "Znak konwencjonalny: pozwala identyfikować, ale nie charakteryzuje.", sh: "identyfikuje, ale nie charakteryzuje" },
+    { id: "haslo", u: "znaki", term: "Hasło",
+      plain: "Umówione słowo albo znak, po którym „swoi” się rozpoznają.",
+      def: "Umowny znak rozpoznawczy.", sh: "umowny znak rozpoznawczy" },
+    { id: "r-synt", u: "reguly", term: "Reguły syntaktyczne",
+      plain: "Jak poprawnie składać wyrażenia i jak je przerabiać, żeby dalej były poprawne.",
+      def: "Reguły składania (konstrukcji): budowanie wyrażeń złożonych; reguły przekształcania (transformacji): jak przekształcić wyrażenie poprawne, by wynik też był poprawny. Ciąg zbudowany zgodnie z nimi to wyrażenie syntaktycznie spójne.",
+      sh: "jak składać i przekształcać wyrażenia" },
+    { id: "r-sem", u: "reguly", term: "Reguły semantyczne",
+      plain: "Do czego w świecie odnosi się dane słowo.",
+      def: "Rządzą odnoszeniem się znaków do rzeczywistości pozajęzykowej.", sh: "jak znaki odnoszą się do świata" },
+    { id: "r-prag", u: "reguly", term: "Reguły pragmatyczne",
+      plain: "Co wypada powiedzieć, komu i w jakiej sytuacji.",
+      def: "Rządzą używaniem wyrażeń w określonych sytuacjach (kontekstach), np. reguły grzecznego zwracania się do nieznajomych dorosłych.",
+      sh: "jak używać wyrażeń w sytuacjach" },
+    { id: "afekton", u: "reguly", term: "Afekton",
+      plain: "Dosłownie bez sensu, ale w porządku, bo wyraża emocje.",
+      def: "Wyrażenie niezgodne z regułami semantycznymi, ale pragmatycznie dopuszczalne ze względu na wyrażenie emocji.",
+      sh: "semantycznie błędne, pragmatycznie OK" },
+    { id: "f-pozn", u: "funkcje", term: "Funkcja poznawcza (deskryptywna)",
+      plain: "Mówisz, jak jest: „pada deszcz”. Dla semiotyki logicznej najważniejsza.",
+      def: "Za pomocą języka opisuje się stan rzeczy i stwierdza jego zachodzenie lub niezachodzenie w świecie pozajęzykowym.",
+      sh: "opisuje, jak jest" },
+    { id: "f-ekspr", u: "funkcje", term: "Funkcja ekspresywna",
+      plain: "Pokazujesz, co TY czujesz.", def: "Wyrażenie stanów psychicznych nadawcy znaku.", sh: "stany psychiczne nadawcy" },
+    { id: "f-ewok", u: "funkcje", term: "Funkcja ewokatywna",
+      plain: "Chcesz, żeby ODBIORCA coś poczuł.", def: "Wywołanie przeżycia emocjonalnego u odbiorcy znaku.", sh: "przeżycie emocjonalne u odbiorcy" },
+    { id: "f-pers", u: "funkcje", term: "Funkcja perswazyjna",
+      plain: "Przekonujesz do czegoś.", def: "Skłonienie do jakiegoś działania czy przyjęcia jakiegoś poglądu.", sh: "skłanianie do działania lub poglądu" },
+    { id: "f-dyr", u: "funkcje", term: "Funkcja dyrektywna",
+      plain: "Wydajesz polecenie: „zamknij okno”.", def: "Wydawanie poleceń.", sh: "wydawanie poleceń" },
+    { id: "f-perf", u: "funkcje", term: "Funkcja performatywna",
+      plain: "Mówiąc, robisz. „Ogłaszam was mężem i żoną”, „otwieram posiedzenie”, „obiecuję”: samo wypowiedzenie sprawia, że to się dzieje.",
+      def: "Spowodowanie stanu rzeczy, o którym mówi wyrażenie, przez samo wypowiedzenie tego wyrażenia.", sh: "wypowiedzenie samo tworzy stan rzeczy" },
+    { id: "f-inter", u: "funkcje", term: "Funkcja interrogatywna",
+      plain: "Pytasz.", def: "Zadawanie pytań.", sh: "zadawanie pytań" },
+    { id: "f-estym", u: "funkcje", term: "Funkcja estymatywna",
+      plain: "Oceniasz: „to świetny film”.", def: "Formułowanie ocen.", sh: "formułowanie ocen" },
+    { id: "f-fat", u: "funkcje", term: "Funkcja fatyczna",
+      plain: "Podtrzymujesz kontakt: „no”, „mhm”, „halo, słyszysz mnie?”, rozmowa o pogodzie.",
+      def: "Podtrzymywanie kontaktu.", sh: "podtrzymywanie kontaktu" },
+    { id: "f-integr", u: "funkcje", term: "Funkcja integrująca / dzieląca",
+      plain: "Językiem dzielisz ludzi na „swoich” i „obcych”, np. slangiem czy żargonem.",
+      def: "Przy pomocy języka można „podzielić” zebranych na „swoich” i „obcych”.", sh: "„swoi” i „obcy”" },
+    { id: "j-geneza", u: "typy", term: "Języki naturalne, sztuczne, mieszane",
+      plain: "Naturalne wyrosły same (polski), sztuczne zaprojektowano (Python), mieszane łączą jedno i drugie (esperanto).",
+      def: "Naturalne rozwinęły się spontanicznie (języki etniczne); sztuczne mają zaprojektowany słownik i reguły (np. języki komputerowe); mieszane (np. esperanto).",
+      sh: "spontaniczne / zaprojektowane / mieszane" },
+    { id: "j-jednostka", u: "typy", term: "Najmniejsza jednostka języka",
+      plain: "Czym „pisze się” język: obrazkami, pojęciami, sylabami czy literami.",
+      def: "Języki obrazkowe, pojęciowe, sylabiczne, literowe (głoskowe).", sh: "obrazkowe, pojęciowe, sylabiczne, literowe" },
+    { id: "j-funktory", u: "typy", term: "Języki ekstensjonalne i intensjonalne",
+      plain: "Podział według spójników (funktorów) w języku. Funktory będą na kolejnych wykładach, na razie wystarczy nazwa.",
+      def: "Podział ze względu na obecne w języku spójniki (funktory).", sh: "podział ze względu na funktory" },
+    { id: "metajezyk", u: "typy", term: "Język przedmiotowy i metajęzyk",
+      plain: "Mówisz o świecie („kot ma cztery łapy”) albo o słowach („„kot” jest rzeczownikiem”). Cudzysłów to sygnał metajęzyka.",
+      def: "Język przedmiotowy: wyrażenia odnoszą się do świata (kot ma cztery łapy). Metajęzyk: wyrażenia odnoszą się do wyrażeń języka przedmiotowego („kot” jest rzeczownikiem).",
+      sh: "mówienie o świecie / o wyrażeniach" }
+  ],
+
+  exercises: [
+    /* ---------- Po co logika ---------- */
+    { u: "logika", t: "mcq", q: "Czym według prowadzącej jest logika?",
+      a: ["Narzędziem poprawnego myślenia i mówienia", "Nauką o historii języków", "Działem psychologii poznawczej", "Teorią dobrego wychowania"] },
+    { u: "logika", t: "mcq", q: "Jakie są tradycyjne działy logiki ogólnej?",
+      a: ["Semiotyka logiczna, logika formalna, metodologia nauk", "Syntaktyka, semantyka, pragmatyka", "Retoryka, erystyka, dialektyka", "Logika zdań, logika nazw, logika pytań"],
+      x: "Uwaga na pułapkę: syntaktyka, semantyka i pragmatyka to działy SEMIOTYKI, a nie logiki ogólnej." },
+    { u: "logika", t: "match", pairs: [
+      ["Semiotyka logiczna", "teoria języka jako systemu znaków"], ["Logika formalna", "teoria wynikania"],
+      ["Metodologia nauk", "teoria procedur badawczych i ich wytworów"]] },
+    { u: "logika", t: "mcq", q: "Który dział logiki ogólnej to teoria wynikania?", a: ["Logika formalna", "Semiotyka logiczna", "Metodologia nauk", "Pragmatyka"] },
+    { u: "logika", t: "cloze", q: "Celem zajęć jest kształcenie kultury ___.", a: ["logicznej", "językowej", "osobistej", "naukowej"] },
+    { u: "logika", t: "tf", q: "Jednym z celów zajęć jest dostrzeganie zabiegów manipulacyjnych i radzenie sobie z nimi.", a: true },
+    { u: "logika", t: "mcq", q: "Ile godzin trwa wykład, a ile ćwiczenia?", a: ["Wykład 10 h, ćwiczenia 15 h", "Wykład 15 h, ćwiczenia 10 h", "Wykład 30 h, ćwiczenia 30 h", "Po 15 h"] },
+    { u: "logika", t: "type", q: "Teoria procedur badawczych oraz ich wytworów to metodologia…", a: ["nauk"] },
+
+    /* ---------- Przedmiot materialny i formalny ---------- */
+    { u: "przedmiot", t: "mcq", q: "Czym jest przedmiot materialny dyscypliny naukowej?",
+      a: ["Wyznaczony przedmiot badań, wzięty w całym uposażeniu", "Przedmiot rozpatrywany z pewnego punktu widzenia",
+          "Zbiór metod, którymi posługuje się nauka", "Pogląd naukowców na badany przedmiot"] },
+    { u: "przedmiot", t: "mcq", q: "Czym jest przedmiot formalny dyscypliny naukowej?",
+      a: ["Przedmiot materialny rozpatrywany z pewnego punktu widzenia", "Przedmiot badań wzięty w całym uposażeniu",
+          "Fizyczny przedmiot, który można zmierzyć", "Formalna definicja nauki w ustawie"] },
+    { u: "przedmiot", t: "match", pairs: [["Przedmiot materialny", "CO badamy, w całości"], ["Przedmiot formalny", "Z JAKIEJ STRONY badamy"]] },
+    { u: "przedmiot", t: "mcq", s: "D", q: "Anatom i psycholog badają człowieka. Co mają wspólne, a czym się różnią?",
+      a: ["Wspólny przedmiot materialny, różny formalny", "Wspólny przedmiot formalny, różny materialny", "Różnią się oboma przedmiotami", "Mają oba przedmioty wspólne"] },
+    { u: "przedmiot", t: "mcq", q: "Czego dotyczy problem metaprzedmiotowy?", a: ["Poglądów na rzeczywistość", "Samej rzeczywistości", "Przedmiotu materialnego", "Budowy języka"] },
+    { u: "przedmiot", t: "mcq", s: "D", q: "Które pytanie jest problemem metaprzedmiotowym?",
+      a: ["Co Arystoteles sądził o duszy?", "Czy wieloryb jest ssakiem?", "Ile waży ludzki mózg?", "Czy dziś pada deszcz?"] },
+    { u: "przedmiot", t: "tf", q: "Problem przedmiotowy dotyczy rzeczywistości, czyli świata.", a: true },
+
+    /* ---------- Kto bada język ---------- */
+    { u: "badania", t: "which", set: "badania", q: "Język jako twór człowieka: lingwistyka, filologie, psychologia, socjologia.", a: 1 },
+    { u: "badania", t: "which", set: "badania", q: "Język jako struktura: logika formalna, semiotyka, teoria informacji, cybernetyka.", a: 2 },
+    { u: "badania", t: "which", set: "badania", q: "Język jako byt szczególnego rodzaju; spór, czy język jest bierny w poznaniu.", a: 3 },
+    { u: "badania", t: "which", set: "badania", q: "Język jako zjawisko przyrodnicze: akustyka, fonetyka, logopedia.", a: 4 },
+    { u: "badania", t: "which", set: "badania", q: "Do tej grupy należy psychologia.", a: 1 },
+    { u: "badania", t: "which", set: "badania", q: "Do tej grupy należy semiotyka.", a: 2 },
+    { u: "badania", t: "mcq", q: "Jak filozofia klasyczna traktuje język w poznaniu?", a: ["Jako bierny", "Jako współtworzący poznanie", "Jako jedyne źródło poznania", "Jako przeszkodę w poznaniu"] },
+    { u: "badania", t: "mcq", q: "Jak filozofia współczesna traktuje język w poznaniu?", a: ["Jako współtworzący poznanie", "Jako bierny", "Jako zbędny", "Jako czysto biologiczny"] },
+    { u: "badania", t: "mcq", q: "Z którym ośrodkiem związana jest szkoła języka idealnego?", a: ["Cambridge", "Oxford", "Lwów", "Wiedeń"] },
+    { u: "badania", t: "sort", q: "Cambridge czy Oxford?", cats: ["Cambridge (język idealny)", "Oxford (język potoczny)"], items: [
+      ["Frege", 0], ["Russell", 0], ["Wittgenstein I", 0], ["Salamucha", 0], ["Austin", 1], ["Searle", 1], ["Wittgenstein II", 1]] },
+    { u: "badania", t: "mcq", q: "Który filozof występuje w obu szkołach (jako I i II)?", a: ["Wittgenstein", "Russell", "Austin", "Frege"] },
+
+    /* ---------- Definicja semiotyki ---------- */
+    { u: "semiotyka", t: "mcq", s: "K", q: "Która definicja semiotyki jest poprawna?",
+      a: ["Ogólna, formalna teoria języka jako systemu znakowego, w aspekcie racjonalności i sprawności w poznaniu i komunikowaniu",
+          "Nauka o historii i rozwoju języków etnicznych, w aspekcie ich zmian w czasie",
+          "Teoria wynikania logicznego, w aspekcie poprawności formalnej wnioskowań",
+          "Psychologiczna teoria rozumienia wypowiedzi, w aspekcie przeżyć nadawcy i odbiorcy"] },
+    { u: "semiotyka", t: "cloze", s: "K", q: "Semiotyka to ogólna, formalna (logiczna) teoria języka rozumianego jako system ___.", a: ["znakowy", "dźwiękowy", "społeczny", "pojęciowy"] },
+    { u: "semiotyka", t: "cloze", s: "K", q: "…która zajmuje się językiem w aspekcie jego racjonalności i ___ w aktach poznania i komunikowania.", a: ["sprawności", "piękna", "historii", "poprawności gramatycznej"] },
+    { u: "semiotyka", t: "mcq", q: "Co znaczy, że semiotyka jest „formalna”?", a: ["Nie interesuje się treścią wyrażeń, ale ich strukturą", "Posługuje się wyłącznie wzorami matematycznymi", "Jest oficjalnie uznana przez uczelnie", "Bada tylko języki sztuczne"] },
+    { u: "semiotyka", t: "mcq", q: "Co znaczy, że semiotyka jest „ogólna”?", a: ["Poszukuje konstytutywnych własności języka jako takiego", "Bada wszystkie języki świata po kolei", "Jest łatwa i dla wszystkich", "Nie ma ścisłej metody"] },
+    { u: "semiotyka", t: "mcq", s: "K", q: "Co jest przedmiotem materialnym semiotyki?", a: ["Język", "Język jako system znaków", "Znak drogowy", "Mowa ciała"] },
+    { u: "semiotyka", t: "mcq", s: "K", q: "Co jest przedmiotem formalnym semiotyki?",
+      a: ["Język jako system znaków, będący narzędziem poznania i komunikowania się", "Język wzięty w całym uposażeniu",
+          "Dźwięki mowy i praca narządów mowy", "Historia powstawania języków"] },
+    { u: "semiotyka", t: "tf", q: "Semiotyka jest teorią, czyli uporządkowanym logicznie i rzeczowo zbiorem twierdzeń, który opisuje i wyjaśnia język.", a: true },
+    { u: "semiotyka", t: "tf", q: "Semiotyka traktuje język jako coś uporządkowanego, w czym da się wskazać elementy i relacje między nimi.", a: true },
+    { u: "semiotyka", t: "type", q: "Ogólna, formalna teoria języka jako systemu znakowego to…", a: ["semiotyka"] },
+
+    /* ---------- Działy semiotyki ---------- */
+    { u: "dzialy", t: "match", pairs: [["Syntaktyka", "znak – znak"], ["Semantyka", "znak – świat"], ["Pragmatyka", "znak – użytkownik"]] },
+    { u: "dzialy", t: "which", set: "dzial", q: "Bada język „od wewnątrz”: elementy języka i relacje między nimi.", a: 1 },
+    { u: "dzialy", t: "which", set: "dzial", q: "Bada relacje między znakami a światem pozajęzykowym.", a: 2 },
+    { u: "dzialy", t: "which", set: "dzial", q: "Bada relacje między znakiem a twórcą, nadawcą i odbiorcą.", a: 3 },
+    { u: "dzialy", t: "which", set: "dzial", q: "Główne pojęcia: prawda, oznaczanie, denotowanie, desygnowanie, supozycja, model.", a: 2 },
+    { u: "dzialy", t: "which", set: "dzial", q: "Główne pojęcia: znaczenie, rozumienie, wyrażanie, komunikowanie, asercja.", a: 3 },
+    { u: "dzialy", t: "which", set: "dzial", q: "Główne pojęcia: kategorie syntaktyczne, wynikanie, zastępowanie, dowodzenie.", a: 1 },
+    { u: "dzialy", t: "which", set: "dzial", q: "Do tego działu należy pojęcie prawdy (Tarski 1933).", a: 2 },
+    { u: "dzialy", t: "which", set: "dzial", q: "Do tego działu należy wynikanie.", a: 1 },
+    { u: "dzialy", t: "which", set: "dzial", q: "Do tego działu należy znaczenie.", a: 3,
+      x: "Pułapka: intuicja podpowiada semantykę, ale w konspekcie „znaczenie” to główne pojęcie pragmatyki." },
+    { u: "dzialy", t: "mcq", q: "Kto i kiedy sformułował pojęcie prawdy wymieniane w semantyce?", a: ["Tarski, 1933", "Frege, 1892", "Arystoteles, IV w. p.n.e.", "Austin, 1962"] },
+    { u: "dzialy", t: "tf", q: "Syntaktyka, semantyka i pragmatyka to działy logiki ogólnej.", a: false,
+      x: "To działy semiotyki. Działy logiki ogólnej to semiotyka logiczna, logika formalna i metodologia nauk." },
+
+    /* ---------- Język i znak ---------- */
+    { u: "jezyk", t: "mcq", s: "K", q: "Jak brzmi semiotyczna definicja języka?",
+      a: ["Zbiór znaków formalnych scharakteryzowanych możliwie jednoznacznie regułami używania, służący grupie ludzi do poznania i komunikowania się",
+          "Zbiór dźwięków wydawanych przez narządy mowy, służący jednostce do wyrażania emocji",
+          "Zbiór wszystkich słów zapisanych w słowniku danego narodu, bez względu na reguły ich użycia",
+          "Zbiór znaków naturalnych, którymi przyroda informuje człowieka o swoich stanach"] },
+    { u: "jezyk", t: "mcq", q: "Jak zapisuje się formalną strukturę języka?", a: ["J = {słownik (zbiór znaków formalnych), reguły użycia}", "J = {nadawca, odbiorca}", "J = {dźwięki, litery}", "J = {syntaktyka, semantyka}"] },
+    { u: "jezyk", t: "cloze", s: "K", q: "Język jest zbiorem znaków ___ scharakteryzowanych możliwie jednoznacznie za pomocą reguł używania.", a: ["formalnych", "naturalnych", "ikonicznych", "instrumentalnych"] },
+    { u: "jezyk", t: "mcq", s: "K", q: "Jak brzmi definicja znaku?",
+      a: ["Coś podpadającego pod zmysły, przy pomocy czego ktoś dochodzi do poznania czegoś innego niż ów znak",
+          "Coś niematerialnego, co istnieje tylko w umyśle użytkownika języka",
+          "Każdy dźwięk wydany przez człowieka, niezależnie od tego, czy coś oznacza",
+          "Umowny symbol ustalony przez autorytet, obowiązujący wszystkich ludzi"] },
+    { u: "jezyk", t: "tf", q: "Każdy znak ma substrat (nośnik) materialny.", a: true },
+    { u: "jezyk", t: "type", q: "Z punktu widzenia semiotyki znak to relacja…", a: ["trójczłonowa", "trojczlonowa"] },
+    { u: "jezyk", t: "cloze", q: "Znak to relacja trójczłonowa: coś jest znakiem czegoś ___.", a: ["dla kogoś", "zawsze", "w świecie", "przez coś"] },
+    { u: "jezyk", t: "mcq", q: "Kto w definicji znaku „dochodzi do poznania czegoś innego”?", a: ["Użytkownik znaku", "Przedmiot oznaczany", "Nośnik materialny", "Autor słownika"] },
+
+    /* ---------- Rodzaje znaków ---------- */
+    { u: "znaki", t: "which", set: "geneza", q: "Dym jako znak ognia.", a: 1 },
+    { u: "znaki", t: "which", set: "geneza", q: "Czarna opaska jako znak żałoby.", a: 2 },
+    { u: "znaki", t: "which", set: "geneza", q: "Mapa, makieta, zdjęcie.", a: 3 },
+    { u: "znaki", t: "which", set: "geneza", q: "Związek ze znaczonym przedmiotem jest przyczynowo-skutkowy albo polega na współwystępowaniu.", a: 1 },
+    { u: "znaki", t: "which", set: "geneza", q: "Ustanowiony jak konwencjonalny, ale oparty na podobieństwie.", a: 3 },
+    { u: "znaki", t: "mcq", q: "Ze względu na co dzielimy znaki na naturalne, konwencjonalne i ikoniczne?", a: ["Na genezę", "Na stosunek do świadomości użytkownika", "Na najmniejszą jednostkę", "Na poziom mówienia"] },
+    { u: "znaki", t: "mcq", q: "Ze względu na co dzielimy znaki na instrumentalne i formalne?", a: ["Na stosunek znaku do świadomości użytkownika", "Na genezę", "Na liczbę użytkowników", "Na rodzaj nośnika"] },
+    { u: "znaki", t: "mcq", q: "Znak, który pełni funkcję znaku, o ile sam zostanie poznany, to znak…", a: ["instrumentalny", "formalny", "ikoniczny", "przezroczysty"] },
+    { u: "znaki", t: "mcq", q: "Do jakiej grupy należą znaki językowe?", a: ["Formalnych", "Instrumentalnych", "Naturalnych", "Ikonicznych"] },
+    { u: "znaki", t: "mcq", q: "Co znaczy, że znak językowy jest „przezroczysty”?",
+      a: ["Odnosi do przedmiotu, nie zatrzymując uwagi na sobie", "Ma jedno, jasne znaczenie", "Jest niewidoczny", "Każdy go rozumie"] },
+    { u: "znaki", t: "mcq", q: "Co znaczy, że znak językowy jest „wielopostaciowy”?",
+      a: ["Może mieć różny nośnik materialny bez zmiany znaczenia", "Ma wiele znaczeń naraz", "Występuje w wielu językach", "Zmienia znaczenie w zależności od nastroju"] },
+    { u: "znaki", t: "which", set: "szczegolny", q: "Wysypka jako część choroby.", a: 1 },
+    { u: "znaki", t: "which", set: "szczegolny", q: "Zamarzanie wody jako znak temperatury poniżej zera.", a: 2 },
+    { u: "znaki", t: "which", set: "szczegolny", q: "Pozostałość po zadziałaniu przyczyny.", a: 3 },
+    { u: "znaki", t: "which", set: "szczegolny", q: "Znak konwencjonalny, który pozwala identyfikować, ale nie charakteryzuje.", a: 4 },
+    { u: "znaki", t: "which", set: "szczegolny", q: "Umowny znak rozpoznawczy.", a: 5 },
+    { u: "znaki", t: "match", pairs: [["Symptom", "część zjawiska (wysypka)"], ["Oznaka", "skutek wskazujący przyczynę"], ["Ślad", "pozostałość po przyczynie"], ["Indeks", "identyfikuje, nie opisuje"]] },
+
+    /* ---------- Reguły ---------- */
+    { u: "reguly", t: "which", set: "regula", q: "Mówi, jak budować wyrażenia złożone.", a: 1 },
+    { u: "reguly", t: "which", set: "regula", q: "Mówi, jak przekształcić wyrażenie poprawne, żeby wynik też był poprawny.", a: 1 },
+    { u: "reguly", t: "which", set: "regula", q: "Rządzi odnoszeniem się znaków do rzeczywistości pozajęzykowej.", a: 2 },
+    { u: "reguly", t: "which", set: "regula", q: "Rządzi używaniem wyrażeń w określonych sytuacjach.", a: 3 },
+    { u: "reguly", t: "which", set: "regula", q: "Do nieznajomej dorosłej osoby mówimy „proszę pani”, a nie „ty”.", a: 3 },
+    { u: "reguly", t: "which", set: "regula", s: "D", q: "Słowa „kot” używamy na zwierzęta pewnego gatunku, a nie na psy.", a: 2 },
+    { u: "reguly", t: "which", set: "regula", s: "D", q: "„Kot śpi” jest poprawne, a „śpi kot się na” już nie.", a: 1 },
+    { u: "reguly", t: "mcq", q: "Jakie dwa rodzaje reguł syntaktycznych wyróżnia się?", a: ["Składania (konstrukcji) i przekształcania (transformacji)", "Znaczenia i użycia", "Pisania i mówienia", "Nadawania i odbioru"] },
+    { u: "reguly", t: "type", q: "Ciąg znaków zbudowany zgodnie z regułami syntaktycznymi to wyrażenie syntaktycznie…", a: ["spójne"] },
+    { u: "reguly", t: "mcq", q: "Czym jest afekton?",
+      a: ["Wyrażeniem niezgodnym z regułami semantycznymi, ale pragmatycznie dopuszczalnym, bo wyraża emocje",
+          "Wyrażeniem zgodnym z regułami semantycznymi, ale niegrzecznym w danej sytuacji",
+          "Błędem składniowym, który zmienia sens całego zdania",
+          "Znakiem naturalnym, który wywołuje silne emocje"] },
+    { u: "reguly", t: "tf", s: "D", q: "„Zabiję cię, jak jeszcze raz się spóźnisz!” powiedziane do przyjaciela może być afektonem.", a: true,
+      x: "Dosłownie to groźba, ale w tej sytuacji wyraża tylko emocje: semantycznie „nie tak”, pragmatycznie dopuszczalne." },
+    { u: "reguly", t: "multi", q: "Jakie są rodzaje reguł używania znaków językowych?", a: ["syntaktyczne", "semantyczne", "pragmatyczne"], o: ["performatywne", "ikoniczne", "metajęzykowe"] },
+
+    /* ---------- Funkcje języka ---------- */
+    { u: "funkcje", t: "which", set: "funkcja", q: "„Ogłaszam was mężem i żoną.”", a: 6 },
+    { u: "funkcje", t: "which", set: "funkcja", q: "„Otwieram posiedzenie rady wydziału.”", a: 6 },
+    { u: "funkcje", t: "which", set: "funkcja", q: "„Zamknij okno.”", a: 5 },
+    { u: "funkcje", t: "which", set: "funkcja", q: "„Lublin leży nad Bystrzycą.”", a: 1 },
+    { u: "funkcje", t: "which", set: "funkcja", q: "„Kup u nas, nie pożałujesz!”", a: 4 },
+    { u: "funkcje", t: "which", set: "funkcja", q: "„Mhm… no… słyszysz mnie jeszcze?”", a: 9 },
+    { u: "funkcje", t: "which", set: "funkcja", q: "„To najlepszy film tego roku.”", a: 8 },
+    { u: "funkcje", t: "which", set: "funkcja", q: "„Która jest godzina?”", a: 7 },
+    { u: "funkcje", t: "which", set: "funkcja", q: "Wyrażenie stanów psychicznych nadawcy.", a: 2 },
+    { u: "funkcje", t: "which", set: "funkcja", q: "Wywołanie przeżycia emocjonalnego u odbiorcy.", a: 3 },
+    { u: "funkcje", t: "which", set: "funkcja", q: "Spowodowanie stanu rzeczy przez samo wypowiedzenie wyrażenia.", a: 6 },
+    { u: "funkcje", t: "which", set: "funkcja", q: "Podział zebranych na „swoich” i „obcych”.", a: 11 },
+    { u: "funkcje", t: "mcq", q: "Która funkcja języka jest najważniejsza z punktu widzenia semiotyki logicznej?",
+      a: ["Poznawcza", "Ekspresywna", "Performatywna", "Perswazyjna"],
+      x: "Bo semiotyka to teoria języka jako narzędzia poznania i komunikowania wyników poznawczych." },
+    { u: "funkcje", t: "mcq", q: "„Jak mogłeś mi to zrobić?!” wygląda jak pytanie. Jakiej funkcji NIE pełni?",
+      a: ["Interrogatywnej (to nie jest prawdziwe pytanie)", "Ekspresywnej", "Oceniającej", "Emotywnej"],
+      x: "Slajd: gramatycznie to pytanie, ale funkcjonalnie wyraża emocje i ocenę. Struktura gramatyczna nie zawsze odzwierciedla funkcję." },
+    { u: "funkcje", t: "tf", q: "Wyrażenie często pełni więcej niż jedną funkcję naraz.", a: true },
+    { u: "funkcje", t: "tf", q: "Struktura gramatyczna wyrażenia zawsze pokazuje jego funkcję.", a: false, x: "Slajd: struktura gramatyczna nie zawsze odzwierciedla funkcje." },
+    { u: "funkcje", t: "multi", q: "Jakie 3 funkcje pełni wyrażenie: „Zupełnie się tego po tobie nie spodziewałam!”?",
+      a: ["ekspresywna", "ewokatywna", "informatywna"], o: ["performatywna", "dyrektywna", "fatyczna"],
+      x: "Wyraża stan nadawcy (ekspresywna), ma poruszyć odbiorcę (ewokatywna) i informuje, że nadawca się tego nie spodziewał (informatywna). Zadanie z przykładowej kartki." },
+    { u: "funkcje", t: "multi", q: "Jakie funkcje pełni wyrażenie: „Mam cię serdecznie dość!”?",
+      a: ["ekspresywna", "ewokatywna", "informatywna"], o: ["performatywna", "interrogatywna", "ludyczna"],
+      x: "Zadanie z przykładowej kartki. Wyrażenie pokazuje emocje nadawcy, ma wywołać reakcję odbiorcy i niesie informację o stosunku nadawcy." },
+    { u: "funkcje", t: "mcq", s: "D", q: "Które wyrażenie pełni funkcję performatywną?",
+      a: ["„Obiecuję, że jutro oddam ci książkę.”", "„Wczoraj obiecałem, że oddam książkę.”", "„Czy oddasz mi książkę?”", "„Ta książka jest świetna.”"],
+      x: "„Obiecuję” w 1. osobie czasu teraźniejszego samo jest aktem obietnicy. Relacja „obiecałem” już tylko opisuje." },
+    { u: "funkcje", t: "cloze", q: "Funkcja ___ to wywołanie przeżycia emocjonalnego u odbiorcy.", a: ["ewokatywna", "ekspresywna", "estymatywna", "fatyczna"] },
+    { u: "funkcje", t: "cloze", q: "Funkcja ___ to wyrażenie stanów psychicznych nadawcy.", a: ["ekspresywna", "ewokatywna", "dyrektywna", "perswazyjna"] },
+
+    /* ---------- Typy języków ---------- */
+    { u: "typy", t: "mcq", q: "Jak dzielimy języki ze względu na genezę?", a: ["Naturalne, sztuczne, mieszane", "Przedmiotowe i metajęzyki", "Ekstensjonalne i intensjonalne", "Obrazkowe i literowe"] },
+    { u: "typy", t: "mcq", q: "Języki komputerowe to języki…", a: ["sztuczne", "naturalne", "mieszane", "obrazkowe"] },
+    { u: "typy", t: "mcq", q: "Według slajdu przykładem języka mieszanego jest…", a: ["esperanto", "łacina", "Python", "polski język migowy"] },
+    { u: "typy", t: "mcq", q: "Ze względu na co dzielimy języki na ekstensjonalne i intensjonalne?", a: ["Na obecne w języku spójniki (funktory)", "Na genezę", "Na najmniejszą jednostkę", "Na liczbę użytkowników"] },
+    { u: "typy", t: "multi", q: "Jakie typy języków wyróżnia się ze względu na najmniejszą jednostkę językową?", a: ["obrazkowe", "pojęciowe", "sylabiczne", "literowe"], o: ["intensjonalne", "mieszane"] },
+    { u: "typy", t: "which", set: "poziom", q: "Kot ma cztery łapy.", a: 1 },
+    { u: "typy", t: "which", set: "poziom", q: "„Kot” jest rzeczownikiem.", a: 2 },
+    { u: "typy", t: "which", set: "poziom", q: "„Mysz” to sylaba.", a: 2 },
+    { u: "typy", t: "which", set: "poziom", q: "Zdanie „pada deszcz” jest prawdziwe.", a: 2, x: "Mówimy o zdaniu (wyrażeniu), a nie o deszczu, więc to metajęzyk." },
+    { u: "typy", t: "mcq", q: "Jaki błąd popełniono: „Mysz gryzie książkę, mysz to sylaba, a więc sylaba gryzie książkę”?",
+      a: ["Pomieszanie poziomów języka", "Błędne koło", "Ekwiwokacja", "Fałszywy dylemat"],
+      x: "Pierwsze zdanie mówi o zwierzęciu (język przedmiotowy), drugie o słowie „mysz” (metajęzyk). Zadanie z przykładowej kartki." },
+    { u: "typy", t: "type", q: "Język, w którym mówimy o wyrażeniach innego języka, to…", a: ["metajęzyk", "metajezyk"] },
+
+    /* ---------- Rozpoznaj w praktyce ---------- */
+    { u: "mix", t: "which", set: "dzial", q: "Sprawdzasz, czy zdanie „Wieloryb jest rybą” jest prawdziwe.", a: 2 },
+    { u: "mix", t: "which", set: "dzial", q: "Zastanawiasz się, dlaczego szef powiedział „ciekawy pomysł” takim tonem.", a: 3 },
+    { u: "mix", t: "which", set: "dzial", q: "Sprawdzasz, czy z dwóch przesłanek wynika wniosek.", a: 1 },
+    { u: "mix", t: "which", set: "geneza", q: "Czerwone światło na skrzyżowaniu.", a: 2 },
+    { u: "mix", t: "which", set: "geneza", q: "Gorączka jako znak infekcji.", a: 1 },
+    { u: "mix", t: "which", set: "geneza", q: "Ikona kosza na pulpicie komputera.", a: 3 },
+    { u: "mix", t: "which", set: "funkcja", q: "Kapitan: „Nadaję temu statkowi imię «Dar Pomorza».”", a: 6 },
+    { u: "mix", t: "which", set: "funkcja", q: "Dowcip opowiedziany na imprezie dla rozbawienia znajomych.", a: 10 },
+    { u: "mix", t: "which", set: "funkcja", q: "Uczniowie mówią swoim slangiem, żeby nauczyciel ich nie zrozumiał.", a: 11 },
+    { u: "mix", t: "which", set: "badania", q: "Logopeda bada, jak dziecko wymawia głoskę „r”.", a: 4 },
+    { u: "mix", t: "which", set: "badania", q: "Psycholog bada, jak dzieci uczą się mówić.", a: 1 },
+    { u: "mix", t: "mcq", q: "Czy w zdaniu „„Ogień” jest rzeczownikiem” słowo „ogień” coś parzy?",
+      a: ["Nie: tu mówimy o słowie, nie o ogniu (metajęzyk)", "Tak: ogień zawsze parzy", "Tylko w języku naturalnym", "To zależy od kontekstu pragmatycznego"] }
+  ],
+
+  sortDecks: [
+    { id: "poziom", title: "O świecie czy o słowach?", sub: "Język przedmiotowy czy metajęzyk",
+      cats: ["Język przedmiotowy", "Metajęzyk"], items: [
+        ["Kot ma cztery łapy.", 0], ["„Kot” jest rzeczownikiem.", 1], ["„Kot” ma trzy litery.", 1], ["Warszawa leży nad Wisłą.", 0],
+        ["„Warszawa” zaczyna się na W.", 1], ["Mysz gryzie książkę.", 0], ["„Mysz” to sylaba.", 1], ["Słowo „logika” pochodzi z greki.", 1],
+        ["Logika jest narzędziem poprawnego myślenia.", 0], ["Ogień parzy.", 0], ["„Ogień” jest rodzaju męskiego.", 1],
+        ["Zdanie „pada deszcz” jest prawdziwe.", 1], ["Pada deszcz.", 0], ["Wyraz „zamek” jest wieloznaczny.", 1]] },
+    { id: "geneza", title: "Naturalny czy konwencjonalny?", sub: "Znaki według genezy (ikoniczne pomijamy)",
+      cats: ["Naturalny", "Konwencjonalny"], items: [
+        ["dym jako znak ognia", 0], ["czarna opaska jako znak żałoby", 1], ["wysypka przy chorobie", 0], ["ślady na śniegu", 0],
+        ["czerwone światło na skrzyżowaniu", 1], ["gorączka przy infekcji", 0], ["obrączka na palcu", 1], ["zamarzanie wody", 0],
+        ["flaga państwowa", 1], ["umówione hasło", 1], ["numer na koszulce zawodnika", 1], ["ciemne chmury przed burzą", 0],
+        ["skinienie głową na „tak”", 1], ["mokry asfalt po deszczu", 0]] },
+    { id: "funkcja", title: "Poznawcza czy pozapoznawcza?", sub: "Czy wyrażenie po prostu opisuje świat?",
+      cats: ["Poznawcza", "Pozapoznawcza"], items: [
+        ["Woda wrze w 100°C pod normalnym ciśnieniem.", 0], ["Ogłaszam przerwę.", 1], ["Zamknij drzwi!", 1], ["Dzień dobry, co słychać?", 1],
+        ["Lublin leży nad Bystrzycą.", 0], ["Ale piękny zachód słońca!", 1], ["Kot śpi na kanapie.", 0], ["Kupuj tylko u nas!", 1],
+        ["Która godzina?", 1], ["Obiecuję, że oddam.", 1], ["Ziemia krąży wokół Słońca.", 0], ["Jesteś najlepsza!", 1],
+        ["W sali siedzi 30 osób.", 0], ["Jak mogłeś mi to zrobić?!", 1]] }
+  ],
+
+  minimum: [
+    ["Czym jest logika i jakie ma działy", "Logika to <b>narzędzie poprawnego myślenia i mówienia</b>. Działy logiki ogólnej: <b>semiotyka logiczna</b> (język), <b>logika formalna</b> (wynikanie), <b>metodologia nauk</b> (procedury badawcze)."],
+    ["Przedmiot materialny i formalny", "<b>Materialny</b>: przedmiot badań wzięty w całym uposażeniu (CO). <b>Formalny</b>: ten przedmiot z pewnego punktu widzenia (JAK). Semiotyka: materialny to <b>język</b>, formalny to <b>język jako system znaków, narzędzie poznania i komunikowania</b>. To pytanie teoretyczne z listy."],
+    ["Definicja semiotyki (do wykucia)", "<b>Ogólna, formalna (logiczna) teoria języka rozumianego jako system znakowy</b>, zajmująca się językiem w aspekcie jego <b>racjonalności i sprawności</b> w aktach poznania i komunikowania."],
+    ["Działy semiotyki", "<b>Syntaktyka</b>: znak–znak (wynikanie, kategorie syntaktyczne). <b>Semantyka</b>: znak–świat (prawda, oznaczanie, denotowanie, supozycja). <b>Pragmatyka</b>: znak–użytkownik (znaczenie, rozumienie, asercja). Uwaga: „znaczenie” jest w pragmatyce."],
+    ["Definicja języka", "<b>Zbiór znaków formalnych</b> scharakteryzowanych możliwie jednoznacznie <b>regułami używania</b>, służący grupie ludzi <b>do poznania i komunikowania się</b>. Skrót: J = {słownik, reguły}."],
+    ["Definicja znaku", "<b>Coś podpadającego pod zmysły</b> (zawsze z nośnikiem materialnym), przy pomocy czego <b>ktoś dochodzi do poznania czegoś innego</b>. Relacja trójczłonowa: <b>coś jest znakiem czegoś dla kogoś</b>."],
+    ["Rodzaje znaków", "Geneza: <b>naturalne</b> (dym–ogień), <b>konwencjonalne</b> (czarna opaska), <b>ikoniczne</b> (mapa, zdjęcie). Stosunek do świadomości: <b>instrumentalne</b> (ślady) i <b>formalne</b> (słowa). Znak językowy jest <b>przezroczysty i wielopostaciowy</b>."],
+    ["Reguły używania znaków (z przykładami!)", "<b>Syntaktyczne</b>: składania i przekształcania. <b>Semantyczne</b>: odnoszenie znaków do świata. <b>Pragmatyczne</b>: użycie w sytuacji (grzeczne zwracanie się do nieznajomych). Afekton: łamie semantykę, ale pragmatycznie OK. To pytanie teoretyczne z listy."],
+    ["Funkcje języka (zwłaszcza performatywna)", "<b>Poznawcza</b> (opis świata, najważniejsza dla logiki) i <b>pozapoznawcze</b>: ekspresywna (nadawca), ewokatywna (odbiorca), perswazyjna, dyrektywna, <b>performatywna</b> (wypowiedzenie samo tworzy stan rzeczy: „ogłaszam”, „obiecuję”), interrogatywna, estymatywna, fatyczna, ludyczna, integrująca. Wyrażenie zwykle pełni kilka funkcji naraz."],
+    ["Język przedmiotowy a metajęzyk", "Przedmiotowy mówi o świecie (kot ma cztery łapy), metajęzyk o wyrażeniach („kot” jest rzeczownikiem). Pomylenie poziomów to błąd: „mysz to sylaba, więc sylaba gryzie książkę”."]
+  ],
+
+  story: {
+    title: "Ściąga: trzy działy semiotyki na jednym przykładzie",
+    intro: "★ Pomoc pamięciowa spoza materiałów. Jedno zdanie, trzy pytania:",
+    ordered: true,
+    items: [
+      ["Syntaktyka", "„Ala ma kota” jest poprawnie zbudowane, a „kota Ala ma ma” nie. Znak ↔ znak."],
+      ["Semantyka", "Zdanie „Ala ma kota” jest prawdziwe, jeśli Ala naprawdę ma kota. Znak ↔ świat."],
+      ["Pragmatyka", "Ala mówi to sąsiadce, która właśnie pyta o myszy w piwnicy, i chodzi jej o to, że myszy zaraz znikną. Znak ↔ człowiek."]
+    ]
+  },
+
+  table: {
+    title: "Rodzaje znaków w pigułce",
+    head: ["Podział", "Rodzaj", "Na czym polega", "Przykład z materiałów"],
+    rows: [
+      ["geneza", "naturalny", "związek przyczynowo-skutkowy lub współwystępowanie", "dym – ogień"],
+      ["geneza", "konwencjonalny", "związek ustanowiony przez ludzi", "czarna opaska – żałoba"],
+      ["geneza", "ikoniczny", "konwencja oparta na podobieństwie", "makieta, mapa, zdjęcie"],
+      ["stosunek do świadomości", "instrumentalny", "działa, o ile sam zostanie poznany", "ślady"],
+      ["stosunek do świadomości", "formalny", "odsyła wprost do przedmiotu", "znaki językowe"],
+      ["szczególny", "symptom", "część właściwa zjawiska", "wysypka"],
+      ["szczególny", "oznaka", "związek przyczynowo-skutkowy", "zamarzanie wody – mróz"],
+      ["szczególny", "ślad", "pozostałość po zadziałaniu przyczyny", "odcisk"],
+      ["szczególny", "indeks", "identyfikuje, nie charakteryzuje", "(konwencjonalny)"],
+      ["szczególny", "hasło", "umowny znak rozpoznawczy", "—"]
+    ]
+  },
+
+  notes: [
+    { id: "l1", n: 1, title: "Po co logika", html:
+      "<div class='plain'><p>Logika to skrzynka z narzędziami do myślenia i mówienia. Na tym kursie ma się przydać w praktyce: jasno mówić, dobrze argumentować i nie dać się zmanipulować.</p></div>" +
+      "<p>Logika jest <b>narzędziem poprawnego myślenia i mówienia</b>.</p>" +
+      "<p><b>Działy logiki ogólnej</b> (tradycyjnie):</p><ul><li><b>semiotyka logiczna</b>: teoria języka rozumianego jako system znaków,</li>" +
+      "<li><b>logika formalna</b>: teoria wynikania,</li><li><b>metodologia nauk</b>: teoria procedur badawczych i ich wytworów.</li></ul>" +
+      "<p><b>Cele zajęć:</b> kultura logiczna (podstawowa aparatura pojęciowa logiki ogólnej), jasne, ścisłe i uporządkowane myślenie i mówienie, argumentowanie, kontrola poprawności argumentów, dostrzeganie manipulacji i radzenie sobie z nią.</p>" +
+      "<p>Kurs: wykład 10 h + ćwiczenia 15 h.</p>" },
+    { id: "l2", n: 2, title: "Przedmiot materialny i formalny", html:
+      "<div class='plain'><p>Każda nauka ma CO bada (przedmiot materialny) i Z JAKIEJ STRONY to bada (przedmiot formalny). Anatom i psycholog badają tego samego człowieka, ale każdy od innej strony.</p></div>" +
+      "<ul><li><b>Materialny</b>: wyznaczony przedmiot badań, wzięty w całym uposażeniu.</li><li><b>Formalny</b>: przedmiot materialny rozpatrywany z pewnego punktu widzenia.</li></ul>" +
+      "<p><b>Problem przedmiotowy</b> dotyczy rzeczywistości (świata); <b>metaprzedmiotowy</b> dotyczy poglądów na rzeczywistość.</p>" },
+    { id: "l3", n: 3, title: "Kto bada język", html:
+      "<div class='plain'><p>Język badają cztery rodziny nauk, każda patrzy na niego inaczej. Logika i semiotyka są wśród badań formalnych.</p></div>" +
+      "<ul><li><b>humanistyczne</b> (język jako twór człowieka): historia języka, lingwistyka, filologie, psychologia, socjologia, etnolingwistyka;</li>" +
+      "<li><b>formalne</b> (język jako struktura): logika formalna, semiotyka, teoria informacji, teoria komunikacji, cybernetyka;</li>" +
+      "<li><b>filozoficzne</b> (język jako byt szczególnego rodzaju): filozofia klasyczna uważa język za <b>bierny</b> w poznaniu (Platon, Arystoteles, Krąpiec, Gilson); filozofia współczesna za <b>współtworzący</b> poznanie: szkoła języka idealnego (Cambridge: Frege, Russell, Wittgenstein I, Salamucha) i szkoła języka potocznego (Oxford: Ayer, Wittgenstein II, Strawson, Searle, Austin);</li>" +
+      "<li><b>przyrodnicze</b> (język jako zjawisko przyrodnicze): akustyka, fonetyka, fizjologia mowy, logopedia.</li></ul>" },
+    { id: "l4", n: 4, title: "Definicja semiotyki", html:
+      "<div class='plain'><p>Semiotyka to logiczna teoria języka. Patrzy na język jak na system znaków i sprawdza, jak dobrze służy do poznawania świata i porozumiewania się.</p></div>" +
+      "<div class='key'><p>Semiotyka to ogólna, formalna (logiczna) teoria języka rozumianego jako system znakowy, która zajmuje się językiem w aspekcie jego racjonalności i sprawności w aktach poznania i komunikowania.</p></div>" +
+      "<p><b>Słowo po słowie:</b></p><ul><li><b>ogólna</b>: poszukuje konstytutywnych własności języka jako takiego;</li>" +
+      "<li><b>formalna</b>: nie interesuje się treścią wyrażeń, tylko ich strukturą;</li>" +
+      "<li><b>język jako system znakowy</b>: coś uporządkowanego, w czym wskażemy elementy i relacje między nimi oraz między systemem a otoczeniem;</li>" +
+      "<li><b>teoria</b>: uporządkowany logicznie i rzeczowo zbiór twierdzeń, który opisuje i wyjaśnia język;</li>" +
+      "<li><b>racjonalność i sprawność w poznaniu i komunikowaniu</b>: język jako narzędzie.</li></ul>" +
+      "<div class='key'><p>Przedmiot materialny semiotyki: język. Przedmiot formalny: język jako system znaków, będący narzędziem poznania i komunikowania się.</p></div>" },
+    { id: "l5", n: 5, title: "Działy semiotyki", html:
+      "<div class='plain'><p>Trzy relacje, trzy działy: jak znaki łączą się ze sobą, jak odnoszą się do świata i jak używają ich ludzie.</p></div>" +
+      "<div class='tscroll'><table><thead><tr><th>Dział</th><th>Bada relację</th><th>Główne pojęcia</th></tr></thead><tbody>" +
+      "<tr><th>Syntaktyka</th><td>znak – znak („od wewnątrz”): własności, funkcje elementów języka, relacje między nimi</td><td>kategorie syntaktyczne, wynikanie, zastępowanie, dowodzenie, tekst, system</td></tr>" +
+      "<tr><th>Semantyka</th><td>znak – świat pozajęzykowy</td><td>prawda (Tarski 1933), oznaczanie, denotowanie, desygnowanie, supozycja, model</td></tr>" +
+      "<tr><th>Pragmatyka</th><td>znak – użytkownik (twórca, nadawca, odbiorca)</td><td>znaczenie, rozumienie, wyrażanie, komunikowanie, asercja</td></tr>" +
+      "</tbody></table></div>" },
+    { id: "l6", n: 6, title: "Język i znak", html:
+      "<div class='plain'><p>Język to słownik i reguły. Znak to coś, co widzisz lub słyszysz, a co naprowadza cię na coś innego. Zawsze ktoś musi go odczytać, dlatego znak ma trzy człony.</p></div>" +
+      "<div class='key'><p>Język jest zbiorem znaków formalnych scharakteryzowanych możliwie jednoznacznie za pomocą reguł używania i służącym grupie ludzi do poznania i komunikowania się.</p></div>" +
+      "<p>Struktura formalna: <b>J = {zbiór znaków formalnych, czyli słownik; reguły użycia}</b>.</p>" +
+      "<div class='key'><p>Znak to coś podpadającego pod zmysły (zawsze istnieje substrat materialny znaku), przy pomocy czego ktoś (użytkownik znaku) dochodzi do poznania czegoś innego niż ów znak (bytu oznaczanego przez znak).</p></div>" +
+      "<p>Dla semiotyki znak to <b>relacja trójczłonowa</b>: <b>coś jest znakiem czegoś dla kogoś</b>.</p>" },
+    { id: "l7", n: 7, title: "Rodzaje znaków", html:
+      "<div class='plain'><p>Znaki dzielimy na dwa sposoby: skąd się wzięły (natura czy umowa) i czy najpierw zauważasz sam znak, czy od razu rzecz. Słowa to znaki „przezroczyste”: czytając „kot”, myślisz o kocie, nie o literach.</p></div>" +
+      "<p><b>Ze względu na genezę:</b> <b>naturalne</b> (związek przyczynowo-skutkowy lub współwystępowanie: dym i ogień), <b>konwencjonalne</b> (ustanowione przez ludzi: czarna opaska i śmierć bliskiej osoby), <b>ikoniczne</b> (ustanowione jak konwencjonalne, ale oparte na podobieństwie: makieta, mapa, zdjęcie).</p>" +
+      "<p><b>Ze względu na stosunek do świadomości użytkownika:</b> <b>instrumentalne</b> (działają, o ile same zostaną poznane: ślady) i <b>formalne</b> (odsyłają wprost do przedmiotu: znaki językowe).</p>" +
+      "<p><b>Natura znaku językowego:</b> (a) taka sama struktura jak inne znaki (nośnik materialny, relacja trójczłonowa); (b) <b>przezroczysty</b>; (c) <b>wielopostaciowy</b> (różne nośniki bez zmiany znaczenia).</p>" +
+      "<p><b>Szczególne typy:</b> symptom (część zjawiska: wysypka), wskaźnik (współwystępuje, pozwala coś odkryć), oznaka (przyczynowo-skutkowo: zamarzanie wody i mróz), indeks (konwencjonalny, identyfikuje, nie charakteryzuje), hasło (umowny znak rozpoznawczy), ślad (pozostałość po zadziałaniu przyczyny), symbol. Konspekt wymienia też kod i sygnał.</p>" },
+    { id: "l8", n: 8, title: "Reguły używania znaków", html:
+      "<div class='plain'><p>Żeby porozumieć się językiem, trzeba znać trzy rodzaje reguł: jak składać słowa, do czego się odnoszą i co wypada powiedzieć w danej sytuacji. Na egzaminie to pytanie teoretyczne, więc przygotuj własne przykłady.</p></div>" +
+      "<ul><li><b>syntaktyczne</b>: <b>składania</b> (konstrukcji: budowanie wyrażeń złożonych) i <b>przekształcania</b> (transformacji: jak przekształcić wyrażenie poprawne, by wynik też był poprawny). Ciąg zbudowany zgodnie z nimi to <b>wyrażenie syntaktycznie spójne</b>;</li>" +
+      "<li><b>semantyczne</b>: rządzą odnoszeniem się znaków do rzeczywistości pozajęzykowej;</li>" +
+      "<li><b>pragmatyczne</b>: rządzą używaniem wyrażeń w określonych sytuacjach, np. grzeczne zwracanie się do nieznajomych dorosłych.</li></ul>" +
+      "<p><b>Afektony</b>: wyrażenia niezgodne z regułami semantycznymi, ale pragmatycznie dopuszczalne, bo wyrażają emocje.</p>" +
+      "<aside class='extra'><p>Gotowe przykłady na ustny: syntaktyczna: „kot śpi” jest poprawne, „śpi kot się na” nie; semantyczna: „kot” nazywa koty, nie psy; pragmatyczna: do profesora „Dzień dobry, panie profesorze”, a nie „siema”; afekton: „zabiję cię, jak się spóźnisz” powiedziane do przyjaciela.</p></aside>" },
+    { id: "l9", n: 9, title: "Funkcje języka", html:
+      "<div class='plain'><p>Językiem nie tylko opisujemy świat. Wyrażamy uczucia, wydajemy polecenia, pytamy, oceniamy, a czasem samym mówieniem coś robimy („ogłaszam”, „obiecuję”). Jedno zdanie zwykle robi kilka z tych rzeczy naraz.</p></div>" +
+      "<p><b>Poznawcza (deskryptywna)</b>: opis stanu rzeczy i stwierdzenie, że zachodzi lub nie. Z punktu widzenia semiotyki logicznej <b>najważniejsza</b>.</p>" +
+      "<p><b>Pozapoznawcze</b>, np.: informatywna; <b>ekspresywna</b> (stany psychiczne nadawcy); <b>ewokatywna</b> (przeżycie emocjonalne u odbiorcy); <b>perswazyjna</b> (skłonienie do działania lub poglądu); <b>dyrektywna</b> (polecenia); <mark>performatywna</mark> (spowodowanie stanu rzeczy, o którym mówi wyrażenie, przez samo jego wypowiedzenie); <b>interrogatywna</b> (pytania); <b>estymatywna</b> (oceny); terapeutyczna; <b>ludyczna</b> (zabawianie); <b>fatyczna</b> (podtrzymywanie kontaktu); <b>integrująca/dzieląca</b> („swoi” i „obcy”).</p>" +
+      "<p>Wyrażenia często pełnią <b>więcej niż jedną funkcję</b>, a <b>struktura gramatyczna nie zawsze odzwierciedla funkcję</b>: „Jak mogłeś mi to zrobić?!” wygląda jak pytanie, ale pełni funkcję ekspresywną, emotywną i oceniającą.</p>" +
+      "<aside class='extra'><p>Performatyw rozpoznasz po tym, że zwykle jest w 1. osobie czasu teraźniejszego i da się dodać „niniejszym”: „niniejszym ogłaszam”, „niniejszym przepraszam”. „Obiecałem” to już tylko relacja, a nie performatyw.</p></aside>" },
+    { id: "l10", n: 10, title: "Typy języków", html:
+      "<div class='plain'><p>Języki dzielimy na cztery sposoby. Najważniejszy praktycznie jest ostatni: czy mówimy o świecie, czy o słowach. Pomylenie tych poziomów to klasyczne zadanie z kartki („mysz to sylaba”).</p></div>" +
+      "<ul><li><b>geneza</b>: naturalne (spontaniczne, etniczne), sztuczne (zaprojektowane, np. komputerowe), mieszane (esperanto);</li>" +
+      "<li><b>najmniejsza jednostka</b>: obrazkowe, pojęciowe, sylabiczne, literowe/głoskowe;</li>" +
+      "<li><b>spójniki (funktory)</b>: ekstensjonalne i intensjonalne;</li>" +
+      "<li><b>poziom mówienia</b>: <b>język przedmiotowy</b> (o świecie: kot ma cztery łapy) i <b>metajęzyk</b> (o wyrażeniach: „kot” jest rzeczownikiem).</li></ul>" +
+      "<p>Konspekt przypomina też, że języki wymierają: Sercquiais z wyspy Sark ma już tylko trzech rodzimych użytkowników.</p>" }
+  ]
+});
+
+</script>
+    <script>
+/* Przewodnik po zaliczeniu logiki: zasady egzaminu, pytania teoretyczne, kartki próbne.
+ *
+ * Źródła: „Zasady egzaminu z logiki” (zeszłoroczne, daty nieaktualne), lista
+ * „Przykładowe pytania teoretyczne na egzamin”, plik „przykładowe zestawy pytań
+ * praktycznych” oraz konspekt prowadzącej 2025/2026.
+ *
+ * Rozwiązania kartek są sprawdzone z konspektem. Pole fix opisuje, gdzie
+ * odpowiedź krążąca w pliku z zestawami była błędna.
+ *
+ * theory[]: { q, mod (id modułu, gdy temat jest już w aplikacji), ks (rozdział konspektu), oral (szkielet odpowiedzi ustnej) }
+ * sheets[]: { name, tasks: [{ q, topic, ks, mod?, a (html), steps?, fix?, unsure? }] }
+ */
+Wykuj.registerCourse({
+  id: "lg",
+  guide: {
+    title: "Jak zdać logikę",
+    rulesNote: "Zasady z ubiegłorocznego egzaminu (prowadząca podała wtedy daty w 2025 r.). Sprawdź aktualną wersję na Teams.",
+    steps: [
+      ["Zaliczone ćwiczenia", "Pozytywna ocena z ćwiczeń to warunek absolutny podejścia do egzaminu."],
+      ["Test praktyczny", "Losujesz kartkę z 8 zadaniami z wykładu i ćwiczeń. Max 8 pkt, bez limitu czasu, sprawdzane od razu. <b>Do ustnego potrzebujesz co najmniej 4 pkt.</b>"],
+      ["Część ustna", "Pytania o wyjaśnienie odpowiedzi z testu oraz pytania teoretyczne."]
+    ],
+    shortcuts: [
+      "<b>Bdb z ćwiczeń:</b> możesz pominąć test i od razu iść na ustny. Dostajesz wtedy 3 pytania teoretyczne.",
+      "<b>Test bezbłędny (8/8):</b> dostajesz 1 pytanie teoretyczne, a dobra odpowiedź daje ocenę bardzo dobrą.",
+      "<b>Termin zerowy:</b> możliwy, jeśli zbierze się co najmniej 5 osób (lista wysyłana mailem przez jedną osobę)."
+    ],
+
+    theory: [
+      { q: "Przedmiot formalny i materialny semiotyki logicznej", mod: "lg-w1", ks: "II",
+        oral: "Najpierw ogólnie: przedmiot <b>materialny</b> to wyznaczony przedmiot badań wzięty w całym uposażeniu, przedmiot <b>formalny</b> to ten przedmiot rozpatrywany z pewnego punktu widzenia. Dla semiotyki: materialny to <b>język</b>, formalny to <b>język jako system znaków, będący narzędziem poznania i komunikowania się</b>. Na koniec dodaj, że wynika to z definicji semiotyki (ogólna, formalna teoria języka jako systemu znakowego)." },
+      { q: "Omów działy semiotyki", mod: "lg-w1", ks: "II.6",
+        oral: "Trzy działy według relacji: <b>syntaktyka</b> (znak–znak, język „od wewnątrz”; wynikanie, kategorie syntaktyczne, dowodzenie), <b>semantyka</b> (znak–świat pozajęzykowy; prawda wg Tarskiego 1933, oznaczanie, denotowanie, desygnowanie, supozycja, model), <b>pragmatyka</b> (znak–użytkownik: twórca, nadawca, odbiorca; znaczenie, rozumienie, wyrażanie, komunikowanie, asercja). Przykład na jednym zdaniu dobrze wypada: czy poprawnie zbudowane, czy prawdziwe, po co ktoś je powiedział." },
+      { q: "Definicje: semiotyki, znaku, języka", mod: "lg-w1", ks: "II.4, III.1–2",
+        oral: "<b>Semiotyka</b>: ogólna, formalna (logiczna) teoria języka rozumianego jako system znakowy, zajmująca się językiem w aspekcie jego racjonalności i sprawności w aktach poznania i komunikowania. <b>Znak</b>: coś podpadającego pod zmysły (z substratem materialnym), przy pomocy czego ktoś dochodzi do poznania czegoś innego niż ów znak; relacja trójczłonowa: coś jest znakiem czegoś dla kogoś. <b>Język</b>: zbiór znaków formalnych scharakteryzowanych możliwie jednoznacznie regułami używania, służący grupie ludzi do poznania i komunikowania się; J = {słownik, reguły}." },
+      { q: "Definicje: zdania, nazwy, funktora, funktora prawdziwościowego, wynikania logicznego, prawa logiki, definicji klasycznej", ks: "IV, VII, IX" },
+      { q: "Reguły używania znaków językowych (z przykładami)", mod: "lg-w1", ks: "III.5",
+        oral: "<b>Syntaktyczne</b>: składania (jak budować wyrażenia złożone) i przekształcania (jak przekształcić wyrażenie poprawne, by wynik też był poprawny); przykład: „kot śpi” poprawne, „śpi kot się na” nie. <b>Semantyczne</b>: jak znaki odnoszą się do rzeczywistości pozajęzykowej; przykład: „kot” orzekamy o kotach, nie o psach. <b>Pragmatyczne</b>: jak używać wyrażeń w sytuacjach; przykład z konspektu: grzeczne zwracanie się do nieznajomych dorosłych. Bonus: <b>afektony</b> łamią reguły semantyczne, ale są pragmatycznie dopuszczalne, bo wyrażają emocje." },
+      { q: "Funkcje języka (zwłaszcza funkcja performatywna)", mod: "lg-w1", ks: "III.6",
+        oral: "Podział na <b>poznawczą</b> (deskryptywną: opis stanu rzeczy i stwierdzenie, że zachodzi; najważniejsza dla semiotyki logicznej) i <b>pozapoznawcze</b>: informatywna, ekspresywna, ewokatywna, perswazyjna, dyrektywna, performatywna, interrogatywna, estymatywna, terapeutyczna, ludyczna, fatyczna, integrująca/dzieląca. <b>Performatywna</b>: spowodowanie stanu rzeczy, o którym mówi wyrażenie, przez samo jego wypowiedzenie (np. „ogłaszam was mężem i żoną”, „otwieram posiedzenie”, „obiecuję”). Dodaj, że wyrażenie pełni zwykle kilka funkcji naraz, a gramatyka nie zawsze pokazuje funkcję („Jak mogłeś mi to zrobić?!”)." },
+      { q: "Typy wyrażeń o szczególnym rodzaju znaczenia (synonimy, homonimy, okazjonalne, analogiczne, idiomy – z przykładami)", ks: "IV.1c" },
+      { q: "Zdania analityczne i syntetyczne (przykłady)", ks: "IV.2b" },
+      { q: "Zdania asertoryczne i modalne (przykłady)", ks: "IV.2b" },
+      { q: "Definicja zdania w sensie logicznym, nazwy i funktora prawdziwościowego (z przykładami)", ks: "IV.2–4" },
+      { q: "Funkcje semantyczne nazw", ks: "IV.3b" },
+      { q: "Nazwy puste i ich funkcje semantyczne (przykłady)", ks: "IV.3c" },
+      { q: "Nazwy jednostkowe (w tym indywidualne) i ich funkcje semantyczne", ks: "IV.3c" },
+      { q: "Relacje między zakresami nazw", ks: "IV.3d" },
+      { q: "Presupozycje i ich źródła (wyzwalacze)", ks: "V.b" },
+      { q: "Reguły racjonalnej współpracy w konwersacji (maksymy Grice'a)", ks: "V.b" },
+      { q: "Definicje równościowe (różne rodzaje)", ks: "VII" },
+      { q: "Definicje nierównościowe (rodzaje)", ks: "VII" },
+      { q: "Definicje perswazyjne (przykłady)", ks: "VII" },
+      { q: "Rodzaje definicji ze względu na rolę w języku (sprawozdawcze, regulujące, projektujące)", ks: "VII" },
+      { q: "Rodzaje pytań ze względu na partykułę (przykłady)", ks: "VIII" },
+      { q: "Warunki racjonalnego stawiania pytań", ks: "VIII" },
+      { q: "Pytania zamknięte i otwarte", ks: "VIII" },
+      { q: "Rozumowania proste (wnioskowania)", ks: "IX" },
+      { q: "Rodzaje wnioskowań niezawodnych", ks: "IX" },
+      { q: "Rodzaje wnioskowań uprawdopodobniających", ks: "IX" },
+      { q: "Błędy wnioskowań (przykłady i omówienie)", ks: "IX.4" },
+      { q: "Logiczno-etyczne zasady racjonalnej dyskusji", ks: "X.3" },
+      { q: "Typy dyskusji", ks: "X.2" },
+      { q: "Chwyty erystyczne", ks: "X.6" }
+    ],
+
+    sheets: [
+      { name: "Kartka A", tasks: [
+        { q: "Jakie 3 funkcje spełnia wyrażenie: „Zupełnie się tego po tobie nie spodziewałam!”?", topic: "Funkcje języka", ks: "III.6", mod: "lg-w1",
+          a: "Ekspresywną (wyraża emocje nadawcy), ewokatywną (ma wywołać przeżycie u odbiorcy) i informatywną (informuje, że nadawca się tego nie spodziewał).",
+          steps: "Zadaj trzy pytania: co czuje mówiący? co ma poczuć słuchacz? jaką informację dostaje słuchacz?" },
+        { q: "Jakie relacje zachodzą między nazwami: (a) artysta – student; (b) noga – kolano?", topic: "Relacje między zakresami nazw", ks: "IV.3d",
+          a: "(a) <b>krzyżowanie</b>: są artyści-studenci, artyści, którzy nie studiują, i studenci, którzy nie są artystami. (b) <b>wykluczanie</b> (bez dopełniania): żadna noga nie jest kolanem i żadne kolano nie jest nogą.",
+          steps: "Pytaj o desygnaty, nie o części: czy jakieś kolano JEST nogą? Nie. To, że kolano jest częścią nogi, nie robi z niego nogi." },
+        { q: "Podaj przykład zdania (a) analitycznego; (b) asertorycznego.", topic: "Rodzaje zdań", ks: "IV.2b",
+          a: "(a) „Każdy kawaler jest nieżonatym mężczyzną”: prawdziwość wynika z samych znaczeń słów. (b) „Warszawa jest stolicą Polski”: zwykłe stwierdzenie „S jest P”, bez „musi” ani „może”.",
+          fix: "W pliku z zestawami jako analityczne podano „woda wrze w temperaturze 100 stopni”. To zdanie <b>syntetyczne</b>: jego prawdziwość znamy z doświadczenia, a nie ze znaczenia słów." },
+        { q: "Wyprowadź 4 konsekwencje zdania: „Żaden egzamin nie jest miły”.", topic: "Kwadrat logiczny i wnioskowanie bezpośrednie", ks: "IV.2c",
+          a: "To zdanie typu SeP (S = egzamin, P = miły). (1) Nieprawda, że niektóre egzaminy są miłe (~SiP, sprzeczność). (2) Niektóre egzaminy nie są miłe (SoP, podporządkowanie). (3) Nieprawda, że każdy egzamin jest miły (~SaP, przeciwieństwo). (4) Żadna miła rzecz nie jest egzaminem (PeS, konwersja prosta). Inne poprawne: Każdy egzamin jest niemiły (SaP', obwersja).",
+          steps: "Rozpoznaj typ zdania (a, e, i, o), potem idź po kolei: sprzeczne, podporządkowane, przeciwne, konwersja, obwersja." },
+        { q: "Sprawdź metodą 0-1, czy wniosek wynika logicznie z przesłanek: Jeżeli jesteś pracowity, to osiągniesz sukces. A nie jesteś pracowity. A więc nie osiągniesz sukcesu.", topic: "Rachunek zdań, metoda 0-1", ks: "IV.4c",
+          a: "p – jesteś pracowity, q – osiągniesz sukces. Schemat: [(p → q) ∧ ~p] → ~q. Dla p = 0, q = 1: (0 → 1) = 1, ~p = 1, koniunkcja = 1, ~q = 0, całość 1 → 0 = <b>0</b>. Schemat nie jest prawem logiki, więc <b>wniosek nie wynika</b>. To błąd odrzucenia poprzednika.",
+          steps: "Zapisz zdania literami, złóż schemat „(przesłanki) → wniosek” i szukaj wiersza, w którym wychodzi 0. Wystarczy jeden." },
+        { q: "Jaki błąd popełniono w definicji: „Wynikaniem logicznym nazywamy zdanie o budowie p → q”?", topic: "Błędy definiowania", ks: "VII.3",
+          a: "<b>Błąd przesunięcia kategorialnego</b>: wynikanie logiczne to związek (relacja) między zdaniami, a nie zdanie. Definicja myli też wynikanie z implikacją." },
+        { q: "Wskaż błąd we wnioskowaniu: „Mysz gryzie książkę, mysz to sylaba, a więc sylaba gryzie książkę”.", topic: "Błędy w przekazywaniu myśli", ks: "V.a", mod: "lg-w1",
+          a: "<b>Pomieszanie poziomów języka</b>: pierwsze zdanie mówi o zwierzęciu (język przedmiotowy), drugie o słowie „mysz” (metajęzyk)." },
+        { q: "Jaki błąd popełniono, pytając: „Dlaczego nikt z Polaków nie otrzymał dotąd Nagrody Nobla z kosmetologii?”", topic: "Teoria pytań", ks: "VIII.4",
+          a: "Pytanie jest <b>nietrafne</b>, czyli opiera się na <b>fałszywym założeniu</b>: zakłada, że istnieje Nagroda Nobla z kosmetologii. Na takie pytanie nie ma właściwej odpowiedzi; trzeba znieść fałszywe założenie." }
+      ] },
+      { name: "Kartka B", tasks: [
+        { q: "Jakie relacje zachodzą między nazwami: (a) miasto – dzielnica; (b) pies – ssak?", topic: "Relacje między zakresami nazw", ks: "IV.3d",
+          a: "(a) <b>wykluczanie</b>: żadne miasto nie jest dzielnicą i żadna dzielnica nie jest miastem. (b) <b>nadrzędność – podrzędność</b>: każdy pies jest ssakiem, ale nie każdy ssak jest psem (ssak nadrzędny, pies podrzędny).",
+          fix: "W pliku z zestawami przy (a) podano nadrzędność–podrzędność. To błąd: dzielnica jest CZĘŚCIĄ miasta, a nie RODZAJEM miasta. Relacje zakresów pytają, czy desygnat jednej nazwy jest desygnatem drugiej." },
+        { q: "Podaj przykład zdań, w których nazwa „akademik” wystąpi w supozycji (a) materialnej; (b) zwykłej (prostej).", topic: "Supozycja", ks: "IV.3b",
+          a: "(a) Materialna (nazwa mówi o sobie samej): „„Akademik” jest rzeczownikiem”. (b) Zwykła (konkretny, jednostkowy przedmiot): „Ten akademik przy Radziszewskiego jest przepełniony”. Dla porównania supozycja formalna (powszechnik): „Akademik to dom studencki”." },
+        { q: "Jaki błąd popełniono w definicji: „Muzyk jest to osoba grająca w orkiestrze symfonicznej”?", topic: "Błędy definiowania", ks: "VII.3",
+          a: "<b>Nieadekwatność: definicja za wąska</b>. Zakres definiensa jest węższy niż definiendum, bo muzykami są też np. pianiści solowi, jazzmani czy gitarzyści rockowi.",
+          fix: "W pliku z zestawami podano „aliowokację”. Aliowokacja to błąd wypowiedzi (mówi się co innego, niż się chciało), a nie błąd definicji." },
+        { q: "Na czym polega podchwytliwy charakter pytania dziennikarza do „szarego człowieka”: „Czy jest możliwe, żeby redaktor największego tygodnika w Polsce, który jest zawsze na bieżąco ze wszystkimi wydarzeniami, nie wiedział o tej sprawie?”", topic: "Teoria pytań", ks: "VIII.4d",
+          a: "Pytanie <b>podchwytliwe i sugestywne</b>. Przemyca założenie, że redaktor jest „zawsze na bieżąco ze wszystkim”, i sugeruje odpowiedź „nie, to niemożliwe”. Odpowiadając, zapytany przyjmuje to założenie, choć wcale go nie uznawał." },
+        { q: "Jaki błąd popełniono w argumencie: „To świetny zespół, bo składa się ze świetnego gitarzysty, perkusisty i saksofonisty, a piosenkarz jest fenomenalny”?", topic: "Błędy wnioskowań", ks: "IX.4g",
+          a: "<b>Błąd złożenia</b>: z cech części (świetni muzycy) wnioskuje się o całości (świetny zespół). Konspekt ma niemal identyczny przykład z najlepszą drużyną świata.",
+          fix: "W pliku z zestawami podano „błędne koło”. Wniosek nie jest tu ukryty w przesłankach, więc to nie błędne koło." },
+        { q: "Jaki chwyt erystyczny zastosowano: „Nie można zaakceptować twojej tezy! Jesteś ograniczonym umysłowo hipokrytą i zadajesz się z nieodpowiednimi ludźmi!”?", topic: "Chwyty erystyczne", ks: "X.6",
+          a: "<b>Argumentum ad personam</b>: przypisanie przeciwnikowi wad, ośmieszanie go i osób z nim związanych, lżenie. Zawsze nielojalny.",
+          fix: "W pliku z zestawami podano „ad hominem”. U tej prowadzącej ad hominem to odwołanie się do tez uznanych przez oponenta, a atak na osobę to <b>ad personam</b>. Na egzaminie używaj jej terminologii." },
+        { q: "Wyprowadź 4 konsekwencje logiczne zdania: „Wszyscy biznesmeni są zamożni”.", topic: "Kwadrat logiczny i wnioskowanie bezpośrednie", ks: "IV.2c",
+          a: "SaP (S = biznesmen, P = zamożny). (1) Nieprawda, że niektórzy biznesmeni nie są zamożni (~SoP). (2) Nieprawda, że żaden biznesmen nie jest zamożny (~SeP). (3) Niektórzy biznesmeni są zamożni (SiP). (4) Niektórzy zamożni są biznesmenami (PiS, konwersja ograniczona). Inne: Żaden biznesmen nie jest niezamożny (SeP', obwersja); Każdy niezamożny jest nie-biznesmenem (P'aS', kontrapozycja)." },
+        { q: "Sprawdź metodą 0-1, czy wniosek wynika logicznie z przesłanek: Jan zna angielski i Jan nie zna angielskiego, a więc Jan jest bogaty.", topic: "Rachunek zdań, metoda 0-1", ks: "IV.4c",
+          a: "p – Jan zna angielski, q – Jan jest bogaty. Schemat: (p ∧ ~p) → q. Koniunkcja p ∧ ~p jest zawsze 0, a implikacja z fałszywym poprzednikiem jest zawsze 1. Schemat jest prawem logiki, więc <b>wniosek wynika logicznie</b>. Ze sprzecznych przesłanek wynika cokolwiek; wnioskowanie jest poprawne formalnie, ale bezużyteczne." }
+      ] },
+      { name: "Kartka C", tasks: [
+        { q: "Jakie funkcje pełni wyrażenie: „Mam cię serdecznie dość!”?", topic: "Funkcje języka", ks: "III.6", mod: "lg-w1",
+          a: "Ekspresywną (emocje nadawcy), ewokatywną (ma poruszyć odbiorcę) i informatywną (informuje o stosunku nadawcy do odbiorcy)." },
+        { q: "Jaki błąd popełniono w definicji: „Denotacja jest to relacja między nazwą a zbiorem desygnatów”?", topic: "Błędy definiowania", ks: "VII.3",
+          a: "<b>Błąd przesunięcia kategorialnego</b>: denotacja to <b>zbiór</b> wszystkich desygnatów nazwy (jej zakres), a nie relacja. Relacją jest denotowanie." },
+        { q: "Sprawdź metodą 0-1, czy wniosek wynika logicznie z przesłanek: Jeżeli pojadę własnym autem, to będę na miejscu już przed południem. Nie pojadę własnym autem, a więc nie będę na miejscu przed południem.", topic: "Rachunek zdań, metoda 0-1", ks: "IV.4c",
+          a: "p – pojadę własnym autem, q – będę przed południem. Schemat: [(p → q) ∧ ~p] → ~q. Dla p = 0, q = 1 wychodzi 0 (można zdążyć np. pociągiem). <b>Wniosek nie wynika</b>: błąd odrzucenia poprzednika. Ta sama budowa co zadanie z pracowitością na kartce A." },
+        { q: "Jaki błąd popełniono w argumencie: „Nie można się po niej spodziewać niczego dobrego! Cała jej rodzina narobiła mnóstwo kłopotów naszej gminie”?", topic: "Chwyty erystyczne i błędy wnioskowań", ks: "X.6, IX.4",
+          a: "<b>Argumentum ad personam</b>: dyskredytacja osoby przez to, co zrobiły osoby z nią związane, zamiast oceny jej samej. Można dodać, że to nieuprawnione przeniesienie cech grupy (rodziny) na jednostkę.",
+          fix: "W pliku z zestawami podano „przenoszenie winy / nieuprawnione uogólnienie”. To nie jest całkiem źle, ale w terminologii konspektu najtrafniejsze jest ad personam („ośmieszanie go i osób z nim związanych”)." },
+        { q: "Na czym polega błąd wypowiedzi: „Po mordzie cara do władzy doszedł lud”?", topic: "Błędy w przekazywaniu myśli", ks: "V.a", unsure: true,
+          a: "Na <b>dwuznaczności</b>: „po mordzie” to „po morderstwie” albo „po twarzy” (morda). Z listy błędów konspektu najlepiej pasuje <b>homonimia</b>: wieloznaczność mimo kontekstu.",
+          fix: "W pliku z zestawami podano „aliowokację” (wypowiedź mówi co innego, niż autor chciał). To też da się obronić, bo zdanie niechcący brzmi zabawnie. Jeśli prowadząca na ćwiczeniach podała konkretną nazwę, trzymaj się jej." },
+        { q: "Podaj przykład pytania: (a) dopełnienia prostego; (b) otwartego.", topic: "Rodzaje pytań", ks: "VIII.4",
+          a: "(a) Dopełnienia prostego (kto? co? kiedy? gdzie?): „Kto jest autorem «Grażyny»?”. (b) Otwarte (wymaga obszernej odpowiedzi, nie wyznacza schematu): „Jak było na wakacjach?”.",
+          fix: "W pliku z zestawami jako pytanie dopełnienia prostego podano „Czy padał deszcz?”. To pytanie <b>rozstrzygnięcia</b> (czy p?), a nie dopełnienia." },
+        { q: "Wskaż implikaturę konwersacyjną: „Ciągle nie mamy czasu się spotkać, ale dobrze, że wynaleziono telefon!”", topic: "Implikatura konwersacyjna, maksymy Grice'a", ks: "V.b",
+          a: "Zakładając, że mówiący trzyma się maksymy istotności, odczytujemy: <b>skoro nie możemy się spotkać, porozmawiajmy chociaż przez telefon</b> (a może i lekki wyrzut, że rozmówca nie dzwoni)." },
+        { q: "Wyprowadź 4 konsekwencje logiczne zdania: „Wszyscy studenci są przerażeni sesją”.", topic: "Kwadrat logiczny i wnioskowanie bezpośrednie", ks: "IV.2c",
+          a: "SaP. (1) Niektórzy studenci są przerażeni sesją (SiP). (2) Nieprawda, że niektórzy studenci nie są przerażeni sesją (~SoP). (3) Nieprawda, że żaden student nie jest przerażony sesją (~SeP). (4) Niektórzy przerażeni sesją są studentami (PiS). Inne: Żaden student nie jest nieprzerażony sesją (SeP')." }
+      ] }
+    ]
+  }
+});
+
+</script>
 
     <!-- ekrany -->
     <script>
@@ -6691,7 +7845,8 @@ Wykuj.registerModule({
           return (
             '<section class="course theme-' + c.course.theme + '" data-course="' + c.course.id + '"' + (filter !== "all" && filter !== c.course.id ? " hidden" : "") + ">" +
             '<div class="course-h"><span class="course-ic">' + W.icon(c.course.icon) + "</span><div><h3>" + esc(c.course.name) + "</h3><small>" +
-            n + (n === 1 ? " wykład" : n < 5 ? " wykłady" : " wykładów") + " · " + pct(coursePct(c)) + " opanowane</small></div></div>" +
+            n + (n === 1 ? " wykład" : n < 5 ? " wykłady" : " wykładów") + " · " + pct(coursePct(c)) + " opanowane</small></div>" +
+            (W.guide(c.course.id) ? '<button class="guide-btn" data-guide="' + c.course.id + '">' + W.icon("target") + "Jak zdać</button>" : "") + "</div>" +
             '<div class="mods">' +
             c.modules
               .map(function (m) {
@@ -6723,6 +7878,8 @@ Wykuj.registerModule({
         W.sound("tap");
         return;
       }
+      var gb = e.target.closest("[data-guide]");
+      if (gb) return W.go("guide", { course: gb.dataset.guide });
       var l = e.target.closest("[data-lesson]");
       if (l) {
         var pr = l.dataset.lesson.split(":");
@@ -6769,6 +7926,10 @@ Wykuj.registerModule({
       '<div class="mprog"><div class="mprog-bar"><i style="width:' + pct(pr.pct) + '"></i></div><b>' + pct(pr.pct) + "</b></div>" +
       '<div class="mfacts"><span>' + W.icon("star") + pr.stars + "/" + pr.maxStars + " gwiazdek</span><span>" + W.icon("cards") + pr.learned + "/" + pr.total + " fiszek opanowanych</span>" +
       (m.passing ? "<span>" + W.icon("target") + esc(m.passing) + "</span>" : "") + "</div></section>" +
+      (W.guide(m.course.id)
+        ? '<button class="guide-card" data-guide="' + m.course.id + '"><span class="gc-ic">' + W.icon("target") + "</span><span><b>" + esc(W.guide(m.course.id).title) +
+          "</b><small>Zasady egzaminu, kartki próbne z rozwiązaniami, pytania teoretyczne</small></span></button>"
+        : "") +
       '<div class="modes">' +
       modes
         .map(function (x) {
@@ -6781,6 +7942,8 @@ Wykuj.registerModule({
         .join("") +
       "</div></div>";
 
+    var gc = root.querySelector(".guide-card");
+    if (gc) gc.onclick = function () { W.go("guide", { course: m.course.id }); };
     root.querySelector(".modes").addEventListener("click", function (e) {
       var b = e.target.closest("[data-go]");
       if (b) W.go(b.dataset.go, { mod: m.id });
@@ -7130,6 +8293,185 @@ Wykuj.registerModule({
 
 </script>
     <script>
+/* Przewodnik po zaliczeniu przedmiotu i trener kartek egzaminacyjnych. */
+(function () {
+  "use strict";
+  var W = window.Wykuj;
+  var esc = W.esc;
+  var Store = W.Store;
+  var top = W.top;
+
+  function courseInfo(id) {
+    return W.courses().filter(function (c) { return c.course.id === id; })[0];
+  }
+
+  /* ================= Jak zdać ================= */
+
+  W.screens.guide = function (root, p) {
+    var g = W.guide(p.course);
+    var info = courseInfo(p.course);
+    var cs = Store.course(p.course);
+    var known = g.theory.filter(function (t, i) { return cs.oral[i]; }).length;
+    var inApp = g.theory.filter(function (t) { return t.mod; }).length;
+
+    root.innerHTML =
+      top(g.title, info.course.name) +
+      '<div class="page guide">' +
+      '<section class="g-sec"><h2 class="sec-h">Jak wygląda egzamin</h2>' +
+      '<ol class="steps">' +
+      g.steps.map(function (s) { return "<li><b>" + esc(s[0]) + "</b><span>" + s[1] + "</span></li>"; }).join("") +
+      "</ol>" +
+      '<ul class="shortcuts">' + g.shortcuts.map(function (s) { return "<li>" + s + "</li>"; }).join("") + "</ul>" +
+      '<p class="g-note">' + esc(g.rulesNote) + "</p></section>" +
+
+      '<section class="g-sec"><h2 class="sec-h">Kartki próbne <small>z rozwiązaniami</small></h2>' +
+      '<p class="g-lead">Takie zadania losujesz na teście praktycznym. Rozwiąż na brudno, odsłoń rozwiązanie i oceń się uczciwie. Do części ustnej trzeba co najmniej 4 z 8.</p>' +
+      '<div class="sheet-grid">' +
+      g.sheets
+        .map(function (s, i) {
+          var best = cs.sheets[i];
+          var fixes = s.tasks.filter(function (t) { return t.fix; }).length;
+          return (
+            '<button class="sheet-card" data-sheet="' + i + '"><span class="sc-name display">' + esc(s.name) + "</span>" +
+            "<span>" + s.tasks.length + " zadań</span>" + (fixes ? '<span class="sc-fix">' + fixes + (fixes === 1 ? " poprawka" : fixes < 5 ? " poprawki" : " poprawek") + "</span>" : "") +
+            '<span class="sc-best ' + (best == null ? "" : best >= 4 ? "pass" : "fail") + '">' + (best == null ? "Nie rozwiązana" : "Najlepiej: " + best + "/" + s.tasks.length) + "</span></button>"
+          );
+        })
+        .join("") +
+      "</div></section>" +
+
+      '<section class="g-sec"><h2 class="sec-h">Pytania teoretyczne <small>' + known + "/" + g.theory.length + " umiem</small></h2>" +
+      '<p class="g-lead">Lista od prowadzącej. ' + inApp + " tematy są już w aplikacji, z gotowym szkieletem odpowiedzi ustnej. Resztę obejmą kolejne wykłady (w nawiasie rozdział konspektu).</p>" +
+      '<ol class="theory">' +
+      g.theory
+        .map(function (t, i) {
+          var tick = '<label class="switch th-ok"><input type="checkbox" id="th-' + i + '" data-th="' + i + '"' + (cs.oral[i] ? " checked" : "") + "/><span></span>umiem</label>";
+          if (t.oral) {
+            return (
+              '<li class="th in"><details><summary><span class="th-q">' + esc(t.q) + '</span><span class="th-tag">w aplikacji</span></summary>' +
+              '<div class="th-body"><p class="th-k">Szkielet odpowiedzi ustnej</p><p>' + t.oral + "</p>" +
+              '<div class="row"><button class="btn ghost" data-mod="' + t.mod + '">Ćwicz w module</button>' + tick + "</div></div></details></li>"
+            );
+          }
+          return (
+            '<li class="th"><div class="th-line"><span class="th-q">' + esc(t.q) + '</span><span class="th-tag later">konspekt ' + esc(t.ks) + "</span></div>" + tick + "</li>"
+          );
+        })
+        .join("") +
+      "</ol></section></div>";
+
+    root.addEventListener("click", function (e) {
+      var s = e.target.closest("[data-sheet]");
+      if (s) return W.go("sheet", { course: p.course, sheet: +s.dataset.sheet });
+      var m = e.target.closest("[data-mod]");
+      if (m) return W.go("module", { mod: m.dataset.mod });
+    });
+    root.addEventListener("change", function (e) {
+      var k = e.target.dataset.th;
+      if (k == null) return;
+      cs.oral[k] = e.target.checked;
+      Store.save();
+      root.querySelector(".theory").closest(".g-sec").querySelector(".sec-h small").textContent =
+        g.theory.filter(function (t, i) { return cs.oral[i]; }).length + "/" + g.theory.length + " umiem";
+    });
+  };
+
+  /* ================= Kartka próbna ================= */
+
+  W.screens.sheet = function (root, p) {
+    var g = W.guide(p.course);
+    var sheet = g.sheets[p.sheet];
+    var tasks = sheet.tasks;
+    var i = 0, score = 0, revealed = false;
+
+    function render() {
+      var t = tasks[i];
+      revealed = false;
+      root.innerHTML =
+        top(sheet.name, "Zadanie " + (i + 1) + " z " + tasks.length, '<span class="clock">' + score + " pkt</span>") +
+        '<div class="page sheet">' +
+        '<div class="lbar slim"><i style="width:' + Math.round((i / tasks.length) * 100) + '%"></i></div>' +
+        '<article class="task"><span class="task-n display">' + (i + 1) + "</span>" +
+        '<h2 class="task-q">' + esc(t.q) + "</h2>" +
+        '<div class="task-tags"><span class="th-tag">' + esc(t.topic) + '</span><span class="th-tag later">konspekt ' + esc(t.ks) + "</span>" +
+        (t.mod ? '<span class="th-tag">jest w aplikacji</span>' : "") + "</div></article>" +
+        '<label class="draft-l" for="draft-' + p.sheet + "-" + i + '">Twoja odpowiedź na brudno (nikt jej nie sprawdza, pomaga się zmierzyć)</label>' +
+        '<textarea id="draft-' + p.sheet + "-" + i + '" class="draft" rows="3" placeholder="Napisz albo pomyśl odpowiedź…"></textarea>' +
+        '<div class="reveal" hidden>' +
+        '<div class="answer"><p class="ans-k">Rozwiązanie' + (t.unsure ? ' <span class="src src-d">niepewne</span>' : "") + "</p><p>" + t.a + "</p></div>" +
+        (t.steps ? '<div class="how"><p class="ans-k">Jak to robić</p><p>' + esc(t.steps) + "</p></div>" : "") +
+        (t.fix ? '<div class="fixnote"><p class="ans-k">Uwaga na krążącą odpowiedź</p><p>' + t.fix + "</p></div>" : "") +
+        "</div>" +
+        '<div class="sheet-act"><button class="btn primary big" data-a="show">Pokaż rozwiązanie</button></div>' +
+        "</div>";
+      root.querySelector('[data-a="show"]').onclick = reveal;
+    }
+
+    function reveal() {
+      if (revealed) return;
+      revealed = true;
+      W.sound("flip");
+      root.querySelector(".reveal").hidden = false;
+      root.querySelector(".sheet-act").innerHTML =
+        '<p class="self-k">Jak ci poszło?</p><div class="grade two">' +
+        '<button class="btn g-again" data-g="0">Miałem źle</button><button class="btn g-good" data-g="1">Miałem dobrze</button></div>';
+      root.querySelector(".grade").addEventListener("click", function (e) {
+        var b = e.target.closest("[data-g]");
+        if (!b) return;
+        if (b.dataset.g === "1") {
+          score++;
+          W.sound("correct", score);
+        } else {
+          W.sound("wrong");
+        }
+        i++;
+        if (i < tasks.length) render();
+        else end();
+      });
+      root.querySelector(".reveal").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function end() {
+      var cs = Store.course(p.course);
+      var prev = cs.sheets[p.sheet];
+      if (prev == null || score > prev) cs.sheets[p.sheet] = score;
+      var xp = score * 2 + 3;
+      Store.addXP(xp);
+      var pass = score >= 4;
+      W.resultScreen(root, {
+        fail: !pass,
+        title: score + "/" + tasks.length,
+        sub: score === tasks.length
+          ? "Bezbłędnie. Na egzaminie dostałbyś tylko 1 pytanie teoretyczne."
+          : pass ? "Wystarczy, żeby przejść do części ustnej." : "Za mało do części ustnej (potrzeba co najmniej 4).",
+        confetti: pass,
+        stats: [
+          { label: "Wynik", value: pass ? "Dopuszczenie" : "Brak dopuszczenia", tone: pass ? "good" : "bad" },
+          { label: "Próg", value: "4 / 8" },
+          { label: "XP", value: "+" + xp, tone: "gold" }
+        ],
+        actions: [
+          { label: "Wróć do przewodnika", fn: function () { W.back(); } },
+          { label: "Jeszcze raz tę kartkę", fn: function () { W.go("sheet", p, { replace: true }); } }
+        ]
+      });
+    }
+
+    W.setKeys(function (e) {
+      if (e.target && e.target.tagName === "TEXTAREA") return;
+      if (e.key === "Enter" || e.key === " ") {
+        if (!revealed) {
+          e.preventDefault();
+          reveal();
+        }
+      }
+    });
+    render();
+  };
+})();
+
+</script>
+    <script>
 /* Router i start aplikacji. Każdy ekran dostaje świeży kontener. */
 (function () {
   "use strict";
@@ -7159,6 +8501,9 @@ Wykuj.registerModule({
     var root = document.createElement("div");
     root.className = "screen s-" + entry.name;
     var mod = entry.params && W.byId[entry.params.mod];
+    if (!mod && entry.params && entry.params.course) {
+      mod = W.modules.filter(function (m) { return m.course.id === entry.params.course; })[0];
+    }
     if (mod) root.classList.add("theme-" + mod.course.theme);
     app.innerHTML = "";
     app.appendChild(root);

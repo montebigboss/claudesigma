@@ -100,6 +100,15 @@
     W.byId[m.id] = m;
   };
 
+  W.courseMeta = {};
+  W.registerCourse = function (c) {
+    W.courseMeta[c.id] = c;
+  };
+  W.guide = function (courseId) {
+    var c = W.courseMeta[courseId];
+    return c && c.guide ? c.guide : null;
+  };
+
   W.lastModule = function () {
     return W.byId[W.Store.state.lastMod] || W.modules[0];
   };
@@ -178,6 +187,7 @@
       streak: { n: 0, last: null, best: 0 },
       settings: { sound: true, extras: true, free: false },
       mods: {},
+      courses: {},
       ach: {},
       stats: { answers: 0, correct: 0, cards: 0 }
     };
@@ -215,6 +225,14 @@
   } catch (e) {
     /* storage unavailable: run in memory */
   }
+
+  Store.course = function (id) {
+    var all = (Store.state.courses = Store.state.courses || {});
+    var c = all[id] || (all[id] = { sheets: {}, oral: {} });
+    c.sheets = c.sheets || {};
+    c.oral = c.oral || {};
+    return c;
+  };
 
   Store.mod = function (id) {
     var m = Store.state.mods[id];

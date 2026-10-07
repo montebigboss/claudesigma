@@ -93,7 +93,8 @@
           return (
             '<section class="course theme-' + c.course.theme + '" data-course="' + c.course.id + '"' + (filter !== "all" && filter !== c.course.id ? " hidden" : "") + ">" +
             '<div class="course-h"><span class="course-ic">' + W.icon(c.course.icon) + "</span><div><h3>" + esc(c.course.name) + "</h3><small>" +
-            n + (n === 1 ? " wykład" : n < 5 ? " wykłady" : " wykładów") + " · " + pct(coursePct(c)) + " opanowane</small></div></div>" +
+            n + (n === 1 ? " wykład" : n < 5 ? " wykłady" : " wykładów") + " · " + pct(coursePct(c)) + " opanowane</small></div>" +
+            (W.guide(c.course.id) ? '<button class="guide-btn" data-guide="' + c.course.id + '">' + W.icon("target") + "Jak zdać</button>" : "") + "</div>" +
             '<div class="mods">' +
             c.modules
               .map(function (m) {
@@ -125,6 +126,8 @@
         W.sound("tap");
         return;
       }
+      var gb = e.target.closest("[data-guide]");
+      if (gb) return W.go("guide", { course: gb.dataset.guide });
       var l = e.target.closest("[data-lesson]");
       if (l) {
         var pr = l.dataset.lesson.split(":");
@@ -171,6 +174,10 @@
       '<div class="mprog"><div class="mprog-bar"><i style="width:' + pct(pr.pct) + '"></i></div><b>' + pct(pr.pct) + "</b></div>" +
       '<div class="mfacts"><span>' + W.icon("star") + pr.stars + "/" + pr.maxStars + " gwiazdek</span><span>" + W.icon("cards") + pr.learned + "/" + pr.total + " fiszek opanowanych</span>" +
       (m.passing ? "<span>" + W.icon("target") + esc(m.passing) + "</span>" : "") + "</div></section>" +
+      (W.guide(m.course.id)
+        ? '<button class="guide-card" data-guide="' + m.course.id + '"><span class="gc-ic">' + W.icon("target") + "</span><span><b>" + esc(W.guide(m.course.id).title) +
+          "</b><small>Zasady egzaminu, kartki próbne z rozwiązaniami, pytania teoretyczne</small></span></button>"
+        : "") +
       '<div class="modes">' +
       modes
         .map(function (x) {
@@ -183,6 +190,8 @@
         .join("") +
       "</div></div>";
 
+    var gc = root.querySelector(".guide-card");
+    if (gc) gc.onclick = function () { W.go("guide", { course: m.course.id }); };
     root.querySelector(".modes").addEventListener("click", function (e) {
       var b = e.target.closest("[data-go]");
       if (b) W.go(b.dataset.go, { mod: m.id });

@@ -27,11 +27,18 @@ Dopowiedzenia można wyłączyć w profilu, a egzamin próbny zawsze je pomija.
 | --- | --- |
 | Metody pracy twórczej z dziećmi i młodzieżą (MPT) | Wykład 1: Specyfika |
 | Antropologia filozoficzna (AF) | Wykład 1: Czym jest antropologia filozoficzna |
+| Logika (LOG) | Wykład 1: Semiotyka: język i znak + przewodnik „Jak zdać logikę” |
 
 Każdy przedmiot ma własny kolor i ikonę. Ekran startowy grupuje wykłady pod
 przedmiotami i ma filtr przedmiotów, a „Dalej” prowadzi do ostatnio otwartego wykładu.
 
-Moduł z Antropologii jest pisany „po ludzku”: każde pojęcie ma wyjaśnienie bez
+Przedmiot może mieć przewodnik po zaliczeniu (`Wykuj.registerCourse`, np.
+`modules/lg-kurs.js`): zasady egzaminu, listę pytań teoretycznych z szkieletami
+odpowiedzi ustnych i kartki próbne, które rozwiązuje się na brudno, odsłania
+rozwiązanie i ocenia samemu. Przy zadaniach, w których krążąca odpowiedź była
+błędna, jest osobna uwaga.
+
+Moduły z Antropologii i Logiki są pisane „po ludzku”: każde pojęcie ma wyjaśnienie bez
 żargonu i obok dokładne sformułowanie z materiałów, a notatki zaczynają się od
 „Minimum na zaliczenie” i mają słowniczek z filozoficznego na zwykły polski.
 
@@ -54,7 +61,7 @@ na koncie, więc działa na telefonie i komputerze.
 3. Uruchom `python3 tools/bundle.py`.
 
 Moduły z tym samym `course.id` grupują się pod jednym przedmiotem na ekranie startowym.
-Nowy przedmiot to nowe `course.id`, skrót, `theme` (kolor: `green` albo `indigo`;
+Nowy przedmiot to nowe `course.id`, skrót, `theme` (kolor: `green`, `indigo` albo `teal`;
 kolejne dodaje się w `app.css`) i `icon`.
 
 Opcjonalne pola modułu: `plain` przy pojęciach (wyjaśnienie po ludzku), `minimum`
@@ -73,6 +80,7 @@ js/exercises.js     typy ćwiczeń i składanie lekcji
 js/session.js       przebieg lekcji i ekran wyniku
 js/games.js         fiszki, quiz na czas, pary, sortownia, egzamin
 js/screens.js       start, moduł, ścieżka, notatki, profil
+js/guide.js         przewodnik „Jak zdać” i trener kartek egzaminacyjnych
 js/app.js           router
 modules/            jeden plik na wykład
 tools/bundle.py     składa wszystko w jeden plik HTML
