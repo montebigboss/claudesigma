@@ -381,9 +381,10 @@
     var story = m.story;
     var toc = [];
     if (m.minimum) toc.push(["min", "min"]);
+    if (m.deep) toc.push(["deep", "?"]);
     m.notes.forEach(function (n) { toc.push([n.id, n.n ? n.n : "·"]); });
     if (m.table) toc.push(["tab", "tab"]);
-    if (story) toc.push(["story", story.ordered ? story.items.length : "abc"]);
+    if (story) toc.push(["story", "★"]);
     toc.push(["gloss", "A–Z"]);
 
     root.innerHTML =
@@ -402,6 +403,15 @@
           " rzeczy. Reszta notatek je rozwija.</p><ol>" +
           m.minimum.map(function (x) { return "<li><b>" + esc(x[0]) + "</b><span>" + x[1] + "</span></li>"; }).join("") +
           "</ol></section>"
+        : "") +
+      (m.deep
+        ? '<section class="note deep" id="n-deep"><h2>Do przemyślenia</h2><p class="min-k">Wątki z wykładu, które łatwo zgłębić. Dobre na powtórkę i do rozmowy na ustnym. Rozwiń, żeby przeczytać.</p>' +
+          m.deep
+            .map(function (d) {
+              return '<details class="dq"><summary>' + esc(d.q) + "</summary><p>" + esc(d.a) + "</p>" + (d.link ? '<p class="dq-link">' + esc(d.link) + "</p>" : "") + "</details>";
+            })
+            .join("") +
+          "</section>"
         : "") +
       m.notes
         .map(function (n) {

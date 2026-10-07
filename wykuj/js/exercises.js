@@ -24,7 +24,8 @@
     type: "Wpisz z pamięci",
     match: "Połącz w pary",
     sort: "Przyporządkuj",
-    multi: "Zaznacz wszystkie poprawne"
+    multi: "Zaznacz wszystkie poprawne",
+    order: "Ułóż we właściwej kolejności"
   };
 
   W.srcBadge = function (s) {
@@ -307,6 +308,72 @@
     };
   }
 
+  function order(ex, mod, api) {
+    var pool = W.shuffle(ex.a.map(function (t, i) { return { t: t, i: i }; }));
+    var seq = [];
+    var root = el('<div class="order"><ol class="ord-seq"></ol><div class="chips ord-pool"></div></div>');
+    var seqEl = root.querySelector(".ord-seq"), poolEl = root.querySelector(".ord-pool");
+    function paint() {
+      seqEl.innerHTML = ex.a
+        .map(function (_, k) {
+          var it = seq[k];
+          return it
+            ? '<li><button class="chip sel" data-out="' + k + '">' + esc(it.t) + "</button></li>"
+            : '<li class="ord-empty"><span>' + (k + 1) + "</span></li>";
+        })
+        .join("");
+      poolEl.innerHTML = pool
+        .map(function (it, k) {
+          var used = seq.indexOf(it) >= 0;
+          return '<button class="chip" data-in="' + k + '"' + (used ? " hidden" : "") + "><kbd>" + (k + 1) + "</kbd>" + esc(it.t) + "</button>";
+        })
+        .join("");
+      api.change();
+    }
+    function put(k) {
+      if (root.classList.contains("locked")) return;
+      var it = pool[k];
+      if (seq.indexOf(it) >= 0) return;
+      seq.push(it);
+      W.sound("tap");
+      paint();
+    }
+    root.addEventListener("click", function (e) {
+      if (root.classList.contains("locked")) return;
+      var a = e.target.closest("[data-in]");
+      if (a) return put(+a.dataset.in);
+      var b = e.target.closest("[data-out]");
+      if (b) {
+        seq.splice(+b.dataset.out, 1);
+        W.sound("tap");
+        paint();
+      }
+    });
+    paint();
+    return {
+      el: root,
+      ready: function () {
+        return seq.length === ex.a.length;
+      },
+      grade: function () {
+        root.classList.add("locked");
+        var ok = seq.every(function (it, k) { return it.i === k; });
+        [].forEach.call(seqEl.querySelectorAll(".chip"), function (c, k) {
+          c.classList.add(seq[k].i === k ? "right" : "wrong");
+        });
+        return { ok: ok, correct: ex.a.map(function (t, k) { return k + 1 + ". " + esc(t); }).join("<br>") };
+      },
+      key: function (k) {
+        var n = parseInt(k, 10);
+        if (n >= 1 && n <= pool.length) put(n - 1);
+        if (k === "Backspace" && seq.length) {
+          seq.pop();
+          paint();
+        }
+      }
+    };
+  }
+
   function sorter(ex, mod, api) {
     var items = W.shuffle(ex.items).slice(0, 6);
     var picks = items.map(function () { return -1; });
@@ -375,6 +442,8 @@
           return sorter(ex, mod, api);
         case "multi":
           return multi(ex, mod, api);
+        case "order":
+          return order(ex, mod, api);
       }
       return choice(ex, mod, api);
     },

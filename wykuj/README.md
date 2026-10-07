@@ -28,6 +28,7 @@ Dopowiedzenia można wyłączyć w profilu, a egzamin próbny zawsze je pomija.
 | Metody pracy twórczej z dziećmi i młodzieżą (MPT) | Wykład 1: Specyfika |
 | Antropologia filozoficzna (AF) | Wykład 1: Czym jest antropologia filozoficzna |
 | Logika (LOG) | Wykład 1: Semiotyka: język i znak + przewodnik „Jak zdać logikę” |
+| Procesy poznawcze: percepcja i uwaga (PP) | Wykład 1: Wprowadzenie do percepcji i uwagi |
 
 Każdy przedmiot ma własny kolor i ikonę. Ekran startowy grupuje wykłady pod
 przedmiotami i ma filtr przedmiotów, a „Dalej” prowadzi do ostatnio otwartego wykładu.
@@ -61,12 +62,16 @@ na koncie, więc działa na telefonie i komputerze.
 3. Uruchom `python3 tools/bundle.py`.
 
 Moduły z tym samym `course.id` grupują się pod jednym przedmiotem na ekranie startowym.
-Nowy przedmiot to nowe `course.id`, skrót, `theme` (kolor: `green`, `indigo` albo `teal`;
+Nowy przedmiot to nowe `course.id`, skrót, `theme` (kolor: `green`, `indigo`, `teal` albo `plum`;
 kolejne dodaje się w `app.css`) i `icon`.
 
 Opcjonalne pola modułu: `plain` przy pojęciach (wyjaśnienie po ludzku), `minimum`
 (lista „na zaliczenie”), `sets` (własne listy dla pytań „która to…?”), `story`, `table`,
-`examNote` (gdy prowadzący nie podał progu) i `sourceNames` (legenda źródeł).
+`examNote` (gdy prowadzący nie podał progu), `sourceNames` (legenda źródeł) i `deep`
+(wątki „do przemyślenia” z wykładu, pokazywane w notatkach jako rozwijane pytania).
+
+Typy ćwiczeń: `mcq`, `tf`, `cloze`, `type`, `which`, `match`, `sort`, `multi`
+(zaznacz wszystkie poprawne) i `order` (ułóż w kolejności).
 
 ## Struktura
 

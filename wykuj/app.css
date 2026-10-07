@@ -3486,6 +3486,114 @@ aside.extra::before {
   gap: 10px;
 }
 
+
+/* ---------- cognitive processes: plum subject ---------- */
+.theme-plum {
+  --accent: #8b3a8f;
+  --accent-2: #66296a;
+  --accent-soft: #f1def2;
+  --on-accent: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-plum {
+    --accent: #e09be4;
+    --accent-2: #b065b5;
+    --accent-soft: #3a2140;
+    --on-accent: #2a0d2d;
+  }
+}
+:root[data-theme="dark"] .theme-plum {
+  --accent: #e09be4;
+  --accent-2: #b065b5;
+  --accent-soft: #3a2140;
+  --on-accent: #2a0d2d;
+}
+
+/* ---------- ordering exercise ---------- */
+.ord-seq {
+  list-style: none;
+  margin: 0 0 6px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ord-seq li {
+  min-height: 48px;
+  display: flex;
+}
+.ord-seq .chip {
+  width: 100%;
+  justify-content: flex-start;
+}
+.ord-empty {
+  border: 2px dashed var(--line);
+  border-radius: 12px;
+  align-items: center;
+  padding-left: 14px;
+  color: var(--ink-3);
+  font-weight: 800;
+}
+.ord-seq .chip.right {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 3px 0 var(--accent);
+}
+.ord-seq .chip.wrong {
+  border-color: var(--red);
+  background: var(--red-soft);
+  box-shadow: 0 3px 0 var(--red);
+}
+.locked .chip {
+  pointer-events: none;
+}
+
+/* ---------- deep-dive questions ---------- */
+.deep {
+  border-color: var(--accent);
+}
+.dq {
+  border-top: 1.5px solid var(--line);
+  padding-block: 10px;
+}
+.dq summary {
+  cursor: pointer;
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 17px;
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.dq summary::-webkit-details-marker {
+  display: none;
+}
+.dq summary::before {
+  content: "?";
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+}
+.dq[open] summary::before {
+  content: "!";
+}
+.dq p {
+  margin-top: 8px;
+  color: var(--ink-2);
+}
+.dq-link {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent) !important;
+}
+
 @media (max-width: 420px) {
   .todo {
     grid-template-columns: 1fr;
