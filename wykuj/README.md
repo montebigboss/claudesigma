@@ -14,6 +14,13 @@ moduł ma te same tryby nauki:
 | Do poprawki | Pytania, na których ostatnio się pomyliłeś, aż odpowiesz dobrze. |
 | Notatki | Cały wykład z oznaczeniem źródła, tabela, scenka pamięciowa do 10 zasad i słowniczek z wyszukiwarką. |
 
+Po każdej odpowiedzi, także dobrej, widać „Dlaczego?”: czemu poprawna odpowiedź
+jest poprawna, a przy błędzie także, czym jest to, co wybrałeś. Wyjaśnienia są
+w lekcjach, quizie na czas, omówieniu egzaminu, parach i sortowni. Przed nową
+lekcją jest krótka ściąga („Najpierw krótko”), a pytania idą od rozpoznawania
+do przypominania z pamięci. Ekran wykładu ma plan nauki w 4 krokach:
+przeczytaj, przejdź ścieżkę, utrwal fiszkami, sprawdź się.
+
 Pytania częściej losują to, czego nie umiesz. Za naukę są XP, seria dni,
 dzienny cel, rangi (od Świeżaka do Profesora) i odznaki.
 
@@ -81,6 +88,14 @@ Opcjonalne pola modułu: `plain` przy pojęciach (wyjaśnienie po ludzku), `mini
 
 Typy ćwiczeń: `mcq`, `tf`, `cloze`, `type`, `which`, `match`, `sort`, `multi`
 (zaznacz wszystkie poprawne) i `order` (ułóż w kolejności).
+
+Wyjaśnienia: każde ćwiczenie ma `x` (dlaczego poprawna odpowiedź jest poprawna).
+`w` to lista wyjaśnień do błędnych opcji, po kolei za poprawną (w `multi` do `o`).
+Listy w `sets` mają `why` (czym jest każda pozycja), a talie sortowni `why` dla obu
+kategorii i opcjonalną notatkę jako trzeci element karty. Jednostka może mieć
+`teach` (wprowadzenie HTML przed lekcją), `table: true` (pokaż tabelę modułu)
+i `seq: true` (pytania w kolejności z pliku). Walidacja w testach pilnuje, żeby
+żadne ćwiczenie nie zostało bez wyjaśnienia.
 
 ## Struktura
 
