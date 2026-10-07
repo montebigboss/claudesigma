@@ -1,0 +1,465 @@
+/* Ekrany: start, moduł, ścieżka, lekcja, poprawki, notatki, profil. */
+(function () {
+  "use strict";
+  var W = window.Wykuj;
+  var esc = W.esc;
+  var Store = W.Store;
+  var top = W.top;
+
+  function pct(x) {
+    return Math.round(x * 100) + "%";
+  }
+
+  function ring(value, max, label) {
+    var r = 26, c = 2 * Math.PI * r, f = Math.min(1, value / max);
+    return (
+      '<div class="ring" role="img" aria-label="' + esc(label) + '"><svg viewBox="0 0 64 64">' +
+      '<circle cx="32" cy="32" r="' + r + '" class="ring-bg"/>' +
+      '<circle cx="32" cy="32" r="' + r + '" class="ring-fg" stroke-dasharray="' + c.toFixed(1) + '" stroke-dashoffset="' + (c * (1 - f)).toFixed(1) + '"/>' +
+      '</svg><span><b>' + value + "</b>/" + max + "</span></div>"
+    );
+  }
+
+  function cloudBadge() {
+    var s = Store.cloud;
+    if (s === "off") return "";
+    var t = { syncing: "Zapisuję…", ok: "Postępy w chmurze", local: "Tylko na tym urządzeniu" }[s];
+    return '<span class="cloud ' + s + '" title="' + t + '">' + W.icon("cloud") + "</span>";
+  }
+
+  /* ================= Start ================= */
+
+  W.screens.home = function (root) {
+    var st = Store.state;
+    var rk = W.rank(st.xp);
+    var streak = Store.streakAlive();
+    var today = Store.todayXP();
+    var courses = W.courses();
+    var focus = W.modules[0];
+    var nu = W.nextUnit(focus);
+    var dueN = Store.dueCards(focus).length + Math.min(8, Store.newCards(focus).length);
+    var misN = W.mistakes(focus).length;
+
+    root.innerHTML =
+      '<header class="apphead">' +
+      '<div class="brand"><span class="brand-mark">' + W.icon("pencil") + '</span><span class="display">Wykuj</span></div>' +
+      '<div class="hstats">' + cloudBadge() +
+      '<span class="hs streak ' + (streak ? "on" : "") + '" title="Seria dni">' + W.icon("flame") + "<b>" + streak + "</b></span>" +
+      '<span class="hs xp" title="Łącznie XP">' + W.icon("gem") + "<b>" + st.xp + "</b></span>" +
+      '<button class="icon-btn" data-go="profile" aria-label="Profil">' + W.icon("user") + "</button></div></header>" +
+      '<div class="page home">' +
+      '<section class="today">' +
+      ring(today, st.goal, "Dzisiejsze XP") +
+      '<div class="today-txt"><p class="eyebrow">Dzisiaj</p><h1 class="display">' +
+      (today >= st.goal ? "Cel dnia zaliczony." : streak ? "Seria trwa: " + W.days(streak) + "." : "Zacznij serię.") +
+      "</h1><p>" +
+      (today >= st.goal ? "Każda kolejna powtórka to bonus dla pamięci." : "Brakuje " + (st.goal - today) + " XP do dziennego celu.") +
+      '</p><div class="rankline"><span>' + esc(rk.name) + " · poz. " + rk.level + '</span><div class="rbar"><i style="width:' + pct(rk.pct) + '"></i></div>' +
+      (rk.nextName ? "<span>" + esc(rk.nextName) + "</span>" : "") + "</div></div></section>" +
+      (nu >= 0
+        ? '<button class="cta" data-lesson="' + focus.id + ":" + nu + '"><span class="cta-ic">' + W.icon(focus.units[nu].icon) + "</span>" +
+          '<span class="cta-t"><small>' + esc(focus.course.short) + " · Wykład " + focus.number + " · lekcja " + (nu + 1) + "/" + focus.units.length + "</small><b>" +
+          esc(focus.units[nu].title) + "</b><span>" + esc(focus.units[nu].sub) + '</span></span><span class="cta-go">Dalej</span></button>'
+        : '<button class="cta done" data-go="exam" data-mod="' + focus.id + '"><span class="cta-ic">' + W.icon("crown") + '</span><span class="cta-t"><small>Ścieżka ukończona</small><b>Sprawdź się na egzaminie próbnym</b><span>20 pytań, próg ponad 50%</span></span><span class="cta-go">Start</span></button>') +
+      '<div class="todo">' +
+      '<button class="todo-i" data-go="cards" data-mod="' + focus.id + '">' + W.icon("cards") + "<span><b>" + dueN + "</b> fiszek na dziś</span></button>" +
+      '<button class="todo-i" data-go="review" data-mod="' + focus.id + '"' + (misN ? "" : " disabled") + ">" + W.icon("redo") + "<span><b>" + misN + "</b> " + (misN === 1 ? "błąd" : "błędów") + " do poprawki</span></button>" +
+      "</div>" +
+      courses
+        .map(function (c) {
+          return (
+            '<section class="course"><p class="eyebrow">Przedmiot</p><h2 class="display">' + esc(c.course.name) + "</h2>" +
+            '<div class="mods">' +
+            c.modules
+              .map(function (m) {
+                var pr = W.progress(m);
+                return (
+                  '<button class="modcard" data-go="module" data-mod="' + m.id + '"><span class="mc-num">' + m.number + "</span>" +
+                  '<span class="mc-body"><small>Wykład ' + m.number + "</small><b>" + esc(m.title) + "</b>" +
+                  '<span class="mc-bar"><i style="width:' + pct(pr.pct) + '"></i></span>' +
+                  '<span class="mc-meta">' + pct(pr.pct) + " opanowane · " + pr.stars + "/" + pr.maxStars + " gwiazdek</span></span></button>"
+                );
+              })
+              .join("") +
+            '<div class="modcard ghost"><span class="mc-num">' + (c.modules.length + 1) + '</span><span class="mc-body"><small>Wykład ' + (c.modules.length + 1) +
+            "</small><b>Kolejny wykład</b><span class=\"mc-meta\">Pojawi się tu, gdy dodasz notatki z następnych zajęć.</span></span></div>" +
+            "</div></section>"
+          );
+        })
+        .join("") +
+      "</div>";
+
+    root.addEventListener("click", function (e) {
+      var l = e.target.closest("[data-lesson]");
+      if (l) {
+        var pr = l.dataset.lesson.split(":");
+        return W.go("lesson", { mod: pr[0], unit: +pr[1] });
+      }
+      var g = e.target.closest("[data-go]");
+      if (g && !g.disabled) W.go(g.dataset.go, { mod: g.dataset.mod });
+    });
+  };
+
+  /* ================= Moduł ================= */
+
+  W.screens.module = function (root, p) {
+    var m = W.byId[p.mod];
+    var pr = W.progress(m);
+    var ms = Store.mod(m.id);
+    var dueN = Store.dueCards(m).length;
+    var newN = Store.newCards(m).length;
+    var misN = W.mistakes(m).length;
+    var lastExam = ms.exams.length ? ms.exams[ms.exams.length - 1] : null;
+    var nu = W.nextUnit(m);
+
+    var modes = [
+      { go: "path", ic: "path", t: "Ścieżka", d: "Lekcje krok po kroku, serca i gwiazdki", meta: nu >= 0 ? "Lekcja " + (nu + 1) + " z " + m.units.length : "Ukończona", hero: true },
+      { go: "cards", ic: "cards", t: "Fiszki", d: "Powtórki w odstępach", meta: dueN ? dueN + " do powtórki" : newN ? newN + " nowych" : "Na dziś gotowe", badge: dueN },
+      { go: "kahoot", ic: "bolt", t: "Quiz na czas", d: "12 pytań, liczy się refleks", meta: ms.best.kahoot ? "Rekord " + ms.best.kahoot + " pkt" : "Bez rekordu" },
+      { go: "match", ic: "pairs", t: "Pary", d: "Pojęcie do znaczenia, na czas", meta: ms.best.match ? "Rekord " + ms.best.match.toFixed(1) + " s" : "Bez rekordu" },
+      { go: "sort", ic: "swipe", t: "Sortownia", d: "Dzieci czy młodzież? Zielony czy czerwony?", meta: m.sortDecks.length + " talie" },
+      { go: "exam", ic: "exam", t: "Egzamin próbny", d: "20 pytań zamkniętych, próg 50%", meta: lastExam ? "Ostatnio " + pct(lastExam.pct) : "Nie podchodziłeś" },
+      { go: "review", ic: "redo", t: "Do poprawki", d: "Pytania, na których się potknąłeś", meta: misN ? misN + " pytań" : "Czysto", badge: misN, off: !misN },
+      { go: "notes", ic: "book", t: "Notatki", d: "Cały wykład, tabela i ściąga", meta: m.notes.length + " sekcji" }
+    ];
+
+    root.innerHTML =
+      top("Wykład " + m.number, m.course.name) +
+      '<div class="page">' +
+      '<section class="mhero"><p class="eyebrow">' + esc(m.course.short) + " · " + esc(m.term) + "</p>" +
+      '<h1 class="display">' + esc(m.title) + "</h1><p class='lect'>" + esc(m.lecturer) + "</p>" +
+      '<div class="mprog"><div class="mprog-bar"><i style="width:' + pct(pr.pct) + '"></i></div><b>' + pct(pr.pct) + "</b></div>" +
+      '<div class="mfacts"><span>' + W.icon("star") + pr.stars + "/" + pr.maxStars + " gwiazdek</span><span>" + W.icon("cards") + pr.learned + "/" + pr.total + " fiszek opanowanych</span><span>" +
+      W.icon("target") + esc(m.passing) + "</span></div></section>" +
+      '<div class="modes">' +
+      modes
+        .map(function (x) {
+          return (
+            '<button class="mode ' + (x.hero ? "hero " : "") + (x.off ? "off" : "") + '" data-go="' + x.go + '">' +
+            '<span class="mode-ic">' + W.icon(x.ic) + (x.badge ? '<i class="badge">' + x.badge + "</i>" : "") + "</span>" +
+            "<b>" + esc(x.t) + "</b><span class='mode-d'>" + esc(x.d) + "</span><span class='mode-m'>" + esc(x.meta) + "</span></button>"
+          );
+        })
+        .join("") +
+      "</div></div>";
+
+    root.querySelector(".modes").addEventListener("click", function (e) {
+      var b = e.target.closest("[data-go]");
+      if (b) W.go(b.dataset.go, { mod: m.id });
+    });
+  };
+
+  /* ================= Ścieżka ================= */
+
+  W.screens.path = function (root, p) {
+    var m = W.byId[p.mod];
+    var ms = Store.mod(m.id);
+    var nu = W.nextUnit(m);
+    var sel = p.sel != null ? p.sel : nu >= 0 ? nu : null;
+    var offsets = [0, 34, 52, 34, 0, -34, -52, -34];
+
+    function draw() {
+      root.innerHTML =
+        top("Ścieżka", "Wykład " + m.number + ": " + m.title) +
+        '<div class="page path-page"><ol class="path">' +
+        m.units
+          .map(function (u, i) {
+            var rec = ms.path[u.id];
+            var open = W.unitOpen(m, i);
+            var done = rec && rec.stars > 0;
+            var state = done ? "done" : open ? "open" : "locked";
+            if (i === nu) state += " current";
+            var off = offsets[i % offsets.length];
+            return (
+              '<li class="node ' + state + (u.boss ? " boss" : "") + '" style="--x:' + off + 'px">' +
+              (i === nu && sel !== i ? '<span class="start-tag">Start</span>' : "") +
+              '<button class="nbtn" data-i="' + i + '" aria-label="' + esc(u.title) + '"' + (open ? "" : " aria-disabled=\"true\"") + ">" +
+              W.icon(open ? u.icon : "lock") + "</button>" +
+              (done ? W.starRow(rec.stars) : '<span class="stars-ph"></span>') +
+              '<span class="nlabel">' + esc(u.title) + "</span>" +
+              (sel === i
+                ? '<div class="bubble"><b>' + esc(u.title) + "</b><span>" + esc(u.sub) + "</span>" +
+                  (open
+                    ? '<button class="btn primary" data-start="' + i + '">' + (done ? "Powtórz lekcję" : u.boss ? "Zmierz się z testem" : "Zacznij lekcję") + "</button>" +
+                      (done ? '<small>Najlepiej: ' + pct(rec.best) + "</small>" : "")
+                    : "<small>Ukończ poprzednią lekcję, żeby odblokować. Albo włącz swobodny dostęp w profilu.</small>") +
+                  "</div>"
+                : "") +
+              "</li>"
+            );
+          })
+          .join("") +
+        "</ol></div>";
+      var cur = root.querySelector(".node.current, .bubble");
+      if (cur && !p._scrolled) {
+        p._scrolled = true;
+        cur.scrollIntoView({ block: "center" });
+      }
+    }
+
+    root.addEventListener("click", function (e) {
+      var s = e.target.closest("[data-start]");
+      if (s) return W.go("lesson", { mod: m.id, unit: +s.dataset.start });
+      var b = e.target.closest(".nbtn");
+      if (b) {
+        var i = +b.dataset.i;
+        sel = sel === i ? null : i;
+        p.sel = sel;
+        W.sound("tap");
+        draw();
+      }
+    });
+    draw();
+  };
+
+  /* ================= Lekcja ================= */
+
+  W.screens.lesson = function (root, p) {
+    var m = W.byId[p.mod];
+    var u = m.units[p.unit];
+    var items = W.buildLesson(m, u);
+    W.runSession(root, {
+      mod: m,
+      items: items,
+      hearts: 3,
+      onExit: function () {
+        Store.save();
+        W.back();
+      },
+      onFinish: function (r) {
+        var ms = Store.mod(m.id);
+        if (!r.completed) {
+          Store.save();
+          return W.resultScreen(root, {
+            fail: true,
+            title: "Zabrakło serc",
+            sub: "Błędy z tej lekcji trafiły do „Do poprawki”. Spróbuj jeszcze raz, pytania się przetasują.",
+            stats: [
+              { label: "Dobrze za 1. razem", value: r.firstTry + "/" + r.total },
+              { label: "Czas", value: W.fmtTime(r.secs) }
+            ],
+            actions: [
+              { label: "Spróbuj ponownie", fn: function () { W.go("lesson", p, { replace: true }); } },
+              { label: "Wróć do ścieżki", fn: function () { W.back(); } }
+            ]
+          });
+        }
+        var stars = W.starsFor(r.acc);
+        var prev = ms.path[u.id] || { stars: 0, best: 0, runs: 0 };
+        var bonus = 5 + (r.acc === 1 ? 5 : 0) + (u.boss ? 10 : 0);
+        ms.path[u.id] = { stars: Math.max(prev.stars, stars), best: Math.max(prev.best, r.acc), runs: (prev.runs || 0) + 1 };
+        Store.unlock("first");
+        if (r.acc === 1) Store.unlock("perfect");
+        if (W.nextUnit(m) < 0) Store.unlock("path");
+        if (m.units.every(function (x) { return ms.path[x.id] && ms.path[x.id].stars === 3; })) Store.unlock("stars");
+        Store.addXP(bonus);
+        var nextI = p.unit + 1 < m.units.length ? p.unit + 1 : null;
+        var actions = [];
+        if (nextI != null && W.unitOpen(m, nextI)) {
+          actions.push({ label: "Następna lekcja", fn: function () { W.go("lesson", { mod: m.id, unit: nextI }, { replace: true }); } });
+        }
+        actions.push({ label: "Wróć do ścieżki", fn: function () { W.back(); } });
+        actions.push({ label: "Powtórz tę lekcję", fn: function () { W.go("lesson", p, { replace: true }); } });
+        W.resultScreen(root, {
+          stars: stars,
+          title: r.acc === 1 ? "Bezbłędnie!" : stars === 3 ? "Świetna robota!" : stars === 2 ? "Dobrze idzie!" : "Lekcja zaliczona",
+          sub: u.title,
+          confetti: true,
+          stats: [
+            { label: "Dobrze za 1. razem", value: pct(r.acc), tone: "good" },
+            { label: "Najdłuższa seria", value: String(r.bestCombo) },
+            { label: "Czas", value: W.fmtTime(r.secs) },
+            { label: "Bonus XP", value: "+" + bonus, tone: "gold" }
+          ],
+          actions: actions
+        });
+      }
+    });
+  };
+
+  /* ================= Do poprawki ================= */
+
+  W.screens.review = function (root, p) {
+    var m = W.byId[p.mod];
+    var list = W.mistakes(m);
+    if (!list.length) {
+      root.innerHTML =
+        top("Do poprawki", m.title) +
+        '<div class="page"><div class="empty"><div class="empty-ic">' + W.icon("check") + "</div><h2>Nie ma czego poprawiać</h2>" +
+        "<p>Gdy pomylisz się w lekcji, quizie albo na egzaminie, pytanie trafi tutaj, aż odpowiesz na nie poprawnie.</p></div></div>";
+      return;
+    }
+    var items = W.shuffle(list).slice(0, 15);
+    W.runSession(root, {
+      mod: m,
+      items: items,
+      hearts: null,
+      onExit: function () {
+        Store.save();
+        W.back();
+      },
+      onFinish: function (r) {
+        Store.addXP(5);
+        var left = W.mistakes(m).length;
+        W.resultScreen(root, {
+          title: left ? "Poprawione" : "Wszystko poprawione",
+          sub: left ? "Zostało jeszcze " + left + " pytań do poprawki." : "Lista błędów jest pusta.",
+          confetti: !left,
+          stats: [
+            { label: "Dobrze za 1. razem", value: r.firstTry + "/" + r.total, tone: "good" },
+            { label: "Czas", value: W.fmtTime(r.secs) }
+          ],
+          actions: left
+            ? [
+                { label: "Następna porcja", fn: function () { W.go("review", p, { replace: true }); } },
+                { label: "Wróć do modułu", fn: function () { W.back(); } }
+              ]
+            : [{ label: "Wróć do modułu", fn: function () { W.back(); } }]
+        });
+      }
+    });
+  };
+
+  /* ================= Notatki ================= */
+
+  W.screens.notes = function (root, p) {
+    var m = W.byId[p.mod];
+    var st = Store.state.settings;
+    Store.unlock("notes");
+    Store.save();
+
+    root.innerHTML =
+      top("Notatki", "Wykład " + m.number + ": " + m.title) +
+      '<div class="page notes ' + (st.extras ? "" : "no-extra") + '">' +
+      '<div class="legend"><span><i class="lg lg-s"></i>slajd</span><span><i class="lg lg-u"></i>ustnie na wykładzie</span>' +
+      '<span><i class="lg lg-d"></i>★ spoza wykładu</span>' +
+      '<label class="switch"><input type="checkbox" id="notes-extra" ' + (st.extras ? "checked" : "") + '/><span></span>Pokaż ★</label></div>' +
+      '<nav class="toc">' +
+      m.notes.map(function (n) { return '<a href="#n-' + n.id + '" data-jump="' + n.id + '">' + (n.n ? n.n : "·") + "</a>"; }).join("") +
+      '<a href="#n-tab" data-jump="tab">tab</a><a href="#n-story" data-jump="story">10</a><a href="#n-gloss" data-jump="gloss">A–Z</a></nav>' +
+      m.notes
+        .map(function (n) {
+          return (
+            '<section class="note" id="n-' + n.id + '"><h2>' + (n.n ? '<span class="nn">' + n.n + "</span>" : "") + esc(n.title) + "</h2>" + n.html + "</section>"
+          );
+        })
+        .join("") +
+      '<section class="note" id="n-tab"><h2>Dzieci a młodzież</h2><div class="tscroll"><table><thead><tr>' +
+      m.table.head.map(function (h) { return "<th>" + esc(h) + "</th>"; }).join("") +
+      "</tr></thead><tbody>" +
+      m.table.rows.map(function (r) { return "<tr>" + r.map(function (c, i) { return i ? "<td>" + esc(c) + "</td>" : "<th>" + esc(c) + "</th>"; }).join("") + "</tr>"; }).join("") +
+      "</tbody></table></div></section>" +
+      '<section class="note extra-sec" id="n-story"><h2>10 zasad w jednej scenie</h2><p class="story-k">★ Pomoc pamięciowa, nie z wykładu. Wyobraź sobie jedne zajęcia od wejścia do wyjścia:</p><ol class="story">' +
+      m.story.map(function (s) { return "<li><b>" + esc(s[0]) + "</b><span>" + esc(s[1]) + "</span></li>"; }).join("") +
+      "</ol></section>" +
+      '<section class="note" id="n-gloss"><h2>Słowniczek</h2><input id="gloss-q" class="search" type="search" placeholder="Szukaj pojęcia…" autocomplete="off"/><dl class="gloss">' +
+      m.concepts
+        .slice()
+        .sort(function (a, b) { return a.term.localeCompare(b.term, "pl"); })
+        .map(function (c) {
+          return '<div class="gi ' + (c.s === "D" ? "extra" : "") + '" data-k="' + esc(W.norm(c.term + " " + c.def)) + '"><dt>' + esc(c.term) + W.srcBadge(c.s) + "</dt><dd>" + esc(c.def) + "</dd></div>";
+        })
+        .join("") +
+      "</dl></section></div>";
+
+    root.querySelector("#notes-extra").addEventListener("change", function (e) {
+      st.extras = e.target.checked;
+      Store.save();
+      root.querySelector(".notes").classList.toggle("no-extra", !st.extras);
+    });
+    root.querySelector(".toc").addEventListener("click", function (e) {
+      var a = e.target.closest("[data-jump]");
+      if (!a) return;
+      e.preventDefault();
+      var t = root.querySelector("#n-" + a.dataset.jump);
+      if (t) t.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    root.querySelector("#gloss-q").addEventListener("input", function (e) {
+      var q = W.norm(e.target.value);
+      root.querySelectorAll(".gi").forEach(function (g) {
+        g.hidden = q && g.dataset.k.indexOf(q) < 0;
+      });
+    });
+  };
+
+  /* ================= Profil ================= */
+
+  W.screens.profile = function (root) {
+    var st = Store.state;
+    var rk = W.rank(st.xp);
+    var acc = st.stats.answers ? st.stats.correct / st.stats.answers : 0;
+
+    function toggle(id, label, desc, on) {
+      return (
+        '<label class="set"><span><b>' + esc(label) + "</b><small>" + esc(desc) + '</small></span><span class="switch"><input type="checkbox" id="set-' + id + '" data-set="' + id + '" ' +
+        (on ? "checked" : "") + "/><span></span></span></label>"
+      );
+    }
+
+    root.innerHTML =
+      top("Profil", "Postępy i ustawienia") +
+      '<div class="page profile">' +
+      '<section class="rankcard"><span class="rk-lv display">' + rk.level + '</span><div><p class="eyebrow">Ranga</p><h1 class="display">' + esc(rk.name) + "</h1>" +
+      '<div class="rbar"><i style="width:' + pct(rk.pct) + '"></i></div><small>' +
+      (rk.to ? st.xp + " / " + rk.to + " XP do rangi „" + esc(rk.nextName) + "”" : st.xp + " XP · najwyższa ranga") + "</small></div></section>" +
+      '<div class="pstats">' +
+      [
+        ["XP łącznie", st.xp],
+        ["Seria teraz", W.days(Store.streakAlive())],
+        ["Najdłuższa seria", W.days(st.streak.best || 0)],
+        ["Odpowiedzi", st.stats.answers],
+        ["Trafność", pct(acc)],
+        ["Powtórzone fiszki", st.stats.cards || 0]
+      ]
+        .map(function (s) { return '<div class="ps"><span>' + s[0] + "</span><b>" + s[1] + "</b></div>"; })
+        .join("") +
+      "</div>" +
+      '<h2 class="sec-h">Odznaki <small>' + Object.keys(st.ach).length + "/" + W.ACH.length + "</small></h2>" +
+      '<div class="achs">' +
+      W.ACH.map(function (a) {
+        var got = st.ach[a.id];
+        return '<div class="ach ' + (got ? "got" : "") + '"><span class="ach-ic">' + W.icon(got ? "star" : "lock") + "</span><b>" + esc(a.name) + "</b><small>" + esc(a.desc) + "</small></div>";
+      }).join("") +
+      "</div>" +
+      '<h2 class="sec-h">Ustawienia</h2><div class="sets">' +
+      '<div class="set"><span><b>Dzienny cel</b><small>Ile XP chcesz zdobywać każdego dnia</small></span><span class="seg">' +
+      [20, 50, 100, 150].map(function (g) { return '<button data-goal="' + g + '" class="' + (st.goal === g ? "on" : "") + '">' + g + "</button>"; }).join("") +
+      "</span></div>" +
+      toggle("sound", "Dźwięki", "Krótkie sygnały przy odpowiedziach", st.settings.sound) +
+      toggle("extras", "Materiał spoza wykładu (★)", "Dopowiedzenia z notatek w lekcjach, fiszkach i quizach. Egzamin próbny zawsze je pomija.", st.settings.extras) +
+      toggle("free", "Swobodny dostęp do ścieżki", "Wszystkie lekcje otwarte od razu, np. tuż przed egzaminem", st.settings.free) +
+      "</div>" +
+      '<p class="cloudline">' + W.icon("cloud") +
+      ({ off: "Postępy zapisują się w tej przeglądarce.", syncing: "Synchronizuję postępy…", ok: "Postępy zapisują się na Twoim koncie i działają na każdym urządzeniu.", local: "Brak dostępu do zapisu w chmurze. Postępy zapisują się w tej przeglądarce." }[Store.cloud]) +
+      "</p>" +
+      '<div class="danger"><button class="btn danger-ghost" data-a="reset">Wyzeruj postępy</button>' +
+      '<div class="confirm" hidden><p>Na pewno? Znikną XP, gwiazdki, fiszki i odznaki. Tego nie da się cofnąć.</p><div class="row"><button class="btn danger" data-a="reset-yes">Tak, wyzeruj</button><button class="btn ghost" data-a="reset-no">Anuluj</button></div></div></div>' +
+      "</div>";
+
+    root.addEventListener("change", function (e) {
+      var k = e.target.dataset.set;
+      if (!k) return;
+      st.settings[k] = e.target.checked;
+      Store.save();
+    });
+    root.addEventListener("click", function (e) {
+      var g = e.target.closest("[data-goal]");
+      if (g) {
+        st.goal = +g.dataset.goal;
+        Store.save();
+        root.querySelectorAll("[data-goal]").forEach(function (b) { b.classList.toggle("on", b === g); });
+        return;
+      }
+      var a = e.target.closest("[data-a]");
+      if (!a) return;
+      var c = root.querySelector(".confirm");
+      if (a.dataset.a === "reset") c.hidden = false;
+      else if (a.dataset.a === "reset-no") c.hidden = true;
+      else if (a.dataset.a === "reset-yes") {
+        Store.reset();
+        W.toast("Postępy wyzerowane", "Zaczynasz od nowa");
+        W.go("home", {}, { root: true });
+      }
+    });
+  };
+})();
