@@ -154,6 +154,29 @@
       Store.save();
     }
 
+    /* Plan nauki: cztery kroki w kolejności, w jakiej najłatwiej się uczyć. */
+    function plan() {
+      var doneUnits = m.units.filter(function (u) { return W.unitDone(m, u.id); }).length;
+      var passed = ms.exams.some(function (h) { return h.pct > m.passRatio; });
+      var steps = [
+        { go: "notes", t: "Przeczytaj", d: m.minimum ? "minimum i schematy w notatkach" : "notatki z wykładu", done: !!ms.read },
+        { go: "path", t: "Przejdź ścieżkę", d: doneUnits + " z " + m.units.length + " lekcji", done: nu < 0 },
+        { go: "cards", t: "Utrwal fiszkami", d: pr.learned + " z " + pr.total + " opanowanych", done: pr.learned >= Math.ceil(pr.total * 0.8) },
+        { go: "exam", t: "Sprawdź się", d: passed ? "egzamin próbny zdany" : "egzamin próbny", done: passed }
+      ];
+      var next = steps.filter(function (x) { return !x.done; })[0];
+      return (
+        '<section class="plan" aria-label="Plan nauki"><h2 class="sec-h">Jak się tego nauczyć <small>' + steps.filter(function (x) { return x.done; }).length + "/4</small></h2><ol>" +
+        steps.map(function (x, i) {
+          return (
+            '<li class="' + (x.done ? "done" : x === next ? "next" : "") + '"><button data-go="' + x.go + '"><span class="pl-n">' + (x.done ? W.icon("check") : i + 1) + "</span>" +
+            "<b>" + esc(x.t) + "</b><small>" + esc(x.d) + "</small></button></li>"
+          );
+        }).join("") +
+        "</ol></section>"
+      );
+    }
+
     var modes = [
       { go: "path", ic: "path", t: "Ścieżka", d: "Lekcje krok po kroku, serca i gwiazdki", meta: nu >= 0 ? "Lekcja " + (nu + 1) + " z " + m.units.length : "Ukończona", hero: true },
       { go: "cards", ic: "cards", t: "Fiszki", d: "Powtórki w odstępach", meta: dueN ? dueN + " do powtórki" : newN ? newN + " nowych" : "Na dziś gotowe", badge: dueN },
@@ -174,6 +197,7 @@
       '<div class="mprog"><div class="mprog-bar"><i style="width:' + pct(pr.pct) + '"></i></div><b>' + pct(pr.pct) + "</b></div>" +
       '<div class="mfacts"><span>' + W.icon("star") + pr.stars + "/" + pr.maxStars + " gwiazdek</span><span>" + W.icon("cards") + pr.learned + "/" + pr.total + " fiszek opanowanych</span>" +
       (m.passing ? "<span>" + W.icon("target") + esc(m.passing) + "</span>" : "") + "</div></section>" +
+      plan() +
       (W.guide(m.course.id)
         ? '<button class="guide-card" data-guide="' + m.course.id + '"><span class="gc-ic">' + W.icon("target") + "</span><span><b>" + esc(W.guide(m.course.id).title) +
           "</b><small>Zasady egzaminu, kartki próbne z rozwiązaniami, pytania teoretyczne</small></span></button>"
@@ -192,8 +216,8 @@
 
     var gc = root.querySelector(".guide-card");
     if (gc) gc.onclick = function () { W.go("guide", { course: m.course.id }); };
-    root.querySelector(".modes").addEventListener("click", function (e) {
-      var b = e.target.closest("[data-go]");
+    root.querySelector(".page").addEventListener("click", function (e) {
+      var b = e.target.closest(".modes [data-go], .plan [data-go]");
       if (b) W.go(b.dataset.go, { mod: m.id });
     });
   };
@@ -269,8 +293,30 @@
   /* Czy lekcja ma czego „nauczyć” przed ćwiczeniami (pojęcia albo własne wprowadzenie). */
   W.teachable = function (m, u) {
     if (u.boss) return false;
-    return !!u.teach || m.concepts.some(function (c) { return c.u === u.id && W.allowed(c); });
+    return !!u.teach || !!u.table || unitSets(m, u).length > 0 || m.concepts.some(function (c) { return c.u === u.id && W.allowed(c); });
   };
+
+  /* Zestawy z pytań „który to…” w danej lekcji, razem z opisem każdej pozycji. */
+  function unitSets(m, u) {
+    var seen = {}, out = [];
+    m.exercises.forEach(function (e) {
+      if (e.u !== u.id || e.t !== "which" || !W.allowed(e)) return;
+      var k = e.set || "_zasady";
+      if (seen[k]) return;
+      seen[k] = true;
+      var set = W.whichList(e, m);
+      if (set && set.why) out.push({ label: e.set ? set.label : "Dziesięć zasad", items: set.items, why: set.why, numbered: set.numbered });
+    });
+    return out;
+  }
+
+  function tableHtml(t) {
+    return (
+      '<div class="tscroll"><table><thead><tr>' + t.head.map(function (h) { return "<th>" + esc(h) + "</th>"; }).join("") + "</tr></thead><tbody>" +
+      t.rows.map(function (r) { return "<tr>" + r.map(function (c, i) { return i ? "<td>" + esc(c) + "</td>" : "<th>" + esc(c) + "</th>"; }).join("") + "</tr>"; }).join("") +
+      "</tbody></table></div>"
+    );
+  }
 
   /* Mini-lekcja przed ćwiczeniami: najpierw krótko teoria, potem pytania. */
   function teach(root, m, u, onGo) {
@@ -284,6 +330,7 @@
       '<h1 class="display">' + esc(u.title) + "</h1>" +
       '<p class="teach-lead">Przeczytaj w minutę. Pytania w lekcji sprawdzają dokładnie to, co jest niżej, a po każdej odpowiedzi zobaczysz, dlaczego jest dobra albo zła.</p>' +
       (u.teach ? '<div class="teach-intro">' + u.teach + "</div>" : "") +
+      (u.table && m.table ? '<div class="teach-intro note"><h2 class="sec-h">' + esc(m.table.title) + "</h2>" + tableHtml(m.table) + "</div>" : "") +
       figs.slice(0, 1).map(function (k) { return W.figHtml(m, k); }).join("") +
       '<ol class="teach-list">' +
       cs.map(function (c) {
@@ -294,6 +341,17 @@
         );
       }).join("") +
       "</ol>" +
+      (cs.length < 2
+        ? unitSets(m, u).map(function (set) {
+            return (
+              '<section class="cheat"><h2 class="sec-h">Ściąga <small>' + esc(set.label) + "</small></h2><dl>" +
+              set.items.map(function (it, i) {
+                return "<div><dt>" + (set.numbered ? i + 1 + ". " : "") + esc(it) + "</dt><dd>" + esc(set.why[i].charAt(0).toUpperCase() + set.why[i].slice(1)) + "</dd></div>";
+              }).join("") +
+              "</dl></section>"
+            );
+          }).join("")
+        : "") +
       '<div class="teach-go"><button class="btn primary big" data-a="go">Zaczynam ćwiczenia</button></div></div>';
     root.querySelector('[data-a="go"]').onclick = onGo;
     W.setKeys(function (e) {
@@ -422,6 +480,7 @@
     var m = W.byId[p.mod];
     var st = Store.state.settings;
     Store.unlock("notes");
+    Store.mod(m.id).read = true;
     Store.save();
 
     var SRC = { S: "lg-s", U: "lg-u", K: "lg-k", D: "lg-d" };

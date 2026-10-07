@@ -71,9 +71,11 @@
     });
   };
 
-  W.figHtml = function (m, key, small) {
+  W.figHtml = function (m, key, small, cid) {
     var f = m.figs && m.figs[key];
     if (!f) return "";
+    /* Na fiszce wysoki schemat zastępuje jego mała wersja z podświetlonym fragmentem. */
+    if (small && cid && f.mini && f.mini[cid] != null) f = Object.assign({}, f, f.miniFn(f.mini[cid]));
     return (
       '<figure class="fig' + (small ? " fig-sm" : "") + '"><svg viewBox="0 0 ' + f.w + " " + f.h + '" role="img" aria-label="' + esc(f.cap) +
       '" xmlns="http://www.w3.org/2000/svg">' + f.body + "</svg>" + (small ? "" : "<figcaption>" + esc(f.cap) + "</figcaption>") + "</figure>"
@@ -145,6 +147,49 @@
     out += T(x + w / 2 + 8, ly + 16, "zmiana dostępnej stymulacji → wraca do 1", "ts ta", "middle");
     out += T(x + w / 2 + 8, ly + 30, "(ruch oczu, podejście, dotknięcie)", "ts", "middle");
     return { w: 340, h: ly + 38, body: out };
+  }
+
+  /* Wersja na fiszkę: sześć etapów w jednym rzędzie, podświetlony ten, o który pyta karta.
+     focus: numer etapu 1–6 albo "odg" (wpływy odgórne), "neuro" (strzałki wstecz), "sr" (działanie). */
+  function ppEtapyMini(focus) {
+    var icons = ["sun", "eye", "bolt", "pulse", "shapes", "bulb"];
+    var names = ["bodziec fizyczny", "receptor", "transdukcja", "kodowanie neuronalne", "organizacja percepcyjna", "rozpoznanie"];
+    var top = focus === "odg" ? 40 : 6, cy = top + 30, r = 18, out = "";
+    var cx = function (i) { return 30 + i * 56; };
+    var hot = function (i) { return focus === i + 1 || ((focus === "odg" || focus === "neuro") && i >= 3) || (focus === "sr" && (i === 4 || i === 5)); };
+    var twoWay = focus === "neuro";
+    for (var i = 0; i < 6; i++) {
+      if (i < 5) {
+        out += A(cx(i) + r + 2, cy - (twoWay && i >= 3 ? 5 : 0), cx(i + 1) - r - 2, cy - (twoWay && i >= 3 ? 5 : 0));
+        if (twoWay && i >= 3) out += A(cx(i + 1) - r - 2, cy + 5, cx(i) + r + 2, cy + 5, "ln-a", true);
+      }
+      out += '<circle class="' + (hot(i) ? "bx-a" : "bx") + '" cx="' + cx(i) + '" cy="' + cy + '" r="' + r + '"/>';
+      out += I(icons[i], cx(i) - 10, cy - 10, 20);
+      out += '<circle class="acf" cx="' + (cx(i) + 13) + '" cy="' + (cy - 14) + '" r="7"/>' + T(cx(i) + 13, cy - 10.5, String(i + 1), "numx");
+    }
+    var h = cy + r + 8;
+    if (typeof focus === "number") {
+      var x = Math.min(Math.max(cx(focus - 1), 60), 280);
+      out += T(x, cy + r + 18, names[focus - 1], "tb ta");
+      h = cy + r + 26;
+    } else if (focus === "odg") {
+      out += R(146, 4, 192, 22, "bx-g") + T(242, 19, "kontekst · cele · pamięć · oczekiwania", "tx");
+      for (var k = 3; k < 6; k++) out += A(cx(k), 26, cx(k), cy - r - 1, "", true);
+      out += T(cx(1), cy + r + 18, "wpływy odgórne → etapy 4–6", "tb ta");
+      h = cy + r + 26;
+    } else if (focus === "neuro") {
+      out += T((cx(3) + cx(5)) / 2, cy + r + 18, "strzałki wstecz 4 ⇄ 5 ⇄ 6", "tb ta");
+      h = cy + r + 26;
+    } else if (focus === "sr") {
+      var by = cy + r + 14;
+      out += R(cx(4) - 34, by, 90, 24, "bx-x") + T(cx(4) + 11, by + 16, "działanie", "tb");
+      out += A(cx(4), cy + r, cx(4), by, "ln-a") + A(cx(5), cy + r, cx(5), by, "ln-a");
+      out += '<path class="ln ln-a" d="M' + (cx(4) - 34) + "," + (by + 12) + " H" + cx(0) + " V" + (cy + r + 9) + '"/>';
+      out += '<polygon class="ar-a" points="' + cx(0) + "," + (cy + r + 1) + " " + (cx(0) - 4.5) + "," + (cy + r + 9) + " " + (cx(0) + 4.5) + "," + (cy + r + 9) + '"/>';
+      out += T(cx(1) + 22, by + 26, "zmienia stymulację", "tx");
+      h = by + 32;
+    }
+    return { w: 340, h: h, body: out };
   }
 
   function ppOdwrotny() {
@@ -220,7 +265,8 @@
     W.addFigs("pp-w1", {
       umysl: { n: "p3", c: ["reprezentacje", "procesy", "swiadomosc"], cap: "Psychologia poznawcza bada umysł w trzech obszarach: co w nim jest, kiedy to przeżywamy i jak to się zmienia w czasie.", fn: ppUmysl },
       odwrotny: { n: "p6", c: ["odwrotny", "kat", "fizyka-percepcja"], cap: "Duży obiekt daleko i mały blisko wypełniają ten sam kąt widzenia, więc dają na siatkówce identyczny obraz. Mózg musi zgadnąć, który to.", fn: ppOdwrotny },
-      etapy: { n: "p7", c: ["bodziec-f", "receptor", "transdukcja", "kodowanie", "organizacja", "rozpoznanie", "petla-neuro", "petla-sr", "dzialanie", "odgorne-wplywy"], cap: "Etapy 1–3 prowadzą od świata do sygnału, etapy 4–6 to praca mózgu. Wpływy odgórne (żółta ramka) trafiają w etapy 4–6. Przerywane strzałki w górę to pętla neuronalna. Z organizacji i rozpoznania wychodzi działanie, które zmienia stymulację i wraca do etapu 1: to pętla sensoryczno-ruchowa.", fn: ppEtapy },
+      etapy: { n: "p7", c: ["bodziec-f", "receptor", "transdukcja", "kodowanie", "organizacja", "rozpoznanie", "petla-neuro", "petla-sr", "dzialanie", "odgorne-wplywy"], cap: "Etapy 1–3 prowadzą od świata do sygnału, etapy 4–6 to praca mózgu. Wpływy odgórne (żółta ramka) trafiają w etapy 4–6. Przerywane strzałki w górę to pętla neuronalna. Z organizacji i rozpoznania wychodzi działanie, które zmienia stymulację i wraca do etapu 1: to pętla sensoryczno-ruchowa.", fn: ppEtapy,
+        mini: { "bodziec-f": 1, receptor: 2, transdukcja: 3, kodowanie: 4, organizacja: 5, rozpoznanie: 6, "odgorne-wplywy": "odg", "petla-neuro": "neuro", "petla-sr": "sr", dzialanie: "sr" }, miniFn: ppEtapyMini },
       bodzce: { n: "p8", c: ["dystalny", "proksymalny"], cap: "Bodziec dystalny to litera w świecie. Bodziec proksymalny to jej odwrócony obraz, czyli wzorzec światła na siatkówce.", fn: ppBodzce },
       kierunki: { n: "p8", c: ["bottom-up", "top-down"], cap: "Spostrzeżenie powstaje z dwóch stron: od cech bodźca w górę i od wiedzy i oczekiwań w dół.", fn: ppKierunki },
       lejek: { n: "p10", c: ["przepustowosc", "uwaga"], cap: "Do układu nerwowego wpada ok. miliard bitów na sekundę, a świadomie używamy ok. dziesięciu. Uwaga działa jak lejek.", fn: ppLejek }

@@ -82,7 +82,7 @@
       var badge = W.srcBadge(c.s);
       var unit = m.units[m.unitIdx[c.u]];
       var pic = '<span class="fc-pic">' + W.icon(c.ic || (unit && unit.icon) || "spark") + "</span>";
-      var fig = c.fig ? W.figHtml(m, c.fig, true) : "";
+      var fig = c.fig ? W.figHtml(m, c.fig, true, c.id) : "";
       var s = Store.card(m.id, c.id);
       var meta = '<span class="fc-box">' + (s ? "Pudełko " + s.box : "Nowa karta") + "</span>";
       if (dir === "term") {
@@ -243,7 +243,7 @@
           })
           .join("") +
         "</div>" +
-        '<div class="kh-reveal" hidden></div></div>';
+        '<div class="kh-reveal" role="status" aria-live="polite" hidden></div></div>';
       var tbar = root.querySelector(".kh-tbar i"), sec = root.querySelector(".kh-sec");
       startT = Date.now();
       requestAnimationFrame(function () {

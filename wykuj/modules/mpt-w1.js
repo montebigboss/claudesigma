@@ -58,118 +58,154 @@ Wykuj.registerModule({
     { id: "z8", title: "Cudza perspektywa", sub: "Zasada 8: egocentryzm i teoria umysłu", icon: "eye" },
     { id: "z9", title: "Czarne słońce", sub: "Zasada 9: sprawczość i LOC", icon: "sun" },
     { id: "z10", title: "Glina i bunt", sub: "Zasada 10: kanalizacja i sublimacja", icon: "flame" },
-    { id: "tab", title: "Dzieci a młodzież", sub: "Tabela różnic", icon: "split" },
+    { id: "tab", title: "Dzieci a młodzież", sub: "Tabela różnic", icon: "split", table: true },
     { id: "mix", title: "Która to zasada?", sub: "Sytuacje z praktyki, wszystkie 10", icon: "dice" },
     { id: "boss", title: "Test końcowy", sub: "Wszystko z wykładu, 15 pytań", icon: "crown", boss: true }
   ],
 
   concepts: [
     { id: "facylitacja", u: "wstep", s: "U", term: "Facylitacja",
+      plain: "Psycholog samą swoją obecnością sprawia, że łatwiej zacząć i ciągnąć rozmowę o trudnych uczuciach. Nie prowadzi za rękę, tylko ułatwia.",
       def: "Sytuacja, w której obecność psychologa umożliwia rozpoczęcie i kontynuowanie procesu rozmawiania o trudnych emocjach.",
       sh: "obecność psychologa umożliwia rozmowę o trudnych emocjach" },
     { id: "facylitator", u: "wstep", s: "D", term: "Facylitator",
+      plain: "Ktoś, kto nie naprawia dziecka, tylko stwarza warunki, w których dziecko samo zaczyna działać i mówić.",
       def: "Nie jest ekspertem, który „naprawia”. Tworzy warunki, w których proces może zajść sam. Termin spopularyzował m.in. Carl Rogers (nurt humanistyczny).",
       sh: "tworzy warunki, by proces zaszedł sam (Rogers)" },
     { id: "socjoterapia", u: "wstep", s: "D", term: "Socjoterapia",
+      plain: "Pomoc w grupie: dzieci przeżywają razem coś dobrego (akceptację, współpracę), co prostuje ich złe doświadczenia z ludźmi.",
       def: "Grupowa forma pomocy psychologicznej dla dzieci i młodzieży z trudnościami emocjonalnymi i w relacjach. Opiera się na doświadczeniach korektywnych w bezpiecznej grupie.",
       sh: "grupowa pomoc oparta na doświadczeniach korektywnych" },
     { id: "cele-socjo", u: "wstep", s: "D", term: "Cele socjoterapii",
+      plain: "Trzy cele: ulżyć i zmienić złe przekonania (terapeutyczne), nauczyć się dogadywać z innymi (edukacyjne), wspierać to, czego dziecko potrzebuje do rozwoju (rozwojowe).",
       def: "Terapeutyczne (odreagowanie, korekta przekonań o sobie i innych), edukacyjne (umiejętności społeczne, komunikacja) i rozwojowe (wspieranie potrzeb rozwojowych).",
       sh: "terapeutyczne, edukacyjne, rozwojowe" },
     { id: "zaliczenie", u: "wstep", term: "Zaliczenie przedmiotu",
+      plain: "Chodzisz na zajęcia i piszesz test z odpowiedziami do wyboru. Trzeba mieć ponad połowę punktów.",
       def: "Obecność plus egzamin: test pisemny z pytaniami zamkniętymi. Trzeba uzyskać więcej niż 50% punktów.",
       sh: "obecność + test zamknięty, ponad 50%" },
     { id: "proces", u: "z1", term: "Prymat procesu nad efektem",
+      plain: "Liczy się samo tworzenie, a nie to, czy wyszło ładnie. Rysunek może być „brzydki”, ważne, co działo się podczas rysowania.",
       def: "Największą wartość terapeutyczną i rozwojową ma sam akt tworzenia, a nie produkt końcowy. Paradygmat „tu i teraz”. Cel: uwolnienie od presji perfekcjonizmu.",
       sh: "liczy się akt tworzenia, nie produkt" },
     { id: "projekcja", u: "z1", s: "U", term: "Projekcja myśli",
+      plain: "Dziecko mówi o misiu, a tak naprawdę mówi o sobie: przypisuje misiowi swoje myśli i uczucia.",
       def: "Przypisywanie obiektowi zewnętrznemu własnych stanów wewnętrznych. Uruchamia ją pytanie otwarte: „opowiedz mi o tym misiu, o czym on myśli?”.",
       sh: "przypisywanie obiektowi własnych stanów" },
     { id: "projekcja-psa", u: "z1", s: "D", term: "Projekcja w psychoanalizie",
+      plain: "W psychoanalizie projekcja to obrona: swoje nieakceptowane uczucia „wrzucam” w innych. Na teście używaj wersji z wykładu, bez obrony.",
       def: "Mechanizm obronny: przypisywanie innym własnych nieakceptowanych impulsów. Na teście trzymaj się definicji z wykładu (projekcja myśli, bez założenia obrony).",
       sh: "mechanizm obronny: moje impulsy przypisuję innym" },
     { id: "bezpieczenstwo", u: "z2", term: "Psychologiczne bezpieczeństwo",
+      plain: "Na tych zajęciach nikt nie ocenia ani nie krytykuje. Tylko wtedy dziecko odważy się pokazać coś z siebie.",
       def: "Klimat bez oceniania: całkowite zawieszenie krytyki i ocen szkolnych. Twórczość wymaga odsłonięcia się, a to ryzyko emocjonalne (szczególnie u młodzieży).",
       sh: "klimat bez oceniania i krytyki" },
     { id: "zielony", u: "z2", term: "Zasada zielonego ołówka",
+      plain: "Zamiast zaznaczać na czerwono błędy, zaznaczasz na zielono to, co ciekawe i udane. Szukasz mocnych stron, czyli zasobów.",
       def: "Zauważanie i wzmacnianie tego, co unikalne, nietypowe i ciekawe w pomyśle uczestnika (ZASOBY), zamiast wytykania błędów.",
       sh: "wzmacnianie zasobów zamiast wytykania błędów" },
     { id: "czerwony", u: "z2", term: "Czerwony ołówek",
+      plain: "Szkolne wytykanie błędów. Psycholog odkłada ten ołówek.",
       def: "Wytykanie błędów i tego, co „nie wyszło”. Tego psycholog unika.",
       sh: "wytykanie błędów i tego, co nie wyszło" },
     { id: "odmowa", u: "z2", term: "Prawo do odmowy",
+      plain: "Każdy może powiedzieć „nie” i nie pokazywać swojej pracy. Bez tłumaczenia się.",
       def: "Uczestnik zawsze może powiedzieć „NIE” i nie pokazywać pracy grupie, gdy temat jest zbyt intymny albo gdy po prostu nie chce.",
       sh: "zawsze można nie pokazać pracy grupie" },
     { id: "kierunek", u: "z2", s: "U", term: "Kierunek oceny",
+      plain: "Oceniamy zawsze, więc psycholog świadomie patrzy na to, co wychodzi, a nie na to, co nie wychodzi.",
       def: "Od oceniania nie da się uciec, więc psycholog świadomie zmienia jej kierunek: patrzy na zasoby (co się udaje), a nie na błędy.",
       sh: "oceniamy zasoby, nie błędy" },
     { id: "polisensoryka", u: "z34", term: "Aktywacja polisensoryczna",
+      plain: "Uczymy się całym ciałem: dotykiem, słuchem, węchem i ruchem, a nie tylko głową przy biurku.",
       def: "Angażowanie wielu zmysłów jako zakotwiczenie w ciele: glina przy muzyce, malowanie na podłodze, zapachy, faktury. Wspiera regulację układu nerwowego i ekspresję.",
       sh: "angażowanie wielu zmysłów naraz" },
     { id: "snoezelen", u: "z34", s: "D", term: "Snoezelen",
+      plain: "Specjalna sala z Holandii, pełna świateł, dźwięków, zapachów i rzeczy do dotykania.",
       def: "Sala doświadczania świata wywodząca się z Holandii. Najbardziej znana realizacja środowisk wielozmysłowych (multi-sensory environments).",
       sh: "wielozmysłowa sala z Holandii" },
     { id: "elastycznosc", u: "z34", term: "Elastyczność struktury",
+      plain: "Plan zajęć to tylko punkt wyjścia. Gdy grupa przychodzi z czymś ważnym, zmieniasz plan.",
       def: "Podążanie za dynamiką grupy. Sztywny scenariusz to największy wróg kreatywności, prowadzący musi być gotowy na ZWROTY AKCJI. Twórczość staje się wentylem bezpieczeństwa.",
       sh: "scenariusz to punkt wyjścia, nie obowiązek" },
     { id: "metafora", u: "z56", term: "Metaforyzacja",
+      plain: "O trudnych sprawach łatwiej mówić „przez kogoś”: przez bajkowego potwora albo graną postać. To daje bezpieczny dystans.",
       def: "Bezpieczny dystans emocjonalny. Łatwiej opowiedzieć o „smutnym potworze, który zgubił się w lesie” albo zagrać buntownika niż powiedzieć wprost o swoich lękach.",
       sh: "bezpieczny dystans emocjonalny dzięki metaforze" },
     { id: "bajkoterapia", u: "z56", term: "Bajkoterapia",
+      plain: "Opowiadanie bajek, w których bohater przeżywa to samo co dziecko, np. smutny potwór zgubiony w lesie.",
       def: "Praca z opowieścią i metaforą, np. smutny potwór zgubiony w lesie. Rekomendowana dla dzieci (temat 9 sylabusa).",
       sh: "opowieść i metafora o trudnych emocjach" },
     { id: "drama", u: "z56", term: "Drama",
+      plain: "Odgrywanie ról. Wchodzisz w czyjąś skórę i patrzysz na świat jego oczami.",
       def: "Odgrywanie ról, np. zbuntowanego bohatera albo zepsutej zabawki na deszczu. Trenuje przyjmowanie cudzej perspektywy; rekomendowana dla młodzieży.",
       sh: "odgrywanie ról i cudzej perspektywy" },
     { id: "setting", u: "z56", term: "Setting",
+      plain: "Stałe ramy zajęć: to samo miejsce, czas, zasady i rytuały. Dzięki nim wiadomo, że teraz jesteśmy gdzie indziej niż na lekcji.",
       def: "Jasne granice i rytuały oddzielające przestrzeń twórczą od „zwykłej rzeczywistości”. W psychoterapii: stałe ramy spotkań, czyli miejsce, czas i zasady.",
       sh: "stałe ramy: miejsce, czas, zasady, rytuały" },
     { id: "iskierka", u: "z56", s: "D", term: "Iskierka przyjaźni",
+      plain: "Siedzicie w kręgu i podajecie sobie uścisk dłoni jak iskierkę, od osoby do osoby.",
       def: "Rytuał rozpoczęcia: zabawa integracyjna w kręgu, w której uczestnicy kolejno przekazują sobie uścisk dłoni.",
       sh: "uścisk dłoni przekazywany w kręgu" },
     { id: "opor", u: "z7", term: "Ambiwalencja oporu",
+      plain: "„To jest bez sensu” albo „nie umiem rysować” to zwykle strach przed oceną. Nie walczymy z tym, tylko rozumiemy.",
       def: "Opór jest naturalnym elementem procesu, zwłaszcza u młodzieży. Kryje się pod nim lęk przed oceną, odrzuceniem przez grupę lub trudnymi emocjami. Psycholog nie walczy z nim, przyjmuje go z empatią.",
       sh: "opór jest naturalny, pod nim kryje się lęk" },
     { id: "ego-pozn", u: "z8", term: "Egocentryzm poznawczy",
+      plain: "Małe dziecko myśli, że inni wiedzą to samo co ono, np. że wszyscy znają zasady zabawy, które samo wymyśliło.",
       def: "Młodsze dzieci tkwią we własnej perspektywie i nie odróżniają swojej wiedzy od wiedzy innych (Piaget, stadium przedoperacyjne). Przykład: zasady zabawy, których nikomu nie powiedziały.",
       sh: "nie odróżnia swojej wiedzy od cudzej" },
     { id: "ego-adol", u: "z8", term: "Egocentryzm adolescentny",
+      plain: "Nastolatek jest bardzo skupiony na sobie i swoich przeżyciach: wydaje mu się, że wszyscy na niego patrzą i nikt go nie rozumie.",
       def: "Silne skupienie młodzieży na własnym przeżywaniu (opisał D. Elkind). Przejawy: wyobrażona publiczność i baśń osobista. Przykład: impreza z pryszczem.",
       sh: "młodzież skupiona na własnym przeżywaniu" },
     { id: "publicznosc", u: "z8", s: "D", term: "Wyobrażona publiczność",
+      plain: "Uczucie, że wszyscy mnie cały czas obserwują i oceniają, np. widzą mój pryszcz.",
       def: "Przekonanie, że wszyscy mnie obserwują. Przejaw egocentryzmu adolescentnego (Elkind).",
       sh: "przekonanie, że wszyscy mnie obserwują" },
     { id: "basn", u: "z8", s: "D", term: "Baśń osobista",
+      plain: "Przekonanie „jestem wyjątkowy, nikt nie przeżywał tego co ja, mnie nic złego się nie stanie”.",
       def: "Przekonanie o własnej wyjątkowości. Przejaw egocentryzmu adolescentnego (Elkind).",
       sh: "przekonanie o własnej wyjątkowości" },
     { id: "tom", u: "z8", s: "D", term: "Teoria umysłu",
+      plain: "Rozumiesz, że inni mają w głowie coś innego niż ty: inne myśli, przekonania i zamiary.",
       def: "Zdolność przypisywania innym stanów psychicznych (przekonań, intencji) odmiennych od własnych.",
       sh: "inni mają inne przekonania i intencje niż ja" },
     { id: "marketing", u: "z8", s: "D", term: "Marketing doświadczeń",
+      plain: "Reklama sprzedaje ci przeżycie, a nie rzecz: wyobrażasz sobie siebie z produktem. Ten sam mechanizm co w pracy twórczej, tylko celem jest sprzedaż.",
       def: "Sprzedaje przeżycie, nie produkt. Zaaranżowane warunki prowadzą do projekcji, a projekcja do przeżycia. Ten sam mechanizm co w pracy twórczej, inny cel: sprzedaż zamiast wglądu.",
       sh: "sprzedaż przeżycia przez projekcję" },
     { id: "sprawczosc", u: "z9", term: "Sprawczość",
+      plain: "Poczucie „to ja decyduję i to ma znaczenie”. Dziecko samo wybiera kolory, postacie i zakończenie.",
       def: "Poczucie wpływu na własny świat, budowane przez oddanie dziecku wszystkich decyzji twórczych: „ja decyduję, ja kreuję, mój głos ma znaczenie”.",
       sh: "„ja decyduję, mój głos ma znaczenie”" },
     { id: "loc", u: "z9", s: "D", term: "LOC (umiejscowienie kontroli)",
+      plain: "Czy uważasz, że to, co cię spotyka, zależy od ciebie (kontrola wewnętrzna), czy od losu i innych (zewnętrzna)?",
       def: "Koncepcja J. Rottera. Kontrola wewnętrzna: wyniki zależą ode mnie. Kontrola zewnętrzna: zależą od losu albo od innych.",
       sh: "umiejscowienie kontroli wg Rottera" },
     { id: "internalizacja", u: "z9", s: "D", term: "Internalizacja poczucia kontroli",
+      plain: "Przejście od „decydują za mnie” do „to zależy ode mnie”.",
       def: "Uwewnętrznienie kontroli: przesuwanie się od przekonania „decydują za mnie” do „to zależy ode mnie”.",
       sh: "od „decydują za mnie” do „zależy ode mnie”" },
     { id: "czarne-slonce", u: "z9", s: "U", term: "Czarne słońce",
+      plain: "Nauczyciel poprawi czarne słońce, a psycholog zapyta siebie: dlaczego dziecko tak wybrało?",
       def: "Nauczyciel plastyki poprawi: „słońce nie jest czarne”. Psycholog nie poprawia, tylko zastanawia się, dlaczego dziecko tak namalowało. Wybór koloru może nieść informację o przeżyciach.",
       sh: "psycholog nie poprawia, pyta: dlaczego tak?" },
     { id: "sublimacja", u: "z10", term: "Sublimacja",
+      plain: "Złość czy napięcie zamieniasz w coś twórczego: rzeźbę, piosenkę, taniec. Według psychoanalizy to najdojrzalszy sposób radzenia sobie z lękiem.",
       def: "Według nurtu psychodynamicznego najwyższa forma obrony przed lękiem: zamiana destrukcyjnej energii w konstruktywny lub ekspresyjny wytwór. Opisał ją Freud; Vaillant zalicza ją do mechanizmów dojrzałych.",
       sh: "destrukcyjna energia zamieniona w wytwór" },
     { id: "kanalizacja", u: "z10", s: "U", term: "Kanalizacja napięcia",
+      plain: "Nie gasimy emocji, tylko dajemy im ujście: glina do walenia, buntowniczy tekst, taniec zamiast uciszania.",
       def: "Nie wygaszamy napięcia, tylko nadajemy mu kierunek: glina do uderzania, buntowniczy tekst piosenki, taniec zamiast uciszania.",
       sh: "nadanie napięciu kierunku zamiast wygaszania" },
     { id: "homo-ludens", u: "tab", s: "D", term: "Homo ludens",
+      plain: "„Człowiek bawiący się”: zabawa jest czymś bardzo ludzkim i to ona napędza dzieci.",
       def: "„Człowiek bawiący się” (J. Huizinga): zabawa jest pierwotnym źródłem kultury. Na niej opiera się motywacja dzieci.",
       sh: "człowiek bawiący się (Huizinga)" },
     { id: "vision-board", u: "tab", s: "U", term: "Vision board",
+      plain: "Kolaż ze zdjęć i podpisów o tym, co dla mnie ważne i do czego dążę. Dobry dla nastolatków.",
       def: "Metoda kolażu (manifestu) dla młodzieży: zdjęcia podpisane ideami, wartościami lub celami. Służy autorefleksji i budowaniu tożsamości.",
       sh: "kolaż-manifest z celami i wartościami" }
   ],
@@ -1052,6 +1088,21 @@ Wykuj.registerModule({
         ["„Macie się dostosować i tyle.”", 0, "Ktoś narzuca ramy, a ty nie masz na nie wpływu: to głos kontroli zewnętrznej."]] }
   ],
 
+  minimum: [
+    ["Specyfika i zaliczenie", "Wykład pokazuje <b>10 zasad</b>, które odróżniają pracę twórczą z dziećmi i młodzieżą od szkoły i od pracy z dorosłymi. Zaliczenie: <b>obecność + test zamknięty, ponad 50%</b>."],
+    ["1. Prymat procesu nad efektem", "Liczy się <b>sam akt tworzenia</b>, nie estetyka. Zamiast „piękny rysunek” mów, co widzisz: „użyłeś dużo czerwieni (opowiesz mi?)”. Paradygmat <b>„tu i teraz”</b>, cel: uwolnienie od presji perfekcjonizmu."],
+    ["2. Psychologiczne bezpieczeństwo", "Klimat <b>bez oceniania</b>. <b>Zielony ołówek</b>: wzmacniasz <b>zasoby</b>, zamiast wytykać błędy. <b>Prawo do odmowy</b>: zawsze można nie pokazać pracy."],
+    ["3. Aktywacja polisensoryczna", "W dobie przebodźcowania cyfrowego potrzebne jest <b>zakotwiczenie w ciele</b>: glina, muzyka, zapachy, faktury. Reguluje układ nerwowy i ułatwia ekspresję."],
+    ["4. Elastyczność struktury", "<b>Sztywny scenariusz to największy wróg kreatywności</b>. Bądź gotów na <b>zwroty akcji</b>, a twórczość stanie się <b>wentylem bezpieczeństwa</b>."],
+    ["5. Metaforyzacja i projekcja", "O lękach łatwiej mówić przez <b>metaforę</b>: bajka o smutnym potworze (bajkoterapia), rola buntownika (drama). Metafora daje <b>bezpieczny dystans</b>."],
+    ["6. Rytualizacja i ramy (setting)", "Stałe <b>rytuały</b> rozpoczęcia i zakończenia (iskierka przyjaźni, „jakim kolorem dziś jesteś?”) i zmiana przestrzeni (krąg, poduszki) oddzielają zajęcia od codzienności."],
+    ["7. Ambiwalencja oporu", "Opór jest <b>naturalny</b>, zwłaszcza u młodzieży, a pod nim jest <b>lęk</b> (przed oceną, odrzuceniem, emocjami). Nie walczysz: „możesz posiedzieć i popatrzeć”."],
+    ["8. Przekraczanie egocentryzmu", "Drama i wspólne tworzenie wymuszają <b>cudzą perspektywę</b>. Młodsze dzieci: <b>egocentryzm poznawczy</b>, młodzież: <b>egocentryzm adolescentny</b>."],
+    ["9. Sprawczość i LOC", "Wszystkie decyzje twórcze należą do dziecka: <b>„ja decyduję, ja kreuję, mój głos ma znaczenie”</b>. Czarnego słońca nie poprawiamy. Kierunek: od <b>zewnętrznego</b> do <b>wewnętrznego</b> umiejscowienia kontroli."],
+    ["10. Kanalizacja i sublimacja", "Napięciu, złości i lękowi nadajesz <b>kierunek</b>, zamiast je wygaszać: glina do uderzania, buntowniczy tekst, taniec. <b>Sublimacja</b> to najwyższa forma obrony przed lękiem."],
+    ["Dzieci a młodzież", "Dzieci: zmysły, ciekawość, zabawa (<b>homo ludens</b>), prowadzący to <b>towarzysz i animator</b>. Młodzież: <b>tożsamość i autorefleksja</b>, sens i autonomia, rówieśnicy; prowadzący to <b>partner, świadek, gwarant poufności</b>."]
+  ],
+
   /* Pomoc pamięciowa do 10 zasad (★ nie z wykładu). */
   story: { title: "10 zasad w jednej scenie", extra: true, ordered: true,
     intro: "★ Pomoc pamięciowa, nie z wykładu. Wyobraź sobie jedne zajęcia od wejścia do wyjścia:", items: [
@@ -1070,12 +1121,14 @@ Wykuj.registerModule({
   /* Notatki do czytania. Klasy: .oral = ustnie, .extra = dopowiedzenie (★). */
   notes: [
     { id: "intro", title: "O czym jest ten wykład", html:
+      "<div class='plain'><p>Na tych zajęciach nie uczysz się plastyki, tylko tego, jak psycholog prowadzi zajęcia twórcze z dziećmi i nastolatkami. Wykład daje dziesięć zasad, które odróżniają to od szkolnej lekcji i od pracy z dorosłymi.</p></div>" +
       "<p>Wykład otwiera kurs (temat 1 z sylabusa). Pokazuje uniwersalne elementy, które odróżniają zajęcia twórcze z dziećmi i młodzieżą od standardowej edukacji i od pracy z dorosłymi. Prowadząca nazywa je <b>kluczowymi zasadami psychopedagogicznymi</b>, które każdy przyszły psycholog powinien wdrożyć w praktyce.</p>" +
       "<p><b>Zaliczenie:</b> obecność plus egzamin, czyli test pisemny z pytaniami zamkniętymi. Trzeba uzyskać <b>więcej niż 50%</b> punktów.</p>" +
       "<div class='oral'><p><b>Facylitacja</b> to sytuacja, w której obecność psychologa umożliwia rozpoczęcie i kontynuowanie procesu rozmawiania o trudnych emocjach. Obok facylitacji prowadząca wprowadziła pojęcie socjoterapii.</p></div>" +
       "<aside class='extra'><p>Termin „facylitator” spopularyzował m.in. <b>Carl Rogers</b> w nurcie humanistycznym. Facylitator nie jest ekspertem, który „naprawia”. Tworzy warunki, w których proces może zajść sam.</p>" +
       "<p><b>Socjoterapia</b> to grupowa forma pomocy psychologicznej dla dzieci i młodzieży z trudnościami emocjonalnymi i w relacjach. Opiera się na doświadczeniach korektywnych. Cele: terapeutyczne (odreagowanie, korekta przekonań), edukacyjne (umiejętności społeczne, komunikacja) i rozwojowe. Metody twórcze (rysunek, drama, ruch) są jej podstawowym narzędziem. W Polsce spopularyzowała ją m.in. K. Sawicka.</p></aside>" },
     { id: "p1", n: 1, title: "Prymat procesu nad efektem", html:
+      "<div class='plain'><p>Ważne jest to, co dzieje się podczas tworzenia, a nie to, czy wyszło ładnie. Psycholog nie chwali i nie gani wyglądu pracy, tylko ciekawi się tym, jak powstawała.</p></div>" +
       "<p>Paradygmat <b>„tu i teraz”</b>. U dorosłych często liczy się produkt końcowy (książka, obraz, projekt). U dzieci i młodzieży największą wartość terapeutyczną i rozwojową ma <b>sam akt tworzenia</b>.</p>" +
       "<p>Psycholog nie ocenia estetyki dzieła. Zamiast „piękny rysunek” czy „super” mówi:</p>" +
       "<blockquote>„Widzę, że użyłeś dużo czerwieni i mocno naciskałeś kredkę (opowiesz mi o tym?)”</blockquote>" +
@@ -1086,35 +1139,42 @@ Wykuj.registerModule({
       "<li><b>Projekcja myśli</b> to przypisywanie obiektowi zewnętrznemu własnych stanów wewnętrznych.</li></ul></div>" +
       "<aside class='extra'><p>W psychoanalizie projekcja to mechanizm obronny. Tu chodzi o sens z technik projekcyjnych, bez założenia obrony. Na teście trzymaj się definicji z wykładu.</p></aside>" },
     { id: "p2", n: 2, title: "Psychologiczne bezpieczeństwo", html:
+      "<div class='plain'><p>Dziecko pokaże coś z siebie tylko tam, gdzie nikt go nie oceni. Dlatego psycholog patrzy na mocne strony i pozwala nie pokazywać pracy.</p></div>" +
       "<p>Twórczość wymaga odsłonięcia się, a to ryzyko emocjonalne (szczególnie u młodzieży). Specyfika tych zajęć to <b>całkowite zawieszenie krytyki i ocen szkolnych</b>.</p>" +
       "<p><b>Zasada zielonego ołówka:</b> zamiast wytykać błędy (czerwony ołówek) psycholog zauważa i wzmacnia to, co unikalne, nietypowe i ciekawe. Hasło ze slajdu: <mark>ZASOBY</mark>.</p>" +
       "<p><b>Prawo do odmowy:</b> uczestnik zawsze może powiedzieć „NIE” i nie pokazywać pracy grupie.</p>" +
       "<div class='oral'><p>„Nie da się uciec od oceniania”, więc psycholog świadomie zmienia jej <b>kierunek</b>: zasoby, nie błędy.</p></div>" +
       "<aside class='extra'><p>„Zielony ołówek” jest znany z oceniania kształtującego. Łączy się z tematem 4 (etyka oceniania wytworów).</p></aside>" },
     { id: "p3", n: 3, title: "Aktywacja polisensoryczna", html:
+      "<div class='plain'><p>Siedzenie przy biurku to za mało. Glina, farby na podłodze, muzyka i zapachy pomagają się uspokoić i wyrazić to, czego trudno powiedzieć słowami.</p></div>" +
       "<p>W dobie przebodźcowania cyfrowego dzieci i młodzież potrzebują <b>zakotwiczenia w ciele</b>. Praca twórcza nie może opierać się wyłącznie na myśleniu pojęciowym.</p>" +
       "<p>Przykłady: glina przy muzyce, malowanie wielkoformatowe na podłodze, zapachy, faktury (multi-sensory environments).</p>" +
       "<p><b>Efekt:</b> regulacja układu nerwowego i łatwiejsza ekspresja dla osób, którym trudno mówić o emocjach.</p>" +
       "<div class='oral'><p>Samo siedzenie przy biurku to praca wyłącznie na myśleniu pojęciowym.</p></div>" +
       "<aside class='extra'><p>Najbardziej znana realizacja: <b>Snoezelen</b>, sala doświadczania świata z Holandii.</p></aside>" },
     { id: "p4", n: 4, title: "Elastyczność struktury", html:
+      "<div class='plain'><p>Plan zajęć jest tylko propozycją. Jeśli grupa przychodzi z czymś ważnym, zajmujesz się tym, a twórczość pomaga to przepracować.</p></div>" +
       "<p><b>Sztywny scenariusz zajęć jest największym wrogiem kreatywności.</b> Prowadzący musi być gotowy na <mark>ZWROTY AKCJI</mark>.</p>" +
       "<p>Jeśli zaplanowałeś bajkę o lęku, a grupa wchodzi poruszona konfliktem w klasie, porzucasz plan i zamieniasz metodę w narzędzie do przepracowania kryzysu. Twórczość staje się <b>wentylem bezpieczeństwa</b>.</p>" +
       "<div class='oral'><p>Scenariusz jest punktem wyjścia, a nie obowiązkiem.</p></div>" },
     { id: "p5", n: 5, title: "Metaforyzacja i projekcja", html:
+      "<div class='plain'><p>O sobie mówić trudno, o potworze z bajki łatwo. Bajka i odgrywana rola dają bezpieczny dystans.</p></div>" +
       "<p>Dzieciom i młodzieży trudno mówić wprost o lękach, kompleksach i traumach, więc korzystamy z narzędzi projekcyjnych.</p>" +
       "<p>Łatwiej opowiedzieć o „smutnym potworze, który zgubił się w lesie” (bajkoterapia) albo zagrać zbuntowanego bohatera (drama), niż powiedzieć „czuję się samotny i nierozumiany przez rodziców”. <b>Metafora i symbolika dają dziecku bezpieczeństwo.</b></p>" },
     { id: "p6", n: 6, title: "Rytualizacja i ramy czasowo-przestrzenne", html:
+      "<div class='plain'><p>Stałe rytuały na początek i koniec oraz inna przestrzeń (krąg zamiast ławek) mówią: teraz jesteśmy w innym, bezpiecznym miejscu.</p></div>" +
       "<p>Jasne granice oddzielają przestrzeń twórczą od „zwykłej rzeczywistości”. Hasło ze slajdu: <mark>SETTING</mark>.</p>" +
       "<p>Stałe rytuały rozpoczęcia (Iskierka przyjaźni, rundka „jakim kolorem dziś jesteś?”) i zakończenia. Fizyczna zmiana przestrzeni: odsunięte ławki, krąg na poduszkach.</p>" +
       "<aside class='extra'><p>Iskierka przyjaźni: uczestnicy w kręgu kolejno przekazują sobie uścisk dłoni. Setting w psychoterapii: stałe ramy spotkań, czyli miejsce, czas i zasady.</p></aside>" },
     { id: "p7", n: 7, title: "Ambiwalencja oporu", html:
+      "<div class='plain'><p>„To jest bez sensu” zwykle znaczy „boję się”. Psycholog tego nie przełamuje, tylko daje czas i pozwala popatrzeć.</p></div>" +
       "<p>U dorosłych opór pojawia się rzadko (ale bywa zakamuflowany). U dzieci, a zwłaszcza młodzieży, <b>opór jest naturalnym elementem procesu</b>.</p>" +
       "<p>Za tekstami „to jest dla dzieci”, „nie umiem rysować” kryje się <b>lęk</b> przed oceną, odrzuceniem przez grupę lub trudnymi emocjami. Psycholog nie walczy i nie zmusza:</p>" +
       "<blockquote>„Masz prawo uważać to zadanie za nudne. Możesz po prostu posiedzieć z nami i popatrzeć.”</blockquote>" +
       "<p>Młodzież bez nacisku często po kilkunastu minutach sama dołącza.</p>" +
       "<div class='oral'><p>Opór jest normalny i uczestnik ma do niego prawo. To łączy się z prawem do odmowy (zasada 2).</p></div>" },
     { id: "p8", n: 8, title: "Egocentryzm i teoria umysłu", html:
+      "<div class='plain'><p>Dzieci i nastolatki są mocno skupione na sobie. Zabawy w odgrywanie ról uczą patrzeć oczami innych.</p></div>" +
       "<p>Grupowa praca twórcza (drama, wspólny scenariusz) to trening społeczny. Młodsze dzieci tkwią w <b>egocentryzmie poznawczym</b>, młodzież w <b>egocentryzmie adolescentnym</b>.</p>" +
       "<p>Zadania wymuszają cudzą perspektywę: „zagraj zepsutą zabawkę zostawioną na deszczu”, „napisz list z perspektywy nauczyciela”. Buduje to empatię i elastyczność poznawczą.</p>" +
       "<div class='oral'><ul><li>Poznawczy: dziecko oczekuje, że wszyscy znają zasady, które samo wymyśliło.</li>" +
@@ -1122,12 +1182,14 @@ Wykuj.registerModule({
       "<li>Marki (np. kosmetyczne) budują warunki, w których odbiorca projektuje na siebie przeżycie.</li></ul></div>" +
       "<aside class='extra'><p>Poznawczy opisał <b>Piaget</b> (stadium przedoperacyjne), adolescentny <b>Elkind</b>: wyobrażona publiczność i baśń osobista. Teoria umysłu to przypisywanie innym stanów psychicznych odmiennych od własnych. Na teście używaj nazwy ze slajdu: <b>egocentryzm adolescentny</b>.</p></aside>" },
     { id: "p9", n: 9, title: "Sprawczość i poczucie kontroli (LOC)", html:
+      "<div class='plain'><p>Wielu młodych ludzi czuje, że nic od nich nie zależy. W pracy twórczej to oni decydują o wszystkim, więc uczą się, że ich głos się liczy.</p></div>" +
       "<p>Wielu młodych ludzi z trudnościami czuje, że nie ma wpływu na swoje życie (<b>zewnętrzne umiejscowienie kontroli</b>).</p>" +
       "<p>Czysta kartka, glina czy pusta scena dają dziecku absolutną władzę nad tworzonym światem. Każda decyzja należy do młodego człowieka. Czarne słońce i niebieska trawa? Akceptujemy.</p>" +
       "<blockquote>„Ja decyduję, ja kreuję, mój głos ma znaczenie.”</blockquote>" +
       "<div class='oral'><p>Nauczyciel plastyki poprawi czarne słońce. Psycholog zastanowi się, dlaczego dziecko tak namalowało. Ważne jest też, jak ktoś przeżywa narzucone ramy.</p></div>" +
       "<aside class='extra'><p>LOC to koncepcja <b>J. Rottera</b>. Internalizacja: od „decydują za mnie” do „to zależy ode mnie”.</p></aside>" },
     { id: "p10", n: 10, title: "Kanalizacja i sublimacja", html:
+      "<div class='plain'><p>Złość i napięcie nie znikają, kiedy się je ucisza. Lepiej dać im ujście w czymś twórczym: w glinie, tańcu, piosence.</p></div>" +
       "<p>Dzieci i młodzież noszą w sobie napięcie, złość, lęk, energię seksualną. Według nurtu psychodynamicznego twórczość jest <b>najwyższą formą obrony przed lękiem (sublimacją)</b>: zamienia destrukcyjną energię w wytwór.</p>" +
       "<p>Agresja? Ciężka glina do uderzania albo buntowniczy tekst piosenki. Nadaktywność? Ekspresyjny taniec.</p>" +
       "<div class='oral'><p>Zadaniem psychologa nie jest wygaszenie napięcia, lecz nadanie mu kierunku.</p></div>" +

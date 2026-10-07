@@ -27,7 +27,7 @@
       "</header>" +
       '<div class="combo" hidden></div>' +
       '<main class="l-body"></main>' +
-      '<footer class="l-foot"><div class="fb" hidden></div><div class="l-foot-row">' +
+      '<footer class="l-foot"><div class="fb" role="status" aria-live="polite" hidden></div><div class="l-foot-row">' +
       '<button class="btn ghost" data-act="skip">Nie wiem</button>' +
       '<button class="btn primary" data-act="check" disabled>Sprawdź</button></div></footer>' +
       '<div class="modal" hidden><div class="modal-card"><h3>Przerwać lekcję?</h3><p>Postęp tej lekcji przepadnie. XP za poprawne odpowiedzi zostaje.</p>' +

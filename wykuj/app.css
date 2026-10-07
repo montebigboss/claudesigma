@@ -3732,6 +3732,14 @@ aside.extra::before {
 .fig .tr {
   fill: var(--red);
 }
+.fig .tx {
+  font: 600 9.5px var(--f-body);
+  fill: var(--ink-2);
+}
+.fig .numx {
+  font: 800 9px var(--f-body);
+  fill: var(--on-accent);
+}
 .fig .num {
   font: 800 12px var(--f-body);
   fill: var(--on-accent);
@@ -4110,6 +4118,101 @@ aside.extra::before {
   border-left-color: var(--gold);
 }
 
+
+/* ---------- study plan on the module screen ---------- */
+.plan ol {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+.plan button {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 10px;
+  border-radius: var(--r);
+  border: 2px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.plan b {
+  font-size: 14px;
+  line-height: 1.2;
+}
+.plan small {
+  font-size: 12px;
+  color: var(--ink-2);
+  line-height: 1.3;
+}
+.pl-n {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 13px;
+  background: var(--surface-2);
+  color: var(--ink-2);
+}
+.pl-n .ic {
+  width: 16px;
+  height: 16px;
+  stroke-width: 3;
+}
+.plan li.done .pl-n {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.plan li.next button {
+  border-color: var(--accent);
+  box-shadow: 0 3px 0 var(--accent-soft);
+}
+.plan li.next .pl-n {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+@media (max-width: 520px) {
+  .plan ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---------- cheat sheet before "which one is it?" lessons ---------- */
+.cheat dl {
+  margin: 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cheat dl > div {
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 8px 12px;
+}
+.cheat dt {
+  font-weight: 700;
+  color: var(--accent);
+}
+.cheat dd {
+  margin: 2px 0 0;
+  color: var(--ink-2);
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+.teach-intro.note {
+  padding: 16px;
+}
 @media (max-width: 420px) {
   .todo {
     grid-template-columns: 1fr;
