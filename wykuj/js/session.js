@@ -5,7 +5,7 @@
   var esc = W.esc;
   var Store = W.Store;
 
-  /* opts: { mod, items, title, hearts (number|null), onExit(), onFinish(result) } */
+  /* opts: { mod, unit?, items, title, hearts (number|null), onExit(), onFinish(result) } */
   W.runSession = function (root, opts) {
     var m = opts.mod;
     var queue = opts.items.slice();
@@ -55,7 +55,8 @@
       var prompt = W.Ex.prompt(cur);
       body.innerHTML =
         '<div class="l-head"><span class="l-label">' + W.Ex.label(cur, m) + "</span>" + W.srcBadge(cur.s) +
-        (seen[cur.id] ? '<span class="src src-redo">powtórka błędu</span>' : "") + "</div>" +
+        (seen[cur.id] ? '<span class="src src-redo">powtórka błędu</span>' : "") +
+        (opts.unit && !opts.unit.boss && cur.u && cur.u !== opts.unit.id && !seen[cur.id] ? '<span class="src src-redo">z wcześniejszej lekcji</span>' : "") + "</div>" +
         (prompt ? '<h2 class="l-q">' + esc(prompt) + "</h2>" : "") +
         '<div class="l-ex"></div>';
       ctrl = W.Ex.render(cur, m, {
@@ -122,8 +123,9 @@
       var html = "<b class='fb-h'>" + W.icon(ok ? "check" : "x") + esc(head) + "</b>";
       if (!ok && g.correct) html += "<div class='fb-a'>" + g.correct + "</div>";
       if (g.note) html += "<p class='fb-x'>" + esc(g.note) + "</p>";
-      if (cur.x) html += "<p class='fb-x'>" + esc(cur.x) + "</p>";
+      html += W.explain(cur, g);
       fb.innerHTML = html;
+      fb.scrollTop = 0;
       fb.hidden = false;
       foot.className = "l-foot " + (ok ? "ok" : "bad");
       skip.hidden = true;

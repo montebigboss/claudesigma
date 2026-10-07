@@ -35,27 +35,61 @@
     return "";
   };
 
-  /* Normalise mcq-like exercises into {q, options[], correctIndex}. */
+  /* Lista do pytań „który to…”: zestaw z modułu albo dziesięć zasad (MPT). */
+  W.whichList = function (ex, mod) {
+    if (ex.set) return mod.sets[ex.set];
+    return { items: mod.principles, why: mod.principleWhy, numbered: true };
+  };
+
+  /* Normalise mcq-like exercises into {q, options[], correct, notes}.
+   * notes: tekst opcji → krótkie wyjaśnienie, czym ta opcja jest albo dlaczego nie pasuje. */
   W.asChoice = function (ex, mod) {
-    var correct, pool;
+    var correct, pool, notes = {};
     if (ex.t === "which") {
-      var list = ex.set ? mod.sets[ex.set].items : mod.principles;
+      var set = W.whichList(ex, mod);
+      var list = set.items;
       var fmt = function (p, i) {
-        return ex.set ? p : i + 1 + ". " + p;
+        return set.numbered ? i + 1 + ". " + p : p;
       };
+      list.forEach(function (p, i) {
+        if (set.why && set.why[i]) notes[fmt(p, i)] = set.why[i];
+      });
       correct = fmt(list[ex.a - 1], ex.a - 1);
       pool = list.map(fmt).filter(function (p) {
         return p !== correct;
       });
       pool = W.sample(pool, 3);
     } else if (ex.t === "tf") {
-      return { q: ex.q, options: ["Prawda", "Fałsz"], correct: ex.a ? 0 : 1, fixed: true };
+      return { q: ex.q, options: ["Prawda", "Fałsz"], correct: ex.a ? 0 : 1, fixed: true, notes: notes };
     } else {
       correct = ex.a[0];
       pool = ex.a.slice(1);
+      pool.forEach(function (o, i) {
+        if (ex.w && ex.w[i]) notes[o] = ex.w[i];
+      });
     }
     var opts = W.shuffle([correct].concat(pool));
-    return { q: ex.q, options: opts, correct: opts.indexOf(correct) };
+    return { q: ex.q, options: opts, correct: opts.indexOf(correct), notes: notes };
+  };
+
+  /* Wyjaśnienie po odpowiedzi. g: { notes, correctText, wrongPicks[] }.
+   * Zawsze mówi, dlaczego poprawna odpowiedź jest poprawna, a przy błędzie
+   * także, czym jest (albo dlaczego nie pasuje) to, co wybrałeś. */
+  W.explain = function (ex, g) {
+    g = g || {};
+    var notes = g.notes || {};
+    var out = "";
+    var why = ex.x || (g.correctText && notes[g.correctText] ? W.quote(g.correctText) + " to " + notes[g.correctText] + "." : "");
+    if (why) out += '<p class="why"><b>Dlaczego?</b> ' + esc(why) + "</p>";
+    (g.wrongPicks || []).forEach(function (p) {
+      var n = notes[p];
+      if (!n) return;
+      /* W pytaniach „który to…” notatka mówi, czym jest wybrana opcja. */
+      if (ex.t === "which") n = "To coś innego: " + n + ".";
+      out += '<p class="why-not"><b>A ' + esc(W.quote(p)) + "?</b> " + esc(n.charAt(0).toUpperCase() + n.slice(1)) + "</p>";
+    });
+    if (g.extra) out += g.extra;
+    return out ? '<div class="explain">' + out + "</div>" : "";
   };
 
   function choice(ex, mod, api) {
@@ -96,7 +130,13 @@
         var ok = sel === c.correct;
         root.children[c.correct].classList.add("right");
         if (!ok && sel >= 0) root.children[sel].classList.add("wrong");
-        return { ok: ok, correct: esc(c.options[c.correct]) };
+        return {
+          ok: ok,
+          correct: esc(c.options[c.correct]),
+          correctText: c.options[c.correct],
+          wrongPicks: !ok && sel >= 0 ? [c.options[sel]] : [],
+          notes: c.notes
+        };
       },
       key: function (k) {
         var n = parseInt(k, 10);
@@ -146,7 +186,11 @@
         root.classList.add("locked");
         var ok = sel === correct;
         blank.classList.add(ok ? "right" : "wrong");
-        return { ok: ok, correct: esc(correct) };
+        var notes = {};
+        ex.a.slice(1).forEach(function (o, i) {
+          if (ex.w && ex.w[i]) notes[o] = ex.w[i];
+        });
+        return { ok: ok, correct: esc(correct), correctText: correct, wrongPicks: !ok && sel ? [sel] : [], notes: notes };
       },
       key: function (k) {
         var n = parseInt(k, 10);
@@ -292,14 +336,20 @@
       },
       grade: function () {
         root.classList.add("locked");
-        var ok = true;
+        var ok = true, wrongPicks = [], notes = {};
+        (ex.o || []).forEach(function (o, i) {
+          if (ex.w && ex.w[i]) notes[o] = ex.w[i];
+        });
         opts.forEach(function (o, i) {
           var should = ex.a.indexOf(o) >= 0;
           if (should) root.children[i].classList.add("right");
-          else if (picked[i]) root.children[i].classList.add("wrong");
+          else if (picked[i]) {
+            root.children[i].classList.add("wrong");
+            wrongPicks.push(o);
+          }
           if (!!picked[i] !== should) ok = false;
         });
-        return { ok: ok, correct: ex.a.map(esc).join(", ") };
+        return { ok: ok, correct: ex.a.map(esc).join(", "), wrongPicks: wrongPicks, notes: notes };
       },
       key: function (k) {
         var n = parseInt(k, 10);
@@ -409,17 +459,31 @@
       },
       grade: function () {
         root.classList.add("locked");
-        var wrong = [];
+        var wrong = [], notes = [];
         items.forEach(function (it, i) {
           var row = root.children[i];
           var ok = picks[i] === it[1];
           row.classList.add(ok ? "right" : "wrong");
-          if (!ok) wrong.push(esc(it[0]) + " → " + esc(ex.cats[it[1]]));
+          if (!ok) {
+            wrong.push(esc(it[0]) + " → " + esc(ex.cats[it[1]]));
+            var why = W.sortWhy(ex, it);
+            if (why) notes.push("<li><b>" + esc(it[0]) + ":</b> " + esc(why) + "</li>");
+          }
         });
-        return { ok: wrong.length === 0, correct: wrong.join("<br>") };
+        return {
+          ok: wrong.length === 0,
+          correct: wrong.join("<br>"),
+          extra: notes.length ? '<ul class="why-list">' + notes.join("") + "</ul>" : ""
+        };
       }
     };
   }
+
+  /* Dlaczego karta należy do swojej kategorii: notatka przy karcie albo opis kategorii. */
+  W.sortWhy = function (deck, it) {
+    if (it[2]) return it[2];
+    return deck.why ? deck.why[it[1]] : "";
+  };
 
   W.Ex = {
     label: function (ex, mod) {
@@ -459,19 +523,22 @@
         return o.id !== c.id && W.allowed(o);
       });
       others = W.sample(others, 3);
+      var x = c.plain ? c.plain + " Na teście: " + c.def : c.def;
       if (reverse) {
         return {
           t: "mcq", s: c.s, id: mod.id + ":c:" + c.id + ":r",
           q: "Które pojęcie pasuje do opisu: „" + c.sh + "”?",
           a: [c.term].concat(others.map(function (o) { return o.term; })),
-          x: c.def
+          w: others.map(function (o) { return "To pojęcie oznacza: " + o.sh + "."; }),
+          x: x
         };
       }
       return {
         t: "mcq", s: c.s, id: mod.id + ":c:" + c.id,
         q: "Co oznacza pojęcie „" + c.term + "”?",
         a: [c.sh].concat(others.map(function (o) { return o.sh; })),
-        x: c.def
+        w: others.map(function (o) { return "Tak opisujemy inne pojęcie: " + W.quote(o.term) + "."; }),
+        x: x
       };
     },
     matchFromConcepts: function (list, mod) {
@@ -497,6 +564,30 @@
       });
   };
 
+  /* Kolejność w lekcji: najpierw rozpoznawanie (prawda/fałsz, wybór), potem
+   * dopasowywanie, na końcu przypominanie z pamięci (układanie, wpisywanie).
+   * Lekcje z flagą seq idą w kolejności, w jakiej ćwiczenia stoją w module. */
+  var TIER = { tf: 0, which: 1, mcq: 1, cloze: 2, multi: 2, match: 2, sort: 3, order: 3, type: 4 };
+  function ramp(list, m, seq) {
+    var pos = {};
+    m.exercises.forEach(function (e, i) {
+      pos[e.id] = i;
+    });
+    return list
+      .map(function (e) {
+        var k;
+        if (seq) k = pos[e.id] != null ? pos[e.id] : e.t === "match" ? 1e6 : -1;
+        else k = (TIER[e.t] != null ? TIER[e.t] : 1) + Math.random() * 1.5;
+        return { e: e, k: k };
+      })
+      .sort(function (a, b) {
+        return a.k - b.k;
+      })
+      .map(function (x) {
+        return x.e;
+      });
+  }
+
   W.buildLesson = function (m, unit) {
     var all = m.exercises.filter(W.allowed);
     if (unit.boss) {
@@ -508,7 +599,7 @@
     var pool = all.filter(function (e) {
       return e.u === unit.id;
     });
-    var picked = W.weighted(m.id, pool, 8);
+    var picked = W.weighted(m.id, pool, unit.size || 8);
     var concepts = m.concepts.filter(function (c) {
       return c.u === unit.id && W.allowed(c);
     });
@@ -527,17 +618,13 @@
       if (set.length < 4) set = set.concat(W.sample(fill, 4 - set.length));
       picked.push(W.Ex.matchFromConcepts(set, m));
     }
+    var out = ramp(picked, m, unit.seq);
+    /* Na koniec 1–2 pytania z wcześniejszych lekcji, żeby nie wypadły z głowy. */
     var idx = m.unitIdx[unit.id];
     var earlier = all.filter(function (e) {
       return m.unitIdx[e.u] < idx && e.t !== "match";
     });
-    if (earlier.length) picked = picked.concat(W.weighted(m.id, earlier, idx >= 3 ? 2 : 1));
-    var out = W.shuffle(picked);
-    /* Open on something quick rather than a typing or pairing task. */
-    var first = out.findIndex(function (e) {
-      return e.t === "mcq" || e.t === "tf" || e.t === "which";
-    });
-    if (first > 0) out.unshift(out.splice(first, 1)[0]);
+    if (earlier.length) out = out.concat(W.weighted(m.id, earlier, idx >= 3 ? 2 : 1));
     return out;
   };
 })();

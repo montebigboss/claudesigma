@@ -160,7 +160,7 @@
       { go: "kahoot", ic: "bolt", t: "Quiz na czas", d: "12 pytań, liczy się refleks", meta: ms.best.kahoot ? "Rekord " + ms.best.kahoot + " pkt" : "Bez rekordu" },
       { go: "match", ic: "pairs", t: "Pary", d: "Pojęcie do znaczenia, na czas", meta: ms.best.match ? "Rekord " + ms.best.match.toFixed(1) + " s" : "Bez rekordu" },
       { go: "sort", ic: "swipe", t: "Sortownia", d: m.sortDecks[0].title + " i inne talie", meta: m.sortDecks.length + " talie" },
-      { go: "exam", ic: "exam", t: "Egzamin próbny", d: "20 pytań zamkniętych, próg 50%", meta: lastExam ? "Ostatnio " + pct(lastExam.pct) : "Nie podchodziłeś" },
+      { go: "exam", ic: "exam", t: "Egzamin próbny", d: "20 pytań zamkniętych, próg " + Math.round(m.passRatio * 100) + "%", meta: lastExam ? "Ostatnio " + pct(lastExam.pct) : "Nie podchodziłeś" },
       { go: "review", ic: "redo", t: "Do poprawki", d: "Pytania, na których się potknąłeś", meta: misN ? misN + " pytań" : "Czysto", badge: misN, off: !misN },
       { go: "notes", ic: "book", t: "Notatki", d: "Cały wykład, tabela i ściąga", meta: m.notes.length + " sekcji" }
     ];
@@ -230,6 +230,7 @@
                 ? '<div class="bubble"><b>' + esc(u.title) + "</b><span>" + esc(u.sub) + "</span>" +
                   (open
                     ? '<button class="btn primary" data-start="' + i + '">' + (done ? "Powtórz lekcję" : u.boss ? "Zmierz się z testem" : "Zacznij lekcję") + "</button>" +
+                      (done && W.teachable(m, u) ? '<button class="btn ghost" data-teach="' + i + '">Przypomnij teorię</button>' : "") +
                       (done ? '<small>Najlepiej: ' + pct(rec.best) + "</small>" : "")
                     : "<small>Ukończ poprzednią lekcję, żeby odblokować. Albo włącz swobodny dostęp w profilu.</small>") +
                   "</div>"
@@ -249,6 +250,8 @@
     root.addEventListener("click", function (e) {
       var s = e.target.closest("[data-start]");
       if (s) return W.go("lesson", { mod: m.id, unit: +s.dataset.start });
+      var t = e.target.closest("[data-teach]");
+      if (t) return W.go("lesson", { mod: m.id, unit: +t.dataset.teach, teach: true });
       var b = e.target.closest(".nbtn");
       if (b) {
         var i = +b.dataset.i;
@@ -263,12 +266,56 @@
 
   /* ================= Lekcja ================= */
 
+  /* Czy lekcja ma czego „nauczyć” przed ćwiczeniami (pojęcia albo własne wprowadzenie). */
+  W.teachable = function (m, u) {
+    if (u.boss) return false;
+    return !!u.teach || m.concepts.some(function (c) { return c.u === u.id && W.allowed(c); });
+  };
+
+  /* Mini-lekcja przed ćwiczeniami: najpierw krótko teoria, potem pytania. */
+  function teach(root, m, u, onGo) {
+    var cs = m.concepts.filter(function (c) { return c.u === u.id && W.allowed(c); });
+    var figs = [];
+    cs.forEach(function (c) { if (c.fig && figs.indexOf(c.fig) < 0) figs.push(c.fig); });
+    root.innerHTML =
+      top("Najpierw krótko", u.title) +
+      '<div class="page teach">' +
+      '<p class="eyebrow">Zanim zaczniesz ćwiczenia</p>' +
+      '<h1 class="display">' + esc(u.title) + "</h1>" +
+      '<p class="teach-lead">Przeczytaj w minutę. Pytania w lekcji sprawdzają dokładnie to, co jest niżej, a po każdej odpowiedzi zobaczysz, dlaczego jest dobra albo zła.</p>' +
+      (u.teach ? '<div class="teach-intro">' + u.teach + "</div>" : "") +
+      figs.slice(0, 1).map(function (k) { return W.figHtml(m, k); }).join("") +
+      '<ol class="teach-list">' +
+      cs.map(function (c) {
+        return (
+          '<li class="tc"><div class="tc-h"><b class="display">' + esc(c.term) + "</b>" + W.srcBadge(c.s) + "</div>" +
+          (c.plain ? '<p class="tc-plain">' + esc(c.plain) + "</p>" : "") +
+          '<p class="tc-def"><span>' + (c.plain ? "Na teście" : "Definicja") + "</span>" + esc(c.def) + "</p></li>"
+        );
+      }).join("") +
+      "</ol>" +
+      '<div class="teach-go"><button class="btn primary big" data-a="go">Zaczynam ćwiczenia</button></div></div>';
+    root.querySelector('[data-a="go"]').onclick = onGo;
+    W.setKeys(function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        onGo();
+      }
+    });
+  }
+
   W.screens.lesson = function (root, p) {
     var m = W.byId[p.mod];
     var u = m.units[p.unit];
+    if (!p.go && W.teachable(m, u) && (p.teach || !W.unitDone(m, u.id))) {
+      return teach(root, m, u, function () {
+        W.go("lesson", { mod: p.mod, unit: p.unit, go: true }, { replace: true });
+      });
+    }
     var items = W.buildLesson(m, u);
     W.runSession(root, {
       mod: m,
+      unit: u,
       items: items,
       hearts: 3,
       onExit: function () {

@@ -4,6 +4,9 @@
   var W = window.Wykuj;
 
   var P = {
+    pulse: '<path d="M2 12h4l2.5-6 3.5 12 3-9 2 3h5"/>',
+    shapes: '<path d="M3.5 20l5-9 5 9z"/><rect x="13" y="4" width="7.5" height="7.5" rx="1.5"/>',
+    bulb: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.1V16h5v-.1c0-.8.4-1.6 1.1-2.1A6 6 0 0 0 12 3z"/>',
     spark: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/>',
     spiral: '<path d="M12 12a1.5 1.5 0 1 1 1.5-1.5A3 3 0 1 1 9 12a4.5 4.5 0 1 1 7.5 3.4A6 6 0 1 1 18 8"/>',
     pencil: '<path d="M4 20l1-4L16 5l3 3L8 19l-4 1z"/><path d="M14 7l3 3"/>',

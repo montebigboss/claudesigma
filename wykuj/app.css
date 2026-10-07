@@ -3761,6 +3761,355 @@ aside.extra::before {
   height: 30px;
 }
 
+
+/* ---------- explanations: "Dlaczego?" after every answer ---------- */
+.explain {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink);
+  text-align: left;
+}
+.explain p {
+  margin: 0;
+}
+.explain b {
+  font-family: var(--f-body);
+  font-size: inherit;
+  font-weight: 700;
+}
+.why b {
+  color: var(--accent-2);
+}
+.why-not {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--surface);
+  border-left: 4px solid var(--red);
+}
+.why-not b {
+  color: var(--red-2);
+}
+.why-list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.fb {
+  max-height: 46vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.l-foot.ok .explain .why b {
+  color: var(--accent);
+}
+:root[data-theme="dark"] .why b {
+  color: var(--accent);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .why b {
+    color: var(--accent);
+  }
+  :root:not([data-theme="light"]) .why-not b {
+    color: var(--red);
+  }
+}
+:root[data-theme="dark"] .why-not b {
+  color: var(--red);
+}
+.kh-reveal {
+  flex-wrap: wrap;
+}
+.kh-reveal > div {
+  flex: 1 1 260px;
+  max-height: 44vh;
+  overflow-y: auto;
+}
+.kh-reveal .explain {
+  margin-top: 4px;
+}
+.kh-reveal .explain b {
+  font-size: 15px;
+  color: inherit;
+}
+.kh-reveal .kh-right {
+  color: var(--ink);
+  font-size: 15px;
+}
+.kh-reveal .kh-right b {
+  font-family: var(--f-body);
+  font-size: 15px;
+  color: var(--accent);
+}
+.review .explain {
+  font-size: 14px;
+  margin-top: 2px;
+}
+.review .explain b {
+  font-weight: 700;
+}
+.r-more {
+  border: 2px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+  padding: 10px 14px;
+}
+.r-more summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--accent);
+}
+.r-more .review {
+  margin-top: 12px;
+}
+.r-defs li {
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 2px;
+}
+.r-defs b {
+  white-space: normal;
+}
+.r-defs span {
+  color: var(--ink-2);
+}
+.mg-fb {
+  min-height: 48px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 2px dashed var(--line);
+  color: var(--ink-2);
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+.mg-fb.ok {
+  border-style: solid;
+  border-color: var(--accent);
+  color: var(--ink);
+}
+.mg-fb.ok b {
+  color: var(--accent);
+}
+.mg-fb.bad {
+  border-style: solid;
+  border-color: var(--red);
+  color: var(--ink);
+}
+.mg-fb.bad b {
+  color: var(--red);
+}
+.sw-fb {
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+}
+.sw-fb b {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.sw-fb.ok b {
+  color: var(--accent);
+}
+.sw-fb.bad b {
+  color: var(--red);
+}
+.sw-fb .ic {
+  width: 18px;
+  height: 18px;
+  stroke-width: 3;
+}
+.sw-fb.ok,
+.sw-fb.bad {
+  color: var(--ink);
+}
+.sw-next {
+  margin-top: 4px;
+}
+
+/* ---------- teach first: mini-lesson before exercises ---------- */
+.teach {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.teach-lead {
+  color: var(--ink-2);
+}
+.teach-intro {
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  line-height: 1.55;
+}
+.teach-intro ol,
+.teach-intro ul {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.teach-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tc {
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: var(--r);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  line-height: 1.5;
+}
+.tc-h {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.tc-h b {
+  font-size: 18px;
+  color: var(--accent);
+}
+.tc-def {
+  color: var(--ink-2);
+  font-size: 14.5px;
+}
+.tc-def span {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold-2);
+}
+.teach-go {
+  position: sticky;
+  bottom: 0;
+  margin-inline: -16px;
+  padding: 12px 16px calc(12px + var(--safe-b));
+  background: var(--paper);
+  border-top: 2px solid var(--line);
+  display: flex;
+  justify-content: center;
+}
+.teach-go .btn {
+  width: 100%;
+  max-width: 420px;
+}
+.bubble .btn.ghost {
+  margin-top: -2px;
+}
+
+/* ---------- notes: walkthrough of a process ---------- */
+.note h3 {
+  font-family: var(--f-display);
+  font-size: 18px;
+  line-height: 1.25;
+  margin-top: 6px;
+}
+.walk {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: w;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.walk li {
+  counter-increment: w;
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  column-gap: 10px;
+  row-gap: 2px;
+  align-items: start;
+}
+.walk li > * {
+  grid-column: 2;
+}
+.walk li::before {
+  content: counter(w);
+  grid-column: 1;
+  grid-row: 1 / span 4;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+}
+.walk li b {
+  font-family: var(--f-display);
+  font-size: 16.5px;
+}
+.walk .where {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+}
+.walk .chk {
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.walk .chk::before {
+  content: "Sprawdź się: ";
+  font-weight: 700;
+  color: var(--accent);
+}
+.pairs-x {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pairs-x > div {
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: var(--paper);
+}
+.pairs-x b {
+  display: block;
+  color: var(--accent);
+}
+.loops {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.loops > div {
+  border-left: 4px solid var(--accent);
+  padding-left: 12px;
+}
+.loops > div.lp-g {
+  border-left-color: var(--gold);
+}
+
 @media (max-width: 420px) {
   .todo {
     grid-template-columns: 1fr;

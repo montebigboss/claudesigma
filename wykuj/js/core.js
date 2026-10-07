@@ -61,6 +61,12 @@
     return prev[b.length];
   };
 
+  /* Polski cudzysłów wokół tekstu, chyba że tekst już się w nim zaczyna. */
+  W.quote = function (t) {
+    t = String(t);
+    return /^[„"]/.test(t) ? t : "„" + t + "”";
+  };
+
   W.days = function (n) {
     return n + (n === 1 ? " dzień" : " dni");
   };
@@ -96,6 +102,7 @@
     m.sourceNames = m.sourceNames || { S: "slajd", U: "ustnie na wykładzie", D: "★ spoza wykładu" };
     m.course.theme = m.course.theme || "green";
     m.course.icon = m.course.icon || "pencil";
+    m.passRatio = m.passRatio || 0.5;
     W.modules.push(m);
     W.byId[m.id] = m;
   };

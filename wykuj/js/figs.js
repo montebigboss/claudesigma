@@ -91,32 +91,60 @@
   /* ================= Procesy poznawcze ================= */
 
   function ppEtapy() {
-    var names = [
-      ["1 · Bodziec fizyczny", "energia dostępna dla zmysłu"],
-      ["2 · Receptor", "wyspecjalizowana komórka"],
-      ["3 · Transdukcja", "w receptorze: energia → sygnał"],
-      [["4 · Kodowanie", "neuronalne"], "wzorce aktywności neuronów"],
-      [["5 · Organizacja", "percepcyjna"], "cechy → obiekty i zdarzenia"],
-      ["6 · Rozpoznanie", "kategoria, osoba, znaczenie"]
+    /* Pionowa wersja slajdu „Od bodźca do spostrzeżenia”: sześć etapów, wpływy odgórne
+       wchodzą w etapy 4–6, strzałki wstecz między 4–5 i 5–6 (pętla neuronalna),
+       działanie wychodzi z 5 i 6 i wraca do etapu 1 (pętla sensoryczno-ruchowa). */
+    var st = [
+      ["sun", "Bodziec fizyczny", ["energia lub zdarzenie", "dostępne dla zmysłu"]],
+      ["eye", "Receptor", ["wyspecjalizowana komórka", "lub zakończenie nerwowe"]],
+      ["bolt", "Transdukcja", ["energia → sygnał", "zachodzi w receptorze"]],
+      ["pulse", ["Kodowanie", "neuronalne"], ["wzorce aktywności", "neuronów i populacji"]],
+      ["shapes", ["Organizacja", "percepcyjna"], ["cechy → powierzchnie,", "obiekty i zdarzenia"]],
+      ["bulb", "Rozpoznanie", ["kategoria, obiekt,", "osoba lub znaczenie"]]
     ];
-    var x = 26, w = 206, h = 58, gap = 26, out = "";
-    names.forEach(function (n, i) {
-      var y = 8 + i * (h + gap);
-      out += B(x, y, w, h, n[0], n[1], i === 2 ? "bx-a" : "bx");
-      if (i < 5) out += A(x + w / 2 + 20, y + h, x + w / 2 + 20, y + h + gap);
-      if (i >= 2 && i < 5) out += A(x + 46, y + h + gap, x + 46, y + h, "", true);
+    var x = 30, w = 198, gap = 24, y = 8, out = "", box = [];
+    var fx = x + w / 2 + 22, bx = x + w / 2 - 22;
+    st.forEach(function (s, i) {
+      var tl = [].concat(s[1]), sl = s[2];
+      var h = 16 + tl.length * 15 + sl.length * 13;
+      box.push({ y: y, h: h, c: y + h / 2 });
+      out += R(x, y, w, h, i < 3 ? "bx" : "bx-a");
+      out += I(s[0], x + 12, y + h / 2 - 12, 24);
+      var top = y + h / 2 - (tl.length * 15 + sl.length * 13) / 2 + 11;
+      out += T(x + 46, top, tl, "tb", "start") + T(x + 46, top + tl.length * 15 + 1, sl, "ts", "start");
+      out += '<circle class="acf" cx="' + (x + 2) + '" cy="' + (y + 2) + '" r="9"/>' + T(x + 2, y + 6.5, String(i + 1), "num");
+      y += h + gap;
     });
-    var gy = 8 + 3 * (h + gap);
-    out += B(246, gy, 88, 3 * h + 2 * gap, ["kontekst", "cele", "pamięć", "oczekiwania"], "", "bx-g");
-    out += T(290, gy - 6, "odgórnie:", "ts");
-    for (var k = 3; k < 6; k++) out += A(246, 8 + k * (h + gap) + h / 2, x + w, 8 + k * (h + gap) + h / 2, "", true);
-    var ay = 8 + 6 * (h + gap);
-    out += A(x + w / 2 + 20, ay - gap, x + w / 2 + 20, ay);
-    out += B(x, ay, w, 44, "Działanie", "ruch oczu, podejście, dotyk", "bx-a");
-    out += '<path class="ln ln-a" d="M' + x + "," + (ay + 22) + " H10 V34 H" + (x - 8) + '"/>';
-    out += '<polygon class="ar-a" points="' + x + ",34 " + (x - 8) + ",29.5 " + (x - 8) + ',38.5"/>';
-    out += T(20, 290, "pętla sensoryczno-ruchowa", "ts ta", "middle", ' transform="rotate(-90 20 290)"');
-    return { w: 340, h: ay + 52, body: out };
+    /* przepływ w przód */
+    for (var i = 0; i < 5; i++) out += A(fx, box[i].y + box[i].h, fx, box[i + 1].y);
+    /* strzałki wstecz: 5 → 4 i 6 → 5 */
+    for (var k = 3; k < 5; k++) out += A(bx, box[k + 1].y, bx, box[k].y + box[k].h, "ln-a", true);
+    /* 1–3: od świata do sygnału */
+    out += L(240, box[0].y + 4, 240, box[2].y + box[2].h - 4) + L(236, box[0].y + 4, 240, box[0].y + 4) + L(236, box[2].y + box[2].h - 4, 240, box[2].y + box[2].h - 4);
+    out += Tc(290, box[1].c, ["od świata", "do sygnału"], "ts ta");
+    /* wpływy odgórne na 4–6 */
+    out += Tc(293, box[3].y + 8, ["od sygnału", "do znaczenia"], "ts ta");
+    var gy = box[3].y + 28, gh = box[5].y + box[5].h - gy;
+    out += R(250, gy, 86, gh, "bx-g");
+    out += T(293, gy + 24, ["wpływy", "odgórne"], "tb");
+    out += T(293, gy + 66, ["kontekst", "cele", "pamięć", "oczekiwania"], "ts");
+    for (var j = 3; j < 6; j++) out += A(250, Math.max(box[j].c, gy + 10), x + w, Math.max(box[j].c, gy + 10), "", true);
+    /* działanie: z organizacji (5) i z rozpoznania (6) */
+    var dy = box[5].y + box[5].h + 30, dh = 58;
+    out += R(x, dy, w, dh, "bx-x");
+    out += I("hand", x + 12, dy + dh / 2 - 12, 24);
+    out += T(x + 46, dy + 20, "Działanie", "tb", "start") + T(x + 46, dy + 36, ["także bez pełnego", "świadomego rozpoznania"], "ts", "start");
+    out += A(fx, box[5].y + box[5].h, fx, dy, "ln-a");
+    var g56 = box[4].y + box[4].h + gap / 2;
+    out += '<path class="ln ln-a" d="M' + (x + 14) + "," + (box[4].y + box[4].h) + " V" + g56 + " H20 V" + (dy + 16) + " H" + (x - 9) + '"/>';
+    out += '<polygon class="ar-a" points="' + x + "," + (dy + 16) + " " + (x - 8) + "," + (dy + 11.5) + " " + (x - 8) + "," + (dy + 20.5) + '"/>';
+    /* pętla sensoryczno-ruchowa: działanie zmienia stymulację → etap 1 */
+    var ly = dy + dh + 16;
+    out += '<path class="ln ln-a" d="M' + (x + w / 2) + "," + (dy + dh) + " V" + ly + " H8 V" + box[0].c + " H" + (x - 9) + '"/>';
+    out += '<polygon class="ar-a" points="' + x + "," + box[0].c + " " + (x - 8) + "," + (box[0].c - 4.5) + " " + (x - 8) + "," + (box[0].c + 4.5) + '"/>';
+    out += T(x + w / 2 + 8, ly + 16, "zmiana dostępnej stymulacji → wraca do 1", "ts ta", "middle");
+    out += T(x + w / 2 + 8, ly + 30, "(ruch oczu, podejście, dotknięcie)", "ts", "middle");
+    return { w: 340, h: ly + 38, body: out };
   }
 
   function ppOdwrotny() {
@@ -192,7 +220,7 @@
     W.addFigs("pp-w1", {
       umysl: { n: "p3", c: ["reprezentacje", "procesy", "swiadomosc"], cap: "Psychologia poznawcza bada umysł w trzech obszarach: co w nim jest, kiedy to przeżywamy i jak to się zmienia w czasie.", fn: ppUmysl },
       odwrotny: { n: "p6", c: ["odwrotny", "kat", "fizyka-percepcja"], cap: "Duży obiekt daleko i mały blisko wypełniają ten sam kąt widzenia, więc dają na siatkówce identyczny obraz. Mózg musi zgadnąć, który to.", fn: ppOdwrotny },
-      etapy: { n: "p7", c: ["bodziec-f", "receptor", "transdukcja", "kodowanie", "organizacja", "rozpoznanie", "petle", "odgorne-wplywy"], cap: "Sześć etapów od bodźca do rozpoznania. Przerywane strzałki: sprzężenia neuronalne (w górę) i wpływy odgórne (z boku). Działanie zmienia to, co trafia do zmysłów (pętla sensoryczno-ruchowa).", fn: ppEtapy },
+      etapy: { n: "p7", c: ["bodziec-f", "receptor", "transdukcja", "kodowanie", "organizacja", "rozpoznanie", "petla-neuro", "petla-sr", "dzialanie", "odgorne-wplywy"], cap: "Etapy 1–3 prowadzą od świata do sygnału, etapy 4–6 to praca mózgu. Wpływy odgórne (żółta ramka) trafiają w etapy 4–6. Przerywane strzałki w górę to pętla neuronalna. Z organizacji i rozpoznania wychodzi działanie, które zmienia stymulację i wraca do etapu 1: to pętla sensoryczno-ruchowa.", fn: ppEtapy },
       bodzce: { n: "p8", c: ["dystalny", "proksymalny"], cap: "Bodziec dystalny to litera w świecie. Bodziec proksymalny to jej odwrócony obraz, czyli wzorzec światła na siatkówce.", fn: ppBodzce },
       kierunki: { n: "p8", c: ["bottom-up", "top-down"], cap: "Spostrzeżenie powstaje z dwóch stron: od cech bodźca w górę i od wiedzy i oczekiwań w dół.", fn: ppKierunki },
       lejek: { n: "p10", c: ["przepustowosc", "uwaga"], cap: "Do układu nerwowego wpada ok. miliard bitów na sekundę, a świadomie używamy ok. dziesięciu. Uwaga działa jak lejek.", fn: ppLejek }

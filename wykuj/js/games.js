@@ -303,7 +303,8 @@
       rv.innerHTML =
         "<div><b>" + (ok ? "Dobrze! +" + pts : j < 0 ? "Czas minął" : "Niestety nie") + "</b>" +
         (ok && streak >= 2 ? '<span class="kh-streak">' + W.icon("flame") + "seria " + streak + "</span>" : "") +
-        (ex.x ? "<p>" + esc(ex.x) + "</p>" : "") + "</div>" +
+        (ok ? "" : '<p class="kh-right">Poprawnie: <b>' + esc(choice.options[choice.correct]) + "</b></p>") +
+        W.explain(ex, { notes: choice.notes, correctText: choice.options[choice.correct], wrongPicks: !ok && j >= 0 ? [choice.options[j]] : [] }) + "</div>" +
         '<button class="btn primary" data-a="next">' + (i + 1 < items.length ? "Dalej" : "Wynik") + "</button>";
       rv.hidden = false;
       rv.querySelector('[data-a="next"]').onclick = ask;
@@ -362,8 +363,14 @@
     root.innerHTML =
       top("Pary", "Pojęcie i jego sens", '<span class="clock">0.0 s</span>') +
       '<div class="page"><div class="lbar slim"><i></i></div><p class="mg-info">Runda <b class="mg-r">1</b> z ' + rounds.length +
-      ' · błąd to +3 s' + (best ? " · rekord " + best.toFixed(1) + " s" : "") + '</p><div class="mg"></div></div>';
-    var clock = root.querySelector(".clock"), grid = root.querySelector(".mg");
+      ' · błąd to +3 s' + (best ? " · rekord " + best.toFixed(1) + " s" : "") + '</p><div class="mg"></div>' +
+      '<p class="mg-fb" aria-live="polite">Połącz pojęcie z jego znaczeniem. Pod spodem zobaczysz, co oznacza każda para.</p></div>';
+    var clock = root.querySelector(".clock"), grid = root.querySelector(".mg"), mfb = root.querySelector(".mg-fb");
+    var byC = {}, missed = {};
+    concepts.forEach(function (c) { byC[c.id] = c; });
+    function gist(c) {
+      return c.plain || c.def;
+    }
 
     function elapsed() {
       return (Date.now() - start) / 1000 + mistakes * 3;
@@ -399,6 +406,9 @@
           selL = selR = null;
           if (a.dataset.id === c.dataset.id) {
             a.className = c.className = "tile big done";
+            var hit = byC[a.dataset.id];
+            mfb.className = "mg-fb ok";
+            mfb.innerHTML = "<b>" + esc(hit.term) + ":</b> " + esc(gist(hit));
             left--;
             W.sound("correct", set.length - left);
             if (!left) {
@@ -407,6 +417,10 @@
             }
           } else {
             mistakes++;
+            var cl = byC[a.dataset.id], cr = byC[c.dataset.id];
+            missed[cl.id] = missed[cr.id] = true;
+            mfb.className = "mg-fb bad";
+            mfb.innerHTML = "<b>To nie para.</b> " + esc(W.quote(cl.term)) + " znaczy: " + esc(cl.sh) + ". A " + esc(W.quote(cr.sh)) + " to opis pojęcia " + esc(W.quote(cr.term)) + ".";
             W.sound("wrong");
             W.buzz(30);
             a.classList.add("bad");
@@ -428,7 +442,12 @@
       if (t < 25) Store.unlock("match");
       var xp = 10 + (rec ? 5 : 0);
       Store.addXP(xp);
+      var miss = concepts.filter(function (c) { return missed[c.id]; });
       W.resultScreen(root, {
+        extra: miss.length
+          ? '<h3 class="r-h">Te pary ci się pomyliły</h3><ul class="r-list r-defs">' +
+            miss.map(function (c) { return "<li><b>" + esc(c.term) + "</b><span>" + esc(gist(c)) + "</span></li>"; }).join("") + "</ul>"
+          : "",
         title: t.toFixed(1) + " s",
         sub: rec ? "Nowy rekord!" : "Rekord: " + best.toFixed(1) + " s",
         confetti: rec,
@@ -501,17 +520,20 @@
       busy = false;
     }
 
+    var waiting = false;
     function decide(c) {
+      if (waiting) return next();
       if (busy) return;
       busy = true;
       var it = items[i];
       var ok = c === it[1];
       var side = it[1] === 0 ? -1 : 1;
+      var why = W.sortWhy(deck, it);
       if (ok) {
         correct++;
         W.sound("correct", correct);
         fb.className = "sw-fb ok";
-        fb.textContent = "Dobrze: " + deck.cats[it[1]];
+        fb.innerHTML = "<b>" + W.icon("check") + esc(it[0]) + " → " + esc(deck.cats[it[1]]) + ".</b>" + (why ? " " + esc(why) : "");
         card.classList.add("ok");
         card.style.transform = "translateX(" + side * 140 + "%) rotate(" + side * 18 + "deg)";
         setTimeout(next, 260);
@@ -520,16 +542,24 @@
         W.sound("wrong");
         W.buzz(30);
         fb.className = "sw-fb bad";
-        fb.textContent = "To jednak: " + deck.cats[it[1]];
+        fb.innerHTML = "<b>" + W.icon("x") + "To jednak: " + esc(deck.cats[it[1]]) + ".</b>" + (why ? " " + esc(why) : "") +
+          '<button class="btn primary sw-next" data-a="next">Rozumiem, dalej</button>';
         card.classList.add("bad");
         card.style.transform = "translateX(" + side * 18 + "%)";
-        setTimeout(function () {
-          card.style.transform = "translateX(" + side * 140 + "%) rotate(" + side * 18 + "deg)";
-          setTimeout(next, 260);
-        }, 900);
+        waiting = true;
+        fb.querySelector(".sw-next").focus({ preventScroll: true });
       }
     }
     function next() {
+      if (waiting) {
+        waiting = false;
+        var side = items[i][1] === 0 ? -1 : 1;
+        card.style.transform = "translateX(" + side * 140 + "%) rotate(" + side * 18 + "deg)";
+        return setTimeout(function () {
+          i++;
+          show();
+        }, 220);
+      }
       i++;
       show();
     }
@@ -537,7 +567,7 @@
     /* drag */
     var sx = null, dx = 0;
     card.addEventListener("pointerdown", function (e) {
-      if (busy) return;
+      if (busy || waiting) return;
       sx = e.clientX;
       dx = 0;
       card.setPointerCapture(e.pointerId);
@@ -564,7 +594,14 @@
       var b = e.target.closest("[data-c]");
       if (b) decide(+b.dataset.c);
     });
+    fb.addEventListener("click", function (e) {
+      if (e.target.closest('[data-a="next"]')) next();
+    });
     W.setKeys(function (e) {
+      if (waiting && (e.key === "Enter" || e.key === " " || e.key === "ArrowLeft" || e.key === "ArrowRight")) {
+        e.preventDefault();
+        return next();
+      }
       if (e.key === "ArrowLeft") decide(0);
       else if (e.key === "ArrowRight") decide(1);
     });
@@ -586,7 +623,10 @@
           { label: "XP", value: "+" + correct, tone: "gold" }
         ],
         extra: wrong.length
-          ? '<ul class="r-list">' + wrong.map(function (w) { return "<li><span>" + esc(w[0]) + "</span><b>" + esc(deck.cats[w[1]]) + "</b></li>"; }).join("") + "</ul>"
+          ? '<ul class="r-list r-defs">' + wrong.map(function (w) {
+              var why = W.sortWhy(deck, w);
+              return "<li><b>" + esc(w[0]) + " → " + esc(deck.cats[w[1]]) + "</b>" + (why ? "<span>" + esc(why) + "</span>" : "") + "</li>";
+            }).join("") + "</ul>"
           : "",
         actions: [
           { label: "Jeszcze raz", fn: function () { W.go("sort", p, { replace: true }); } },
@@ -615,11 +655,11 @@
       "<ul class='rules'><li><b>" + N + " pytań</b> jednokrotnego wyboru, losowanych z całego wykładu</li>" +
       "<li>Bez podpowiedzi. Wynik i omówienie dopiero po oddaniu</li>" +
       "<li>Tylko materiał prowadzącego (" + esc(m.sourceNames.S) + (m.sourceNames.U ? ", " + esc(m.sourceNames.U) : "") + "). Bez dopowiedzeń ★</li>" +
-      (m.examNote ? "<li>" + esc(m.examNote) + "</li>" : "<li>Zaliczenie: <b>więcej niż 50%</b>, jak na prawdziwym teście</li>") + "</ul>" +
+      (m.examNote ? "<li>" + esc(m.examNote) + "</li>" : "<li>Zaliczenie: <b>więcej niż " + Math.round(m.passRatio * 100) + "%</b>, jak na prawdziwym teście</li>") + "</ul>" +
       (hist.length
         ? '<div class="hist"><span>Twoje podejścia</span><div class="hist-bars">' +
           hist.slice(-10).map(function (h) {
-            return '<i class="' + (h.pct > 0.5 ? "pass" : "fail") + '" style="height:' + Math.max(6, Math.round(h.pct * 100)) + '%" title="' + h.date + ": " + Math.round(h.pct * 100) + '%"></i>';
+            return '<i class="' + (h.pct > m.passRatio ? "pass" : "fail") + '" style="height:' + Math.max(6, Math.round(h.pct * 100)) + '%" title="' + h.date + ": " + Math.round(h.pct * 100) + '%"></i>';
           }).join("") +
           "</div></div>"
         : "") +
@@ -722,13 +762,28 @@
     function finish() {
       clearInterval(timer);
       var secs = Math.round((Date.now() - t0) / 1000);
-      var ok = 0, wrongList = [];
+      var ok = 0, wrongList = [], rightList = [];
       qs.forEach(function (q, k) {
         var good = ans[k] === q.correct;
         Store.record(m.id, q.ex.id, good);
-        if (good) ok++;
-        else wrongList.push({ q: q, a: ans[k] });
+        if (good) {
+          ok++;
+          rightList.push({ q: q, a: ans[k] });
+        } else wrongList.push({ q: q, a: ans[k] });
       });
+      function reviewItem(w, good) {
+        var right = w.q.options[w.q.correct];
+        var text = w.q.ex.t === "cloze" ? w.q.q.replace("___", "_____") : w.q.q;
+        return (
+          "<li><p>" + esc(text) + "</p>" +
+          (good
+            ? '<span class="rv-good">Twoja: ' + esc(right) + "</span>"
+            : (w.a >= 0 ? '<span class="rv-bad">Twoja: ' + esc(w.q.options[w.a]) + "</span>" : '<span class="rv-bad">Bez odpowiedzi</span>') +
+              '<span class="rv-good">Poprawna: ' + esc(right) + "</span>") +
+          W.explain(w.q.ex, { notes: w.q.notes, correctText: right, wrongPicks: !good && w.a >= 0 ? [w.q.options[w.a]] : [] }) +
+          "</li>"
+        );
+      }
       var pct = ok / qs.length;
       var pass = pct > m.passRatio;
       hist.push({ date: W.today(), pct: pct, secs: secs });
@@ -744,24 +799,20 @@
         confetti: pass,
         stats: [
           { label: "Wynik", value: pass ? "Zaliczone" : "Niezaliczone", tone: pass ? "good" : "bad" },
-          { label: "Próg", value: "> 50%" },
+          { label: "Próg", value: "> " + Math.round(m.passRatio * 100) + "%" },
           { label: "XP", value: "+" + xp, tone: "gold" }
         ],
         extra:
           '<div class="stamp ' + (pass ? "pass" : "fail") + '">' + (pass ? "ZALICZONE" : "POPRAW") + "</div>" +
           (wrongList.length
             ? '<h3 class="r-h">Do przejrzenia (' + wrongList.length + ")</h3><ol class=\"review\">" +
-              wrongList
-                .map(function (w) {
-                  return (
-                    "<li><p>" + esc(w.q.q) + "</p>" +
-                    (w.a >= 0 ? '<span class="rv-bad">Twoja: ' + esc(w.q.options[w.a]) + "</span>" : '<span class="rv-bad">Bez odpowiedzi</span>') +
-                    '<span class="rv-good">Poprawna: ' + esc(w.q.options[w.q.correct]) + "</span>" +
-                    (w.q.ex.x ? '<span class="rv-x">' + esc(w.q.ex.x) + "</span>" : "") + "</li>"
-                  );
-                })
-                .join("") +
+              wrongList.map(function (w) { return reviewItem(w, false); }).join("") +
               "</ol>"
+            : "") +
+          (rightList.length
+            ? '<details class="r-more"><summary>Dobrze (' + rightList.length + '): zobacz, dlaczego</summary><ol class="review">' +
+              rightList.map(function (w) { return reviewItem(w, true); }).join("") +
+              "</ol></details>"
             : ""),
         actions: [
           { label: "Nowy test", fn: function () { W.go("exam", p, { replace: true }); } },
