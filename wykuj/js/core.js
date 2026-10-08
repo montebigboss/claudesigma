@@ -102,9 +102,32 @@
     m.sourceNames = m.sourceNames || { S: "slajd", U: "ustnie na wykładzie", D: "★ spoza wykładu" };
     m.course.theme = m.course.theme || "green";
     m.course.icon = m.course.icon || "pencil";
+    m.course.section = m.course.section || "wyk";
+    m.kind = m.kind || "lecture";
     m.passRatio = m.passRatio || 0.5;
     W.modules.push(m);
     W.byId[m.id] = m;
+  };
+
+  /* Wykład albo czytanka: jak podpisać moduł i jak o nim mówić w zdaniu. */
+  W.modLabel = function (m) {
+    return m.label || "Wykład " + m.number;
+  };
+  W.modNoun = function (m, form) {
+    var r = m.kind === "reading";
+    return { gen: r ? "czytanki" : "wykładu", nom: r ? "czytanka" : "wykład" }[form || "gen"];
+  };
+
+  /* Obrazy z assets/: w pliku jednoplikowym siedzą w W.IMG jako data URI. */
+  W.img = function (path) {
+    return (W.IMG && W.IMG[path]) || path;
+  };
+
+  /* Czy są zdjęcia stron czytanki? W pliku jednoplikowym tylko, gdy zbudowano go z --with-pages. */
+  W.pagesOk = function (m) {
+    if (!m.pages || !m.pages.length) return false;
+    if (!W.BUNDLED) return true;
+    return !!(W.IMG && W.IMG["assets/" + m.pageDir + "/" + m.pages[0].items[0][0] + ".jpg"]);
   };
 
   W.courseMeta = {};
@@ -120,9 +143,10 @@
     return W.byId[W.Store.state.lastMod] || W.modules[0];
   };
 
-  W.courses = function () {
+  W.courses = function (section) {
     var out = [], seen = {};
     W.modules.forEach(function (m) {
+      if (section && m.course.section !== section) return;
       if (!seen[m.course.id]) {
         seen[m.course.id] = { course: m.course, modules: [] };
         out.push(seen[m.course.id]);
@@ -177,7 +201,7 @@
     { id: "path", name: "Cała ścieżka", desc: "Ukończ wszystkie lekcje modułu" },
     { id: "stars", name: "Gwiazdozbiór", desc: "Trzy gwiazdki w każdej lekcji modułu" },
     { id: "hundred", name: "Setka", desc: "Odpowiedz poprawnie 100 razy" },
-    { id: "notes", name: "Czytelnik", desc: "Otwórz notatki z wykładu" }
+    { id: "notes", name: "Czytelnik", desc: "Otwórz notatki z wykładu albo streszczenie czytanki" }
   ];
 
   /* ---------- state ---------- */

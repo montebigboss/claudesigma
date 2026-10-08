@@ -79,7 +79,7 @@
       var defHtml = c.plain
         ? '<span class="fc-k">Po ludzku</span><p>' + esc(c.plain) + '</p><span class="fc-k">Na teście</span><p class="fc-def">' + esc(c.def) + "</p>"
         : '<span class="fc-k">Definicja</span><p>' + esc(c.def) + "</p>";
-      var badge = W.srcBadge(c.s);
+      var badge = W.srcBadge(c.s, m);
       var unit = m.units[m.unitIdx[c.u]];
       var pic = '<span class="fc-pic">' + W.icon(c.ic || (unit && unit.icon) || "spark") + "</span>";
       var fig = c.fig ? W.figHtml(m, c.fig, true, c.id) : "";
@@ -233,7 +233,7 @@
         '<header class="kh-top"><button class="icon-btn" data-nav="back" aria-label="Zakończ">' + W.icon("x") + "</button>" +
         '<span class="kh-n">' + (i + 1) + " / " + items.length + "</span>" +
         '<span class="kh-score"><b>' + score + "</b> pkt</span></header>" +
-        '<div class="kh-q"><h2>' + esc(q) + "</h2>" + W.srcBadge(ex.s) + "</div>" +
+        '<div class="kh-q"><h2>' + esc(q) + "</h2>" + W.srcBadge(ex.s, m) + "</div>" +
         '<div class="kh-timer"><span class="kh-sec">' + limit + '</span><div class="kh-tbar"><i></i></div></div>' +
         '<div class="kh-tiles ' + (isTf ? "two" : "") + '">' +
         choice.options
@@ -652,9 +652,9 @@
       '<div class="page"><div class="exam-intro">' +
       '<p class="eyebrow">' + esc(m.course.name) + "</p>" +
       '<h1 class="display">Test zamknięty</h1>' +
-      "<ul class='rules'><li><b>" + N + " pytań</b> jednokrotnego wyboru, losowanych z całego wykładu</li>" +
+      "<ul class='rules'><li><b>" + N + " pytań</b> jednokrotnego wyboru, losowanych z " + (m.kind === "reading" ? "całej czytanki" : "całego wykładu") + "</li>" +
       "<li>Bez podpowiedzi. Wynik i omówienie dopiero po oddaniu</li>" +
-      "<li>Tylko materiał prowadzącego (" + esc(m.sourceNames.S) + (m.sourceNames.U ? ", " + esc(m.sourceNames.U) : "") + "). Bez dopowiedzeń ★</li>" +
+      (m.kind === "reading" ? "<li>Tylko to, co jest w tekście. Bez dopowiedzeń ★</li>" : "<li>Tylko materiał prowadzącego (" + esc(m.sourceNames.S) + (m.sourceNames.U ? ", " + esc(m.sourceNames.U) : "") + "). Bez dopowiedzeń ★</li>") +
       (m.examNote ? "<li>" + esc(m.examNote) + "</li>" : "<li>Zaliczenie: <b>więcej niż " + Math.round(m.passRatio * 100) + "%</b>, jak na prawdziwym teście</li>") + "</ul>" +
       (hist.length
         ? '<div class="hist"><span>Twoje podejścia</span><div class="hist-bars">' +

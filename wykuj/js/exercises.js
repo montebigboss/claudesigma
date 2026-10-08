@@ -28,10 +28,11 @@
     order: "Ułóż we właściwej kolejności"
   };
 
-  W.srcBadge = function (s) {
+  W.srcBadge = function (s, m) {
+    var where = m ? W.modNoun(m) : "wykładu";
     if (s === "U") return '<span class="src src-u" title="Powiedziane ustnie na wykładzie">ustnie</span>';
     if (s === "K") return '<span class="src src-k" title="Definicja do zapamiętania słowo w słowo">słowo w słowo</span>';
-    if (s === "D") return '<span class="src src-d" title="Dopowiedzenie spoza wykładu">★ spoza wykładu</span>';
+    if (s === "D") return '<span class="src src-d" title="Dopowiedzenie spoza ' + where + '">★ spoza ' + where + "</span>";
     return "";
   };
 

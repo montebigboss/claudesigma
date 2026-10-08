@@ -1,7 +1,7 @@
 # Wykuj
 
-Aplikacja do nauki materiału z wykładów. Każdy wykład to osobny moduł, a każdy
-moduł ma te same tryby nauki:
+Aplikacja do nauki materiału z wykładów i ćwiczeń. Każdy wykład i każda
+czytanka to osobny moduł, a każdy moduł ma te same tryby nauki:
 
 | Tryb | Na czym polega |
 | --- | --- |
@@ -37,8 +37,32 @@ Dopowiedzenia można wyłączyć w profilu, a egzamin próbny zawsze je pomija.
 | Logika (LOG) | Wykład 1: Semiotyka: język i znak + przewodnik „Jak zdać logikę” |
 | Procesy poznawcze: percepcja i uwaga (PP) | Wykład 1: Wprowadzenie do percepcji i uwagi |
 
-Każdy przedmiot ma własny kolor i ikonę. Ekran startowy grupuje wykłady pod
-przedmiotami i ma filtr przedmiotów, a „Dalej” prowadzi do ostatnio otwartego wykładu.
+Każdy przedmiot ma własny kolor i ikonę. Ekran startowy ma dwie zakładki:
+„Wykłady” (przedmiot → wykłady, z filtrem przedmiotów) i „Ćwiczenia”
+(prowadzący z grupami → półka, np. „Lektury i czytanki – po ludzku” → czytanki).
+„Dalej” prowadzi do ostatnio otwartego modułu.
+
+## Ćwiczenia: lektury i czytanki
+
+| Prowadzący | Półka | Moduły |
+| --- | --- | --- |
+| Dr Wioletta Ozga (grupy 1, 2, 3, 8, 10) | Lektury i czytanki – po ludzku | Czytanka 1: Jak widzimy (Kalat „Wzrok” + Francuz „Imagia”) |
+
+Czytanka to zwykły moduł z `kind: "reading"` i kilkoma dodatkami:
+
+* **Streszczenie** zamiast notatek: tematami, po ludzku, z numerami stron, które
+  otwierają zdjęcie oryginału.
+* **Oryginał** (`pages`, zdjęcia w `assets/<pageDir>/`): strony do przewijania
+  i powiększania. To cudze książki, więc zdjęcia **nie trafiają do repozytorium**
+  (`.gitignore`). `python3 tools/bundle.py --with-pages` wkleja je jako data URI
+  (`Wykuj.IMG`) do prywatnej wersji w `dist-private/`, z której publikuje się artefakt.
+  Zwykły `dist/` jest bez zdjęć i chowa tryb „Oryginał”.
+* **Na zajęcia** (`talk`): pytania do omówienia na ćwiczeniach z wzorcową
+  odpowiedzią, słowami-kluczami i uwagami; odpowiadasz na głos albo na brudno
+  i oceniasz się sam. To, czego nie umiesz, wraca w następnej rundzie.
+* **Widżety** w streszczeniu i we wprowadzeniu do lekcji: `<div data-widget="hamowanie">`
+  to interaktywny symulator hamowania obocznego (`js/reading.js`).
+* Egzamin nazywa się „kartkówką próbną”, a ramki ★ to dopowiedzenia spoza czytanki.
 
 Przedmiot może mieć przewodnik po zaliczeniu (`Wykuj.registerCourse`, np.
 `modules/lg-kurs.js`): zasady egzaminu, listę pytań teoretycznych z szkieletami
@@ -57,7 +81,8 @@ Kluczowe mechanizmy są narysowane jako schematy w `js/figs.js`: pojawiają się
 w notatkach pod blokiem „po ludzku” i na odwrocie fiszek powiązanych pojęć.
 Schematy są w SVG, kolorowane motywem przedmiotu i czytelne w jasnym i ciemnym trybie.
 Nowy schemat to funkcja rysująca plus wpis w `W.addFigs(idModułu, {...})` z polami
-`n` (sekcja notatek), `c` (pojęcia) i `cap` (podpis).
+`n` (sekcja notatek), `c` (pojęcia) i `cap` (podpis). Znacznik `<!--fig:klucz-->`
+w treści sekcji wstawia schemat dokładnie w tym miejscu.
 
 ## Uruchomienie
 
@@ -78,8 +103,17 @@ na koncie, więc działa na telefonie i komputerze.
 3. Uruchom `python3 tools/bundle.py`.
 
 Moduły z tym samym `course.id` grupują się pod jednym przedmiotem na ekranie startowym.
-Nowy przedmiot to nowe `course.id`, skrót, `theme` (kolor: `green`, `indigo`, `teal` albo `plum`;
-kolejne dodaje się w `app.css`) i `icon`.
+Nowy przedmiot to nowe `course.id`, skrót, `theme` (kolor: `green`, `indigo`, `teal`, `plum`
+albo `amber`; kolejne dodaje się w `app.css`) i `icon`.
+
+## Nowa czytanka
+
+1. Zdjęcia stron do `assets/<folder>/` (przycięte, jedna strona na plik).
+2. Skopiuj `modules/oz-c1.js` jako np. `modules/oz-c2.js`: ten sam `course`
+   (`section: "cw"`, `groups`), ten sam `shelf`, `number: 2`, `label: "Czytanka 2"`,
+   `pageDir` i lista `pages`.
+3. Dodaj `<script src="modules/oz-c2.js"></script>` w `index.html` pod pierwszą czytanką
+   i uruchom `python3 tools/bundle.py`.
 
 Opcjonalne pola modułu: `plain` przy pojęciach (wyjaśnienie po ludzku), `minimum`
 (lista „na zaliczenie”), `sets` (własne listy dla pytań „która to…?”), `story`, `table`,
@@ -110,7 +144,9 @@ js/session.js       przebieg lekcji i ekran wyniku
 js/games.js         fiszki, quiz na czas, pary, sortownia, egzamin
 js/screens.js       start, moduł, ścieżka, notatki, profil
 js/guide.js         przewodnik „Jak zdać” i trener kartek egzaminacyjnych
+js/reading.js       czytanki: oryginał, „Na zajęcia”, widżety
 js/app.js           router
-modules/            jeden plik na wykład
+modules/            jeden plik na wykład albo czytankę
+assets/             zdjęcia stron czytanek
 tools/bundle.py     składa wszystko w jeden plik HTML
 ```

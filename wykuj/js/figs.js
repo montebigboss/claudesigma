@@ -44,10 +44,10 @@
     var ang = Math.atan2(y2 - y1, x2 - x1), L = 8, hw = 4.5;
     var bx = x2 - L * Math.cos(ang), by = y2 - L * Math.sin(ang);
     var p1 = [bx + hw * Math.sin(ang), by - hw * Math.cos(ang)], p2 = [bx - hw * Math.sin(ang), by + hw * Math.cos(ang)];
-    var accent = /ln-a/.test(cls || "");
+    var accent = /ln-a/.test(cls || ""), gold = /ln-g/.test(cls || "");
     return (
       '<line class="ln ' + (cls || "") + (dash ? " ln-d" : "") + '" x1="' + r1(x1) + '" y1="' + r1(y1) + '" x2="' + r1(bx) + '" y2="' + r1(by) + '"/>' +
-      '<polygon class="' + (accent ? "ar-a" : "ar") + '" points="' + r1(x2) + "," + r1(y2) + " " + r1(p1[0]) + "," + r1(p1[1]) + " " + r1(p2[0]) + "," + r1(p2[1]) + '"/>'
+      '<polygon class="' + (accent ? "ar-a" : gold ? "ar-g" : "ar") + '" points="' + r1(x2) + "," + r1(y2) + " " + r1(p1[0]) + "," + r1(p1[1]) + " " + r1(p2[0]) + "," + r1(p2[1]) + '"/>'
     );
   }
   function L(x1, y1, x2, y2, cls) {
@@ -489,6 +489,393 @@
       olowki: { n: "p2", c: ["zielony", "czerwony", "kierunek"], cap: "Czerwony ołówek szuka tego, co nie wyszło. Zielony zauważa i wzmacnia to, co ciekawe: zasoby.", fn: mptOlowki },
       opor: { n: "p7", c: ["opor"], cap: "Opór jak góra lodowa: na wierzchu „to jest bez sensu”, pod wodą lęk.", fn: mptOpor },
       sublimacja: { n: "p10", c: ["sublimacja", "kanalizacja"], cap: "Kanalizacja i sublimacja: trudnej energii nie tłumimy, tylko kierujemy ją w twórczy wytwór.", fn: mptSublimacja }
+    });
+  });
+
+  /* ================= Ćwiczenia, dr Ozga: czytanka 1 (widzenie) ================= */
+
+  function P(d, cls) {
+    return '<path class="' + (cls || "ln") + '" d="' + d + '"/>';
+  }
+  function C(cx, cy, r, cls) {
+    return '<circle class="' + (cls || "bx") + '" cx="' + cx + '" cy="' + cy + '" r="' + r + '"/>';
+  }
+  function Rs(x, y, w, h, cls, rx) {
+    return '<rect class="' + (cls || "bx") + '" x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="' + (rx == null ? 3 : rx) + '"/>';
+  }
+
+  function ozMuller() {
+    var rows = [["Nerw wzrokowy", "„widzę światło”"], ["Nerw słuchowy", "„słyszę dźwięk”"], ["Nerw węchowy", "„czuję zapach”"]];
+    var out = "";
+    rows.forEach(function (r, i) {
+      var y = 8 + i * 52;
+      out += B(8, y, 116, 40, r[0], null, "bx");
+      out += A(126, y + 20, 212, y + 20);
+      out += I("pulse", 157, y + 4, 24);
+      out += B(216, y, 116, 40, r[1], null, i === 0 ? "bx-a" : "bx");
+    });
+    out += T(170, 174, "zawsze te same impulsy (potencjały czynnościowe),", "ts");
+    out += T(170, 188, "o wrażeniu decyduje to, KTÓRY nerw jest aktywny", "ts ta");
+    return { w: 340, h: 196, body: out };
+  }
+
+  function ozRzeczy() {
+    var out = "";
+    out += '<circle class="bx-a" cx="118" cy="98" r="88" style="fill-opacity:.55"/>';
+    out += '<circle class="bx-g" cx="222" cy="98" r="88" style="fill-opacity:.55"/>';
+    out += T(78, 62, "RZECZY", "tb ta");
+    out += T(78, 84, ["kształt", "barwa"], "t");
+    out += T(78, 128, "CO to jest?", "ts");
+    out += T(262, 62, "RELACJE", "tb");
+    out += T(262, 84, ["położenie", "ruch"], "t");
+    out += T(262, 128, "GDZIE i JAK?", "ts");
+    out += T(170, 84, ["szybki", "ruch:", "kontury", "i barwy", "się", "zacierają"], "tx");
+    return { w: 340, h: 192, body: out };
+  }
+
+  function ozKreacja() {
+    var out = "", cx = [44, 128, 212, 296], names = ["kształt", "barwa", "przestrzeń", "ruch"];
+    out += B(90, 6, 160, 34, "Obraz na siatkówce", null, "bx");
+    cx.forEach(function (x, i) {
+      out += A(170, 40, x, 68);
+    });
+    out += Rs(64, 47, 212, 16, "lbl-bg", 8) + T(170, 59, "1. dekompozycja: każda cecha osobno", "ts ta");
+    cx.forEach(function (x, i) {
+      out += B(x - 40, 68, 80, 34, names[i], null, "bx-a");
+      out += A(x, 102, 135, 146);
+    });
+    out += B(40, 146, 190, 40, "2. kompozycja", "składanie wyników w całość", "bx-a");
+    out += B(246, 146, 86, 40, "pamięć", "wizualna", "bx-g");
+    out += A(246, 166, 232, 166, "ln-g");
+    out += A(135, 186, 170, 210);
+    out += B(60, 210, 220, 44, "Doświadczenie widzenia", "wytworzone, a nie odtworzone", "bx-g");
+    return { w: 340, h: 262, body: out };
+  }
+
+  function ozOko() {
+    var out = "", cx = 210, cy = 105, r = 78;
+    function pt(a, rr) { var t = a * Math.PI / 180; return [r1(cx + (rr || r) * Math.cos(t)), r1(cy + (rr || r) * Math.sin(t))]; }
+    /* gałka, nerw, rogówka */
+    out += P("M268 143 L332 166 L326 184 L262 158 Z", "bx-g");
+    out += C(cx, cy, r, "bx");
+    /* przedmiot i promienie przez środek soczewki */
+    out += A(22, 132, 22, 76, "ln-a");
+    out += T(22, 150, "przedmiot", "ts");
+    out += L(22, 78, 280, 129, "ln-d ln-a") + L(22, 132, 280, 81, "ln-d ln-a");
+    out += P("M146 62 Q108 105 146 148", "ln");
+    /* siatkówka (tylna ściana) */
+    var a1 = pt(-62, r - 4), a2 = pt(30, r - 4);
+    out += P("M" + a1[0] + " " + a1[1] + " A" + (r - 4) + " " + (r - 4) + " 0 0 1 " + a2[0] + " " + a2[1], "st-a");
+    /* tęczówka i soczewka */
+    out += L(150, 70, 150, 93, "st-b") + L(150, 117, 150, 140, "st-b");
+    out += '<ellipse class="bx-b" cx="162" cy="105" rx="9" ry="24"/>';
+    /* obraz odwrócony na siatkówce */
+    out += A(278, 86, 278, 126, "ln-a");
+    /* plamka ślepa: wyjście nerwu */
+    var bs = pt(35, r - 2);
+    out += C(bs[0], bs[1], 4, "fl-g");
+    /* podpisy */
+    out += L(124, 36, 134, 70) + T(124, 30, "rogówka", "ts");
+    out += L(178, 36, 166, 80) + T(182, 30, "soczewka", "ts");
+    out += L(262, 22, 252, 38) + T(270, 18, "siatkówka", "ts ta");
+    out += L(150, 152, 150, 140) + T(150, 166, "tęczówka", "ts");
+    out += T(150, 179, "(otwór: źrenica)", "tx");
+    out += T(298, 110, "dołek", "tx", "start");
+    out += T(262, 102, "obraz", "tx", "end");
+    out += L(222, 187, 262, 154) + T(212, 198, "plamka ślepa", "ts");
+    out += L(318, 186, 316, 178) + T(338, 198, "nerw wzrokowy", "tx", "end");
+    out += L(300, 64, 284, 73) + T(338, 60, "twardówka", "tx", "end");
+    return { w: 340, h: 206, body: out };
+  }
+
+  function ozAkomodacja() {
+    var out = "";
+    function eye(cy, thick, label, sub) {
+      out += C(250, cy, 40, "bx");
+      var a1 = [250 + 37 * Math.cos(-1), cy + 37 * Math.sin(-1)], a2 = [250 + 37 * Math.cos(1), cy + 37 * Math.sin(1)];
+      out += P("M" + r1(a1[0]) + " " + r1(a1[1]) + " A37 37 0 0 1 " + r1(a2[0]) + " " + r1(a2[1]), "st-a");
+      out += '<ellipse class="bx-b" cx="222" cy="' + cy + '" rx="' + thick + '" ry="22"/>';
+      out += T(338, cy - 2, label, "ts", "end");
+    }
+    /* daleki przedmiot: promienie prawie równoległe */
+    eye(50, 4, "cieńsza", "");
+    out += T(12, 22, "daleki przedmiot", "ts", "start");
+    out += L(12, 36, 222, 36, "ln-d ln-a") + L(12, 64, 222, 64, "ln-d ln-a");
+    out += L(222, 36, 285, 50, "ln-a") + L(222, 64, 285, 50, "ln-a");
+    /* bliski przedmiot: promienie rozbieżne */
+    eye(150, 11, "grubsza", "");
+    out += C(110, 150, 4, "obj-a");
+    out += T(110, 134, "bliski przedmiot", "ts");
+    out += L(110, 150, 222, 136, "ln-d ln-a") + L(110, 150, 222, 164, "ln-d ln-a");
+    out += L(222, 136, 285, 150, "ln-a") + L(222, 164, 285, 150, "ln-a");
+    out += T(222, 102, "soczewka", "ts");
+    out += T(170, 204, "blisko: soczewka grubsza · daleko: cieńsza", "ts ta");
+    return { w: 340, h: 212, body: out };
+  }
+
+  function ozWarstwy() {
+    var out = "", xs = [64, 88, 112, 136, 160, 184], y0 = 18;
+    out += T(36, 10, "nerw wzrokowy → do mózgu", "tx ta", "start");
+    out += T(336, 10, "tył oka", "tx", "end");
+    xs.forEach(function (x, i) {
+      if (i % 2) out += P("M" + (x - 6) + " " + (y0 + 28) + " L" + x + " " + (y0 + 2) + " L" + (x + 6) + " " + (y0 + 28) + " Z", "bx-a");
+      else out += Rs(x - 5, y0, 10, 28, "bx-b", 4);
+    });
+    out += T(212, y0 + 18, "receptory", "ts", "start");
+    out += P("M56 " + (y0 + 42) + " Q124 " + (y0 + 34) + " 192 " + (y0 + 42), "st-g");
+    out += T(212, y0 + 44, "horyzontalna", "ts", "start");
+    [76, 124, 172].forEach(function (x) {
+      out += L(x, y0 + 28, x, y0 + 60) + C(x, y0 + 66, 6, "bx") + L(x, y0 + 72, x, y0 + 100);
+    });
+    out += T(212, y0 + 70, "dwubiegunowe", "ts", "start");
+    out += P("M68 " + (y0 + 88) + " L180 " + (y0 + 88), "st-b ln-d");
+    out += T(212, y0 + 92, "amakrynowa", "ts", "start");
+    [76, 124, 172].forEach(function (x) {
+      out += C(x, y0 + 110, 9, "obj-a");
+    });
+    out += T(212, y0 + 114, "zwojowe", "ts", "start");
+    /* aksony biegną do jednego miejsca i przebijają siatkówkę: plamka ślepa */
+    out += P("M76 " + (y0 + 119) + " Q72 " + (y0 + 132) + " 42 " + (y0 + 132) + " M124 " + (y0 + 119) + " Q118 " + (y0 + 138) + " 42 " + (y0 + 136) +
+      " M172 " + (y0 + 119) + " Q166 " + (y0 + 144) + " 42 " + (y0 + 140), "st-a");
+    out += '<path class="st-a" style="stroke-width:5" d="M40 ' + (y0 + 142) + " L40 " + (y0 - 2) + '"/>';
+    /* sygnał w dół, światło w górę */
+    out += A(198, y0 + 4, 198, y0 + 104, "ln-a");
+    out += A(16, y0 + 168, 16, y0 + 4, "ln-g");
+    out += T(170, y0 + 162, "środek oka (stąd wpada światło)", "tx");
+    out += T(8, y0 + 186, "złota strzałka: światło mija wszystkie warstwy", "tx", "start");
+    out += T(8, y0 + 200, "pomarańczowa: sygnał wraca do komórek zwojowych", "tx", "start");
+    return { w: 340, h: y0 + 208, body: out };
+  }
+
+  function ozPlamka() {
+    var out = Rs(0, 0, 340, 160, "fl-paper", 10);
+    out += C(58, 44, 13, "fl-black");
+    out += P("M290 30 L290 58 M276 44 L304 44", "st-black");
+    out += P("M14 104 L48 104 M68 104 L126 104", "st-black");
+    out += P("M290 90 L290 118 M276 104 L304 104", "st-black");
+    out += '<text class="tx-black" x="170" y="136" text-anchor="middle">zamknij prawe oko, lewym patrz na krzyżyk</text>';
+    out += '<text class="tx-black" x="170" y="150" text-anchor="middle">i powoli przybliżaj albo oddalaj ekran</text>';
+    return { w: 340, h: 160, body: out };
+  }
+
+  function ozReceptory() {
+    var out = "";
+    out += Rs(28, 14, 22, 120, "bx-b", 9);
+    for (var y = 22; y < 68; y += 7) out += L(31, y, 47, y);
+    out += T(60, 22, "PRĘCIK", "tb", "start");
+    out += T(60, 42, ["kształt walca", "słabe światło", "bez barw (szarości)", "obwód siatkówki", "ok. 20 × więcej"], "ts", "start");
+    out += P("M200 134 L200 70 Q200 40 211 14 Q222 40 222 70 L222 134 Z", "bx-a");
+    for (var y2 = 30; y2 < 70; y2 += 7) out += L(205, y2, 217, y2);
+    out += T(232, 22, "CZOPEK", "tb ta", "start");
+    out += T(232, 42, ["kształt stożka", "jasne światło", "barwy i szczegóły", "dołek środkowy", "ok. 4,6–6 mln"], "ts", "start");
+    return { w: 340, h: 142, body: out };
+  }
+
+  function ozSwiatlo() {
+    var out = "", xs = [32, 98, 170, 240, 308];
+    var lab = [["noc bez", "księżyca"], ["pełnia"], ["zmierzch,", "świt"], ["biuro,", "sklep"], ["słońce"]];
+    out += A(14, 58, 330, 58);
+    xs.forEach(function (x, i) {
+      out += L(x, 52, x, 64);
+      out += I(i < 2 ? "moon" : "sun", x - 9, 4, 18);
+      out += T(x, 34, lab[i], "tx");
+    });
+    out += T(330, 76, "jaśniej →", "tx", "end");
+    out += B(14, 84, 120, 30, "skotopowe", null, "bx-b");
+    out += B(96, 120, 140, 30, "mezopowe", null, "bx-g");
+    out += B(200, 156, 128, 30, "fotopowe", null, "bx-a");
+    out += T(140, 103, "pręciki", "ts", "start");
+    out += T(90, 132, ["oba,", "żaden na 100%"], "tx", "end");
+    out += T(194, 175, "czopki", "ts", "end");
+    return { w: 340, h: 194, body: out };
+  }
+
+  function ozGestosc() {
+    var out = "", X = function (d) { return r1(182 + d * 2.3); }, Y = function (k) { return r1(170 - k * 0.68); };
+    /* osie i siatka */
+    out += L(40, 170, 330, 170) + L(40, 30, 40, 170);
+    [50, 100, 150, 200].forEach(function (k) {
+      out += L(36, Y(k), 40, Y(k)) + T(34, Y(k) + 4, String(k), "tx", "end");
+    });
+    out += T(44, 22, "tys. receptorów na mm²", "tx", "start");
+    [-60, -20, 0, 20, 60].forEach(function (d) {
+      out += L(X(d), 170, X(d), 174) + T(X(d), 186, (d > 0 ? "+" : "") + d + "°", "tx");
+    });
+    out += T(46, 200, "← strona skroniowa", "tx", "start");
+    out += T(330, 200, "strona nosowa →", "tx", "end");
+    /* plamka ślepa */
+    out += '<rect class="bx-x" x="' + X(13) + '" y="30" width="' + r1(X(17) - X(13)) + '" height="140" rx="2"/>';
+    out += T(X(15), 26, "plamka ślepa", "tx");
+    /* pręciki */
+    var rl = [[-60, 75], [-50, 96], [-40, 120], [-30, 140], [-20, 150], [-12, 128], [-6, 70], [-2, 14], [0, 0], [2, 14], [6, 70], [10, 115], [13, 132], [13, 0]];
+    var rr = [[17, 0], [17, 146], [20, 150], [30, 140], [40, 120], [50, 96], [60, 75]];
+    function line(pts) { return pts.map(function (p, i) { return (i ? "L" : "M") + X(p[0]) + " " + Y(p[1]); }).join(" "); }
+    out += P(line(rl), "st-b") + P(line(rr), "st-b");
+    /* czopki */
+    var cl = [[-60, 6], [-10, 8], [-4, 30], [-1.5, 140], [0, 200], [1.5, 140], [4, 30], [10, 8], [13, 7], [13, 0]];
+    var cr = [[17, 0], [17, 7], [60, 6]];
+    out += P(line(cl), "st-a") + P(line(cr), "st-a");
+    out += T(X(0) - 8, Y(186), "czopki", "ts ta", "end");
+    out += T(X(-20), Y(150) - 8, "pręciki", "ts", "middle");
+    out += T(X(0), 200, "dołek", "tx ta");
+    return { w: 340, h: 206, body: out };
+  }
+
+  function ozZbieznosc() {
+    var out = "";
+    /* dołek: 3 czopki, każdy z własną drogą */
+    out += T(85, 14, "DOŁEK", "tb ta");
+    [55, 85, 115].forEach(function (x) {
+      out += P("M" + (x - 7) + " 50 L" + x + " 22 L" + (x + 7) + " 50 Z", "bx-a");
+      out += L(x, 50, x, 78) + C(x, 84, 6, "bx") + L(x, 90, x, 112) + C(x, 120, 8, "obj-a") + A(x, 128, x, 156, "ln-a");
+    });
+    out += T(85, 174, "1 czopek → 1 komórka", "ts");
+    out += T(85, 188, "ostro, ale trzeba światła", "ts ta");
+    /* obwód: wiele pręcików na jedną komórkę */
+    out += T(255, 14, "OBWÓD", "tb");
+    [200, 222, 244, 266, 288, 310].forEach(function (x) {
+      out += Rs(x - 5, 22, 10, 28, "bx-b", 4) + L(x, 50, 255, 78);
+    });
+    out += C(255, 84, 6, "bx") + L(255, 90, 255, 112) + C(255, 120, 8, "obj") + A(255, 128, 255, 156);
+    out += T(255, 174, "wiele pręcików → 1 komórka", "ts");
+    out += T(255, 188, "czule, ale bez szczegółów", "ts");
+    out += L(170, 12, 170, 192, "ln-d");
+    return { w: 340, h: 196, body: out };
+  }
+
+  function ozDroga() {
+    var out = "";
+    out += C(95, 28, 20, "bx") + C(95, 28, 7, "bx-b");
+    out += C(245, 28, 20, "bx") + C(245, 28, 7, "bx-b");
+    out += T(68, 32, "lewe oko", "ts", "end");
+    out += T(272, 32, "prawe oko", "ts", "start");
+    /* włókna lewego oka (akcent) i prawego (złote) */
+    out += P("M88 47 L150 98 L104 146", "st-a") + P("M102 47 L170 100 L236 146", "st-a");
+    out += P("M252 47 L190 98 L236 146", "st-g") + P("M238 47 L170 100 L104 146", "st-g");
+    out += T(4, 56, ["nerw", "wzrokowy"], "tx", "start");
+    out += L(76, 96, 142, 99) + T(4, 92, ["skrzyżowanie", "wzrokowe"], "tx", "start");
+    out += L(56, 132, 122, 126) + T(4, 130, ["trakt", "wzrokowy"], "tx", "start");
+    out += B(64, 146, 80, 32, "LGN", "wzgórze", "bx");
+    out += B(196, 146, 80, 32, "LGN", "wzgórze", "bx");
+    /* wzgórki górne */
+    out += A(220, 129, 276, 124, "", true);
+    out += B(278, 106, 60, 36, "wzgórki", "górne", "bx-x");
+    /* promienistość i kora */
+    [60, 82, 104, 126, 148].forEach(function (x) { out += L(104, 178, x, 214); });
+    [192, 214, 236, 258, 280].forEach(function (x) { out += L(236, 178, x, 214); });
+    out += T(4, 186, ["promienistość", "wzrokowa"], "tx", "start");
+    out += B(44, 214, 120, 34, "kora wzrokowa", "płat potyliczny", "bx-a");
+    out += B(176, 214, 120, 34, "kora wzrokowa", "płat potyliczny", "bx-a");
+    return { w: 340, h: 254, body: out };
+  }
+
+  function ozPole() {
+    var out = "";
+    /* od punktu do obwarzanka */
+    out += C(40, 34, 3, "obj");
+    out += T(40, 60, ["receptor:", "punkt"], "tx");
+    out += A(62, 34, 104, 34);
+    out += C(140, 34, 22, "bx-r") + C(140, 34, 9, "bx-a");
+    out += T(140, 74, ["komórka zwojowa:", "obwarzanek"], "tx");
+    out += A(176, 34, 218, 34);
+    out += C(270, 34, 34, "bx-x");
+    out += T(270, 84, ["dalej w mózgu:", "coraz większe pola"], "tx");
+    /* dwa typy */
+    out += C(90, 150, 46, "bx-r") + C(90, 150, 19, "bx-a");
+    out += T(90, 158, "+", "huge-s ta") + T(90, 124, "−", "huge-s tr") + T(90, 192, "−", "huge-s tr");
+    out += C(250, 150, 46, "bx-a") + C(250, 150, 19, "bx-r");
+    out += T(250, 158, "−", "huge-s tr") + T(250, 124, "+", "huge-s ta") + T(250, 192, "+", "huge-s ta");
+    out += T(90, 214, ["światło w centrum pobudza,", "w otoczce hamuje"], "tx");
+    out += T(250, 214, "albo odwrotnie", "tx");
+    return { w: 340, h: 236, body: out };
+  }
+
+  function ozZelatyna() {
+    var out = "";
+    out += T(12, 16, "jeden klocek", "ts", "start");
+    out += P("M14 50 L128 50 Q140 40 150 60 L190 60 Q200 40 212 50 L326 50 L326 86 L14 86 Z", "bx-a");
+    out += Rs(150, 28, 40, 32, "bx-g");
+    out += A(96, 102, 166, 62) + T(14, 112, ["zagłębienie", "= pobudzenie"], "ts", "start");
+    out += A(262, 102, 206, 47) + T(326, 112, ["wybrzuszenie", "= hamowanie sąsiadów"], "ts", "end");
+    out += T(12, 150, "rząd klocków", "ts", "start");
+    out += P("M14 172 L76 172 Q84 162 90 186 L130 186 L130 180 L250 180 L250 186 L290 186 Q296 162 304 172 L326 172 L326 208 L14 208 Z", "bx-a");
+    [[90, 186], [130, 180], [170, 180], [210, 180], [250, 186]].forEach(function (b) {
+      out += Rs(b[0], b[1] - 32, 40, 32, "bx-g");
+    });
+    out += T(170, 228, "skrajne toną głębiej = brzeg najmocniej pobudzony", "ts ta");
+    return { w: 340, h: 236, body: out };
+  }
+
+  function ozHermann() {
+    var out = Rs(0, 0, 340, 232, "fl-paper", 10), s = 46, g = 12, x0 = 25, y0 = 12;
+    for (var r = 0; r < 4; r++) for (var c = 0; c < 5; c++) out += Rs(x0 + c * (s + g), y0 + r * (s + g), s, s, "fl-black", 0);
+    return { w: 340, h: 232, body: out };
+  }
+
+  function ozZwojowe() {
+    var out = "", cols = [[60, "karłowate", "ok. 80%", ["szczegóły,", "czerwony–zielony"], 5, 6, 10, "obj-a"],
+      [170, "pyłkowe", "ok. 10%", ["niebieski–żółty"], 3, 9, 18, "fl-b"],
+      [280, "parasolowe", "ok. 10%", ["kontrast, ruch,", "2 × szybciej"], 9, 14, 30, "fl-g"]];
+    cols.forEach(function (c) {
+      var x = c[0], y = 52;
+      for (var i = 0; i < c[5]; i++) {
+        var a = (i / c[5]) * Math.PI * 2 - Math.PI / 2, L1 = c[6] * (0.7 + 0.3 * ((i * 7) % 3) / 2);
+        out += L(x, y, r1(x + Math.cos(a) * (c[4] + L1)), r1(y + Math.sin(a) * (c[4] + L1)));
+      }
+      out += C(x, y, c[4], c[7]);
+      out += T(x, 104, c[1], "tb");
+      out += T(x, 120, c[2], "ts");
+      out += T(x, 136, c[3], "tx");
+    });
+    out += Rs(20, 166, 240, 16, "obj-a", 0) + Rs(260, 166, 30, 16, "fl-b", 0) + Rs(290, 166, 30, 16, "fl-g", 0);
+    out += T(140, 196, "małe: ok. 90% włókien nerwu wzrokowego", "tx");
+    return { w: 340, h: 204, body: out };
+  }
+
+  function ozSpecjalizacje() {
+    var rows = [["długość fali", "barwa"], ["kontrast jasności", "krawędzie, kształt"], ["zmiana w czasie", "ruch"], ["rozdzielczość", "ostrość"]];
+    var out = T(80, 12, "komórki zwojowe badają…", "tx") + T(258, 12, "…więc widzimy", "tx");
+    rows.forEach(function (r, i) {
+      var y = 20 + i * 44;
+      out += B(8, y, 144, 34, r[0], null, "bx");
+      out += A(156, y + 17, 182, y + 17, "ln-a");
+      out += B(186, y, 146, 34, r[1], null, "bx-a");
+    });
+    return { w: 340, h: 198, body: out };
+  }
+
+  function ozWidmo() {
+    var out = '<defs><linearGradient id="oz-widmo-g" x1="0" x2="1" y1="0" y2="0">' +
+      '<stop offset="0" stop-color="#7a3bd1"/><stop offset=".2" stop-color="#2f5fe0"/><stop offset=".42" stop-color="#1f9a55"/>' +
+      '<stop offset=".62" stop-color="#e3c21a"/><stop offset=".8" stop-color="#ef7d1a"/><stop offset="1" stop-color="#d4282a"/></linearGradient></defs>';
+    out += '<rect x="20" y="30" width="300" height="34" rx="8" fill="url(#oz-widmo-g)"/>';
+    out += T(20, 20, "krótkie fale", "tx", "start") + T(320, 20, "długie fale", "tx", "end");
+    out += T(20, 82, "fiolet", "ts", "start") + T(320, 82, "czerwień", "ts", "end");
+    out += T(20, 98, "ok. 350–400 nm", "tx", "start") + T(320, 98, "ok. 700 nm", "tx", "end");
+    out += T(170, 120, "po drodze: niebieski, zielony, żółty, pomarańczowy", "tx");
+    return { w: 340, h: 128, body: out };
+  }
+
+  W.registerFigs.push(function () {
+    W.addFigs("oz-c1", {
+      muller: { n: "s1", c: ["muller"], cap: "Każdy nerw przesyła te same impulsy. Mózg wie, czy to światło, czy dźwięk, po tym, który nerw je przyniósł (prawo specyficznych energii nerwowych, Müller 1838).", fn: ozMuller },
+      rzeczy: { n: "s2", c: ["kat-rzeczy", "kat-relacji", "na-styku", "cechy-sceny"], cap: "Cztery cechy sceny w dwóch kategoriach. Kategorie się zazębiają: przy bardzo szybkim ruchu kształt i barwa się zacierają.", fn: ozRzeczy },
+      kreacja: { n: "s3", c: ["dekompozycja", "kompozycja", "akt-kreacji", "cztery-sciezki"], cap: "Widzenie według Francuza: obraz z siatkówki rozbity na cechy (dekompozycja), złożony z pomocą pamięci (kompozycja). Wynik jest wytworem mózgu.", fn: ozKreacja },
+      oko: { n: "s4", c: ["rogowka", "zrenica", "soczewka", "siatkowka", "odwrocony", "twardowka"], cap: "Przekrój oka. Promienie z przedmiotu krzyżują się w soczewce, więc obraz na siatkówce jest odwrócony. W miejscu wyjścia nerwu (złoty) jest plamka ślepa.", fn: ozOko },
+      akomodacja: { n: "s4", c: ["akomodacja"], cap: "Akomodacja: żeby ostro widzieć coś blisko, soczewka grubnieje; przy dalekim przedmiocie robi się cieńsza.", fn: ozAkomodacja },
+      warstwy: { n: "s5", c: ["na-opak", "dwubiegunowe", "zwojowe", "horyzontalne", "amakrynowe"], cap: "Siatkówka na opak: receptory są z tyłu, więc światło (złota strzałka) mija wszystkie warstwy, a sygnał (pomarańczowa strzałka) wraca do komórek zwojowych, których aksony tworzą nerw wzrokowy.", fn: ozWarstwy },
+      plamka: { n: "s5", c: ["plamka-slepa", "nic-nie-czern", "dwoje-oczu"], cap: "Test plamki ślepej. Zamknij prawe oko, lewym patrz na górny krzyżyk i powoli przybliżaj ekran: w pewnej odległości kropka zniknie. Potem patrz na dolny krzyżyk: przerwa w linii się „zaklei”.", fn: ozPlamka },
+      receptory: { n: "s6", c: ["precik", "czopek"], cap: "Dwa rodzaje fotoreceptorów: pręciki do nocy, czopki do dnia i kolorów.", fn: ozReceptory },
+      swiatlo: { n: "s6", c: ["fotopowe", "skotopowe", "mezopowe"], cap: "Trzy rodzaje widzenia na skali jasności (według rycin u Francuza). O zmierzchu pracują oba systemy, ale żaden w pełni.", fn: ozSwiatlo },
+      gestosc: { n: "s7", c: ["dolek", "plamka-zolta", "katem-oka"], cap: "Gęstość receptorów w siatkówce (według ryciny 14 u Francuza). Czopki: wąski szczyt w dołku. Pręciki: zero w dołku, najwięcej ok. 20° od niego. W plamce ślepej nie ma żadnych.", fn: ozGestosc },
+      zbieznosc: { n: "s7", c: ["zbieznosc", "ostrosc-czulosc"], cap: "W dołku każdy czopek ma własną drogę do mózgu (ostrość). Na obwodzie wiele pręcików zbiega się na jedną komórkę: słabe światło się sumuje (czułość), ale szczegóły giną.", fn: ozZbieznosc },
+      droga: { n: "s8", c: ["nerw-wzrokowy", "skrzyzowanie", "trakt", "lgn", "promienistosc", "v1", "wzgorki"], cap: "Droga wzrokowa (widok z góry). Włókna lewego oka pomarańczowe, prawego złote. Na skrzyżowaniu połowa włókien z każdego oka przechodzi na drugą stronę.", fn: ozDroga },
+      pole: { n: "s9", c: ["pole-recepcyjne", "obwarzanek", "mapowanie", "pole-widzenia"], cap: "Pola recepcyjne rosną wzdłuż szlaku. Komórka zwojowa ma pole centrum–otoczka: światło w środku działa odwrotnie niż w pierścieniu dookoła.", fn: ozPole },
+      zelatyna: { n: "s10", c: ["zelatyna", "krawedz", "hamowanie-oboczne"], cap: "Analogia Kalata (rys. 6.19): klocek wciska żelatynę, a obok ją wybrzusza. Skrajne klocki rzędu toną głębiej, tak jak najmocniej pobudzone są komórki na brzegu jasnego pola.", fn: ozZelatyna },
+      hermann: { n: "s10", cap: "Patrz na jeden kwadrat: na skrzyżowaniach białych pasków obok pojawiają się szare plamki. Skrzyżowanie ma jasne sąsiedztwo z czterech stron, więc jest silniej hamowane.", fn: ozHermann },
+      zwojowe: { n: "s11", c: ["karlowate", "parasolowe", "pylkowe"], cap: "Trzy rodzaje komórek zwojowych (Francuz): im większa komórka i jej rozgałęzienia, tym większy obszar siatkówki obejmuje. Pasek na dole to udział we włóknach nerwu wzrokowego.", fn: ozZwojowe },
+      specjalizacje: { n: "s11", c: ["cztery-spec", "uszkodzenie"], cap: "Cztery specjalizacje komórek zwojowych i to, co z nich „widzimy”.", fn: ozSpecjalizacje },
+      widmo: { n: "s12", c: ["dlugosc-fali"], cap: "Długość fali a barwa: od fioletu (najkrótsze) do czerwieni (najdłuższe).", fn: ozWidmo }
     });
   });
 

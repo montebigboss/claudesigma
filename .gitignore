@@ -1,3 +1,7 @@
 __pycache__/
 *.pyc
 .DS_Store
+
+# Zdjęcia stron z podręczników (cudze prawa autorskie): tylko lokalnie i w prywatnym artefakcie.
+wykuj/assets/
+wykuj/dist-private/

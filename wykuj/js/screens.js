@@ -34,7 +34,9 @@
     var rk = W.rank(st.xp);
     var streak = Store.streakAlive();
     var today = Store.todayXP();
-    var courses = W.courses();
+    var courses = W.courses("wyk");
+    var cw = W.courses("cw");
+    var tab = st.settings.homeTab === "cw" && cw.length ? "cw" : "wyk";
     var focus = W.lastModule();
     var nu = W.nextUnit(focus);
     var dueN = Store.dueCards(focus).length + Math.min(8, Store.newCards(focus).length);
@@ -42,12 +44,92 @@
     var filter = st.settings.homeCourse || "all";
     if (filter !== "all" && !courses.some(function (c) { return c.course.id === filter; })) filter = "all";
     var th = "theme-" + focus.course.theme;
-    var tag = esc(focus.course.short) + " · Wykład " + focus.number;
+    var tag = esc(focus.course.short) + " · " + esc(W.modLabel(focus));
 
     function coursePct(c) {
       var sum = 0;
       c.modules.forEach(function (m) { sum += W.progress(m).pct; });
       return sum / c.modules.length;
+    }
+
+    function modCard(m) {
+      var pr = W.progress(m);
+      return (
+        '<button class="modcard" data-go="module" data-mod="' + m.id + '"><span class="mc-num">' + m.number + "</span>" +
+        '<span class="mc-body"><small>' + esc(W.modLabel(m)) + "</small><b>" + esc(m.title) + "</b>" +
+        (m.byline ? '<span class="mc-by">' + esc(m.byline) + "</span>" : "") +
+        '<span class="mc-bar"><i style="width:' + pct(pr.pct) + '"></i></span>' +
+        '<span class="mc-meta">' + pct(pr.pct) + " opanowane · " + pr.stars + "/" + pr.maxStars + " gwiazdek</span></span></button>"
+      );
+    }
+
+    function ghost(n, label, title, meta) {
+      return (
+        '<div class="modcard ghost"><span class="mc-num">' + n + '</span><span class="mc-body"><small>' + esc(label) +
+        "</small><b>" + esc(title) + '</b><span class="mc-meta">' + esc(meta) + "</span></span></div>"
+      );
+    }
+
+    /* Wykłady: przedmiot → wykłady. */
+    function lectures() {
+      return (
+        '<div class="filter" role="group" aria-label="Filtr przedmiotów">' +
+        '<button data-filter="all" class="' + (filter === "all" ? "on" : "") + '">Wszystkie</button>' +
+        courses
+          .map(function (c) {
+            return '<button data-filter="' + c.course.id + '" class="theme-' + c.course.theme + (filter === c.course.id ? " on" : "") + '"><i class="fdot"></i>' + esc(c.course.short) + "</button>";
+          })
+          .join("") +
+        "</div>" +
+        courses
+          .map(function (c) {
+            var n = c.modules.length;
+            return (
+              '<section class="course theme-' + c.course.theme + '" data-course="' + c.course.id + '"' + (filter !== "all" && filter !== c.course.id ? " hidden" : "") + ">" +
+              '<div class="course-h"><span class="course-ic">' + W.icon(c.course.icon) + "</span><div><h3>" + esc(c.course.name) + "</h3><small>" +
+              n + (n === 1 ? " wykład" : n < 5 ? " wykłady" : " wykładów") + " · " + pct(coursePct(c)) + " opanowane</small></div>" +
+              (W.guide(c.course.id) ? '<button class="guide-btn" data-guide="' + c.course.id + '">' + W.icon("target") + "Jak zdać</button>" : "") + "</div>" +
+              '<div class="mods">' + c.modules.map(modCard).join("") +
+              ghost(n + 1, "Wykład " + (n + 1), "Kolejny wykład", "Pojawi się tu, gdy dodasz materiały z następnych zajęć.") +
+              "</div></section>"
+            );
+          })
+          .join("")
+      );
+    }
+
+    /* Ćwiczenia: prowadzący (z grupami) → półka (np. lektury i czytanki) → materiały. */
+    function exercises() {
+      return cw
+        .map(function (c) {
+          var shelves = [], byShelf = {};
+          c.modules.forEach(function (m) {
+            var k = m.shelf || "Materiały";
+            if (!byShelf[k]) {
+              byShelf[k] = [];
+              shelves.push(k);
+            }
+            byShelf[k].push(m);
+          });
+          return (
+            '<section class="course cw theme-' + c.course.theme + '" data-course="' + c.course.id + '">' +
+            '<div class="course-h"><span class="course-ic">' + W.icon(c.course.icon) + "</span><div><h3>" + esc(c.course.name) + "</h3><small>" +
+            (c.course.groups ? esc(c.course.groups) + " · " : "") + pct(coursePct(c)) + " opanowane</small></div></div>" +
+            shelves
+              .map(function (k) {
+                var list = byShelf[k], n = list.length;
+                return (
+                  '<div class="shelf"><h4 class="shelf-h">' + W.icon("book") + "<span>" + esc(k) + "</span><small>" + n + "</small></h4>" +
+                  '<div class="mods">' + list.map(modCard).join("") +
+                  ghost(n + 1, "Czytanka " + (n + 1), "Kolejna czytanka", "Wrzuć zdjęcia następnego tekstu, a pojawi się tutaj ze streszczeniem i ćwiczeniami.") +
+                  "</div></div>"
+                );
+              })
+              .join("") +
+            "</section>"
+          );
+        })
+        .join("");
     }
 
     root.innerHTML =
@@ -78,44 +160,29 @@
       '<button class="todo-i" data-go="cards" data-mod="' + focus.id + '">' + W.icon("cards") + "<span><b>" + dueN + "</b> fiszek na dziś</span></button>" +
       '<button class="todo-i" data-go="review" data-mod="' + focus.id + '"' + (misN ? "" : " disabled") + ">" + W.icon("redo") + "<span><b>" + misN + "</b> " + (misN === 1 ? "błąd" : "błędów") + " do poprawki</span></button>" +
       "</div></div>" +
-      '<section class="subjects"><div class="subj-head"><h2 class="display">Przedmioty</h2><span>' + courses.length + "</span></div>" +
-      '<div class="filter" role="group" aria-label="Filtr przedmiotów">' +
-      '<button data-filter="all" class="' + (filter === "all" ? "on" : "") + '">Wszystkie</button>' +
-      courses
-        .map(function (c) {
-          return '<button data-filter="' + c.course.id + '" class="theme-' + c.course.theme + (filter === c.course.id ? " on" : "") + '"><i class="fdot"></i>' + esc(c.course.short) + "</button>";
-        })
-        .join("") +
-      "</div>" +
-      courses
-        .map(function (c) {
-          var n = c.modules.length;
-          return (
-            '<section class="course theme-' + c.course.theme + '" data-course="' + c.course.id + '"' + (filter !== "all" && filter !== c.course.id ? " hidden" : "") + ">" +
-            '<div class="course-h"><span class="course-ic">' + W.icon(c.course.icon) + "</span><div><h3>" + esc(c.course.name) + "</h3><small>" +
-            n + (n === 1 ? " wykład" : n < 5 ? " wykłady" : " wykładów") + " · " + pct(coursePct(c)) + " opanowane</small></div>" +
-            (W.guide(c.course.id) ? '<button class="guide-btn" data-guide="' + c.course.id + '">' + W.icon("target") + "Jak zdać</button>" : "") + "</div>" +
-            '<div class="mods">' +
-            c.modules
-              .map(function (m) {
-                var pr = W.progress(m);
-                return (
-                  '<button class="modcard" data-go="module" data-mod="' + m.id + '"><span class="mc-num">' + m.number + "</span>" +
-                  '<span class="mc-body"><small>Wykład ' + m.number + "</small><b>" + esc(m.title) + "</b>" +
-                  '<span class="mc-bar"><i style="width:' + pct(pr.pct) + '"></i></span>' +
-                  '<span class="mc-meta">' + pct(pr.pct) + " opanowane · " + pr.stars + "/" + pr.maxStars + " gwiazdek</span></span></button>"
-                );
-              })
-              .join("") +
-            '<div class="modcard ghost"><span class="mc-num">' + (n + 1) + '</span><span class="mc-body"><small>Wykład ' + (n + 1) +
-            "</small><b>Kolejny wykład</b><span class=\"mc-meta\">Pojawi się tu, gdy dodasz materiały z następnych zajęć.</span></span></div>" +
-            "</div></section>"
-          );
-        })
-        .join("") +
+      '<section class="subjects">' +
+      (cw.length
+        ? '<div class="hometabs" role="tablist" aria-label="Rodzaj zajęć">' +
+          '<button role="tab" data-tab="wyk" aria-selected="' + (tab === "wyk") + '" class="' + (tab === "wyk" ? "on" : "") + '">' + W.icon("column") + "Wykłady<small>" + courses.length + "</small></button>" +
+          '<button role="tab" data-tab="cw" aria-selected="' + (tab === "cw") + '" class="' + (tab === "cw" ? "on" : "") + '">' + W.icon("pencil") + "Ćwiczenia<small>" + cw.length + "</small></button></div>"
+        : '<div class="subj-head"><h2 class="display">Przedmioty</h2><span>' + courses.length + "</span></div>") +
+      '<div class="tabpane" data-pane="wyk"' + (tab === "wyk" ? "" : " hidden") + ">" + lectures() + "</div>" +
+      (cw.length ? '<div class="tabpane" data-pane="cw"' + (tab === "cw" ? "" : " hidden") + ">" + exercises() + "</div>" : "") +
       "</section></div>";
 
     root.addEventListener("click", function (e) {
+      var tb = e.target.closest("[data-tab]");
+      if (tb) {
+        st.settings.homeTab = tb.dataset.tab;
+        Store.save();
+        root.querySelectorAll("[data-tab]").forEach(function (b) {
+          b.classList.toggle("on", b === tb);
+          b.setAttribute("aria-selected", b === tb);
+        });
+        root.querySelectorAll("[data-pane]").forEach(function (pn) { pn.hidden = pn.dataset.pane !== tb.dataset.tab; });
+        W.sound("tap");
+        return;
+      }
       var f = e.target.closest("[data-filter]");
       if (f) {
         var id = f.dataset.filter;
@@ -158,15 +225,18 @@
     function plan() {
       var doneUnits = m.units.filter(function (u) { return W.unitDone(m, u.id); }).length;
       var passed = ms.exams.some(function (h) { return h.pct > m.passRatio; });
+      var reading = m.kind === "reading";
+      var talkN = m.talk ? m.talk.filter(function (t, i) { return ms.talk && ms.talk[i] === 1; }).length : 0;
       var steps = [
-        { go: "notes", t: "Przeczytaj", d: m.minimum ? "minimum i schematy w notatkach" : "notatki z wykładu", done: !!ms.read },
+        { go: "notes", t: "Przeczytaj", d: reading ? "streszczenie po ludzku i schematy" : m.minimum ? "minimum i schematy w notatkach" : "notatki z wykładu", done: !!ms.read },
         { go: "path", t: "Przejdź ścieżkę", d: doneUnits + " z " + m.units.length + " lekcji", done: nu < 0 },
-        { go: "cards", t: "Utrwal fiszkami", d: pr.learned + " z " + pr.total + " opanowanych", done: pr.learned >= Math.ceil(pr.total * 0.8) },
-        { go: "exam", t: "Sprawdź się", d: passed ? "egzamin próbny zdany" : "egzamin próbny", done: passed }
+        { go: "cards", t: "Utrwal fiszkami", d: pr.learned + " z " + pr.total + " opanowanych", done: pr.learned >= Math.ceil(pr.total * 0.8) }
       ];
+      if (m.talk) steps.push({ go: "talk", t: "Powiedz własnymi słowami", d: talkN + " z " + m.talk.length + " pytań na zajęcia", done: talkN >= Math.ceil(m.talk.length * 0.8) });
+      steps.push({ go: "exam", t: "Sprawdź się", d: passed ? (reading ? "kartkówka próbna zaliczona" : "egzamin próbny zdany") : reading ? "kartkówka próbna" : "egzamin próbny", done: passed });
       var next = steps.filter(function (x) { return !x.done; })[0];
       return (
-        '<section class="plan" aria-label="Plan nauki"><h2 class="sec-h">Jak się tego nauczyć <small>' + steps.filter(function (x) { return x.done; }).length + "/4</small></h2><ol>" +
+        '<section class="plan" aria-label="Plan nauki"><h2 class="sec-h">Jak się tego nauczyć <small>' + steps.filter(function (x) { return x.done; }).length + "/" + steps.length + "</small></h2><ol>" +
         steps.map(function (x, i) {
           return (
             '<li class="' + (x.done ? "done" : x === next ? "next" : "") + '"><button data-go="' + x.go + '"><span class="pl-n">' + (x.done ? W.icon("check") : i + 1) + "</span>" +
@@ -177,22 +247,30 @@
       );
     }
 
+    var reading = m.kind === "reading";
+    var talkKnown = m.talk ? m.talk.filter(function (t, i) { return ms.talk && ms.talk[i] === 1; }).length : 0;
     var modes = [
       { go: "path", ic: "path", t: "Ścieżka", d: "Lekcje krok po kroku, serca i gwiazdki", meta: nu >= 0 ? "Lekcja " + (nu + 1) + " z " + m.units.length : "Ukończona", hero: true },
       { go: "cards", ic: "cards", t: "Fiszki", d: "Powtórki w odstępach", meta: dueN ? dueN + " do powtórki" : newN ? newN + " nowych" : "Na dziś gotowe", badge: dueN },
       { go: "kahoot", ic: "bolt", t: "Quiz na czas", d: "12 pytań, liczy się refleks", meta: ms.best.kahoot ? "Rekord " + ms.best.kahoot + " pkt" : "Bez rekordu" },
       { go: "match", ic: "pairs", t: "Pary", d: "Pojęcie do znaczenia, na czas", meta: ms.best.match ? "Rekord " + ms.best.match.toFixed(1) + " s" : "Bez rekordu" },
       { go: "sort", ic: "swipe", t: "Sortownia", d: m.sortDecks[0].title + " i inne talie", meta: m.sortDecks.length + " talie" },
-      { go: "exam", ic: "exam", t: "Egzamin próbny", d: "20 pytań zamkniętych, próg " + Math.round(m.passRatio * 100) + "%", meta: lastExam ? "Ostatnio " + pct(lastExam.pct) : "Nie podchodziłeś" },
+      { go: "exam", ic: "exam", t: reading ? "Kartkówka próbna" : "Egzamin próbny", d: "20 pytań zamkniętych, próg " + Math.round(m.passRatio * 100) + "%", meta: lastExam ? "Ostatnio " + pct(lastExam.pct) : "Nie podchodziłeś" },
       { go: "review", ic: "redo", t: "Do poprawki", d: "Pytania, na których się potknąłeś", meta: misN ? misN + " pytań" : "Czysto", badge: misN, off: !misN },
-      { go: "notes", ic: "book", t: "Notatki", d: "Cały wykład, tabela i ściąga", meta: m.notes.length + " sekcji" }
+      { go: "notes", ic: "book", t: reading ? "Streszczenie" : "Notatki", d: reading ? "Cały tekst po ludzku, ze schematami" : "Cały wykład, tabela i ściąga", meta: m.notes.length + " sekcji" }
     ];
+    if (m.talk) modes.splice(1, 0, { go: "talk", ic: "chat", t: "Na zajęcia", d: "Pytania do omówienia z wzorcową odpowiedzią", meta: talkKnown + "/" + m.talk.length + " umiem" });
+    if (W.pagesOk(m)) {
+      var pageN = m.pages.reduce(function (n, g) { return n + g.items.length; }, 0);
+      modes.push({ go: "pages", ic: "exam", t: "Oryginał", d: "Zdjęcia stron czytanki, do powiększenia", meta: pageN + " stron" });
+    }
 
     root.innerHTML =
-      top(m.course.name, "Wykład " + m.number) +
+      top(m.course.name, W.modLabel(m)) +
       '<div class="page">' +
       '<section class="mhero"><p class="eyebrow">' + esc(m.course.short) + " · " + esc(m.term) + "</p>" +
       '<h1 class="display">' + esc(m.title) + "</h1>" +
+      (m.sources ? '<ul class="msrc">' + m.sources.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" : "") +
       (m.official || m.lecturer ? "<p class='lect'>" + esc([m.official ? "Wykład 1: " + m.official : "", m.lecturer || ""].filter(Boolean).join(" · ")).replace("Wykład 1", "Wykład " + m.number) + "</p>" : "") +
       '<div class="mprog"><div class="mprog-bar"><i style="width:' + pct(pr.pct) + '"></i></div><b>' + pct(pr.pct) + "</b></div>" +
       '<div class="mfacts"><span>' + W.icon("star") + pr.stars + "/" + pr.maxStars + " gwiazdek</span><span>" + W.icon("cards") + pr.learned + "/" + pr.total + " fiszek opanowanych</span>" +
@@ -233,7 +311,7 @@
 
     function draw() {
       root.innerHTML =
-        top("Ścieżka", "Wykład " + m.number + ": " + m.title) +
+        top("Ścieżka", W.modLabel(m) + ": " + m.title) +
         '<div class="page path-page"><ol class="path">' +
         m.units
           .map(function (u, i) {
@@ -335,7 +413,7 @@
       '<ol class="teach-list">' +
       cs.map(function (c) {
         return (
-          '<li class="tc"><div class="tc-h"><b class="display">' + esc(c.term) + "</b>" + W.srcBadge(c.s) + "</div>" +
+          '<li class="tc"><div class="tc-h"><b class="display">' + esc(c.term) + "</b>" + W.srcBadge(c.s, m) + "</div>" +
           (c.plain ? '<p class="tc-plain">' + esc(c.plain) + "</p>" : "") +
           '<p class="tc-def"><span>' + (c.plain ? "Na teście" : "Definicja") + "</span>" + esc(c.def) + "</p></li>"
         );
@@ -354,6 +432,7 @@
         : "") +
       '<div class="teach-go"><button class="btn primary big" data-a="go">Zaczynam ćwiczenia</button></div></div>';
     root.querySelector('[data-a="go"]').onclick = onGo;
+    if (W.mountWidgets) W.mountWidgets(root, m);
     W.setKeys(function (e) {
       if (e.key === "Enter") {
         e.preventDefault();
@@ -484,11 +563,19 @@
     Store.save();
 
     var SRC = { S: "lg-s", U: "lg-u", K: "lg-k", D: "lg-d" };
+    /* Schemat trafia w miejsce znacznika <!--fig:klucz--> w treści, a bez znacznika zaraz po „po ludzku”. */
     function withFigs(n) {
-      var figs = W.figsFor(m, n.id);
-      if (!figs) return n.html;
-      var cut = n.html.indexOf("<div class='plain'>") === 0 ? n.html.indexOf("</div>") + 6 : 0;
-      return n.html.slice(0, cut) + figs + n.html.slice(cut);
+      var html = n.html, rest = [];
+      if (!m.figs) return html;
+      Object.keys(m.figs).forEach(function (k) {
+        if (m.figs[k].n !== n.id) return;
+        var mark = "<!--fig:" + k + "-->";
+        if (html.indexOf(mark) >= 0) html = html.replace(mark, W.figHtml(m, k));
+        else rest.push(W.figHtml(m, k));
+      });
+      if (!rest.length) return html;
+      var cut = html.indexOf("<div class='plain'>") === 0 ? html.indexOf("</div>") + 6 : 0;
+      return html.slice(0, cut) + rest.join("") + html.slice(cut);
     }
     var story = m.story;
     var toc = [];
@@ -500,8 +587,8 @@
     toc.push(["gloss", "A–Z"]);
 
     root.innerHTML =
-      top("Notatki", "Wykład " + m.number + ": " + m.title) +
-      '<div class="page notes ' + (st.extras ? "" : "no-extra") + '">' +
+      top(m.kind === "reading" ? "Streszczenie" : "Notatki", W.modLabel(m) + ": " + m.title) +
+      '<div class="page notes ' + (st.extras ? "" : "no-extra") + (m.kind === "reading" ? " reading" : "") + '">' +
       '<div class="legend">' +
       Object.keys(m.sourceNames)
         .map(function (k) { return '<span><i class="lg ' + SRC[k] + '"></i>' + esc(m.sourceNames[k]) + "</span>"; })
@@ -511,13 +598,13 @@
       toc.map(function (t) { return '<a href="#n-' + t[0] + '" data-jump="' + t[0] + '">' + t[1] + "</a>"; }).join("") +
       "</nav>" +
       (m.minimum
-        ? '<section class="note minimum" id="n-min"><h2>Minimum na zaliczenie</h2><p class="min-k">Jeśli masz mało czasu, opanuj te ' + m.minimum.length +
-          " rzeczy. Reszta notatek je rozwija.</p><ol>" +
+        ? '<section class="note minimum" id="n-min"><h2>' + esc(m.minimumTitle || "Minimum na zaliczenie") + '</h2><p class="min-k">Jeśli masz mało czasu, opanuj te ' + m.minimum.length +
+          " rzeczy. Reszta " + (m.kind === "reading" ? "streszczenia" : "notatek") + " je rozwija.</p><ol>" +
           m.minimum.map(function (x) { return "<li><b>" + esc(x[0]) + "</b><span>" + x[1] + "</span></li>"; }).join("") +
           "</ol></section>"
         : "") +
       (m.deep
-        ? '<section class="note deep" id="n-deep"><h2>Do przemyślenia</h2><p class="min-k">Wątki z wykładu, które łatwo zgłębić. Dobre na powtórkę i do rozmowy na ustnym. Rozwiń, żeby przeczytać.</p>' +
+        ? '<section class="note deep" id="n-deep"><h2>Do przemyślenia</h2><p class="min-k">' + (m.kind === "reading" ? "Wątki z tekstu, o które łatwo zahaczyć w dyskusji na zajęciach." : "Wątki z wykładu, które łatwo zgłębić. Dobre na powtórkę i do rozmowy na ustnym.") + " Rozwiń, żeby przeczytać.</p>" +
           m.deep
             .map(function (d) {
               return '<details class="dq"><summary>' + esc(d.q) + "</summary><p>" + esc(d.a) + "</p>" + (d.link ? '<p class="dq-link">' + esc(d.link) + "</p>" : "") + "</details>";
@@ -552,13 +639,20 @@
         .sort(function (a, b) { return a.term.localeCompare(b.term, "pl"); })
         .map(function (c) {
           return (
-            '<div class="gi ' + (c.s === "D" ? "extra" : "") + '" data-k="' + esc(W.norm(c.term + " " + c.def + " " + (c.plain || ""))) + '"><dt>' + esc(c.term) + W.srcBadge(c.s) + "</dt>" +
+            '<div class="gi ' + (c.s === "D" ? "extra" : "") + '" data-k="' + esc(W.norm(c.term + " " + c.def + " " + (c.plain || ""))) + '"><dt>' + esc(c.term) + W.srcBadge(c.s, m) + "</dt>" +
             (c.plain ? '<dd class="gi-plain">' + esc(c.plain) + "</dd>" : "") + "<dd>" + esc(c.def) + "</dd></div>"
           );
         })
         .join("") +
       "</dl></section></div>";
 
+    if (W.mountWidgets) W.mountWidgets(root, m);
+    if (p.jump) {
+      setTimeout(function () {
+        var t = root.querySelector("#n-" + p.jump);
+        if (t) t.scrollIntoView({ block: "start" });
+      }, 30);
+    }
     root.querySelector("#notes-extra").addEventListener("change", function (e) {
       st.extras = e.target.checked;
       Store.save();

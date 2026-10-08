@@ -2532,6 +2532,11 @@ aside.extra {
 }
 aside.extra::before {
   content: "★ spoza wykładu";
+}
+.reading aside.extra::before {
+  content: "★ spoza czytanki";
+}
+aside.extra::before {
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
@@ -4244,4 +4249,490 @@ aside.extra::before {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+/* ---------- ćwiczenia: rdzawy akcent, zakładki na starcie, półki ---------- */
+.theme-amber {
+  --accent: #b0501a;
+  --accent-2: #873b10;
+  --accent-soft: #f8e2d3;
+  --on-accent: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-amber {
+    --accent: #ffa56e;
+    --accent-2: #d0703a;
+    --accent-soft: #3d2416;
+    --on-accent: #2b1206;
+  }
+}
+:root[data-theme="dark"] .theme-amber {
+  --accent: #ffa56e;
+  --accent-2: #d0703a;
+  --accent-soft: #3d2416;
+  --on-accent: #2b1206;
+}
+.hometabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 5px;
+  border-radius: 16px;
+  background: var(--surface-2);
+  border: 2px solid var(--line);
+}
+.hometabs button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  border-radius: 11px;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 17px;
+  color: var(--ink-2);
+}
+.hometabs button .ic {
+  width: 20px;
+  height: 20px;
+}
+.hometabs button small {
+  font-family: var(--f-body);
+  font-size: 12px;
+  font-weight: 700;
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink-3);
+}
+.hometabs button.on {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 2px 0 var(--line);
+}
+.hometabs button.on small {
+  background: var(--ink);
+  color: var(--paper);
+}
+.tabpane {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.tabpane[hidden] {
+  display: none;
+}
+.shelf {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+  padding-left: 12px;
+  border-left: 3px solid var(--accent-soft);
+}
+.shelf-h {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.shelf-h .ic {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+.shelf-h small {
+  margin-left: auto;
+  color: var(--ink-3);
+  font-weight: 700;
+}
+.mc-by {
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.35;
+}
+.msrc {
+  list-style: none;
+  margin: 2px 0 8px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.msrc li {
+  padding-left: 14px;
+  position: relative;
+}
+.msrc li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ---------- oryginał: zdjęcia stron ---------- */
+.pg-lead,
+.pg-note {
+  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.pg-note {
+  font-size: 14px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--gold-soft);
+  color: var(--ink);
+}
+.pg-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 4px 0 6px;
+}
+.pg-toc a {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 2px solid var(--line);
+  background: var(--surface);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.pg-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  scroll-margin-top: 70px;
+}
+.pg-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 640px) {
+  .pg-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.pg {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  scroll-margin-top: 70px;
+}
+.pg-img {
+  display: block;
+  padding: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--line);
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+.pg-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.pg figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 14px;
+}
+.linkish {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.linkish .ic {
+  width: 16px;
+  height: 16px;
+}
+.pg-zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  background: rgba(10, 12, 11, 0.94);
+}
+.pg-zoom[hidden] {
+  display: none;
+}
+.pz-bar {
+  background: rgba(10, 12, 11, 0.96);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  padding-top: max(10px, env(safe-area-inset-top, 0px));
+  color: #fff;
+}
+.pz-t {
+  flex: 1;
+  min-width: 0;
+  font-weight: 700;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pz-bar .btn {
+  min-width: 46px;
+  min-height: 42px;
+  padding: 0 12px;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.35);
+  background: transparent;
+  font-size: 20px;
+}
+.pz-bar .icon-btn {
+  color: #fff;
+}
+.pz-scroll {
+  flex: 1;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.pz-scroll img {
+  display: block;
+  max-width: none;
+  height: auto;
+  background: #fff;
+}
+a[data-page] {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.srcline {
+  font-size: 13px;
+  color: var(--ink-3);
+  margin-top: -4px;
+}
+
+/* ---------- na zajęcia ---------- */
+.talk-go {
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+.t-ans {
+  line-height: 1.55;
+}
+.t-ans p + p {
+  margin-top: 8px;
+}
+.t-keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.t-keys li {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent-2);
+  font-weight: 700;
+  font-size: 13px;
+}
+.t-src {
+  font-size: 13px;
+  color: var(--ink-3);
+  margin-top: 8px;
+}
+.t-hint {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin-top: 8px;
+  color: var(--ink-2);
+  font-size: 14px;
+}
+.t-hint .ic {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  color: var(--gold);
+}
+
+/* ---------- symulator hamowania obocznego ---------- */
+.li-box {
+  margin: 10px 0;
+  padding: 14px 12px;
+  border-radius: var(--r);
+  border: 2px solid var(--accent);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.li-k {
+  font-family: var(--f-display);
+  font-weight: 800;
+  color: var(--accent);
+}
+.li-pre {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.li-pre .chip {
+  min-height: 40px;
+  padding: 6px 12px;
+  font-size: 14px;
+}
+.li-svg svg {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  margin: 0 auto;
+}
+.li-svg text {
+  fill: var(--ink-2);
+  font: 600 10.5px var(--f-body);
+}
+.li-r {
+  cursor: pointer;
+}
+.li-r rect {
+  fill: var(--surface-2);
+  stroke: var(--line);
+  stroke-width: 2;
+}
+.li-r.on rect {
+  fill: var(--gold);
+  stroke: var(--gold-2);
+}
+.li-r.on text {
+  fill: var(--ink);
+  font-weight: 800;
+}
+.li-r:focus-visible rect {
+  stroke: var(--blue);
+  stroke-width: 3;
+}
+.li-b {
+  fill: var(--ink-3);
+}
+.li-b.up {
+  fill: var(--accent);
+}
+.li-b.down {
+  fill: var(--red);
+}
+.li-svg .ln {
+  stroke: var(--ink-2);
+  stroke-width: 1.5;
+}
+.li-svg .ln-d {
+  stroke-dasharray: 5 4;
+}
+.li-msg {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink);
+  min-height: 3em;
+}
+.fig .bx-b {
+  fill: var(--blue-soft);
+  stroke: var(--blue);
+  stroke-width: 2;
+}
+.fig .fl-g {
+  fill: var(--gold);
+}
+.fig .fl-b {
+  fill: var(--blue);
+}
+.fig .fl-r {
+  fill: var(--red);
+}
+.fig .fl-ink {
+  fill: var(--ink);
+}
+.fig .fl-paper {
+  fill: #ffffff;
+}
+.fig .st-a {
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  fill: none;
+}
+.fig .st-b {
+  stroke: var(--blue);
+  stroke-width: 2.5;
+  fill: none;
+}
+.fig .st-g {
+  stroke: var(--gold);
+  stroke-width: 2.5;
+  fill: none;
+}
+.fig .st-r {
+  stroke: var(--red);
+  stroke-width: 2.5;
+  fill: none;
+}
+.fig .tw {
+  font: 800 12px var(--f-body);
+  fill: var(--on-accent);
+}
+.fig .ln-g {
+  stroke: var(--gold);
+}
+.fig .ar-g {
+  fill: var(--gold);
+}
+.fig .fl-black {
+  fill: #141414;
+}
+.fig .st-black {
+  stroke: #141414;
+  stroke-width: 7;
+  fill: none;
+}
+.fig .tx-black {
+  font: 600 10px var(--f-body);
+  fill: #3a3a3a;
+}
+.fig .lbl-bg {
+  fill: var(--paper);
+}
+/* kafelki quizu „wskakują” z lekkim powiększeniem: bez przewijania na boki w trakcie animacji */
+.screen.s-kahoot {
+  overflow-x: clip;
+}
+a.pg-off {
+  color: inherit;
+  text-decoration: none;
 }
