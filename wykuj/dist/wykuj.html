@@ -7644,6 +7644,1250 @@ Wykuj.registerModule({
 
 </script>
     <script>
+/* Moduł: Metody pracy twórczej z dziećmi i młodzieżą, wykład 2:
+ * Integracja grupy i wprowadzenie do psychopedagogiki twórczości.
+ *
+ * Źródła: prezentacja z wykładu (17 slajdów) i transkrypcja nagrania wykładu.
+ *
+ *   "S" slajd (domyślne, pomijane)
+ *   "U" powiedziane ustnie na wykładzie (z nagrania)
+ *   "D" dopowiedzenie spoza wykładu (★). Egzamin próbny je pomija.
+ *
+ * Każde ćwiczenie ma x: dlaczego poprawna odpowiedź jest poprawna.
+ * w: dlaczego nie pasują błędne opcje (po kolei za poprawną; w multi za o[]).
+ */
+Wykuj.registerModule({
+  id: "mpt-w2",
+  course: { id: "mpt", name: "Metody pracy twórczej z dziećmi i młodzieżą", short: "MPT", theme: "green", icon: "pencil" },
+  number: 2,
+  title: "Integracja grupy",
+  official: "Integracja grupy i wprowadzenie do psychopedagogiki twórczości",
+  lecturer: "dr Barbara Cichy-Jasiocha",
+  term: "semestr zimowy 2026/2027",
+  passing: "Obecność + test pisemny z pytaniami zamkniętymi. Trzeba uzyskać więcej niż 50% punktów.",
+  passRatio: 0.5,
+  sourceNames: { S: "slajd", U: "ustnie na wykładzie (nagranie)", D: "★ spoza wykładu" },
+
+  sets: {
+    faza: { label: "Która faza wg Tuckmana?", numbered: true,
+      items: ["Formowanie", "Szturmowanie", "Normowanie", "Wykonanie", "Zamknięcie"],
+      why: ["faza 1: niepewność i początkowa komunikacja; poznawanie się, cele, role; lider zapewnia bezpieczeństwo",
+            "faza 2: konflikty i zmagania o władzę; ustalanie hierarchii; lider zarządza konfliktami",
+            "faza 3: budowanie zaufania i wspólnych zasad współpracy; lider wspiera normy",
+            "faza 4: wysoka wydajność i efektywna współpraca; lider pilnuje celów i wspiera zespół",
+            "faza 5: refleksja, finalizacja, emocje na koniec, celebracja; lider zarządza zakończeniem"] },
+    bariera: { label: "Która bariera?",
+      items: ["Konformizm rówieśniczy", "Lęk przed oceną (szkoła ocenocentryczna)", "Autocenzura", "Próżniactwo społeczne", "Blokowanie produkcji"],
+      why: ["strach przed byciem „innym”: lepiej ukryć nieszablonowy pomysł i stopić się z tłumem",
+            "szukanie „jedynej poprawnej odpowiedzi” pod klucz, bo liczy się ocena",
+            "wewnętrzny krytyk mówi „nie mów tego, wyśmieją cię”, więc pomysł nie pada",
+            "wkład osób nie jest jawny, odpowiedzialność się rozprasza, „ktoś inny coś wymyśli”",
+            "mówi jedna osoba naraz, więc reszta trzyma pomysł w pamięci roboczej i go gubi"] },
+    kontrakt: { label: "Która zasada kontraktu?", numbered: true,
+      items: ["Zasada STOP", "Zakaz krytyki i wyśmiewania", "Docenianie procesu"],
+      why: ["każdy ma prawo odmówić udziału w ćwiczeniu, gdy czuje dyskomfort albo po prostu nie chce",
+            "nie krytykujemy i nie wyśmiewamy (również siebie); na etapie kreacji każdy pomysł jest dobry",
+            "nagradzamy odwagę i zaangażowanie, a nie tylko „najładniejszą” pracę"] },
+    cel: { label: "Który cel psychopedagogiki twórczości?", numbered: true,
+      items: ["Płynność myślenia", "Elastyczność myślenia", "Odporność emocjonalna"],
+      why: ["generowanie dziesiątek pomysłów w krótkim czasie („do czego jeszcze może służyć ten spinacz?”)",
+            "zmiana kierunku myślenia i łamanie schematów („a co, gdyby bajka skończyła się inaczej?”)",
+            "błąd lub porażka to informacja zwrotna, a nie koniec świata"] }
+  },
+
+  units: [
+    { id: "start", title: "Po co integracja?", sub: "Slajdy 3–4: to nie tylko zabawa", icon: "spark" },
+    { id: "tuckman", title: "Pięć faz grupy", sub: "Slajd 5: model Tuckmana", icon: "path", table: true, seq: true,
+      teach: "<p>Grupa, żeby stać się zespołem twórczym, przechodzi przez fazy. Kolejność: <b>formowanie → szturmowanie → normowanie → wykonanie → zamknięcie</b>.</p>" +
+        "<p>Nie każda grupa przechodzi przez wszystkie i nie każda staje się zespołem twórczym. Ale <b>formowanie zachodzi zawsze</b>, dlatego na wykładzie najważniejsze.</p>" },
+    { id: "formowanie", title: "Formowanie: wejście do grupy", sub: "Niepewność, dystans, rola prowadzącego", icon: "user" },
+    { id: "rogers", title: "Bezpieczeństwo i wolność", sub: "Slajd 6: Carl Rogers", icon: "heart",
+      teach: "<p><b>Carl Rogers</b>: twórczość rozwija się najlepiej w warunkach <b>zewnętrznego bezpieczeństwa</b> i <b>psychologicznej wolności</b>.</p>" +
+        "<p>Lęk przed <b>oceną, wyśmianiem, odrzuceniem</b> blokuje myślenie twórcze. Integracja ten lęk redukuje i zamienia energię zużywaną na <b>autoprezentację i obronę</b> na energię na <b>eksplorację i kreację</b>.</p>" },
+    { id: "wiek", title: "Przynależność i odrzucenie", sub: "Slajd 7: specyfika wieku rozwojowego", icon: "pairs" },
+    { id: "bariery", title: "Konformizm, ocena, autocenzura", sub: "Slajd 7: bariery w szkole i grupie", icon: "wall",
+      teach: "<p>Trzy bariery ze slajdu 7:</p><ul>" +
+        "<li><b>Konformizm rówieśniczy</b> (szczególnie młodzież): strach przed byciem „innym”.</li>" +
+        "<li><b>Lęk przed oceną</b> w szkole <b>ocenocentrycznej</b>: szukanie „jedynej poprawnej odpowiedzi” pod klucz.</li>" +
+        "<li><b>Autocenzura</b>, czyli podstawowy paraliż poznawczy: wewnętrzny krytyk mówi „nie mów tego, wyśmieją cię”.</li></ul>" +
+        "<p>Oryginalność to z definicji <b>wykroczenie poza normy</b>, więc wymaga <b>odwagi społecznej</b>, którą niezintegrowana grupa dławi.</p>" },
+    { id: "grupowe", title: "Próżniactwo i blokowanie produkcji", sub: "Slajd 8: dwie bariery pracy w grupie", icon: "moon",
+      teach: "<p><b>Próżniactwo społeczne</b>: wkład osób nie jest jawny ani rozliczany, więc <b>odpowiedzialność się rozprasza</b>. Każdy liczy, że „ktoś inny coś wymyśli”.</p>" +
+        "<p><b>Blokowanie produkcji</b> (bariera strukturalno-poznawcza): mówić może tylko jedna osoba naraz. Reszta czeka i trzyma pomysł w <b>pamięci roboczej</b>, przez co nie słucha innych, nie wymyśla nowych skojarzeń, a pomysł często ulatuje.</p>" },
+    { id: "piaskownica", title: "Bezpieczna piaskownica", sub: "Slajd 9: kontrakt grupowy", icon: "lock",
+      teach: "<p>Integracja <b>nie polega na zmuszaniu do przyjaźni</b>, tylko na <b>kontrakcie grupowym</b>. Trzy minimalne zasady:</p><ol>" +
+        "<li><b>STOP</b>: każdy może odmówić udziału w ćwiczeniu.</li>" +
+        "<li><b>Zakaz krytyki i wyśmiewania</b>, również siebie samego: na etapie kreacji wszystkie pomysły są dobre.</li>" +
+        "<li><b>Docenianie procesu</b>, nie tylko efektu: nagradzamy odwagę i zaangażowanie.</li></ol>" },
+    { id: "ekspresja", title: "Dzieci a nastolatki", sub: "Slajdy 10–11: potencjał twórczy w różnym wieku", icon: "split" },
+    { id: "cele", title: "Płynność, elastyczność, odporność", sub: "Slajdy 12–13: cele i pętla integracji", icon: "target" },
+    { id: "warsztat", title: "Stworek i startup", sub: "Slajdy 14–17: gry integrująco-twórcze", icon: "pencil" },
+    { id: "mix", title: "Rozpoznaj w praktyce", sub: "Sytuacje z zajęć z dziećmi i młodzieżą", icon: "dice" },
+    { id: "boss", title: "Test końcowy", sub: "Wszystko z wykładu 2, 15 pytań", icon: "crown", boss: true }
+  ],
+
+  concepts: [
+    /* ---------- Po co integracja ---------- */
+    { id: "integracja", u: "start", term: "Integracja grupy",
+      plain: "Nie chodzi o zabawę na powitanie, tylko o to, żeby w grupie było na tyle bezpiecznie, że ktoś odważy się powiedzieć dziwny, oryginalny pomysł.",
+      def: "Integracja nie jest jedynie „zabawą na zapoznanie”. Z punktu widzenia psychologii społecznej to głęboki proces budowania bezpieczeństwa emocjonalnego, które decyduje o tym, czy uczestnik podejmie ryzyko twórcze.",
+      sh: "proces budowania bezpieczeństwa emocjonalnego" },
+    { id: "warunek", u: "start", term: "Warunek konieczny twórczości",
+      plain: "Bez bezpiecznej, zgranej grupy nie będzie prawdziwej kreatywności. Najpierw bezpieczeństwo, potem twórczość.",
+      def: "Bezpieczna i zintegrowana grupa jest absolutnym warunkiem koniecznym do tego, aby wyzwolić autentyczną kreatywność.",
+      sh: "bezpieczna grupa przed kreatywnością" },
+    { id: "ryzyko", u: "start", term: "Ryzyko twórcze",
+      plain: "Powiedzieć na głos coś nietypowego to ryzyko: mogą się zaśmiać. Ktoś podejmie je tylko w bezpiecznej grupie.",
+      def: "Zachowanie ryzykowne, ale twórcze: podzielenie się oryginalnym, nietypowym pomysłem. Czy uczestnik je podejmie, decyduje bezpieczeństwo emocjonalne w grupie.",
+      sh: "podzielenie się nietypowym pomysłem" },
+    { id: "dwa-obszary", u: "start", term: "Dwa obszary wykładu",
+      plain: "Wykład łączy dwie rzeczy: jak działają grupy i jak rozwijać twórczość.",
+      def: "Wykład łączy dwa kluczowe obszary współczesnej edukacji i psychologii: procesy grupowe oraz rozwój potencjału twórczego.",
+      sh: "procesy grupowe + potencjał twórczy" },
+    { id: "z-tylu", u: "start", s: "U", term: "Siadanie z tyłu",
+      plain: "W nowej grupie ludzie siadają z tyłu, pod ścianą, przy oknie. To normalne: obcych nie chcemy mieć blisko.",
+      def: "Na początku nowej grupy pojawia się napięcie; ludzie siadają z tyłu, pod ścianą, przy oknie, rzadko w pierwszej ławce. Gdy prowadząca ustawiła krzesła w półokręgu, uczestnicy i tak siadali dalej, zostawiając wolne krzesła obok siebie. To naturalny odruch: kogoś nie znamy, więc nie chcemy być blisko.",
+      sh: "naturalny dystans wobec obcych" },
+
+    /* ---------- Tuckman ---------- */
+    { id: "tuckman", u: "tuckman", term: "Model Tuckmana",
+      plain: "Grupa dojrzewa etapami: najpierw się poznaje, potem się kłóci, potem ustala zasady, potem dobrze pracuje, a na koniec się żegna.",
+      def: "Dynamika procesu grupowego według Bruce’a Tuckmana: każda grupa, aby stać się zespołem twórczym, musi przejść przez określone fazy (nie zawsze przechodzi przez wszystkie i staje się zespołem twórczym).",
+      sh: "fazy rozwoju grupy" },
+    { id: "f-formowanie", u: "tuckman", term: "Formowanie",
+      plain: "Pierwsze spotkania: nikt nikogo nie zna, jest niepewność. Ludzie się poznają, ustalają, po co są, i kto co robi.",
+      def: "Niepewność i początkowa komunikacja. Zespół: poznawanie członków, ustalanie celów, przydzielanie ról. Lider: zapewnienie bezpieczeństwa, wyjaśnianie celów i ról.",
+      sh: "niepewność; lider daje bezpieczeństwo" },
+    { id: "f-szturmowanie", u: "tuckman", term: "Szturmowanie",
+      plain: "Pierwsze tarcia: kto tu rządzi, czyje zdanie wygra. Kłótnie są normalne.",
+      def: "Konflikty i zmagania o władzę. Zespół: rozwiązywanie konfliktów, ustalanie hierarchii. Lider: zarządzanie konfliktami, wspieranie otwartej komunikacji.",
+      sh: "konflikty i walka o władzę" },
+    { id: "f-normowanie", u: "tuckman", term: "Normowanie",
+      plain: "Ludzie zaczynają sobie ufać i umawiają się, jak razem działać.",
+      def: "Budowanie zaufania, wypracowanie norm. Zespół: tworzenie wspólnych zasad współpracy. Lider: umożliwienie zaufania, wspieranie norm.",
+      sh: "zaufanie i wspólne zasady" },
+    { id: "f-wykonanie", u: "tuckman", term: "Wykonanie",
+      plain: "Zespół dobrze działa i robi to, co miał zrobić.",
+      def: "Wysoka wydajność i efektywna współpraca. Zespół: realizacja celów, efektywna kooperacja. Lider: pozostawanie zorientowanym na cele, wspieranie zespołu.",
+      sh: "wysoka wydajność, realizacja celów" },
+    { id: "f-zamkniecie", u: "tuckman", term: "Zamknięcie",
+      plain: "Koniec wspólnej pracy: podsumowanie, świętowanie i emocje związane z rozstaniem.",
+      def: "Refleksja, finalizacja zadań, emocjonalne reakcje. Zespół: finalizacja projektów, celebracja osiągnięć. Lider: pobudzanie do refleksji, zarządzanie zakończeniem.",
+      sh: "refleksja, celebracja, pożegnanie" },
+    { id: "nie-wszystkie", u: "tuckman", term: "Nie każda grupa przechodzi wszystkie fazy",
+      plain: "Fazy to typowa droga, ale nie obowiązek. Niektóre grupy nigdy nie staną się twórczym zespołem.",
+      def: "Grupa nie zawsze przechodzi przez wszystkie fazy i nie zawsze staje się zespołem twórczym. Na wykładzie: pierwsza faza (formowanie) zachodzi zawsze.",
+      sh: "fazy nie są obowiązkowe" },
+
+    /* ---------- Formowanie ---------- */
+    { id: "formowanie-zawsze", u: "formowanie", s: "U", term: "Formowanie zachodzi zawsze",
+      plain: "Każda grupa zaczyna od poznawania się. Kiedy wchodzisz do przedszkola czy klasy prowadzić zajęcia, też przechodzisz przez tę fazę.",
+      def: "Pozostałe etapy grupa może przejść, ale nie musi. Pierwszy etap, formowanie, jest dla każdej grupy podstawą, która zachodzi zawsze.",
+      sh: "pierwsza faza każdej grupy" },
+    { id: "niepewnosc", u: "formowanie", s: "U", term: "Niepewność na starcie",
+      plain: "W nowej grupie jest lęk, zamknięcie i dystans, a obok ciekawość i ekscytacja. Tak mają dzieci i tak mają dorośli.",
+      def: "Na początku pojawia się niepewność, utrudniona komunikacja, lęk, zamknięcie, dystans. Także u dorosłych (np. 8-godzinne szkolenie): obok ciekawości napięcie psychologiczne, obok ekscytacji pytania, co będzie się działo.",
+      sh: "lęk i dystans obok ciekawości" },
+    { id: "nowa-grupa", u: "formowanie", s: "U", term: "Ty wchodzisz do nowej grupy",
+      plain: "Jako wolontariusz w przedszkolu, na oddziale dziecięcym czy w szkole to ty jesteś nowy. Dzieci mogą się znać, ale ciebie nie znają.",
+      def: "Przykłady z wykładu: wolontariat w przedszkolu, oddział z chorymi dziećmi, warsztaty w szkole. Nawet jeśli dzieci znają się nawzajem, nie znają prowadzącego, więc faza formowania dotyczy też was.",
+      sh: "prowadzący też jest nowy" },
+    { id: "lider-formowanie", u: "formowanie", s: "U", term: "Rola prowadzącego w formowaniu",
+      plain: "Prowadzący dba, żeby było bezpiecznie, wyjaśnia, po co jesteśmy i co robimy, i towarzyszy grupie.",
+      def: "Zadania zespołu pod przewodnictwem prowadzącego: poznawanie się nawzajem i prowadzącego, ustalanie celów (co będziemy robić), przydzielanie ról. Rola lidera: zapewnienie bezpieczeństwa, wyjaśnianie celów, towarzyszenie, czyli facylitacja (z wykładu 1).",
+      sh: "bezpieczeństwo, cele, towarzyszenie" },
+    { id: "najpierw-zapoznanie", u: "formowanie", s: "U", term: "Najpierw zapoznanie, potem integracja",
+      plain: "Nie zaczynasz od zabawy integracyjnej zaraz po „cześć”. Najpierw poznajesz dzieci, a dopiero potem integrujesz.",
+      def: "Integracja zawsze dzieje się po zapoznaniu: najpierw się przedstawiamy i poznajemy (kim są te dzieci, ci nastolatkowie), potem integrujemy.",
+      sh: "zapoznanie poprzedza integrację" },
+
+    /* ---------- Rogers ---------- */
+    { id: "rogers", u: "rogers", term: "Carl Rogers o twórczości",
+      plain: "Przedstawiciel psychologii humanistycznej. Twórczość rośnie tam, gdzie człowiek jest bezpieczny i czuje się wolny.",
+      def: "Według koncepcji Carla Rogersa twórczość rozwija się najlepiej w warunkach zewnętrznego bezpieczeństwa i psychologicznej wolności.",
+      sh: "bezpieczeństwo + psychologiczna wolność" },
+    { id: "blokery", u: "rogers", term: "Lęk przed oceną, wyśmianiem, odrzuceniem",
+      plain: "Kiedy boję się, że mnie ocenią, wyśmieją albo odrzucą, mój mózg zajmuje się obroną, a nie wymyślaniem.",
+      def: "Lęk przed oceną, wyśmianiem czy odrzuceniem przez grupę skutecznie blokuje myślenie twórcze. Na wykładzie: to „blokery” myślenia twórczego.",
+      sh: "blokuje myślenie twórcze" },
+    { id: "energia", u: "rogers", term: "Zamiana energii",
+      plain: "Ta sama energia może iść na pilnowanie, jak wypadam, albo na wymyślanie. Integracja przestawia ją na wymyślanie.",
+      def: "Integracja redukuje lęk, zamieniając energię zużywaną na „autoprezentację i obronę” na energię skierowaną na „eksplorację i kreację”.",
+      sh: "z obrony na eksplorację i kreację" },
+    { id: "wojna", u: "rogers", s: "U", term: "Twórczość w czasie wojny",
+      plain: "Ludzie tworzyli też w czasie wojny. Prowadząca: to wyjątki potwierdzające regułę, bo i tak musieli znaleźć skrawek bezpiecznego miejsca.",
+      def: "Twórczość w czasie wojen, kryzysów czy stanu wojennego to wyjątki: twórcy chcieli wyrazić psychologiczną wolność („nie podlegamy tylko tym siłom”). Ale nikt nie pisał wiersza pod ostrzałem: musieli znaleźć kawałek miejsca, w którym czuli się w miarę bezpiecznie.",
+      sh: "wyjątek, a i tak potrzebny skrawek bezpieczeństwa" },
+    { id: "od-czapy", u: "rogers", s: "U", term: "Pomysły „od czapy”",
+      plain: "W dobrze zintegrowanej grupie ludzie nie boją się powiedzieć nawet bardzo dziwnych albo niemożliwych pomysłów.",
+      def: "Dobra integracja sprawia, że członkowie grupy nie boją się dzielić pomysłami, nawet takimi „od czapy”, bardzo oryginalnymi czy niemożliwymi do przeprowadzenia.",
+      sh: "dziwne pomysły mówione bez strachu" },
+
+    /* ---------- Wiek rozwojowy ---------- */
+    { id: "przynaleznosc", u: "wiek", term: "Potrzeba przynależności rówieśniczej",
+      plain: "Dla dzieci i nastolatków bycie „swoim” w grupie rówieśników to jedna z najważniejszych rzeczy.",
+      def: "U dzieci i młodzieży potrzeba przynależności rówieśniczej jest jedną z najsilniejszych potrzeb psychicznych. Na wykładzie: przynależność ważna także według Abrahama Maslowa (psychologia humanistyczna).",
+      sh: "jedna z najsilniejszych potrzeb" },
+    { id: "odrzucenie", u: "wiek", term: "Lęk przed odrzuceniem",
+      plain: "Odwrotna strona przynależności: boję się, że mnie wyśmieją, odsuną albo odrzucą moje pomysły.",
+      def: "W wieku rozwojowym lęk przed odrzuceniem, wyśmianiem czy „niemieszczeniem się w normie” najskuteczniej blokuje naturalną ekspresję. Na wykładzie: u jednych silniejszy, u innych słabszy; odrzucić można też same pomysły.",
+      sh: "najskuteczniej blokuje ekspresję" },
+    { id: "norma", u: "wiek", s: "U", term: "„Czy jestem w normie?”",
+      plain: "Nastolatki ciągle się porównują: czy wyglądam dobrze, czy pasuję. To porównywanie blokuje swobodną ekspresję.",
+      def: "Młodzież porównuje się między sobą („czy jestem w normie?”, czy wyglądam lepiej, gorzej). To blokuje naturalną ekspresję, dlatego potrzebne jest bezpieczeństwo psychologiczne.",
+      sh: "porównywanie się blokuje ekspresję" },
+
+    /* ---------- Bariery ---------- */
+    { id: "konformizm", u: "bariery", term: "Konformizm rówieśniczy",
+      plain: "Wolę ukryć swój pomysł, niż wyjść na dziwaka. Szczególnie u nastolatków, ale już u starszych dzieci z podstawówki.",
+      def: "Szczególnie u młodzieży: strach przed byciem „innym” sprawia, że młodzi ludzie wolą ukrywać nieszablonowe pomysły, byle tylko stopić się z tłumem. Na wykładzie: cierpią na tym m.in. dzieci zdolne, które ukrywają zainteresowania i osiągnięcia.",
+      sh: "ukrywam pomysł, żeby nie być „innym”" },
+    { id: "ocenocentryzm", u: "bariery", term: "Szkoła ocenocentryczna",
+      plain: "W szkole liczy się ocena, więc dzieci uczą się zgadywać, czego chce nauczyciel, zamiast myśleć po swojemu.",
+      def: "Lęk przed oceną: dzieci szybko uczą się szukać „jedynej poprawnej odpowiedzi” pod klucz, co zabija myślenie twórcze. Na wykładzie: rodzice pytają „co dostałeś?” i „co dostał Marek?”, a nie „jak ci szła nauka, co było trudne?”.",
+      sh: "„jedyna poprawna odpowiedź” pod klucz" },
+    { id: "pod-klucz", u: "bariery", s: "U", term: "Kiedy „pod klucz” jest dobre",
+      plain: "Są sytuacje, w których trzeba działać według procedury, np. resuscytacja. Tam nie eksperymentujesz. W zabawie twórczej jest odwrotnie.",
+      def: "Działanie w pewnym kluczu też jest wartościowe: procedury, np. resuscytacja (tempo uciskania, liczba oddechów). Tam nie działasz twórczo. Ale w zabawie i aktywności twórczej dziecko ma nie myśleć, co dorosły chciałby usłyszeć, tylko dzielić się swoją odpowiedzią.",
+      sh: "procedury tak, zabawa twórcza nie" },
+    { id: "autocenzura", u: "bariery", term: "Autocenzura",
+      plain: "Mam pomysł, ale w głowie słyszę „to głupie, nie mów”. I nie mówię. To nazywa się autocenzurą.",
+      def: "Podstawowy paraliż poznawczy. Zanim osoba wypowie unikalny pomysł, jej wewnętrzny krytyk (zasilany lękiem przed odrzuceniem przez rówieśników) mówi: „nie mów tego, wyśmieją cię”.",
+      sh: "podstawowy paraliż poznawczy" },
+    { id: "krytyk", u: "bariery", term: "Wewnętrzny krytyk",
+      plain: "Głos w głowie, który ocenia moje pomysły, zanim je powiem. Każdy go ma, u jednych jest głośniejszy, u innych cichszy.",
+      def: "Wewnętrzny krytyk, zasilany lękiem przed odrzuceniem przez rówieśników, uruchamia autocenzurę. Na wykładzie: ma go każdy, u niektórych jest bardzo ostry.",
+      sh: "głos „nie mów tego, wyśmieją cię”" },
+    { id: "oryginalnosc", u: "bariery", term: "Oryginalność",
+      plain: "Coś oryginalnego wyróżnia się, wychodzi poza to, co typowe, jak ktoś nietypowo ubrany na ulicy. Dlatego wymaga odwagi.",
+      def: "Oryginalność z definicji jest wykroczeniem poza normy, więc wymaga odwagi społecznej, którą niezintegrowana grupa skutecznie dławi.",
+      sh: "wykroczenie poza normy" },
+    { id: "odwaga", u: "bariery", term: "Odwaga społeczna",
+      plain: "Odwaga, żeby przy innych powiedzieć albo zrobić coś innego niż wszyscy.",
+      def: "Oryginalność wymaga odwagi społecznej. Niezintegrowana grupa ją dławi: hamuje uczestnika, a on sam hamuje siebie przez autocenzurę.",
+      sh: "potrzebna, by być oryginalnym przy innych" },
+
+    /* ---------- Próżniactwo i blokowanie ---------- */
+    { id: "prozniactwo", u: "grupowe", term: "Próżniactwo społeczne",
+      plain: "W grupie łatwo się schować: inni coś wymyślą. Gdy nie widać, kto co zrobił, część osób tylko udaje, że pracuje.",
+      def: "Jeśli grupa dostaje zadanie wygenerowania rozwiązania jako zespół, a wkład poszczególnych osób nie jest jawny i rozliczany, odpowiedzialność ulega rozproszeniu. Jednostki wkładają mniej wysiłku poznawczego, licząc, że „ktoś inny coś wymyśli”.",
+      sh: "„ktoś inny coś wymyśli”" },
+    { id: "rozproszenie", u: "grupowe", term: "Rozproszenie odpowiedzialności",
+      plain: "Kiedy odpowiada „cała grupa”, w praktyce nie odpowiada nikt.",
+      def: "Mechanizm próżniactwa społecznego: gdy wkład nie jest jawny ani rozliczany, odpowiedzialność rozkłada się na wszystkich i nikt nie czuje się odpowiedzialny.",
+      sh: "odpowiadają wszyscy, więc nikt" },
+    { id: "po-imieniu", u: "grupowe", s: "U", term: "Zadanie po imieniu",
+      plain: "Przy wypadku nie krzyczysz „niech ktoś zadzwoni!”, tylko „Panie Jakubie, pan dzwoni po karetkę”. Konkretna osoba z imieniem częściej działa.",
+      def: "Przykład z wykładu: przy potrąceniu na pasach gapie filmowali zamiast dzwonić. Żeby uniknąć próżniactwa, trzeba rozdzielić zadania konkretnym osobom, najlepiej po imieniu („pan dzwoni, pan ze mną sprawdzi funkcje życiowe”).",
+      sh: "rozdziel zadania konkretnym osobom" },
+    { id: "blokowanie", u: "grupowe", term: "Blokowanie produkcji",
+      plain: "Mam pomysł, ale mówi ktoś inny. Czekam i powtarzam go w głowie, przez co nie słucham i nic nowego nie wymyślam. Zanim przyjdzie moja kolej, pomysł ulatuje.",
+      def: "Bariera strukturalno-poznawcza przy wymyślaniu pomysłów. W danym momencie mówi tylko jedna osoba, więc pozostali muszą utrzymywać pomysł w pamięci roboczej. To obciąża uwagę, uniemożliwia słuchanie innych i blokuje nowe skojarzenia; pomysł często ulega zapomnieniu lub traci aktualność w oczach autora.",
+      sh: "czekanie na swoją kolej zjada pomysły" },
+    { id: "produkcja", u: "grupowe", s: "U", term: "Jaka „produkcja”?",
+      plain: "Nie chodzi o fabrykę, tylko o „produkowanie” pomysłów.",
+      def: "Na wykładzie: w blokowaniu produkcji nie chodzi o produkcję w fabryce, tylko o produkcję twórczych pomysłów. Pomaga zapisywanie pomysłów na etapie tworzenia, żeby nie ginęły szczegóły.",
+      sh: "produkcja pomysłów, nie towarów" },
+
+    /* ---------- Bezpieczna piaskownica ---------- */
+    { id: "piaskownica", u: "piaskownica", term: "Bezpieczna piaskownica",
+      plain: "Metafora: grupa ma być jak piaskownica, w której można się bawić i budować bez strachu. Działa też z dorosłymi.",
+      def: "Rola pedagoga/psychologa: budowanie „bezpiecznej piaskownicy”, czyli bezpiecznego otoczenia. Na wykładzie: metaforę można stosować także wobec dorosłych.",
+      sh: "metafora bezpiecznego otoczenia" },
+    { id: "nie-przyjazn", u: "piaskownica", term: "Integracja to nie przymus przyjaźni",
+      plain: "Dzieci nie muszą się wszystkie lubić. Mają móc razem działać.",
+      def: "Integracja dzieci i młodzieży nie polega na zmuszaniu do przyjaźni, ale na stworzeniu kontraktu grupowego. Na wykładzie: nie musimy się super lubić, ale możemy razem działać (jak studenci, którzy jednych prowadzących lubią bardziej, innych mniej).",
+      sh: "razem działać, nie musieć się lubić" },
+    { id: "kontrakt", u: "piaskownica", term: "Kontrakt grupowy",
+      plain: "Wspólna umowa grupy: trzy minimalne zasady, które dają poczucie bezpieczeństwa. Można je rozszerzać.",
+      def: "Kontrakt grupowy gwarantuje: zasadę STOP, zakaz krytyki i wyśmiewania (również siebie samego) oraz docenianie procesu, nie tylko efektu. Na wykładzie: to minimum, zasady można rozszerzać.",
+      sh: "STOP, zakaz krytyki, docenianie procesu" },
+    { id: "stop", u: "piaskownica", term: "Zasada STOP",
+      plain: "Każdy może powiedzieć „nie biorę w tym udziału”. Nie musi czuć się bardzo źle, wystarczy, że nie chce.",
+      def: "Każdy ma prawo odmówić udziału w ćwiczeniu, jeśli czuje zbyt duży dyskomfort lub nie chce. Na wykładzie: dyskomfort nie jest warunkiem, wystarczy, że ktoś nie chce.",
+      sh: "prawo odmówić udziału w ćwiczeniu" },
+    { id: "zakaz", u: "piaskownica", term: "Zakaz krytyki i wyśmiewania",
+      plain: "Nikt nie krytykuje ani nie wyśmiewa pomysłów, także swoich własnych. Na etapie wymyślania każdy pomysł jest dobry.",
+      def: "Zakaz krytyki i wyśmiewania (również siebie samego): wszystkie pomysły na etapie kreacji są dobre. Na wykładzie: nad wewnętrznym krytykiem nie zapanujemy, ale możemy poprosić grupę, by nie oceniała pomysłów innych.",
+      sh: "na etapie kreacji każdy pomysł jest dobry" },
+    { id: "proces-w2", u: "piaskownica", term: "Docenianie procesu, nie tylko efektu",
+      plain: "Chwalisz za odwagę i zaangażowanie, a nie tylko za najładniejszą pracę.",
+      def: "Nagradzamy za odwagę i zaangażowanie, a nie tylko za „najładniejszą” pracę. Nawiązanie do wykładu 1 (prymat procesu nad efektem).",
+      sh: "nagradzamy odwagę i zaangażowanie" },
+
+    /* ---------- Dzieci a nastolatki ---------- */
+    { id: "szmidt", u: "ekspresja", term: "Pedagogika twórczości (K. J. Szmidt)",
+      plain: "Każde dziecko rodzi się twórcze. Nie trzeba go uczyć kreatywności, tylko nie przeszkadzać i usuwać to, co ją blokuje.",
+      def: "Zgodnie z pedagogiką twórczości (m.in. podejściem prof. Krzysztofa J. Szmidta) każde dziecko rodzi się z naturalnym potencjałem kreatywnym. Zadaniem nie jest „uczenie” kreatywności, ale usuwanie blokad, które stawia kultura i tradycyjna edukacja.",
+      sh: "usuwać blokady, nie uczyć kreatywności" },
+    { id: "ekspresja-dz", u: "ekspresja", term: "Naturalna, nieskrępowana ekspresja",
+      plain: "Młodsze dzieci tworzą swobodnie, bez zastanawiania się, czy to ładne i co inni powiedzą.",
+      def: "Przejaw potencjału twórczego u dzieci młodszych (slajd 11).",
+      sh: "swobodne tworzenie młodszych dzieci" },
+    { id: "animizm", u: "ekspresja", term: "Myślenie magiczne i animistyczne",
+      plain: "Dla małego dziecka miś żyje, mówi i ma zdanie. Ożywia przedmioty i świat.",
+      def: "Przejaw potencjału twórczego u dzieci młodszych. Na wykładzie: animizm to tendencja do ożywiania przedmiotów i świata („mój miś jest moim najlepszym przyjacielem i chce na obiad zupkę”).",
+      sh: "ożywianie przedmiotów i świata" },
+    { id: "mis-spac", u: "ekspresja", s: "U", term: "„Mój miś jeszcze nie chce iść spać”",
+      plain: "To tak naprawdę dziecko nie chce iść spać, tylko mówi to ustami misia.",
+      def: "Przykład z wykładu: jednocześnie animizm (miś mówi) i projekcja (dziecko przypisuje misiowi własne pragnienie). Nawiązanie do projekcji z wykładu 1.",
+      sh: "animizm i projekcja naraz" },
+    { id: "schematy", u: "ekspresja", term: "Brak sztywnych schematów pojęć",
+      plain: "Dziecko nie wie jeszcze, „jak powinno być”, więc łatwo wymyśla. Z wiekiem nasze schematy sztywnieją.",
+      def: "Przejaw potencjału twórczego u dzieci młodszych. Na wykładzie: schematy pojęć sztywnieją z wiekiem, choć można nad tym pracować.",
+      sh: "schematy sztywnieją z wiekiem" },
+    { id: "zabawa", u: "ekspresja", term: "Gotowość do ciągłej zabawy",
+      plain: "Dzieci po prostu chcą się bawić. Jeśli dziecko nie chce się bawić, to sygnał, któremu warto się przyjrzeć.",
+      def: "Przejaw potencjału twórczego u dzieci młodszych. Na wykładzie: brak chęci do zabawy bywa sygnałem trudnych doświadczeń (np. krzywdy); czasem też wpływu gier komputerowych.",
+      sh: "dzieci chcą się bawić" },
+    { id: "bunt", u: "ekspresja", term: "Twórczość jako narzędzie buntu",
+      plain: "Nastolatek pisze rap, wiersz, maluje mural, żeby pokazać sprzeciw. To też twórczość.",
+      def: "Przejaw potencjału twórczego u młodzieży. Na wykładzie: rap, hip-hop, wiersz, grafika, murale.",
+      sh: "rap, wiersz, mural jako sprzeciw" },
+    { id: "tozsamosc", u: "ekspresja", term: "Poszukiwanie tożsamości i znaczenia",
+      plain: "Kim jestem? Jaki jest sens mojego życia? Nastolatki szukają odpowiedzi, a twórczość im w tym pomaga.",
+      def: "Przejaw potencjału twórczego u młodzieży: czas poszukiwania własnej tożsamości i znaczenia („kim jestem?”, „jaki jest sens mojego życia?”).",
+      sh: "„kim jestem?”" },
+    { id: "emocje", u: "ekspresja", term: "Potrzeba wyrażania silnych emocji",
+      plain: "Nastolatki przeżywają mocno i chcą to wyrazić. Na tym można budować zajęcia.",
+      def: "Przejaw potencjału twórczego u młodzieży. Na wykładzie: na tym możemy bazować, działając z nastolatkami.",
+      sh: "mocne przeżycia do wyrażenia" },
+    { id: "idealizm", u: "ekspresja", term: "Refleksyjność i idealizm",
+      plain: "Nastolatki lubią się zastanawiać i są wierne swoim ideałom. Można je zachęcać do refleksji i podsumowań.",
+      def: "Przejaw potencjału twórczego u młodzieży. Na wykładzie: możemy skłaniać do refleksji i podsumowań; idealizm to gotowość do wierności własnym ideałom i wartościom.",
+      sh: "refleksja i wierność ideałom" },
+
+    /* ---------- Cele i pętla ---------- */
+    { id: "plynnosc", u: "cele", term: "Płynność myślenia",
+      plain: "Umiem szybko wymyślić dużo pomysłów. „Do czego jeszcze może służyć ten spinacz?” – im więcej, tym lepiej.",
+      def: "Zdolność do generowania dziesiątek pomysłów w krótkim czasie (np. „Do czego jeszcze może służyć ten spinacz?”).",
+      sh: "dużo pomysłów w krótkim czasie" },
+    { id: "elastycznosc", u: "cele", term: "Elastyczność myślenia",
+      plain: "Umiem zmienić kierunek i wyjść z utartego schematu. „A co, gdyby ta bajka skończyła się zupełnie inaczej?”",
+      def: "Umiejętność zmiany kierunku myślenia i łamania schematów (np. „A co, gdyby ta bajka skończyła się zupełnie inaczej?”).",
+      sh: "zmiana kierunku, łamanie schematów" },
+    { id: "odpornosc", u: "cele", term: "Odporność emocjonalna",
+      plain: "Błąd to nie koniec świata, tylko wskazówka, co zmienić. Tego można się uczyć przez całe życie.",
+      def: "Nauka tego, że błąd lub porażka w zadaniu to po prostu kolejna informacja zwrotna, a nie koniec świata. Na wykładzie: chłopak zdał prawo jazdy za piętnastym razem i od lat jeździ bez mandatu.",
+      sh: "błąd to informacja zwrotna" },
+    { id: "petla", u: "cele", term: "Pętla: od bezpieczeństwa do integracji",
+      plain: "Bezpieczeństwo zmniejsza lęk, więc ludzie zaczynają twórczo myśleć. Akceptują swoje różne pomysły, a to jeszcze bardziej integruje grupę.",
+      def: "Bezpieczeństwo psychologiczne / integracja → redukcja lęku przed oceną → uruchomienie myślenia twórczego → akceptacja dla odmienności poznawczej → (wzmocnienie integracji).",
+      sh: "bezpieczeństwo → mniej lęku → twórczość → akceptacja" },
+    { id: "odmiennosc", u: "cele", term: "Akceptacja dla odmienności poznawczej",
+      plain: "Ktoś myśli zupełnie inaczej niż reszta i nikt się z niego nie śmieje.",
+      def: "Etap pętli ze slajdu 13: członek grupy może mieć inny pomysł niż wszyscy i nie zostanie wyśmiany. Ta akceptacja wzmacnia integrację (prowadząca: „powinna być tu strzałka”).",
+      sh: "inny pomysł bez wyśmiania" },
+    { id: "bledy-zespoly", u: "cele", s: "U", term: "Zintegrowane zespoły i błędy",
+      plain: "W zgranych, bezpiecznych zespołach medycznych błędów wychodziło więcej, bo można było o nich mówić i się na nich uczyć.",
+      def: "Badania zespołów medycznych: w bardzo dobrze zintegrowanych, bezpiecznych zespołach popełniano (ujawniano) więcej błędów, bo błąd można pokazać i się na nim uczyć. Przy niskiej lub pozornej integracji energia idzie w autoprezentację, a o błędach się nie mówi.",
+      sh: "bezpieczny zespół mówi o błędach" },
+
+    /* ---------- Warsztat ---------- */
+    { id: "stworek", u: "warsztat", term: "„Wspólny stworek z planety X”",
+      plain: "Dzieci w małych grupach dorysowują albo doklejają po kolei części ciała stwora i mówią, jaką supermoc daje ta część.",
+      def: "Dla dzieci młodszych (klasy I–IV). Małe grupy 3–4 osoby, wielki arkusz i nietypowe materiały (piórka, bibuła, folia bąbelkowa). Każde dziecko po kolei dodaje element ciała i uzasadnia, jaką supermoc daje i jak pomaga zespołowi przetrwać na nowej planecie.",
+      sh: "dzieci: stwór z supermocami" },
+    { id: "stworek-efekt", u: "warsztat", term: "Efekty „stworka”",
+      plain: "Uczy współpracy i słuchania (integracja) i przełamuje schematy, bo stwór nie musi wyglądać jak zwierzę (twórczość).",
+      def: "Efekt integracyjny: nauka współpracy, dzielenia się przestrzenią na kartce, słuchania pomysłów innych. Efekt twórczy: przełamywanie schematów anatomicznych, myślenie fantastyczne.",
+      sh: "współpraca + przełamywanie schematów anatomicznych" },
+    { id: "inkubator", u: "warsztat", term: "„Inkubator startupów z problemu”",
+      plain: "Nastolatki w losowych zespołach losują problem, np. gubienie drugiej skarpetki, wymyślają usługę i pokazują ją jako zabawną reklamę telewizyjną.",
+      def: "Dla młodzieży (klasy starsze i szkoły ponadpodstawowe). Losowe zespoły losują z kapelusza absurdalny lub realny problem (np. „Jak pomóc ludziom, którzy ciągle gubią drugą skarpetkę?”), tworzą prototyp usługi i prezentują go grupie jako zabawną „reklamę telewizyjną”.",
+      sh: "młodzież: usługa jako reklama" },
+    { id: "inkubator-efekt", u: "warsztat", term: "Efekty „inkubatora”",
+      plain: "Integruje przez presję czasu, podział ról i wspólny śmiech. Uczy myślenia projektowego i oswaja ze strachem przed wystąpieniem.",
+      def: "Efekt integracyjny: praca pod presją czasu, podział ról (ktoś pisze scenariusz, ktoś występuje), integracja przez wspólny śmiech. Efekt twórczy: myślenie projektowe (design thinking), przełamywanie wstydu przed wystąpieniami, humor jako narzędzie kreatywne.",
+      sh: "presja czasu, role, śmiech; design thinking" },
+    { id: "facylitator-w2", u: "warsztat", term: "Z eksperta na facylitatora",
+      plain: "Prowadzący nie jest wszystkowiedzącym ekspertem, tylko towarzyszem, który stwarza bezpieczne warunki.",
+      def: "Praca w duchu psychopedagogiki twórczości wymaga od psychologa/pedagoga zmiany roli: z eksperta na facylitatora i towarzysza. Gdy młodzi czują, że grupa jest bezpieczną przestrzenią, ich kreatywność wyrazi się w naturalny sposób.",
+      sh: "z eksperta na towarzysza" },
+    { id: "inwestycja", u: "warsztat", term: "Integracja jako inwestycja",
+      plain: "Czas na integrację nie jest stracony. Bez niej żadna innowacja w klasie, rodzinie czy grupie się nie uda.",
+      def: "Integracja nie jest stratą czasu, jest inwestycją, bez której jakakolwiek innowacja w systemie (klasie, rodzinie, grupie) jest niemożliwa.",
+      sh: "nie strata czasu, tylko inwestycja" }
+  ],
+
+  exercises: [
+    /* ---------- Po co integracja ---------- */
+    { u: "start", t: "mcq",
+      q: "Czym według slajdu 4 jest integracja grupy z punktu widzenia psychologii społecznej?",
+      a: ["Procesem budowania bezpieczeństwa emocjonalnego", "Zestawem zabaw na zapoznanie się grupy", "Sposobem na szybkie przydzielenie ról", "Nagrodą dla grupy za dobrą pracę"],
+      x: "Integracja to nie tylko „zabawa na zapoznanie”, ale głęboki proces budowania bezpieczeństwa emocjonalnego.",
+      w: ["Slajd mówi wprost, że integracja to NIE jest jedynie zabawa na zapoznanie.",
+          "Przydzielanie ról to zadanie fazy formowania, a nie definicja integracji.",
+          "Integracja to warunek pracy twórczej, a nie nagroda."] },
+    { u: "start", t: "tf", q: "Integracja grupy to po prostu zabawa na zapoznanie się.", a: false,
+      x: "Fałsz. Slajd 4: integracja NIE jest jedynie „zabawą na zapoznanie”, tylko procesem budowania bezpieczeństwa emocjonalnego." },
+    { u: "start", t: "mcq",
+      q: "O czym według slajdu 4 decyduje bezpieczeństwo emocjonalne w grupie?",
+      a: ["Czy uczestnik podejmie ryzyko twórcze", "Czy uczestnik dostanie dobrą ocenę", "Czy grupa skończy zadanie na czas", "Czy prowadzący będzie lubiany"],
+      x: "Bezpieczeństwo emocjonalne decyduje, czy uczeń lub uczestnik warsztatów podejmie ryzyko twórcze, np. powie nietypowy pomysł.",
+      w: ["Oceny to właśnie bariera twórczości (szkoła ocenocentryczna).",
+          "Slajd nie mówi o czasie, tylko o ryzyku twórczym.",
+          "Nie chodzi o sympatię do prowadzącego."] },
+    { u: "start", t: "cloze",
+      q: "Bezpieczna i zintegrowana grupa jest absolutnym warunkiem ___, aby wyzwolić autentyczną kreatywność.",
+      a: ["koniecznym", "wystarczającym", "dodatkowym", "pomocniczym"],
+      x: "Warunkiem koniecznym: bez bezpiecznej grupy nie ma autentycznej kreatywności.",
+      w: ["Wystarczający znaczyłby, że sama integracja gwarantuje twórczość. Slajd mówi: konieczny.",
+          "Slajd mówi „absolutnym warunkiem koniecznym”, a nie dodatkowym.",
+          "To za słabe słowo: integracja jest konieczna."] },
+    { u: "start", t: "multi", q: "Jakie dwa obszary łączy według slajdu 3 ten wykład?",
+      a: ["procesy grupowe", "rozwój potencjału twórczego"],
+      o: ["diagnoza zaburzeń rozwojowych", "metody oceniania w szkole"],
+      x: "Slajd 3: wykład łączy procesy grupowe oraz rozwój potencjału twórczego.",
+      w: ["Diagnoza nie jest tematem tego wykładu.",
+          "Ocenianie pojawia się tylko jako bariera twórczości."] },
+    { u: "start", t: "mcq", s: "U",
+      q: "Gdzie według prowadzącej siadają zwykle ludzie w nowej grupie?",
+      a: ["Z tyłu, pod ścianą albo przy oknie", "W pierwszej ławce, blisko prowadzącego", "Jak najbliżej innych nowych osób", "Losowo, bez żadnej prawidłowości"],
+      x: "W nowej grupie jest napięcie, więc ludzie siadają z tyłu, pod ścianą, przy oknie, żeby było bezpiecznie. Rzadko kto siada w pierwszej ławce.",
+      w: ["Właśnie rzadko kto siada w pierwszej ławce.",
+          "Odwrotnie: obcych nie chcemy mieć blisko.",
+          "Prowadząca opisała wyraźną prawidłowość."] },
+    { u: "start", t: "mcq", s: "U",
+      q: "Prowadząca ustawiła krzesła w półokręgu. Co zrobili studenci pierwszego roku?",
+      a: ["Siadali dalej, zostawiając wolne krzesła obok siebie", "Siadali ciasno obok siebie, żeby się poznać", "Odmówili siadania w półokręgu", "Usiedli najbliżej prowadzącej"],
+      x: "Siadali dalej, a krzesła obok siebie zostawiali wolne. To naturalny odruch: kogoś nie znamy, więc nie chcemy być blisko.",
+      w: ["Odwrotnie: zostawiali odstępy.",
+          "Usiedli, tylko z dystansem.",
+          "Siadali raczej dalej."] },
+    { u: "start", t: "tf", s: "U", q: "Dystans wobec nieznanych osób w nowej grupie to naturalny ludzki odruch.", a: true,
+      x: "Tak. Prowadząca: „to jest taki naturalny odruch ludzki, że jak kogoś nie znamy, to nie chcemy być tak blisko”." },
+    { u: "start", t: "mcq",
+      q: "Co staje się możliwe dopiero wtedy, gdy w grupie jest bezpiecznie?",
+      a: ["Podzielenie się oryginalnym pomysłem bez obawy", "Wyznaczenie jednego stałego lidera grupy", "Rozpoczęcie zajęć dokładnie zgodnie z planem", "Rzetelne ocenienie prac wszystkich uczestników"],
+      x: "Dopiero w bezpiecznej grupie można podejmować zachowania ryzykowne, ale twórcze: podzielić się nietypowym pomysłem bez obawy przed wyśmianiem.",
+      w: ["Lider jest od początku, to prowadzący.",
+          "Plan można zacząć zawsze, problemem jest twórczość.",
+          "Ocenianie jest raczej barierą niż celem."] },
+
+    /* ---------- Tuckman ---------- */
+    { u: "tuckman", t: "order", q: "Ułóż fazy rozwoju grupy według Tuckmana.",
+      a: ["Formowanie", "Szturmowanie", "Normowanie", "Wykonanie", "Zamknięcie"],
+      x: "Formowanie → szturmowanie → normowanie → wykonanie → zamknięcie." },
+    { u: "tuckman", t: "which", set: "faza", q: "Niepewność i początkowa komunikacja.", a: 1,
+      x: "To charakterystyka formowania, pierwszej fazy." },
+    { u: "tuckman", t: "which", set: "faza", q: "Konflikty i zmagania o władzę.", a: 2,
+      x: "To szturmowanie: grupa walczy o hierarchię." },
+    { u: "tuckman", t: "which", set: "faza", q: "Budowanie zaufania, wypracowanie norm.", a: 3,
+      x: "To normowanie: powstają wspólne zasady współpracy." },
+    { u: "tuckman", t: "which", set: "faza", q: "Wysoka wydajność i efektywna współpraca.", a: 4,
+      x: "To wykonanie: zespół realizuje cele." },
+    { u: "tuckman", t: "which", set: "faza", q: "Refleksja, finalizacja zadań, emocjonalne reakcje.", a: 5,
+      x: "To zamknięcie: koniec pracy, celebracja i emocje rozstania." },
+    { u: "tuckman", t: "match",
+      pairs: [
+        ["Formowanie", "zapewnienie bezpieczeństwa, wyjaśnianie celów i ról"],
+        ["Szturmowanie", "zarządzanie konfliktami, otwarta komunikacja"],
+        ["Normowanie", "umożliwienie zaufania, wspieranie norm"],
+        ["Wykonanie", "orientacja na cele, wspieranie zespołu"],
+        ["Zamknięcie", "pobudzanie do refleksji, zarządzanie zakończeniem"]],
+      x: "Rola lidera z tabeli na slajdzie 5. Dla tego wykładu najważniejsza jest pierwsza: bezpieczeństwo." },
+    { u: "tuckman", t: "match",
+      pairs: [
+        ["Formowanie", "poznawanie członków, ustalanie celów, role"],
+        ["Szturmowanie", "rozwiązywanie konfliktów, hierarchia"],
+        ["Normowanie", "wspólne zasady współpracy"],
+        ["Zamknięcie", "finalizacja projektów, celebracja"]],
+      x: "Typowe działania zespołu w każdej fazie (slajd 5)." },
+    { u: "tuckman", t: "mcq",
+      q: "Jaka jest rola lidera w fazie formowania?",
+      a: ["Zapewnienie bezpieczeństwa, wyjaśnianie celów i ról", "Zarządzanie konfliktami i otwartą komunikacją", "Pobudzanie do refleksji i zarządzanie zakończeniem", "Pozostawanie zorientowanym na cele"],
+      x: "W formowaniu lider zapewnia bezpieczeństwo i wyjaśnia cele i role. To łączy fazę formowania z całym tematem wykładu.",
+      w: ["To rola lidera w szturmowaniu.",
+          "To rola lidera w zamknięciu.",
+          "To rola lidera w wykonaniu."] },
+    { u: "tuckman", t: "tf", q: "Według slajdu 5 każda grupa zawsze przechodzi przez wszystkie fazy i staje się zespołem twórczym.", a: false,
+      x: "Fałsz. Slajd: grupa „nie zawsze przechodzi przez wszystkie i staje się zespołem twórczym!”." },
+    { u: "tuckman", t: "mcq", s: "U",
+      q: "Która faza według prowadzącej zachodzi w każdej grupie?",
+      a: ["Formowanie", "Szturmowanie", "Normowanie", "Zamknięcie"],
+      x: "Pozostałe etapy grupa może przejść, ale nie musi. Formowanie jest podstawą, która zachodzi zawsze.",
+      w: ["Szturmowania grupa może uniknąć albo w nim utknąć.",
+          "Do normowania nie każda grupa dochodzi.",
+          "Zamknięcie dotyczy grup, które kończą wspólną pracę; nie każda do niego dochodzi."] },
+    { u: "tuckman", t: "cloze",
+      q: "W fazie szturmowania pojawiają się konflikty i zmagania o ___.",
+      a: ["władzę", "pomysły", "zasoby", "nagrody"],
+      x: "Konflikty i zmagania o władzę, czyli o to, kto w grupie ma ostatnie słowo.",
+      w: ["Slajd mówi o władzy, a nie o pomysłach.",
+          "Slajd mówi o władzy, a nie o zasobach.",
+          "Slajd mówi o władzy, a nie o nagrodach."] },
+
+    /* ---------- Formowanie ---------- */
+    { u: "formowanie", t: "multi", s: "U", q: "Co według prowadzącej pojawia się w grupie na etapie formowania?",
+      a: ["niepewność", "utrudniona komunikacja", "lęk i dystans", "ciekawość i ekscytacja"],
+      o: ["walka o władzę", "pełne zaufanie"],
+      x: "Na początku jest lęk, zamknięcie, dystans i utrudniona komunikacja, a obok nich ciekawość i ekscytacja.",
+      w: ["Walka o władzę to szturmowanie, czyli faza 2.",
+          "Zaufanie buduje się dopiero w normowaniu."] },
+    { u: "formowanie", t: "tf", s: "U", q: "Niepewność w nowej grupie dotyczy tylko dzieci i młodzieży, a nie dorosłych.", a: false,
+      x: "Fałsz. Prowadząca: także dorośli na kilkugodzinnym szkoleniu najpierw muszą się poznać i czują napięcie." },
+    { u: "formowanie", t: "mcq", s: "U",
+      q: "Wchodzisz jako wolontariusz do grupy przedszkolaków, które dobrze się znają. Czy dotyczy cię faza formowania?",
+      a: ["Tak, bo dzieci nie znają ciebie jako prowadzącego", "Nie, bo grupa już się zna i ma za sobą formowanie", "Nie, bo formowanie dotyczy tylko dorosłych", "Tylko jeśli dzieci są starsze niż 6 lat"],
+      x: "Nawet jeśli dzieci znają się nawzajem, ty jesteś nowy. Poznają ciebie, a ty je, więc formowanie dotyczy także prowadzącego.",
+      w: ["Grupa zna się, ale nie zna prowadzącego.",
+          "Formowanie dotyczy każdej grupy, także dzieci.",
+          "Wiek nie ma tu znaczenia."] },
+    { u: "formowanie", t: "multi", s: "U", q: "Co robi zespół w fazie formowania pod przewodnictwem prowadzącego?",
+      a: ["poznaje się nawzajem", "poznaje prowadzącego", "ustala cele", "przydziela role"],
+      o: ["rozwiązuje konflikty o władzę", "celebruje osiągnięcia"],
+      x: "Formowanie: poznawanie się nawzajem i prowadzącego, ustalanie celów (co będziemy robić) i przydzielanie ról.",
+      w: ["To szturmowanie.",
+          "To zamknięcie."] },
+    { u: "formowanie", t: "mcq", s: "U",
+      q: "Jak prowadząca nazwała towarzyszenie grupie, o którym mówiła na wykładzie 1?",
+      a: ["Facylitacja", "Socjoterapia", "Sublimacja", "Projekcja"],
+      x: "Facylitacja: towarzyszenie w rozmowie, obecność, która ułatwia rozpoczęcie i prowadzenie procesu.",
+      w: ["Socjoterapia to grupowa forma pomocy, nie towarzyszenie.",
+          "Sublimacja to nadawanie kierunku napięciu (zasada 10).",
+          "Projekcja to przypisywanie obiektowi własnych stanów."] },
+    { u: "formowanie", t: "order", s: "U", q: "W jakiej kolejności według prowadzącej postępujesz z nową grupą?",
+      a: ["Przedstawiasz się", "Poznajesz uczestników", "Prowadzisz zabawy integracyjne"],
+      x: "Integracja zawsze dzieje się po zapoznaniu: najpierw się przedstawiamy i poznajemy, potem integrujemy." },
+    { u: "formowanie", t: "tf", s: "U", q: "Zabawę integracyjną najlepiej zacząć od razu po „cześć, mam na imię Jakub”.", a: false,
+      x: "Fałsz. Najpierw trzeba poznać członków grupy (kim są te dzieci, ci nastolatkowie). Integracja dzieje się po zapoznaniu." },
+    { u: "formowanie", t: "mcq", s: "U",
+      q: "Jakie uczucia według prowadzącej towarzyszą dorosłym na początku wspólnego szkolenia?",
+      a: ["Ciekawość, ale też napięcie i niepewność", "Wyłącznie radość i ekscytacja, bez obaw", "Głównie złość i opór wobec prowadzącego", "Obojętność wobec grupy i zadań"],
+      x: "Oprócz ciekawości jest napięcie psychologiczne i niepewność, oprócz ekscytacji pytania, co będzie się działo.",
+      w: ["Obok radości jest też napięcie.",
+          "Opór nie jest tu głównym uczuciem.",
+          "Prowadząca mówiła o napięciu, a nie obojętności."] },
+
+    /* ---------- Rogers ---------- */
+    { u: "rogers", t: "mcq",
+      q: "W jakich warunkach według Carla Rogersa twórczość rozwija się najlepiej?",
+      a: ["Zewnętrznego bezpieczeństwa i psychologicznej wolności", "Silnej rywalizacji i jasnego systemu nagród", "Ścisłej kontroli i jasnych kryteriów oceny", "Presji czasu i wysokich oczekiwań"],
+      x: "Slajd 6: twórczość rozwija się najlepiej w warunkach zewnętrznego bezpieczeństwa i psychologicznej wolności.",
+      w: ["Rywalizacja i nagrody to raczej źródło lęku przed oceną.",
+          "Ocena blokuje twórczość.",
+          "Presja czasu pojawia się w jednej grze, ale nie jest warunkiem Rogersa."] },
+    { u: "rogers", t: "mcq", s: "U",
+      q: "Do jakiego nurtu psychologii należał Carl Rogers?",
+      a: ["Humanistycznego", "Behawioralnego", "Psychoanalitycznego", "Poznawczego"],
+      x: "Prowadząca przedstawiła Rogersa jako przedstawiciela psychologii humanistycznej (jak Maslowa).",
+      w: ["Behawioryzm to Watson i Skinner.",
+          "Psychoanaliza to Freud.",
+          "Rogers nie był przedstawicielem psychologii poznawczej."] },
+    { u: "rogers", t: "multi", q: "Jakie lęki według slajdu 6 blokują myślenie twórcze?",
+      a: ["lęk przed oceną", "lęk przed wyśmianiem", "lęk przed odrzuceniem przez grupę"],
+      o: ["lęk przed nudą", "lęk przed sukcesem"],
+      x: "Slajd 6: lęk przed oceną, wyśmianiem czy odrzuceniem przez grupę skutecznie blokuje myślenie twórcze.",
+      w: ["Tego nie ma na slajdzie.",
+          "Tego nie ma na slajdzie."] },
+    { u: "rogers", t: "mcq",
+      q: "Na co integracja zamienia energię zużywaną na autoprezentację i obronę?",
+      a: ["Na eksplorację i kreację", "Na rywalizację i porównywanie", "Na odpoczynek i regenerację", "Na kontrolę i ocenę innych"],
+      x: "Integracja redukuje lęk, zamieniając energię zużywaną na „autoprezentację i obronę” na energię na „eksplorację i kreację”.",
+      w: ["Rywalizacja to raczej źródło lęku.",
+          "Slajd nie mówi o odpoczynku.",
+          "Ocena innych to bariera, a nie cel."] },
+    { u: "rogers", t: "cloze",
+      q: "Integracja redukuje lęk, zamieniając energię zużywaną na „autoprezentację i ___” na energię skierowaną na „eksplorację i kreację”.",
+      a: ["obronę", "ocenę", "rywalizację", "kontrolę"],
+      x: "Autoprezentacja i obrona: pilnowanie, jak wypadam, i bronienie się przed oceną.",
+      w: ["Slajd mówi „autoprezentację i obronę”.",
+          "Slajd mówi „autoprezentację i obronę”.",
+          "Slajd mówi „autoprezentację i obronę”."] },
+    { u: "rogers", t: "mcq", s: "U",
+      q: "Jak prowadząca wyjaśnia, że ludzie tworzyli nawet w czasie wojny?",
+      a: ["To wyjątki, a i tak potrzebny był skrawek bezpiecznego miejsca", "To dowód, że bezpieczeństwo nie ma znaczenia dla twórczości", "To dowód, że lęk najlepiej pobudza kreatywność", "Wtedy powstawały tylko utwory na zamówienie"],
+      x: "Twórcy chcieli wyrazić psychologiczną wolność, ale nikt nie pisał wiersza pod ostrzałem: musieli znaleźć kawałek miejsca, w którym czuli się w miarę bezpiecznie. Wyjątki potwierdzają regułę.",
+      w: ["Prowadząca mówi odwrotnie: te przykłady potwierdzają rolę bezpieczeństwa.",
+          "Lęk blokuje twórczość, to teza całego wykładu.",
+          "Nic takiego nie padło."] },
+    { u: "rogers", t: "tf", s: "U", q: "Dobra integracja sprawia, że ludzie nie boją się mówić nawet pomysłów „od czapy”, niemożliwych do realizacji.", a: true,
+      x: "Tak. W bezpiecznej grupie dzielimy się nawet bardzo oryginalnymi czy niemożliwymi pomysłami." },
+    { u: "rogers", t: "tf", s: "U", q: "Według prowadzącej twórczość w czasie wojny pokazuje, że psychologiczna wolność może być manifestem: „nie podlegamy tylko tym siłom”.", a: true,
+      x: "Tak. Twórcy wyrażali w ten sposób psychologiczną wolność, choć i tak potrzebowali skrawka bezpieczeństwa." },
+
+    /* ---------- Przynależność i odrzucenie ---------- */
+    { u: "wiek", t: "mcq",
+      q: "Jaka potrzeba jest według slajdu 7 jedną z najsilniejszych u dzieci i młodzieży?",
+      a: ["Przynależności rówieśniczej", "Samotności i prywatności", "Osiągnięć szkolnych", "Kontroli nad dorosłymi"],
+      x: "U dzieci i młodzieży potrzeba przynależności rówieśniczej jest jedną z najsilniejszych potrzeb psychicznych.",
+      w: ["Slajd mówi o przynależności, nie o samotności.",
+          "Oceny i osiągnięcia to raczej źródło lęku.",
+          "Nic takiego nie ma na slajdzie."] },
+    { u: "wiek", t: "mcq", s: "U",
+      q: "Którego psychologa humanistycznego prowadząca przywołała przy potrzebie przynależności?",
+      a: ["Abrahama Maslowa", "Carla Rogersa", "Bruce’a Tuckmana", "Krzysztofa J. Szmidta"],
+      x: "Maslow (piramida potrzeb): przynależność jest bardzo ważną potrzebą.",
+      w: ["Rogers pojawił się przy bezpieczeństwie i wolności.",
+          "Tuckman to fazy rozwoju grupy.",
+          "Szmidt to pedagogika twórczości."] },
+    { u: "wiek", t: "multi", q: "Co według slajdu 7 najskuteczniej blokuje naturalną ekspresję w wieku rozwojowym?",
+      a: ["lęk przed odrzuceniem", "lęk przed wyśmianiem", "lęk przed „niemieszczeniem się w normie”"],
+      o: ["nadmiar wolnego czasu", "brak materiałów plastycznych"],
+      x: "Slajd 7: lęk przed odrzuceniem, wyśmianiem czy „niemieszczeniem się w normie”.",
+      w: ["Tego nie ma na slajdzie.",
+          "Tego nie ma na slajdzie."] },
+    { u: "wiek", t: "tf", q: "W wieku rozwojowym potrzeba przynależności i lęk przed odrzuceniem występują jednocześnie.", a: true,
+      x: "Tak. Slajd 7: przynależność jest jedną z najsilniejszych potrzeb, a jednocześnie właśnie w tym wieku lęk przed odrzuceniem najsilniej blokuje ekspresję." },
+    { u: "wiek", t: "mcq", s: "U",
+      q: "Co według prowadzącej może zostać odrzucone przez grupę oprócz samej osoby?",
+      a: ["Jej pomysły i propozycje", "Jej oceny ze sprawdzianów", "Jej wybór kierunku studiów", "Jej plan dnia"],
+      x: "Prowadząca: lęk przed odrzuceniem dotyczy też tego, że grupa odrzuci moje pomysły i propozycje.",
+      w: ["Nic takiego nie padło.",
+          "Nic takiego nie padło.",
+          "Nic takiego nie padło."] },
+    { u: "wiek", t: "mcq", s: "U",
+      q: "Nastolatka ciągle sprawdza, czy wygląda „normalnie” na tle innych. Co to według wykładu robi z ekspresją?",
+      a: ["Blokuje naturalną ekspresję", "Wzmacnia odwagę twórczą", "Nie ma żadnego wpływu na twórczość", "Zastępuje potrzebę przynależności"],
+      x: "Porównywanie się („czy jestem w normie?”) blokuje naturalną ekspresję, dlatego potrzebne jest bezpieczeństwo psychologiczne.",
+      w: ["Odwrotnie: osłabia odwagę.",
+          "Wykład mówi o wyraźnym wpływie.",
+          "To przejaw potrzeby przynależności, a nie jej zastąpienie."] },
+    { u: "wiek", t: "tf", s: "U", q: "Lęk przed odrzuceniem jest u wszystkich dzieci i nastolatków jednakowo silny.", a: false,
+      x: "Fałsz. Prowadząca: u jednych jest silniejszy, u innych słabszy." },
+
+    /* ---------- Bariery ---------- */
+    { u: "bariery", t: "which", set: "bariera", q: "Nastolatek ma świetny pomysł, ale go nie mówi, bo nikt inny w klasie tak nie myśli.", a: 1,
+      x: "Strach przed byciem „innym” i chęć stopienia się z tłumem to konformizm rówieśniczy." },
+    { u: "bariery", t: "which", set: "bariera", q: "Uczennica zastanawia się, jakiej odpowiedzi oczekuje nauczycielka, zamiast powiedzieć, co myśli.", a: 2,
+      x: "Szukanie „jedynej poprawnej odpowiedzi” pod klucz to skutek lęku przed oceną w szkole ocenocentrycznej." },
+    { u: "bariery", t: "which", set: "bariera", q: "Chłopiec myśli: „to głupie, wyśmieją mnie” i rezygnuje z powiedzenia pomysłu.", a: 3,
+      x: "Wewnętrzny krytyk mówi „nie mów tego, wyśmieją cię”. To autocenzura." },
+    { u: "bariery", t: "mcq",
+      q: "U kogo według slajdu 7 szczególnie występuje konformizm rówieśniczy?",
+      a: ["U młodzieży", "U przedszkolaków", "U dorosłych", "U niemowląt"],
+      x: "Konformizm rówieśniczy szczególnie u młodzieży. Na wykładzie: także u starszych dzieci z podstawówki.",
+      w: ["Młodsze dzieci tworzą raczej swobodnie.",
+          "Slajd mówi o młodzieży.",
+          "To nie dotyczy niemowląt."] },
+    { u: "bariery", t: "mcq",
+      q: "Co według slajdu 7 dzieci szybko uczą się w szkole ocenocentrycznej?",
+      a: ["Szukać „jedynej poprawnej odpowiedzi” pod klucz", "Wymyślać jak najwięcej różnych rozwiązań", "Dzielić się nietypowymi pomysłami z klasą", "Oceniać się nawzajem życzliwie i uczciwie"],
+      x: "Dzieci szybko uczą się szukać jedynej poprawnej odpowiedzi pod klucz, co zabija myślenie twórcze.",
+      w: ["To płynność myślenia, której szkoła ocenocentryczna nie uczy.",
+          "To właśnie zanika przez lęk przed oceną.",
+          "Nic takiego nie ma na slajdzie."] },
+    { u: "bariery", t: "mcq", s: "U",
+      q: "Jakie pytanie rodziców według prowadzącej pokazuje nastawienie na ocenę?",
+      a: ["„Co dostałeś? A co dostał Marek?”", "„Co było dziś trudne?”", "„Jak ci szła nauka?”", "„Czego nowego się dowiedziałeś?”"],
+      x: "„Co dostałeś, a co dostał Marek?” to pytanie o efekt (ocenę) i porównanie, a nie o proces uczenia się.",
+      w: ["To pytanie o proces, którego prowadzącej brakuje.",
+          "To pytanie o proces, którego prowadzącej brakuje.",
+          "To pytanie o treść, a nie o ocenę."] },
+    { u: "bariery", t: "mcq", s: "U",
+      q: "Kiedy według prowadzącej działanie „pod klucz” jest właściwe?",
+      a: ["Przy procedurach, np. resuscytacji", "Przy wymyślaniu zakończenia bajki", "Przy wspólnym tworzeniu stworka", "Przy pisaniu tekstu rapowego"],
+      x: "Przy resuscytacji masz zastosować procedurę (tempo uciskania, liczba oddechów), a nie eksperymentować. W zabawie twórczej jest odwrotnie.",
+      w: ["Tu chodzi właśnie o łamanie schematów.",
+          "Tu chodzi o myślenie fantastyczne.",
+          "To ekspresja i bunt, a nie procedura."] },
+    { u: "bariery", t: "mcq",
+      q: "Jak slajd 7 nazywa autocenzurę?",
+      a: ["Podstawowym paraliżem poznawczym", "Najwyższą formą obrony przed lękiem", "Naturalnym etapem formowania grupy", "Skutkiem próżniactwa społecznego"],
+      x: "Slajd 7: „Podstawowy paraliż poznawczy – dokonywanie autocenzury”.",
+      w: ["Tak wykład 1 nazywa sublimację.",
+          "Autocenzura to bariera, nie faza grupy.",
+          "To osobne bariery."] },
+    { u: "bariery", t: "mcq",
+      q: "Czym zasilany jest według slajdu 7 wewnętrzny krytyk?",
+      a: ["Lękiem przed odrzuceniem przez rówieśników", "Ciekawością świata i chęcią zabawy", "Potrzebą osiągnięć i pochwał", "Zmęczeniem i brakiem snu"],
+      x: "Wewnętrzny krytyk jest zasilany lękiem przed odrzuceniem przez rówieśników.",
+      w: ["Ciekawość to przejaw potencjału twórczego.",
+          "Slajd mówi o lęku przed odrzuceniem.",
+          "Nic takiego nie ma na slajdzie."] },
+    { u: "bariery", t: "cloze",
+      q: "Oryginalność z definicji jest wykroczeniem poza ___, więc wymaga odwagi społecznej.",
+      a: ["normy", "przepisy", "możliwości", "schematy rysunkowe"],
+      x: "Wykroczeniem poza normy, jak ktoś nietypowo ubrany na ulicy, który się wyróżnia.",
+      w: ["Slajd mówi o normach, a nie o przepisach prawa.",
+          "Slajd mówi o normach.",
+          "Za wąskie: chodzi o normy w ogóle."] },
+    { u: "bariery", t: "mcq",
+      q: "Co według slajdu 7 dławi odwagę społeczną potrzebną do oryginalności?",
+      a: ["Niezintegrowana grupa", "Zbyt duża swoboda", "Brak nagród za pomysły", "Zasada STOP"],
+      x: "Oryginalność wymaga odwagi społecznej, którą niezintegrowana grupa skutecznie dławi.",
+      w: ["Swoboda (psychologiczna wolność) twórczości sprzyja.",
+          "Slajd nie mówi o nagrodach.",
+          "Zasada STOP buduje bezpieczeństwo."] },
+    { u: "bariery", t: "tf", s: "U", q: "Wewnętrzny krytyk to cecha tylko niektórych osób, większość ludzi go nie ma.", a: false,
+      x: "Fałsz. Prowadząca: każdy ma taką funkcję, u jednych krytyk jest bardzo ostry, u innych słabszy." },
+    { u: "bariery", t: "tf", s: "U", q: "Przez konformizm cierpią m.in. dzieci zdolne, które ukrywają swoje zainteresowania i osiągnięcia.", a: true,
+      x: "Tak. Boją się mówić o swoich pomysłach i osiągnięciach, żeby nie zostać uznanymi za „innych”." },
+
+    /* ---------- Próżniactwo i blokowanie produkcji ---------- */
+    { u: "grupowe", t: "mcq",
+      q: "Kiedy według slajdu 8 pojawia się próżniactwo społeczne?",
+      a: ["Gdy wkład poszczególnych osób nie jest jawny i rozliczany", "Gdy każdy pracuje sam i oddaje własną, podpisaną pracę", "Gdy grupa ma bardzo mało czasu na wykonanie zadania", "Gdy prowadzący osobno ocenia wkład każdej osoby"],
+      x: "Gdy grupa ma wygenerować rozwiązanie jako zespół, a wkład osób nie jest jawny i rozliczany, odpowiedzialność się rozprasza.",
+      w: ["Przy pracy indywidualnej wkład jest jawny, więc próżniactwa nie ma.",
+          "Slajd nie łączy próżniactwa z czasem.",
+          "Jawne rozliczanie wkładu właśnie zapobiega próżniactwu."] },
+    { u: "grupowe", t: "cloze",
+      q: "W próżniactwie społecznym odpowiedzialność ulega ___.",
+      a: ["rozproszeniu", "wzmocnieniu", "przeniesieniu na lidera", "skupieniu"],
+      x: "Rozproszeniu: odpowiada „cała grupa”, czyli w praktyce nikt.",
+      w: ["Odwrotnie: odpowiedzialność słabnie.",
+          "Slajd mówi o rozproszeniu, nie o przeniesieniu.",
+          "Odwrotnie: rozprasza się."] },
+    { u: "grupowe", t: "mcq",
+      q: "Na co według slajdu 8 liczą jednostki w próżniactwie społecznym?",
+      a: ["Że „ktoś inny coś wymyśli”", "Że prowadzący zmieni zadanie", "Że dostaną nagrodę indywidualną", "Że zadanie samo się rozwiąże"],
+      x: "Jednostki wkładają mniej wysiłku poznawczego, licząc na to, że „ktoś inny coś wymyśli”.",
+      w: ["Nic takiego nie ma na slajdzie.",
+          "Wkład nie jest rozliczany, więc nagrody indywidualnej nie ma.",
+          "Liczą na innych ludzi, a nie na przypadek."] },
+    { u: "grupowe", t: "mcq", s: "U",
+      q: "Ktoś został potrącony na pasach. Jak według prowadzącej uniknąć „próżniactwa” gapiów?",
+      a: ["Wskazać konkretną osobę po imieniu i dać jej zadanie", "Krzyknąć do wszystkich: „Niech ktoś zadzwoni!”", "Poczekać, aż ktoś sam zareaguje", "Poprosić wszystkich o nagranie zdarzenia"],
+      x: "„Panie Jakubie, pan dzwoni po karetkę, pan ze mną sprawdzi funkcje życiowe.” Konkretne zadanie dla konkretnej osoby znosi rozproszenie odpowiedzialności.",
+      w: ["Wołanie do tłumu rozprasza odpowiedzialność, więc nikt nie dzwoni.",
+          "Właśnie wtedy nikt nie zareaguje.",
+          "Gapie, którzy filmowali, to przykład problemu z wykładu."] },
+    { u: "grupowe", t: "tf", s: "U", q: "Na lekcji z pracą w grupach jedni się angażują, a inni tylko udają, że pracują. To przykład próżniactwa społecznego.", a: true,
+      x: "Tak. To przykład z wykładu: przy pracy w dużych grupach wkład nie jest jasny, więc część osób udaje zaangażowanie." },
+    { u: "grupowe", t: "mcq",
+      q: "Jakiego typu barierą jest według slajdu 8 blokowanie produkcji?",
+      a: ["Strukturalno-poznawczą", "Emocjonalno-motywacyjną", "Społeczno-kulturową", "Biologiczno-rozwojową"],
+      x: "Blokowanie produkcji to bariera o charakterze strukturalno-poznawczym: wynika z tego, że naraz mówi jedna osoba.",
+      w: ["Lęk i motywacja to inne bariery (np. próżniactwo).",
+          "To bardziej konformizm.",
+          "Nic takiego nie ma na slajdzie."] },
+    { u: "grupowe", t: "mcq", s: "U",
+      q: "Jakiej „produkcji” dotyczy blokowanie produkcji?",
+      a: ["Produkcji twórczych pomysłów", "Produkcji przedmiotów w fabryce", "Produkcji prac plastycznych na ocenę", "Produkcji hormonów stresu"],
+      x: "Prowadząca: nie chodzi o fabrykę, tylko o produkcję twórczych pomysłów.",
+      w: ["Prowadząca wprost: nie chodzi o fabrykę.",
+          "Chodzi o pomysły, nie o prace na ocenę.",
+          "To nie termin biologiczny."] },
+    { u: "grupowe", t: "multi", q: "Co według slajdu 8 dzieje się z osobą, która czeka na swoją kolej i trzyma pomysł w pamięci roboczej?",
+      a: ["obciąża to jej zasoby uwagi", "nie może słuchać innych", "nie wymyśla nowych skojarzeń", "pomysł często ulega zapomnieniu"],
+      o: ["pomysł staje się lepszy", "łatwiej jej słuchać innych"],
+      x: "Utrzymywanie pomysłu w pamięci roboczej obciąża uwagę, uniemożliwia słuchanie innych i blokuje nowe skojarzenia. Pomysł często ulatuje albo traci na aktualności.",
+      w: ["Slajd mówi odwrotnie: pomysł często traci na aktualności w oczach autora.",
+          "Odwrotnie: nie może słuchać innych."] },
+    { u: "grupowe", t: "order", q: "Ułóż mechanizm blokowania produkcji.",
+      a: ["Mówi tylko jedna osoba", "Reszta czeka na swoją kolej", "Trzyma pomysł w pamięci roboczej", "Nie słucha i nie tworzy nowych skojarzeń", "Pomysł ulega zapomnieniu"],
+      x: "Jedna osoba mówi, reszta czeka i trzyma pomysł w pamięci roboczej, przez co nie słucha i nie tworzy nowych skojarzeń, a pomysł często ulatuje." },
+    { u: "grupowe", t: "mcq", s: "U",
+      q: "Co według prowadzącej pomaga, żeby pomysły nie ginęły podczas wymyślania w grupie?",
+      a: ["Zapisywanie ich na etapie tworzenia", "Mówienie wszystkich pomysłów naraz", "Wybieranie tylko najlepszych pomysłów", "Ocenianie pomysłów zaraz po usłyszeniu"],
+      x: "Zapisywanie pomysłów na etapie tworzenia chroni przed zapominaniem i utratą szczegółów.",
+      w: ["Naraz nikt by nikogo nie usłyszał.",
+          "Selekcja to później; na etapie kreacji każdy pomysł jest dobry.",
+          "Ocena na etapie kreacji łamie zakaz krytyki."] },
+    { u: "grupowe", t: "sort", q: "Próżniactwo czy blokowanie produkcji?",
+      cats: ["Próżniactwo społeczne", "Blokowanie produkcji"],
+      why: ["Próżniactwo: wkład nie jest jawny, odpowiedzialność się rozprasza, „ktoś inny coś wymyśli”.",
+            "Blokowanie produkcji: mówi jedna osoba naraz, więc inni trzymają pomysł w pamięci i go gubią."],
+      items: [
+        ["rozproszenie odpowiedzialności", 0], ["„ktoś inny coś wymyśli”", 0], ["wkład osób nie jest rozliczany", 0],
+        ["mówi tylko jedna osoba naraz", 1], ["pomysł trzymany w pamięci roboczej", 1], ["bariera strukturalno-poznawcza", 1]],
+      x: "Próżniactwo to sprawa motywacji i odpowiedzialności, blokowanie produkcji to sprawa struktury rozmowy i pamięci." },
+
+    /* ---------- Bezpieczna piaskownica ---------- */
+    { u: "piaskownica", t: "mcq",
+      q: "Na czym według slajdu 9 polega integracja dzieci i młodzieży?",
+      a: ["Na stworzeniu kontraktu grupowego", "Na zmuszaniu dzieci do przyjaźni", "Na wybraniu lidera w klasie", "Na wspólnym wyjeździe całej grupy"],
+      x: "Integracja nie polega na zmuszaniu do przyjaźni, ale na stworzeniu kontraktu grupowego.",
+      w: ["Slajd mówi wprost: NIE na zmuszaniu do przyjaźni.",
+          "Nic takiego nie ma na slajdzie.",
+          "Nic takiego nie ma na slajdzie."] },
+    { u: "piaskownica", t: "tf", q: "Celem integracji jest, żeby wszystkie dzieci w grupie się zaprzyjaźniły.", a: false,
+      x: "Fałsz. Integracja nie polega na zmuszaniu do przyjaźni. Nie musimy się lubić, wystarczy, że możemy razem działać." },
+    { u: "piaskownica", t: "which", set: "kontrakt", q: "Kasia mówi, że nie chce dziś grać w scence. Prowadząca to przyjmuje.", a: 1,
+      x: "Prawo do odmowy udziału w ćwiczeniu to zasada STOP." },
+    { u: "piaskownica", t: "which", set: "kontrakt", q: "Prowadzący prosi, żeby nikt nie komentował pomysłów innych na etapie wymyślania.", a: 2,
+      x: "Na etapie kreacji wszystkie pomysły są dobre: to zakaz krytyki i wyśmiewania." },
+    { u: "piaskownica", t: "which", set: "kontrakt", q: "Prowadząca chwali Tomka za to, że odważył się pierwszy pokazać pracę, choć nie była najładniejsza.", a: 3,
+      x: "Nagradzanie odwagi i zaangażowania zamiast najładniejszej pracy to docenianie procesu." },
+    { u: "piaskownica", t: "which", set: "kontrakt", q: "Ola mówi o swoim rysunku: „ale to brzydkie, beznadzieja”. Prowadzący przypomina umowę grupy.", a: 2,
+      x: "Zakaz krytyki i wyśmiewania dotyczy też siebie samego." },
+    { u: "piaskownica", t: "mcq",
+      q: "Kiedy według slajdu 9 można skorzystać z zasady STOP?",
+      a: ["Gdy czuje się zbyt duży dyskomfort albo po prostu nie chce", "Tylko gdy lekarz wystawi zwolnienie", "Tylko gdy ćwiczenie jest niebezpieczne fizycznie", "Tylko raz w ciągu całych zajęć"],
+      x: "Każdy ma prawo odmówić udziału, jeśli czuje zbyt duży dyskomfort lub nie chce. Prowadząca: dyskomfort nie jest warunkiem, wystarczy, że ktoś nie chce.",
+      w: ["Nie trzeba żadnego usprawiedliwienia.",
+          "Wystarczy dyskomfort albo brak chęci.",
+          "Slajd nie ogranicza liczby odmów."] },
+    { u: "piaskownica", t: "tf", q: "Zakaz krytyki i wyśmiewania dotyczy również krytykowania samego siebie.", a: true,
+      x: "Tak. Slajd 9: zakaz krytyki i wyśmiewania (również siebie samego)." },
+    { u: "piaskownica", t: "cloze",
+      q: "Na etapie kreacji wszystkie pomysły są ___.",
+      a: ["dobre", "oceniane", "zapisywane na ocenę", "porównywane"],
+      x: "Wszystkie pomysły na etapie kreacji są dobre. Selekcja, jeśli w ogóle, przychodzi później.",
+      w: ["Ocenianie łamie zakaz krytyki.",
+          "Nic takiego nie ma na slajdzie.",
+          "Porównywanie uruchamia lęk przed oceną."] },
+    { u: "piaskownica", t: "mcq",
+      q: "Za co według zasady doceniania procesu nagradzamy uczestników?",
+      a: ["Za odwagę i zaangażowanie", "Za najładniejszą pracę w grupie", "Za najszybsze wykonanie zadania", "Za pracę zgodną z wzorem"],
+      x: "Nagradzamy za odwagę i zaangażowanie, a nie tylko za „najładniejszą” pracę.",
+      w: ["Slajd wprost: nie tylko za najładniejszą pracę.",
+          "Szybkość to efekt, nie proces.",
+          "Wzór to myślenie pod klucz."] },
+    { u: "piaskownica", t: "mcq", s: "U",
+      q: "Co według prowadzącej możemy zrobić z wewnętrznym krytykiem uczestników?",
+      a: ["Nad nim nie zapanujemy, ale możemy prosić grupę, by nie oceniała innych", "Możemy go całkowicie wyłączyć jednym dobrze dobranym ćwiczeniem", "Powinniśmy go wzmacniać, bo uczy pokory i staranności", "Nie ma on żadnego wpływu na zajęcia prowadzone w grupie"],
+      x: "Nie zapanujemy nad wewnętrznym krytykiem, ale możemy poprosić grupę, żeby nie oceniała pomysłów innych osób.",
+      w: ["Prowadząca mówi: nie zapanujemy.",
+          "Krytyk napędza autocenzurę.",
+          "Wpływa: uruchamia autocenzurę."] },
+    { u: "piaskownica", t: "tf", s: "U", q: "Metaforę „bezpiecznej piaskownicy” można stosować także w pracy z dorosłymi.", a: true,
+      x: "Tak. Prowadząca: to metafora bezpiecznej przestrzeni, którą można stosować również wobec dorosłych." },
+
+    /* ---------- Dzieci a nastolatki ---------- */
+    { u: "ekspresja", t: "mcq",
+      q: "Jakie jest według pedagogiki twórczości zadanie dorosłego wobec dziecka?",
+      a: ["Usuwanie blokad, które hamują kreatywność", "Uczenie dziecka kreatywności od podstaw", "Ocenianie, które dzieci są twórcze", "Wybieranie dzieci zdolnych do zajęć"],
+      x: "Każde dziecko rodzi się z potencjałem twórczym. Naszym zadaniem nie jest uczenie kreatywności, ale usuwanie blokad stawianych przez kulturę i tradycyjną edukację.",
+      w: ["Slajd 10 mówi wprost: nie „uczenie” kreatywności.",
+          "Każde dziecko ma potencjał, więc nie oceniamy, kto jest twórczy.",
+          "Potencjał ma każde dziecko."] },
+    { u: "ekspresja", t: "mcq",
+      q: "Z czyim podejściem łączy slajd 10 pedagogikę twórczości?",
+      a: ["Prof. Krzysztofa J. Szmidta", "Psychologa Carla Rogersa", "Psychologa Bruce’a Tuckmana", "Psychologa Abrahama Maslowa"],
+      x: "Slajd 10: pedagogika twórczości, m.in. podejście prof. Krzysztofa J. Szmidta.",
+      w: ["Rogers to bezpieczeństwo i wolność.",
+          "Tuckman to fazy grupy.",
+          "Maslow to potrzeby, w tym przynależność."] },
+    { u: "ekspresja", t: "multi", q: "Kto według slajdu 10 stawia dzieciom blokady twórczości?",
+      a: ["kultura", "tradycyjna edukacja"],
+      o: ["natura dziecka", "geny"],
+      x: "Blokady stawia kultura i tradycyjna edukacja. Potencjał twórczy jest naturalny.",
+      w: ["Natura daje potencjał, a nie blokady.",
+          "Slajd nie mówi o genach."] },
+    { u: "ekspresja", t: "sort", q: "Dzieci młodsze czy młodzież?",
+      cats: ["Dzieci młodsze", "Młodzież"],
+      why: ["Dzieci: naturalna ekspresja, myślenie magiczne i animistyczne, brak sztywnych schematów, ciągła zabawa.",
+            "Młodzież: bunt, tożsamość i znaczenie, silne emocje, refleksyjność i idealizm."],
+      items: [
+        ["naturalna, nieskrępowana ekspresja", 0], ["myślenie magiczne i animistyczne", 0], ["brak sztywnych schematów pojęć", 0], ["gotowość do ciągłej zabawy", 0],
+        ["twórczość jako narzędzie buntu", 1], ["poszukiwanie tożsamości i znaczenia", 1], ["potrzeba wyrażania silnych emocji", 1], ["refleksyjność i idealizm", 1]],
+      x: "Tabela ze slajdu 11: lewa kolumna to dzieci młodsze, prawa to nastolatki." },
+    { u: "ekspresja", t: "mcq", s: "U",
+      q: "Czym według prowadzącej jest myślenie animistyczne?",
+      a: ["Tendencją do ożywiania przedmiotów i świata", "Myśleniem wyłącznie o zwierzętach domowych", "Wiarą w moc zaklęć i rodzinnych rytuałów", "Skłonnością małych dzieci do kłamstwa"],
+      x: "Animizm to ożywianie przedmiotów: miś jest najlepszym przyjacielem i chce na obiad zupkę.",
+      w: ["Nie chodzi o zwierzęta, tylko o ożywianie przedmiotów.",
+          "To raczej myślenie magiczne, a pytanie dotyczy animizmu.",
+          "To nie kłamstwo, tylko naturalny etap myślenia."] },
+    { u: "ekspresja", t: "mcq", s: "U",
+      q: "Dziecko mówi: „Mój miś jeszcze nie chce iść spać”. Co tu widać według prowadzącej?",
+      a: ["Animizm i projekcję: to dziecko nie chce spać", "Kłamstwo, które trzeba od razu skorygować", "Zaburzenie snu wymagające diagnozy", "Konformizm wobec rodzeństwa"],
+      x: "Miś „mówi” (animizm), a dziecko przypisuje mu własne pragnienie (projekcja, jak na wykładzie 1).",
+      w: ["To naturalna ekspresja, nie kłamstwo.",
+          "Nic na to nie wskazuje.",
+          "Konformizm dotyczy grupy rówieśniczej."] },
+    { u: "ekspresja", t: "tf", s: "U", q: "Schematy pojęć z wiekiem stają się coraz sztywniejsze.", a: true,
+      x: "Tak. Prowadząca: schematy sztywnieją z wiekiem, choć można nad tym pracować. Dlatego dzieciom łatwiej je łamać." },
+    { u: "ekspresja", t: "mcq", s: "U",
+      q: "Dziecko w ogóle nie chce się bawić. Jak to według prowadzącej potraktować?",
+      a: ["Jako sygnał, któremu warto się przyjrzeć", "Jako normalną cechę wszystkich dzieci", "Jako dowód braku potencjału twórczego", "Jako znak, że dziecko jest już dorosłe"],
+      x: "Dzieci zwykle chcą się bawić. Brak chęci bywa sygnałem trudnych doświadczeń (prowadząca wspomniała o krzywdzie), a czasem wpływu gier komputerowych.",
+      w: ["Gotowość do zabawy to typowa cecha dzieci.",
+          "Potencjał twórczy ma każde dziecko.",
+          "Nic takiego nie padło."] },
+    { u: "ekspresja", t: "mcq",
+      q: "Nastolatek pisze ostry tekst rapowy o szkole. Który przejaw potencjału twórczego ze slajdu 11 to ilustruje?",
+      a: ["Twórczość jako narzędzie buntu", "Myślenie magiczne i animistyczne", "Brak sztywnych schematów pojęć", "Gotowość do ciągłej zabawy"],
+      x: "Rap, wiersz, mural jako sprzeciw: twórczość jako narzędzie buntu u młodzieży.",
+      w: ["To przejaw u młodszych dzieci.",
+          "To przejaw u młodszych dzieci.",
+          "To przejaw u młodszych dzieci."] },
+    { u: "ekspresja", t: "mcq", s: "U",
+      q: "Co znaczy idealizm nastolatków w ujęciu z wykładu?",
+      a: ["Gotowość do wierności własnym ideałom", "Przekonanie, że wszystko jest idealne", "Dążenie do idealnego wyglądu", "Odrzucanie wszelkich wartości"],
+      x: "Idealizm to gotowość do wierności własnym ideałom i wartościom (miłość, rodzina, wiara, a dla kogoś rozrywka).",
+      w: ["Nie chodzi o ocenę świata.",
+          "Nie chodzi o wygląd.",
+          "Odwrotnie: chodzi o przywiązanie do wartości."] },
+    { u: "ekspresja", t: "tf", s: "U", q: "Babcia straszy wnuczka, że za złe oceny całe wakacje będzie jeździł na rowerze. Prowadząca podała to jako przykład zmiany pokoleniowej w podejściu do zabawy.", a: true,
+      x: "Tak. Dla pokolenia prowadzącej karą było wołanie z podwórka na obiad, a dla dzisiejszych dzieci karą bywa jazda na rowerze zamiast gier komputerowych." },
+
+    /* ---------- Cele i pętla ---------- */
+    { u: "cele", t: "which", set: "cel", q: "„Do czego jeszcze może służyć ten spinacz?” – wymień jak najwięcej w minutę.", a: 1,
+      x: "Generowanie wielu pomysłów w krótkim czasie to płynność myślenia." },
+    { u: "cele", t: "which", set: "cel", q: "„A co, gdyby ta bajka skończyła się zupełnie inaczej?”", a: 2,
+      x: "Zmiana kierunku myślenia i łamanie schematów to elastyczność." },
+    { u: "cele", t: "which", set: "cel", q: "Wieża z klocków się zawaliła, a prowadzący pyta: „Co ci to mówi o następnej wieży?”", a: 3,
+      x: "Błąd jako informacja zwrotna, a nie koniec świata: odporność emocjonalna." },
+    { u: "cele", t: "which", set: "cel", q: "Zdał egzamin na prawo jazdy za piętnastym razem i od lat jeździ bez mandatu.", a: 3,
+      x: "Przykład z wykładu: porażka to etap, a nie koniec świata. To odporność emocjonalna." },
+    { u: "cele", t: "mcq",
+      q: "Czym według slajdu 12 jest płynność myślenia?",
+      a: ["Zdolnością do generowania dziesiątek pomysłów w krótkim czasie", "Umiejętnością zmiany kierunku myślenia i łamania schematów", "Szybkim czytaniem długich tekstów ze zrozumieniem", "Mówieniem bez zająknięć przed dużą grupą"],
+      x: "Płynność to dużo pomysłów w krótkim czasie (spinacz).",
+      w: ["To elastyczność.",
+          "To nie jest cel ze slajdu.",
+          "To płynność mowy, a nie myślenia."] },
+    { u: "cele", t: "mcq",
+      q: "Czym według slajdu 12 jest błąd lub porażka w zadaniu?",
+      a: ["Kolejną informacją zwrotną", "Dowodem braku zdolności", "Powodem do przerwania zadania", "Sygnałem, że zadanie było za trudne"],
+      x: "Budowanie odporności emocjonalnej: błąd to po prostu kolejna informacja zwrotna, a nie koniec świata.",
+      w: ["Odwrotnie: błąd nie mówi nic o zdolnościach.",
+          "Odporność to właśnie kontynuowanie mimo błędu.",
+          "Błąd to informacja, nie wyrok o zadaniu."] },
+    { u: "cele", t: "order", q: "Ułóż pętlę ze slajdu 13.",
+      a: ["Bezpieczeństwo psychologiczne / integracja", "Redukcja lęku przed oceną", "Uruchomienie myślenia twórczego", "Akceptacja dla odmienności poznawczej"],
+      x: "Bezpieczeństwo → mniej lęku przed oceną → myślenie twórcze → akceptacja odmienności, która z kolei wzmacnia integrację." },
+    { u: "cele", t: "mcq",
+      q: "Co według slajdu 13 daje akceptacja dla odmienności poznawczej?",
+      a: ["Wzmocnienie integracji", "Większą liczbę ocen", "Szybsze zakończenie zajęć", "Wyłonienie lidera grupy"],
+      x: "Akceptacja odmienności wzmacnia integrację, więc schemat jest pętlą: integracja napędza sama siebie.",
+      w: ["Oceny nie są tu celem.",
+          "Nic takiego nie ma na slajdzie.",
+          "Nic takiego nie ma na slajdzie."] },
+    { u: "cele", t: "mcq", s: "U",
+      q: "Co według wykładu pokazały badania zintegrowanych, bezpiecznych zespołów medycznych?",
+      a: ["Było w nich więcej błędów, bo można było o nich mówić i się uczyć", "Było w nich mniej błędów, bo wszyscy się pilnowali", "Nie było żadnej różnicy w liczbie błędów", "Błędy zdarzały się tylko w zespołach bez lidera"],
+      x: "Prowadząca: w bardzo dobrze zintegrowanych zespołach błędów było więcej, bo błąd można było pokazać i się na nim uczyć. Przy pozornej integracji błędy się ukrywa.",
+      w: ["To intuicyjna, ale błędna odpowiedź. Prowadząca: „Słusznie. Ludzie popełniali więcej błędów”.",
+          "Różnica była.",
+          "Nic takiego nie padło."] },
+    { u: "cele", t: "mcq", s: "U",
+      q: "Na co idzie energia w grupie o niskiej albo pozornej integracji?",
+      a: ["Na autoprezentację i ukrywanie błędów", "Na otwarte dzielenie się pomysłami", "Na eksplorację i kreację", "Na wspólne świętowanie sukcesów"],
+      x: "W słabo zintegrowanych środowiskach dużo energii idzie na autoprezentację, a o błędach się nie mówi.",
+      w: ["To cecha grupy zintegrowanej.",
+          "To efekt dobrej integracji.",
+          "To raczej faza zamknięcia w zintegrowanej grupie."] },
+    { u: "cele", t: "cloze",
+      q: "Według slajdu 12 elastyczność to umiejętność zmiany kierunku myślenia i łamania ___.",
+      a: ["schematów", "zasad grupy", "zabawek", "rekordów"],
+      x: "Łamania schematów, np. inne zakończenie bajki.",
+      w: ["Zasady kontraktu grupy obowiązują.",
+          "Nie chodzi o dosłowne łamanie.",
+          "Nie chodzi o rekordy."] },
+
+    /* ---------- Warsztat ---------- */
+    { u: "warsztat", t: "mcq",
+      q: "Dla kogo jest zadanie „wspólny stworek z planety X”?",
+      a: ["Dla dzieci młodszych, klasy I–IV", "Dla młodzieży ze szkół ponadpodstawowych", "Dla studentów pierwszego roku", "Dla rodziców na zebraniu"],
+      x: "Slajd 15: dla dzieci młodszych (szkoła podstawowa, klasy I–IV).",
+      w: ["Dla młodzieży jest „inkubator startupów”.",
+          "Nic takiego nie ma na slajdzie.",
+          "Nic takiego nie ma na slajdzie."] },
+    { u: "warsztat", t: "mcq",
+      q: "Co musi zrobić każde dziecko, dodając element ciała stworka?",
+      a: ["Uzasadnić, jaką supermoc daje ta część ciała", "Narysować swoją część jak najpiękniej i najstaranniej", "Skopiować pomysł na część ciała od innego dziecka", "Podać łacińską nazwę dodanej części ciała"],
+      x: "Każde dziecko musi uzasadnić, jaką supermoc daje ta część ciała i jak pomaga zespołowi przetrwać na nowej planecie.",
+      w: ["Liczy się proces, nie estetyka.",
+          "Chodzi o własny pomysł.",
+          "Nic takiego nie ma na slajdzie."] },
+    { u: "warsztat", t: "match",
+      pairs: [
+        ["efekt integracyjny stworka", "współpraca, dzielenie się kartką, słuchanie"],
+        ["efekt twórczy stworka", "przełamywanie schematów anatomicznych"],
+        ["efekt integracyjny inkubatora", "presja czasu, podział ról, wspólny śmiech"],
+        ["efekt twórczy inkubatora", "design thinking, humor, mniej wstydu"]],
+      x: "Każda gra ma efekt integracyjny i twórczy: tak działa łączenie integracji z twórczością." },
+    { u: "warsztat", t: "mcq",
+      q: "Jak młodzież prezentuje swój prototyp usługi w „inkubatorze startupów”?",
+      a: ["W formie zabawnej „reklamy telewizyjnej”", "W formie pisemnego biznesplanu", "W formie prezentacji multimedialnej na ocenę", "W formie rysunku oddanego prowadzącemu"],
+      x: "Zespół prezentuje prototyp grupie jako zabawną reklamę telewizyjną.",
+      w: ["Nic takiego nie ma na slajdzie.",
+          "Nie ma tu oceniania.",
+          "Prezentacja jest na żywo przed grupą."] },
+    { u: "warsztat", t: "mcq",
+      q: "Jaki przykładowy problem losują nastolatki w „inkubatorze startupów”?",
+      a: ["Jak pomóc ludziom, którzy ciągle gubią drugą skarpetkę", "Jak szybko poprawić średnią ocen w całej klasie", "Jak napisać lepsze wypracowanie z języka polskiego", "Jak dobrze przygotować się do matury z matematyki"],
+      x: "Slajd 16: absurdalny lub realny problem, np. ciągle gubiona druga skarpetka.",
+      w: ["Tego przykładu nie ma, a ocena to bariera twórczości.",
+          "Tego przykładu nie ma.",
+          "Tego przykładu nie ma."] },
+    { u: "warsztat", t: "tf", q: "W „inkubatorze startupów” zespoły dobiera się losowo.", a: true,
+      x: "Tak. Nastolatki łączą się w losowe zespoły, co dodatkowo integruje osoby spoza swoich paczek." },
+    { u: "warsztat", t: "mcq",
+      q: "Jaką zmianę roli psychologa/pedagoga opisuje slajd 17?",
+      a: ["Z eksperta na facylitatora i towarzysza", "Z towarzysza na eksperta i egzaminatora", "Z nauczyciela na terapeutę", "Z lidera na obserwatora z boku"],
+      x: "Praca w duchu psychopedagogiki twórczości wymaga zmiany roli: z eksperta na facylitatora i towarzysza.",
+      w: ["Odwrotnie.",
+          "Slajd nie mówi o terapii.",
+          "Facylitator towarzyszy, a nie tylko obserwuje."] },
+    { u: "warsztat", t: "mcq",
+      q: "Czym według slajdu 17 jest integracja?",
+      a: ["Inwestycją, bez której innowacja jest niemożliwa", "Stratą czasu przed właściwą pracą twórczą", "Dodatkiem tylko dla chętnych i zgranych grup", "Nagrodą dla grupy na sam koniec zajęć"],
+      x: "Integracja nie jest stratą czasu, jest inwestycją, bez której innowacja w klasie, rodzinie czy grupie jest niemożliwa.",
+      w: ["Slajd mówi wprost: nie jest stratą czasu.",
+          "Jest warunkiem koniecznym, a nie dodatkiem.",
+          "Jest na początku, a nie na koniec."] },
+    { u: "warsztat", t: "multi", q: "Jakich materiałów używa się w „stworku z planety X”?",
+      a: ["piórka", "bibuła", "folia bąbelkowa", "wielki arkusz papieru"],
+      o: ["kalkulator", "podręcznik"],
+      x: "Wielki arkusz i nietypowe materiały: piórka, bibuła, folia bąbelkowa.",
+      w: ["Nie ma go na slajdzie.",
+          "Nie ma go na slajdzie."] },
+    { u: "warsztat", t: "tf", s: "U", q: "Zabawy integracyjne dobrane do wieku można znaleźć w internecie, a podpowiedzieć może nawet sztuczna inteligencja.", a: true,
+      x: "Tak. Prowadząca: dziś łatwo znaleźć zabawy zapoznawcze i integracyjne dobrane do wieku rozwojowego, AI też może podpowiedzieć." },
+
+    /* ---------- Rozpoznaj w praktyce ---------- */
+    { u: "mix", t: "mcq",
+      q: "Pierwsze zajęcia w nowej klasie. Dzieci siedzą pod ścianą i milczą. Co zrobić najpierw?",
+      a: ["Zapewnić bezpieczeństwo i poznać się z dziećmi", "Od razu rozpocząć konkurs na najlepszy rysunek", "Wybrać lidera i przydzielić mu odpowiedzialność", "Zrobić ćwiczenie na wystąpienia publiczne"],
+      x: "To faza formowania: rola lidera to bezpieczeństwo, wyjaśnienie celów i poznanie się. Integracja przychodzi po zapoznaniu.",
+      w: ["Konkurs uruchamia lęk przed oceną.",
+          "Lider-prowadzący tu jesteś ty; zadania przyjdą później.",
+          "To za duże ryzyko na start."] },
+    { u: "mix", t: "which", set: "bariera", q: "W burzy mózgów wszyscy czekają na swoją kolej, a Ania mówi: „Już zapomniałam, co chciałam powiedzieć”.", a: 5,
+      x: "Pomysł trzymany w pamięci roboczej uleciał, zanim przyszła kolej: blokowanie produkcji." },
+    { u: "mix", t: "which", set: "bariera", q: "W 8-osobowej grupie projekt zrobiły dwie osoby, reszta „pomagała”.", a: 4,
+      x: "Wkład nie był rozliczany, więc odpowiedzialność się rozproszyła: próżniactwo społeczne." },
+    { u: "mix", t: "which", set: "faza", q: "Po kilku spotkaniach w grupie teatralnej wybuchają kłótnie, kto gra główną rolę.", a: 2,
+      x: "Konflikty i zmagania o władzę to szturmowanie." },
+    { u: "mix", t: "which", set: "faza", q: "Ostatnie zajęcia warsztatów: grupa ogląda zdjęcia, rozmawia o tym, co przeżyła, i się żegna.", a: 5,
+      x: "Refleksja, celebracja i emocje na koniec to zamknięcie." },
+    { u: "mix", t: "which", set: "kontrakt", q: "Nastolatek siada z boku i mówi, że dziś nie chce rysować. Prowadzący: „W porządku, możesz popatrzeć”.", a: 1,
+      x: "Prawo do odmowy udziału to zasada STOP. Łączy się z zasadą 7 z wykładu 1 (ambiwalencja oporu)." },
+    { u: "mix", t: "mcq",
+      q: "Prowadzący wiesza na ścianie tylko trzy najładniejsze prace. Którą zasadę kontraktu łamie?",
+      a: ["Docenianie procesu, nie tylko efektu", "Zasadę STOP", "Zasadę zielonego ołówka z wykładu 1", "Zasadę formowania grupy"],
+      x: "Nagradzanie tylko najładniejszych prac to ocena efektu. Kontrakt mówi: doceniamy odwagę i zaangażowanie.",
+      w: ["Nikt tu nie odmawia udziału.",
+          "Też pasuje do ducha zasady, ale w kontrakcie ze slajdu 9 chodzi o docenianie procesu.",
+          "Formowanie to faza grupy, nie zasada kontraktu."] },
+    { u: "mix", t: "mcq",
+      q: "Uczniowie w ankiecie piszą to, co ich zdaniem chce przeczytać wychowawczyni. Co to pokazuje?",
+      a: ["Nawyk szukania „poprawnej odpowiedzi” pod klucz", "Wysoką odporność emocjonalną uczniów w klasie", "Bardzo dobrą integrację klasy z wychowawczynią", "Dużą płynność i elastyczność myślenia uczniów"],
+      x: "Dzieci szybko uczą się szukać odpowiedzi pod klucz, czyli tego, co dorosły chce usłyszeć. Prowadząca: dziecko ma się dzielić swoją odpowiedzią.",
+      w: ["Odporność dotyczy radzenia sobie z błędem.",
+          "Raczej brak bezpieczeństwa.",
+          "Płynność to dużo własnych pomysłów, a nie zgadywanie oczekiwań."] },
+    { u: "mix", t: "tf", q: "Skoro integracja zabiera czas, w krótkich warsztatach lepiej ją pominąć i od razu przejść do zadania twórczego.", a: false,
+      x: "Fałsz. Slajd 17: integracja nie jest stratą czasu, jest inwestycją, bez której innowacja jest niemożliwa." },
+    { u: "mix", t: "mcq",
+      q: "Uczeń z wybitnymi pomysłami nie mówi w klasie o swoich zainteresowaniach. Co najpewniej działa?",
+      a: ["Konformizm rówieśniczy", "Próżniactwo społeczne", "Blokowanie produkcji", "Faza normowania"],
+      x: "Prowadząca: przez konformizm cierpią dzieci zdolne, które ukrywają zainteresowania i osiągnięcia, żeby nie być „innymi”.",
+      w: ["Próżniactwo to liczenie na innych przy zadaniu grupowym.",
+          "Blokowanie dotyczy czekania na swoją kolej w rozmowie.",
+          "Normowanie to faza budowania zaufania."] }
+  ],
+
+  sortDecks: [
+    { id: "blokuje", title: "Blokuje czy wspiera twórczość?", sub: "Bariery kontra bezpieczna piaskownica",
+      cats: ["Blokuje", "Wspiera"],
+      why: ["To bariera: zwiększa lęk przed oceną albo odbiera odpowiedzialność i pomysły.",
+            "To buduje bezpieczeństwo i daje miejsce na pomysły."],
+      items: [
+        ["konformizm rówieśniczy", 0], ["szukanie odpowiedzi pod klucz", 0], ["wewnętrzny krytyk", 0], ["autocenzura", 0],
+        ["wkład osób nierozliczany", 0], ["czekanie w kolejce z pomysłem w głowie", 0], ["nagroda tylko za najładniejszą pracę", 0],
+        ["„co dostałeś? a Marek?”", 0, "Pytanie o ocenę i porównanie to szkoła ocenocentryczna."],
+        ["zmuszanie do przyjaźni", 0, "Slajd 9: integracja NIE polega na zmuszaniu do przyjaźni."],
+        ["zasada STOP", 1], ["zakaz krytyki i wyśmiewania", 1], ["docenianie odwagi i zaangażowania", 1],
+        ["zadanie dla konkretnej osoby po imieniu", 1, "Znosi rozproszenie odpowiedzialności, czyli próżniactwo."],
+        ["zapisywanie pomysłów", 1, "Chroni przed blokowaniem produkcji: pomysł nie ulatuje."],
+        ["akceptacja odmienności poznawczej", 1], ["najpierw zapoznanie, potem integracja", 1]] },
+    { id: "wiek", title: "Dzieci czy nastolatki?", sub: "Przejawy potencjału twórczego w różnym wieku",
+      cats: ["Dzieci młodsze", "Młodzież"],
+      why: ["Dzieci: nieskrępowana ekspresja, myślenie magiczne i animistyczne, giętkie schematy, ciągła zabawa.",
+            "Nastolatki: bunt, tożsamość i sens, silne emocje, refleksja i idealizm, konformizm rówieśniczy."],
+      items: [
+        ["miś chce na obiad zupkę", 0], ["„mój miś nie chce iść spać”", 0], ["gotowość do ciągłej zabawy", 0],
+        ["brak sztywnych schematów pojęć", 0], ["naturalna, nieskrępowana ekspresja", 0], ["wspólny stworek z planety X", 0],
+        ["myślenie fantastyczne (4–6 lat)", 0, "Prowadząca: myślenie fantastyczne jest naturalne zwłaszcza w wieku 4–6 lat."],
+        ["rap o szkole", 1], ["mural na garażu", 1], ["„kim jestem?”", 1], ["wierność własnym ideałom", 1],
+        ["potrzeba wyrażania silnych emocji", 1], ["inkubator startupów", 1],
+        ["strach przed byciem „innym”", 1, "Konformizm rówieśniczy dotyczy szczególnie młodzieży."]] },
+    { id: "klucz", title: "Pod klucz czy twórczo?", sub: "Kiedy procedura, a kiedy myślenie twórcze",
+      cats: ["Pod klucz", "Twórczo"],
+      why: ["Tu trzeba działać według procedury: jest jedna poprawna odpowiedź.",
+            "Tu nie ma jednej dobrej odpowiedzi: liczą się różne pomysły."],
+      items: [
+        ["resuscytacja", 0, "Przykład z wykładu: nie eksperymentujesz, tylko stosujesz procedurę."],
+        ["tempo uciskania klatki piersiowej", 0], ["liczba oddechów ratowniczych", 0],
+        ["wezwanie karetki przy wypadku", 0, "Tu też jest procedura, a zadanie dajesz konkretnej osobie po imieniu."],
+        ["★ procedura ewakuacji przy pożarze", 0, "★ Przykład spoza wykładu: procedury bezpieczeństwa wykonuje się według schematu."],
+        ["do czego jeszcze służy spinacz", 1], ["inne zakończenie bajki", 1], ["supermoc części ciała stworka", 1],
+        ["reklama usługi na zgubione skarpetki", 1], ["kto był większym poetą?", 1, "Prowadząca: Mickiewicz czy Słowacki? Ktoś może uważać inaczej i ma do tego prawo."],
+        ["tekst rapowy o sobie", 1]] },
+    { id: "rola", title: "Ekspert czy facylitator?", sub: "Stara i nowa rola prowadzącego",
+      cats: ["Ekspert", "Facylitator i towarzysz"],
+      why: ["Stara rola: prowadzący wie najlepiej, ocenia i pilnuje „poprawnej” odpowiedzi.",
+            "Nowa rola ze slajdu 17: prowadzący towarzyszy, tworzy bezpieczną przestrzeń i usuwa blokady."],
+      items: [
+        ["wybiera najładniejszą pracę", 0], ["oczekuje jednej poprawnej odpowiedzi", 0], ["poprawia „dziwne” pomysły", 0],
+        ["zmusza do udziału w ćwiczeniu", 0], ["porównuje dzieci ze sobą", 0], ["„uczy” dzieci kreatywności", 0, "Slajd 10: zadaniem nie jest uczenie kreatywności, tylko usuwanie blokad."],
+        ["szanuje zasadę STOP", 1], ["nagradza odwagę i zaangażowanie", 1], ["usuwa blokady twórczości", 1],
+        ["tworzy bezpieczną piaskownicę", 1], ["towarzyszy w rozmowie", 1], ["najpierw poznaje grupę", 1]] }
+  ],
+
+  minimum: [
+    ["Teza wykładu", "Bezpieczna i zintegrowana grupa to <b>absolutny warunek konieczny</b> autentycznej kreatywności. Integracja to <b>nie tylko „zabawa na zapoznanie”</b>, tylko proces budowania <b>bezpieczeństwa emocjonalnego</b>, od którego zależy, czy ktoś podejmie <b>ryzyko twórcze</b>."],
+    ["Tuckman: 5 faz", "<b>Formowanie</b> (niepewność; lider: bezpieczeństwo, cele, role) → <b>szturmowanie</b> (konflikty, władza) → <b>normowanie</b> (zaufanie, normy) → <b>wykonanie</b> (wydajność) → <b>zamknięcie</b> (refleksja, celebracja). Nie każda grupa przechodzi wszystkie; <b>formowanie zachodzi zawsze</b>."],
+    ["Rogers", "Twórczość rośnie w warunkach <b>zewnętrznego bezpieczeństwa</b> i <b>psychologicznej wolności</b>. Lęk przed <b>oceną, wyśmianiem, odrzuceniem</b> blokuje myślenie twórcze. Integracja zamienia energię z <b>autoprezentacji i obrony</b> na <b>eksplorację i kreację</b>."],
+    ["Wiek rozwojowy", "Potrzeba <b>przynależności rówieśniczej</b> to jedna z najsilniejszych potrzeb. Jednocześnie lęk przed <b>odrzuceniem, wyśmianiem, „niemieszczeniem się w normie”</b> najskuteczniej blokuje ekspresję."],
+    ["Bariery ze slajdu 7", "<b>Konformizm rówieśniczy</b> (strach przed byciem „innym”), <b>lęk przed oceną</b> w szkole <b>ocenocentrycznej</b> (jedna poprawna odpowiedź pod klucz), <b>autocenzura</b> = podstawowy paraliż poznawczy (wewnętrzny krytyk: „nie mów tego, wyśmieją cię”). Oryginalność = <b>wykroczenie poza normy</b>, wymaga <b>odwagi społecznej</b>."],
+    ["Bariery ze slajdu 8", "<b>Próżniactwo społeczne</b>: wkład nie jest jawny i rozliczany, odpowiedzialność się <b>rozprasza</b>, „ktoś inny coś wymyśli”. <b>Blokowanie produkcji</b> (strukturalno-poznawcze): mówi jedna osoba, reszta trzyma pomysł w <b>pamięci roboczej</b> i go gubi."],
+    ["Bezpieczna piaskownica", "Integracja to <b>nie przymus przyjaźni</b>, tylko <b>kontrakt grupowy</b>: <b>STOP</b> (prawo odmowy), <b>zakaz krytyki i wyśmiewania</b> (też siebie; na etapie kreacji każdy pomysł jest dobry), <b>docenianie procesu</b> (odwaga i zaangażowanie, nie tylko najładniejsza praca)."],
+    ["Pedagogika twórczości", "<b>K. J. Szmidt</b>: każde dziecko rodzi się z potencjałem twórczym. Zadanie: nie „uczyć” kreatywności, tylko <b>usuwać blokady</b> stawiane przez kulturę i tradycyjną edukację."],
+    ["Dzieci a młodzież", "Dzieci: <b>nieskrępowana ekspresja, myślenie magiczne i animistyczne, brak sztywnych schematów, gotowość do zabawy</b>. Młodzież: <b>bunt, tożsamość i znaczenie, silne emocje, refleksyjność i idealizm</b>."],
+    ["Trzy cele", "<b>Płynność</b> (dziesiątki pomysłów: spinacz), <b>elastyczność</b> (zmiana kierunku: inne zakończenie bajki), <b>odporność emocjonalna</b> (błąd = informacja zwrotna)."],
+    ["Pętla ze slajdu 13", "Bezpieczeństwo/integracja → <b>redukcja lęku przed oceną</b> → <b>uruchomienie myślenia twórczego</b> → <b>akceptacja dla odmienności poznawczej</b> → wzmocnienie integracji."],
+    ["Gry i nowa rola", "Dzieci (kl. I–IV): <b>wspólny stworek z planety X</b>. Młodzież: <b>inkubator startupów z problemu</b>. Rola prowadzącego: <b>z eksperta na facylitatora i towarzysza</b>. Integracja to <b>inwestycja</b>, nie strata czasu."]
+  ],
+
+  deep: [
+    { q: "Jak tworzyć w czasie wojny, skoro twórczość wymaga bezpieczeństwa?",
+      a: "Prowadząca sama postawiła to pytanie: ludzie tworzyli w czasie II wojny światowej czy stanu wojennego. Jej odpowiedź: to wyjątki, które potwierdzają regułę. Twórcy wyrażali swoją psychologiczną wolność („nie podlegamy tylko tym siłom”), ale nikt nie pisał wiersza pod ostrzałem. Każdy musiał znaleźć skrawek miejsca, w którym czuł się w miarę bezpiecznie.",
+      link: "Rogers mówi o dwóch warunkach: bezpieczeństwie i wolności. Tu wolność była motorem, a bezpieczeństwo choć w małej dawce i tak było potrzebne." },
+    { q: "Więcej błędów w lepszych zespołach?",
+      a: "Na wykładzie: w dobrze zintegrowanych, bezpiecznych zespołach medycznych było więcej błędów, bo można było je pokazać i się na nich uczyć. W zespołach z pozorną integracją energia idzie w autoprezentację, a o błędach się milczy. ★ Chodzi o badania Amy Edmondson (1996, oddziały szpitalne): lepsze zespoły miały więcej <i>zgłaszanych</i> błędów, najpewniej dlatego, że chętniej je ujawniały, a nie dlatego, że popełniały ich więcej. Edmondson nazwała to później bezpieczeństwem psychologicznym zespołu (1999).",
+      link: "Na teście trzymaj się wersji z wykładu: więcej błędów w zespołach zintegrowanych." },
+    { q: "Gapie przy wypadku: próżniactwo czy efekt widza?",
+      a: "Prowadząca podała przykład potrącenia na pasach: ludzie filmowali zamiast dzwonić, a pomaga zwracanie się do konkretnej osoby po imieniu. ★ W psychologii społecznej taki przypadek nazywa się zwykle efektem widza (Latané i Darley). Próżniactwo społeczne (Latané, Williams, Harkins, 1979) dotyczy mniejszego wysiłku przy wspólnym zadaniu. Oba zjawiska łączy rozproszenie odpowiedzialności.",
+      link: "Do próżniactwa społecznego wrócicie na psychologii emocji i motywacji." },
+    { q: "Fazy Tuckmana: skąd piąta?",
+      a: "Slajd ma pięć faz. ★ Bruce Tuckman opisał w 1965 roku cztery: forming, storming, norming, performing (rymują się po angielsku). Piątą, adjourning (zamknięcie), dodał w 1977 roku razem z Mary Ann Jensen.",
+      link: "Na wykładzie najważniejsze jest formowanie, bo zachodzi zawsze." },
+    { q: "Płynność i elastyczność: skąd te nazwy?",
+      a: "Prowadząca wspomniała pioniera badań nad twórczością, który mówił, że każdy ma potencjał twórczy (w nagraniu nazwisko jest niewyraźne, najpewniej chodzi o J. P. Guilforda). ★ Guilford opisał myślenie dywergencyjne, czyli wielokierunkowe, przez płynność, giętkość (elastyczność), oryginalność i elaborację. Dwa pierwsze to właśnie cele ze slajdu 12.",
+      link: "Prowadząca: więcej o tym na psychologii różnic indywidualnych i psychologii twórczości." },
+    { q: "Miś, który nie chce spać",
+      a: "„Mój miś jeszcze nie chce iść spać” to jednocześnie animizm (miś żyje i mówi) i projekcja (dziecko mówi o sobie). ★ Animizm opisał Piaget jako cechę myślenia w stadium przedoperacyjnym (mniej więcej 2–7 lat).",
+      link: "Projekcja myśli była na wykładzie 1 (zasada 1)." },
+    { q: "Kiedy nie być twórczym?",
+      a: "Prowadząca broni też myślenia pod klucz: są procedury, np. resuscytacja (tempo uciskania, liczba oddechów), w których nie eksperymentujesz. Problem zaczyna się, gdy szkoła uczy wyłącznie jednej poprawnej odpowiedzi także tam, gdzie można myśleć inaczej: „Mickiewicz czy Słowacki?”.",
+      link: "Zobacz talię „Pod klucz czy twórczo?” w sortowni." },
+    { q: "Rower jako kara",
+      a: "Babcia powiedziała wnukowi: „za takie wyniki całe wakacje będziesz jeździł na rowerze”. Dla pokolenia prowadzącej karą było wołanie z podwórka na obiad. Gotowość dzieci do zabawy pozostaje, ale zmieniają się jej formy, a gry komputerowe potrafią ją wypierać.",
+      link: "Pytanie na zajęcia praktyczne: jak wciągnąć do zabawy twórczej dziecko, które woli ekran?" }
+  ],
+
+  /* Pomoc pamięciowa do faz Tuckmana (★ nie z wykładu). */
+  story: { title: "Pięć faz na jednym obozie", extra: true, ordered: true,
+    intro: "★ Pomoc pamięciowa, nie z wykładu. Fazy Tuckmana jako pięć dni obozu:", items: [
+    ["Formowanie", "Dzień 1: wszyscy siedzą pod ścianą świetlicy, wychowawca przedstawia plan i zasady."],
+    ["Szturmowanie", "Dzień 2: kłótnia o górne łóżko i o to, kto rządzi w domku."],
+    ["Normowanie", "Dzień 3: domek spisuje własny regulamin i zaczyna sobie ufać."],
+    ["Wykonanie", "Dzień 4: wspólnie przygotowują przedstawienie na ognisko i wszystko gra."],
+    ["Zamknięcie", "Ostatni dzień: zdjęcia, wspomnienia, łzy przy autokarze."]
+  ] },
+
+  table: {
+    title: "Fazy rozwoju grupy wg Tuckmana",
+    head: ["Faza", "Charakterystyka", "Typowe działania zespołu", "Rola lidera"],
+    rows: [
+      ["Formowanie", "niepewność i początkowa komunikacja", "poznawanie członków, ustalanie celów, przydzielanie ról", "zapewnienie bezpieczeństwa, wyjaśnianie celów i ról"],
+      ["Szturmowanie", "konflikty i zmagania o władzę", "rozwiązywanie konfliktów, ustalanie hierarchii", "zarządzanie konfliktami, wspieranie otwartej komunikacji"],
+      ["Normowanie", "budowanie zaufania, wypracowanie norm", "tworzenie wspólnych zasad współpracy", "umożliwienie zaufania, wspieranie norm"],
+      ["Wykonanie", "wysoka wydajność i efektywna współpraca", "realizacja celów, efektywna kooperacja", "pozostawanie zorientowanym na cele, wspieranie zespołu"],
+      ["Zamknięcie", "refleksja, finalizacja zadań, emocjonalne reakcje", "finalizacja projektów, celebracja osiągnięć", "pobudzanie do refleksji, zarządzanie zakończeniem"]
+    ]
+  },
+
+  /* Notatki do czytania. Klasy: .oral = ustnie, .extra = dopowiedzenie (★). */
+  notes: [
+    { id: "s1", n: 1, title: "Integracja to nie tylko zabawa", html:
+      "<div class='plain'><p>Zanim dzieci zaczną twórczo działać, muszą poczuć się w grupie bezpiecznie. Integracja to właśnie budowanie tego bezpieczeństwa, a nie kilka zabaw na powitanie.</p></div>" +
+      "<p>Wykład łączy dwa obszary: <b>procesy grupowe</b> i <b>rozwój potencjału twórczego</b>. Teza: <mark>bezpieczna i zintegrowana grupa jest absolutnym warunkiem koniecznym</mark>, aby wyzwolić autentyczną kreatywność.</p>" +
+      "<p><b>Integracja nie jest jedynie „zabawą na zapoznanie”.</b> Z punktu widzenia psychologii społecznej to głęboki proces budowania <b>bezpieczeństwa emocjonalnego</b>, które decyduje, czy uczestnik podejmie <b>ryzyko twórcze</b>.</p>" +
+      "<div class='oral'><ul><li>Dopiero gdy jest bezpiecznie, można zachowywać się „ryzykownie, ale twórczo”: podzielić się oryginalnym, nietypowym pomysłem bez obawy, że ktoś go wyśmieje.</li>" +
+      "<li>W nowej grupie ludzie siadają <b>z tyłu, pod ścianą, przy oknie</b>, rzadko w pierwszej ławce. Gdy prowadząca ustawiła krzesła w półokręgu, studenci i tak zostawiali wolne miejsca obok siebie. To naturalny odruch: kogoś nie znamy, więc nie chcemy być blisko.</li>" +
+      "<li>Tak samo będzie, gdy wejdziecie jako wolontariusze do przedszkola, na oddział z chorymi dziećmi czy do szkoły na warsztaty: na początku jest dystans.</li></ul></div>" },
+    { id: "s2", n: 2, title: "Pięć faz grupy (Tuckman)", html:
+      "<div class='plain'><p>Grupa dojrzewa etapami: poznaje się, kłóci, ustala zasady, dobrze pracuje i się żegna. Nie każda dochodzi do końca, ale każda zaczyna od poznawania się.</p></div>" +
+      "<p><b>Dynamika procesu grupowego według Bruce’a Tuckmana:</b> każda grupa, aby stać się zespołem twórczym, musi przejść przez określone fazy (nie zawsze przechodzi przez wszystkie i nie zawsze staje się zespołem twórczym!). Pełna tabela jest w sekcji „tab” na dole notatek.</p>" +
+      "<!--fig:tuckman-->" +
+      "<div class='oral'><p>Na studiach poznacie definicje grupy i rządzące nią procesy. Na tym wykładzie interesuje nas <b>pierwsza faza: formowanie</b>. Pozostałe grupa może przejść, ale nie musi; formowanie zachodzi zawsze.</p></div>" +
+      "<aside class='extra'><p>Po angielsku: forming, storming, norming, performing, adjourning. Tuckman opisał cztery pierwsze w 1965 roku, piątą dodał w 1977 z Mary Ann Jensen.</p></aside>" },
+    { id: "s3", n: 3, title: "Formowanie: wejście do nowej grupy", html:
+      "<div class='plain'><p>Na pierwszych spotkaniach wszyscy są niepewni, także ty jako prowadzący. Twoje zadanie: dać poczucie bezpieczeństwa, wyjaśnić, po co tu jesteśmy, poznać dzieci, a dopiero potem integrować.</p></div>" +
+      "<p><b>Formowanie:</b> niepewność i początkowa komunikacja. Zespół poznaje członków, ustala cele, przydziela role. <b>Lider zapewnia bezpieczeństwo i wyjaśnia cele i role.</b></p>" +
+      "<div class='oral'><ul><li>W nowej grupie jest dużo <b>lęku, zamknięcia i dystansu</b>, a obok tego ciekawość i ekscytacja. Dotyczy to też dorosłych: na całodniowym szkoleniu też musielibyście się najpierw poznać.</li>" +
+      "<li>Nawet jeśli dzieci w przedszkolu znają się nawzajem, nie znają <b>ciebie</b>. Formowanie dotyczy więc także prowadzącego.</li>" +
+      "<li>Zadania pod twoim przewodnictwem: poznanie się nawzajem i z prowadzącym, cele („co będziemy robić, w co się bawić”), role.</li>" +
+      "<li>Rola lidera to nie tylko bezpieczeństwo, ale też wyjaśnianie i <b>towarzyszenie, czyli facylitacja</b> (z wykładu 1).</li>" +
+      "<li><b>Integracja zawsze dzieje się po zapoznaniu.</b> Nie zaczynasz zabawy integracyjnej zaraz po „cześć, mam na imię Jakub”. Najpierw poznajesz, kim są te dzieci czy nastolatkowie.</li></ul></div>" },
+    { id: "s4", n: 4, title: "Bezpieczeństwo i wolność (Rogers)", html:
+      "<div class='plain'><p>Kiedy się boisz, że cię ocenią albo wyśmieją, pilnujesz, jak wypadasz. Kiedy czujesz się bezpiecznie, ta sama energia idzie w wymyślanie.</p></div>" +
+      "<p>Według koncepcji <b>Carla Rogersa</b> (psychologia humanistyczna) twórczość rozwija się najlepiej w warunkach <mark>zewnętrznego bezpieczeństwa i psychologicznej wolności</mark>.</p>" +
+      "<p><b>Lęk przed oceną, wyśmianiem czy odrzuceniem</b> przez grupę skutecznie blokuje myślenie twórcze. Integracja redukuje ten lęk, zamieniając energię zużywaną na <b>„autoprezentację i obronę”</b> na energię skierowaną na <b>„eksplorację i kreację”</b>.</p>" +
+      "<!--fig:energia-->" +
+      "<div class='oral'><ul><li><b>A wojna?</b> Ludzie tworzyli w czasie II wojny światowej czy stanu wojennego. To wyjątki potwierdzające regułę: twórcy wyrażali psychologiczną wolność („nie podlegamy tylko tym siłom”), ale nikt nie pisał wiersza pod ostrzałem. Musieli znaleźć skrawek miejsca, w którym czuli się w miarę bezpiecznie.</li>" +
+      "<li>Lęk przed oceną, odrzuceniem i wyśmianiem to <b>„blokery”</b> myślenia twórczego.</li>" +
+      "<li>Dobra integracja sprawia, że ludzie dzielą się nawet pomysłami „od czapy”, bardzo oryginalnymi albo niemożliwymi do realizacji.</li></ul></div>" +
+      "<aside class='extra'><p>Rogers opisał te warunki w eseju „Toward a Theory of Creativity” (1954). Bezpieczeństwo psychologiczne rozumiał jako akceptację bez warunków, brak zewnętrznej oceny i empatyczne zrozumienie.</p></aside>" },
+    { id: "s5", n: 5, title: "Przynależność i lęk przed odrzuceniem", html:
+      "<div class='plain'><p>Dzieci i nastolatki bardzo chcą należeć do grupy rówieśników. Dlatego tak bardzo boją się, że zostaną wyśmiane albo odrzucone, i wolą nie pokazywać niczego „dziwnego”.</p></div>" +
+      "<p>U dzieci i młodzieży <b>potrzeba przynależności rówieśniczej</b> jest jedną z najsilniejszych potrzeb psychicznych. Jednocześnie właśnie w tym wieku <b>lęk przed odrzuceniem, wyśmianiem czy „niemieszczeniem się w normie”</b> najskuteczniej blokuje naturalną ekspresję.</p>" +
+      "<div class='oral'><ul><li>O przynależności mówił też <b>Abraham Maslow</b> (psychologia humanistyczna); poznacie to na psychologii rozwojowej.</li>" +
+      "<li>Lęk przed odrzuceniem jest u jednych silniejszy, u innych słabszy. Odrzucone mogą być też same pomysły.</li>" +
+      "<li>Młodzież stale się porównuje: „czy jestem w normie?”, „czy wyglądam lepiej, gorzej?”. To blokuje ekspresję, więc integracja jest potrzebna dla bezpieczeństwa psychologicznego.</li></ul></div>" },
+    { id: "s6", n: 6, title: "Konformizm, ocena i autocenzura", html:
+      "<div class='plain'><p>Trzy rzeczy w szkole i grupie zatrzymują pomysły, zanim padną: chęć bycia jak wszyscy, nawyk szukania „dobrej odpowiedzi” i głos w głowie „nie mów tego, wyśmieją cię”.</p></div>" +
+      "<!--fig:bariery-->" +
+      "<ul><li><b>Konformizm rówieśniczy</b> (szczególnie u młodzieży): strach przed byciem „innym” sprawia, że młodzi wolą ukrywać nieszablonowe pomysły, byle stopić się z tłumem.</li>" +
+      "<li><b>Lęk przed oceną (szkoła ocenocentryczna)</b>: dzieci szybko uczą się szukać „jedynej poprawnej odpowiedzi” pod klucz, co zabija myślenie twórcze.</li>" +
+      "<li><b>Podstawowy paraliż poznawczy: autocenzura.</b> Zanim osoba wypowie unikalny pomysł, jej <b>wewnętrzny krytyk</b> (zasilany lękiem przed odrzuceniem przez rówieśników) mówi: „nie mów tego, wyśmieją cię”.</li></ul>" +
+      "<p><b>Oryginalność</b> z definicji jest <mark>wykroczeniem poza normy</mark>, więc wymaga <b>odwagi społecznej</b>, którą niezintegrowana grupa skutecznie dławi.</p>" +
+      "<div class='oral'><ul><li>Konformizm widać już u starszych dzieci z podstawówki. Cierpią na nim m.in. <b>dzieci zdolne</b>, które ukrywają zainteresowania i osiągnięcia.</li>" +
+      "<li>Rodzice pytają „co dostałeś? a co dostał Marek?”, a nie „jak ci szła nauka, co było trudne?”. Studenci umieją rozwiązać test A–D, ale milkną, gdy pyta się o sens. „Mickiewicz wielkim poetą był. A może Słowacki?” – ktoś może myśleć inaczej.</li>" +
+      "<li><b>Działanie pod klucz bywa potrzebne</b>: przy resuscytacji stosujesz procedurę (tempo uciśnięć, oddechy), a nie eksperymentujesz. Ale w zabawie twórczej dziecko ma nie zgadywać, co dorosły chce usłyszeć, tylko mówić swoje.</li>" +
+      "<li>Wewnętrznego krytyka ma każdy, u niektórych jest bardzo ostry. Oryginalność to wyróżnianie się, jak ktoś nietypowo ubrany na ulicy. Niezintegrowana grupa hamuje uczestnika, a on sam hamuje siebie autocenzurą.</li></ul></div>" },
+    { id: "s7", n: 7, title: "Próżniactwo społeczne i blokowanie produkcji", html:
+      "<div class='plain'><p>Dwie pułapki wspólnego wymyślania. Gdy nie widać, kto co zrobił, część osób odpuszcza. A gdy mówi jedna osoba, reszta czeka z pomysłem w głowie i często go zapomina.</p></div>" +
+      "<p><b>Próżniactwo społeczne:</b> jeśli grupa ma wygenerować rozwiązanie jako zespół, a wkład poszczególnych osób <b>nie jest jawny i rozliczany</b>, odpowiedzialność ulega <b>rozproszeniu</b>. Jednostki wkładają mniej wysiłku poznawczego, licząc, że „ktoś inny coś wymyśli”.</p>" +
+      "<p><b>Blokowanie produkcji:</b> bariera <b>strukturalno-poznawcza</b>, częsta przy wymyślaniu pomysłów. W danym momencie mówi tylko jedna osoba, więc pozostali muszą utrzymywać pomysł w <b>pamięci roboczej</b>. To obciąża uwagę, uniemożliwia słuchanie innych i blokuje nowe skojarzenia. Pomysł często ulega zapomnieniu lub traci na aktualności w oczach autora.</p>" +
+      "<!--fig:produkcja-->" +
+      "<div class='oral'><ul><li>Przykład: praca w grupach w szkole, gdzie jedni się angażują, a inni udają.</li>" +
+      "<li>Przykład z życia prowadzącej: potrącenie na pasach, gapie filmują zamiast dzwonić. Nie krzyczysz „niech ktoś zadzwoni”, tylko dajesz zadanie konkretnej osobie, najlepiej po imieniu: „Panie Jakubie, pan dzwoni. Pan ze mną sprawdzi funkcje życiowe”.</li>" +
+      "<li>„Produkcja” to produkcja <b>pomysłów</b>, nie fabryka. Pomaga <b>zapisywanie pomysłów</b> na etapie tworzenia. Słuchając świetnych pomysłów innych, łatwo też zacząć się porównywać.</li></ul></div>" +
+      "<aside class='extra'><p>Próżniactwo społeczne (social loafing) opisali Latané, Williams i Harkins (1979). Blokowanie produkcji zbadali Diehl i Stroebe (1987) przy burzy mózgów; stąd technika <b>brainwriting</b>: każdy najpierw zapisuje pomysły, potem się nimi dzielimy. Gapie przy wypadku to w podręcznikach raczej <b>efekt widza</b> (Latané i Darley); łączy je z próżniactwem rozproszenie odpowiedzialności.</p></aside>" },
+    { id: "s8", n: 8, title: "Bezpieczna piaskownica: kontrakt grupowy", html:
+      "<div class='plain'><p>Nie musisz sprawić, żeby wszyscy się lubili. Wystarczy wspólna umowa, dzięki której każdy czuje się bezpiecznie: może odmówić, nikt nikogo nie wyśmiewa i liczy się odwaga, a nie ładny wynik.</p></div>" +
+      "<p><b>Rola pedagoga/psychologa:</b> budowanie <mark>„bezpiecznej piaskownicy”</mark>, czyli bezpiecznego otoczenia. Integracja dzieci i młodzieży <b>nie polega na zmuszaniu do przyjaźni</b>, ale na stworzeniu <b>kontraktu grupowego</b>, który gwarantuje:</p>" +
+      "<!--fig:piaskownica-->" +
+      "<ol><li><b>Zasadę STOP</b>: każdy ma prawo odmówić udziału w ćwiczeniu, jeśli czuje zbyt duży dyskomfort lub nie chce.</li>" +
+      "<li><b>Zakaz krytyki i wyśmiewania</b> (również siebie samego): wszystkie pomysły na etapie kreacji są dobre.</li>" +
+      "<li><b>Docenianie procesu, nie tylko efektu</b>: nagradzamy za odwagę i zaangażowanie, a nie tylko za „najładniejszą” pracę.</li></ol>" +
+      "<div class='oral'><ul><li>Metaforę piaskownicy można stosować także wobec dorosłych.</li>" +
+      "<li>Nie musimy się „super lubić”, ale możemy razem działać. Jak studenci: jednych prowadzących lubicie bardziej, innych mniej, a i tak się uczycie.</li>" +
+      "<li>To <b>minimalne</b> zasady; można je rozszerzać.</li>" +
+      "<li>STOP: dyskomfort nie jest warunkiem, wystarczy, że ktoś nie chce.</li>" +
+      "<li>Nad wewnętrznym krytykiem nie zapanujemy, ale możemy poprosić grupę, żeby nie oceniała pomysłów innych.</li>" +
+      "<li>Docenianie procesu nawiązuje do wykładu 1 (prymat procesu nad efektem).</li></ul></div>" },
+    { id: "s9", n: 9, title: "Dzieci a nastolatki: psychopedagogika twórczości", html:
+      "<div class='plain'><p>Każde dziecko rodzi się twórcze. Dorosły nie musi uczyć kreatywności, tylko usuwać to, co ją blokuje. U maluchów twórczość płynie z zabawy i wyobraźni, u nastolatków z buntu, szukania siebie i silnych emocji.</p></div>" +
+      "<p>Zgodnie z <b>pedagogiką twórczości</b> (m.in. podejściem prof. <b>Krzysztofa J. Szmidta</b>) każde dziecko rodzi się z <b>naturalnym potencjałem kreatywnym</b>. Naszym zadaniem nie jest „uczenie” kreatywności, ale <mark>usuwanie blokad</mark>, które stawia kultura i tradycyjna edukacja.</p>" +
+      "<div class='tscroll'><table><thead><tr><th>Dzieci (młodsze)</th><th>Młodzież (nastolatki)</th></tr></thead><tbody>" +
+      "<tr><td>naturalna, nieskrępowana ekspresja</td><td>twórczość jako narzędzie buntu</td></tr>" +
+      "<tr><td>myślenie magiczne i animistyczne</td><td>poszukiwanie własnej tożsamości, znaczenia</td></tr>" +
+      "<tr><td>brak sztywnych schematów pojęć</td><td>potrzeba wyrażania silnych emocji</td></tr>" +
+      "<tr><td>gotowość do ciągłej zabawy</td><td>refleksyjność i idealizm</td></tr></tbody></table></div>" +
+      "<div class='oral'><ul><li><b>Animizm</b> to ożywianie przedmiotów: „miś jest moim najlepszym przyjacielem i chce na obiad zupkę”. „Mój miś jeszcze nie chce iść spać” to animizm i zarazem <b>projekcja</b>: to dziecko nie chce spać.</li>" +
+      "<li>Schematy pojęć <b>sztywnieją z wiekiem</b>, choć można nad tym pracować.</li>" +
+      "<li>Dzieci chcą się bawić. Jeśli dziecko nie chce, to sygnał (np. trudnych doświadczeń); czasem zabawę wypierają gry komputerowe. Anegdota: babcia grozi wnukowi, że „całe wakacje będzie jeździł na rowerze”.</li>" +
+      "<li>Nastolatki: rap, hip-hop, wiersz, graffiti i murale jako bunt; pytania „kim jestem?”, „jaki jest sens mojego życia?”; silne emocje, na których można budować; skłanianie do refleksji i podsumowań; <b>idealizm</b>, czyli wierność własnym wartościom.</li>" +
+      "<li>Wspomniany pionier badań nad twórczością (w nagraniu nazwisko niewyraźne) mówił, że <b>każdy ma potencjał twórczy</b>.</li></ul></div>" +
+      "<aside class='extra'><p>Tym pionierem był najpewniej <b>J. P. Guilford</b> (wykład o twórczości z 1950 roku). Animizm opisał <b>Piaget</b> jako cechę myślenia przedoperacyjnego (ok. 2–7 lat).</p></aside>" },
+    { id: "s10", n: 10, title: "Cele i pętla integracji", html:
+      "<div class='plain'><p>Trzy rzeczy, które chcemy u dzieci rozwijać: wymyślanie wielu pomysłów, zmienianie kierunku myślenia i spokojne podejście do błędów. Wszystko to rośnie w bezpiecznej grupie, a twórczość z kolei grupę scala.</p></div>" +
+      "<!--fig:cele-->" +
+      "<ul><li><b>Płynność myślenia</b>: generowanie dziesiątek pomysłów w krótkim czasie („Do czego jeszcze może służyć ten spinacz?”).</li>" +
+      "<li><b>Elastyczność</b>: zmiana kierunku myślenia i łamanie schematów („A co, gdyby ta bajka skończyła się zupełnie inaczej?”).</li>" +
+      "<li><b>Odporność emocjonalna</b>: błąd lub porażka to kolejna informacja zwrotna, a nie koniec świata.</li></ul>" +
+      "<!--fig:petla-->" +
+      "<div class='oral'><ul><li>Odporności można się uczyć świadomie przez całe życie. Przykład: chłopak zdał prawo jazdy <b>za piętnastym razem</b>, bo bardzo się stresował, a od lat jeździ bez mandatu i punktów karnych.</li>" +
+      "<li>Akceptacja odmienności poznawczej: ktoś ma inny pomysł niż wszyscy i nie zostaje wyśmiany. Prowadząca: „powinna być tu strzałka”, bo to wzmacnia integrację.</li>" +
+      "<li><b>Badania zespołów medycznych:</b> w bardzo dobrze zintegrowanych, bezpiecznych zespołach było <b>więcej błędów</b>, bo błąd można było pokazać i się na nim uczyć. Przy niskiej albo pozornej integracji energia idzie w autoprezentację, a o błędach się milczy.</li></ul></div>" +
+      "<aside class='extra'><p>Chodzi o badania Amy Edmondson (1996): lepsze zespoły szpitalne miały więcej <i>zgłaszanych</i> błędów, bo chętniej je ujawniały. Na teście odpowiadaj jak na wykładzie. Płynność i giętkość to też dwa wymiary myślenia dywergencyjnego u Guilforda.</p></aside>" },
+    { id: "s11", n: 11, title: "Gry integrująco-twórcze i nowa rola prowadzącego", html:
+      "<div class='plain'><p>Dobre zadanie na start robi dwie rzeczy naraz: łączy grupę i uruchamia wyobraźnię. A prowadzący przestaje być tym, który wie najlepiej, i staje się towarzyszem.</p></div>" +
+      "<p><b>Dla dzieci młodszych (klasy I–IV): „wspólny stworek z planety X”.</b> Małe grupy (3–4 osoby), wielki arkusz papieru, nietypowe materiały (piórka, bibuła, folia bąbelkowa). Każde dziecko po kolei dorysowuje lub dokleja jeden element ciała stwora i uzasadnia, <b>jaką supermoc daje ta część</b> i jak pomaga zespołowi przetrwać na nowej planecie.</p>" +
+      "<ul><li>Efekt integracyjny: współpraca, dzielenie się przestrzenią na kartce, słuchanie pomysłów innych.</li>" +
+      "<li>Efekt twórczy: przełamywanie schematów anatomicznych, myślenie fantastyczne.</li></ul>" +
+      "<p><b>Dla młodzieży (klasy starsze i szkoły ponadpodstawowe): „inkubator startupów z problemu”.</b> Losowe zespoły losują z kapelusza absurdalny lub realny problem (np. „Jak pomóc ludziom, którzy ciągle gubią drugą skarpetkę?”), tworzą prototyp usługi i prezentują go jako zabawną „reklamę telewizyjną”.</p>" +
+      "<ul><li>Efekt integracyjny: praca pod presją czasu, podział ról (ktoś pisze scenariusz, ktoś występuje), wspólny śmiech.</li>" +
+      "<li>Efekt twórczy: myślenie projektowe (design thinking), przełamywanie wstydu przed wystąpieniami, humor jako narzędzie kreatywne.</li></ul>" +
+      "<div class='key'><p>Praca w duchu psychopedagogiki twórczości wymaga zmiany roli: <b>z eksperta na facylitatora i towarzysza</b>. Integracja nie jest stratą czasu, jest <b>inwestycją</b>, bez której innowacja w klasie, rodzinie czy grupie jest niemożliwa.</p></div>" +
+      "<div class='oral'><ul><li>Przy stworku każde dziecko czeka na swoją kolej i się wypowiada, a myślenie fantastyczne jest naturalne zwłaszcza w wieku 4–6 lat. Materiały mogą być różne: koraliki, pianki, makaron.</li>" +
+      "<li>Zabawy zapoznawcze i integracyjne dobrane do wieku łatwo znaleźć w internecie; podpowiedzieć może nawet sztuczna inteligencja.</li></ul></div>" }
+  ]
+});
+
+</script>
+    <script>
 /* Moduł: Antropologia filozoficzna, wykład 1: Cel i organizacja wykładu.
  *
  * Źródła: prezentacja prowadzącego (13 slajdów), skrypt „Wykład I. Cel i organizacja
@@ -14650,6 +15894,134 @@ Wykuj.registerModule({
       olowki: { n: "p2", c: ["zielony", "czerwony", "kierunek"], cap: "Czerwony ołówek szuka tego, co nie wyszło. Zielony zauważa i wzmacnia to, co ciekawe: zasoby.", fn: mptOlowki },
       opor: { n: "p7", c: ["opor"], cap: "Opór jak góra lodowa: na wierzchu „to jest bez sensu”, pod wodą lęk.", fn: mptOpor },
       sublimacja: { n: "p10", c: ["sublimacja", "kanalizacja"], cap: "Kanalizacja i sublimacja: trudnej energii nie tłumimy, tylko kierujemy ją w twórczy wytwór.", fn: mptSublimacja }
+    });
+  });
+
+  /* ---------- MPT, wykład 2: integracja grupy ---------- */
+
+  function mptwTuckman() {
+    var rows = [
+      ["Formowanie", "niepewność, poznawanie się, cele, role"], ["Szturmowanie", "konflikty i walka o władzę"],
+      ["Normowanie", "zaufanie i wspólne zasady"], ["Wykonanie", "wysoka wydajność, współpraca"],
+      ["Zamknięcie", "refleksja, celebracja, pożegnanie"]
+    ];
+    var out = "", rowH = 50;
+    rows.forEach(function (r, i) {
+      var y = 6 + i * rowH;
+      out += R(8, y, 324, rowH - 8, i === 0 ? "bx-a" : "bx");
+      out += '<circle class="acf" cx="28" cy="' + (y + 21) + '" r="12"/>' + T(28, y + 25.5, String(i + 1), "num");
+      out += T(50, y + 18, r[0], "tb", "start");
+      out += T(50, y + 34, r[1], "ts", "start");
+    });
+    out += T(322, 6 + 18, "zawsze", "ts ta", "end");
+    var yb = 6 + 5 * rowH;
+    out += R(8, yb, 324, 32, "bx-x") + T(170, yb + 20, "nie każda grupa przechodzi wszystkie fazy", "ts");
+    return { w: 340, h: yb + 40, body: out };
+  }
+
+  function mptwEnergia() {
+    var out = "";
+    out += T(83, 14, "lęk w grupie", "ts tr") + T(257, 14, "po integracji", "ts ta");
+    out += B(8, 24, 150, 58, "lęk przed", ["oceną, wyśmianiem,", "odrzuceniem"], "bx-r");
+    out += A(83, 82, 83, 108);
+    out += B(8, 110, 150, 58, "energia na", ["autoprezentację", "i obronę"], "bx-x");
+    out += B(182, 24, 150, 58, "bezpieczeństwo", ["i psychologiczna", "wolność (Rogers)"], "bx-a");
+    out += A(257, 82, 257, 108, "ln-a");
+    out += B(182, 110, 150, 58, "energia na", ["eksplorację", "i kreację"], "bx-a");
+    out += A(158, 139, 181, 139, "ln-a");
+    out += T(170, 192, "integracja redukuje lęk i przestawia energię", "ts ta");
+    return { w: 340, h: 200, body: out };
+  }
+
+  function mptwBariery() {
+    var rows = [
+      ["user", "Konformizm rówieśniczy", "„byle nie być innym”", "sl. 7"],
+      ["exam", "Lęk przed oceną", "„jaka jest poprawna odpowiedź?”", "sl. 7"],
+      ["lock", "Autocenzura", "„nie mów tego, wyśmieją cię”", "sl. 7"],
+      ["moon", "Próżniactwo społeczne", "„ktoś inny coś wymyśli”", "sl. 8"],
+      ["wall", "Blokowanie produkcji", "„zaraz zapomnę, co chciałem…”", "sl. 8"]
+    ];
+    var out = "", rowH = 50;
+    rows.forEach(function (r, i) {
+      var y = 6 + i * rowH;
+      out += R(8, y, 324, rowH - 8, "bx");
+      out += I(r[0], 20, y + 9, 24);
+      out += T(56, y + 18, r[1], "tb", "start");
+      out += T(56, y + 34, r[2], "ts", "start");
+      out += T(322, y + 18, r[3], "ts", "end");
+    });
+    return { w: 340, h: 6 + 5 * rowH, body: out };
+  }
+
+  function mptwProdukcja() {
+    var out = "";
+    [48, 128, 208, 288].forEach(function (cx, i) {
+      if (i === 0) out += B(cx - 38, 10, 76, 36, "mówię", "", "bx-a");
+      else out += R(cx - 38, 10, 76, 36, "bx-x") + Tc(cx, 28, ["trzymam", "pomysł…"], "ts");
+      out += L(cx, 46, cx, 56);
+      out += I("user", cx - 15, 58, 30);
+    });
+    out += T(170, 112, "reszta czeka na swoją kolej", "ts");
+    out += B(8, 122, 100, 54, "pamięć", ["robocza", "zapchana"], "bx") + A(108, 149, 120, 149);
+    out += B(120, 122, 100, 54, "nie słucham", ["i nic nowego", "nie wymyślam"], "bx") + A(220, 149, 232, 149);
+    out += B(232, 122, 100, 54, "pomysł", ["ulatuje"], "bx-r");
+    out += B(60, 192, 220, 40, "zapisuj pomysły na bieżąco", "", "bx-a");
+    return { w: 340, h: 240, body: out };
+  }
+
+  function mptwPiaskownica() {
+    var out = T(170, 16, "bezpieczna piaskownica = kontrakt grupowy", "ts");
+    out += R(8, 24, 324, 150, "bx-g");
+    var cards = [["hand", "STOP", ["prawo", "do odmowy"]], ["x", ["zakaz", "krytyki"], ["też wobec", "siebie"]], ["spiral", ["docenianie", "procesu"], ["odwaga,", "nie wynik"]]];
+    cards.forEach(function (c, i) {
+      var x = 18 + i * 103, cx = x + 49;
+      out += R(x, 38, 98, 124, "bx");
+      out += I(c[0], cx - 14, 48, 28);
+      out += T(cx, [].concat(c[1]).length > 1 ? 94 : 100, c[1], "tb");
+      out += T(cx, 134, c[2], "ts");
+    });
+    out += T(170, 196, "✗ nie zmuszamy do przyjaźni", "ts tr");
+    return { w: 340, h: 206, body: out };
+  }
+
+  function mptwCele() {
+    var rows = [
+      ["spark", "Płynność", "dużo pomysłów w krótkim czasie", "„do czego jeszcze służy spinacz?”"],
+      ["redo", "Elastyczność", "zmiana kierunku, łamanie schematów", "„a gdyby bajka skończyła się inaczej?”"],
+      ["heart", "Odporność emocjonalna", "błąd = informacja zwrotna", "prawo jazdy za 15. razem"]
+    ];
+    var out = "", rowH = 70;
+    rows.forEach(function (r, i) {
+      var y = 6 + i * rowH;
+      out += R(8, y, 324, rowH - 8, "bx");
+      out += I(r[0], 20, y + 17, 28);
+      out += T(62, y + 20, r[1], "tb", "start");
+      out += T(62, y + 36, r[2], "ts", "start");
+      out += T(62, y + 52, r[3], "ts ta", "start");
+    });
+    return { w: 340, h: 6 + 3 * rowH, body: out };
+  }
+
+  function mptwPetla() {
+    var out = "";
+    out += B(100, 8, 140, 48, ["bezpieczeństwo", "/ integracja"], "", "bx-a");
+    out += B(192, 92, 140, 48, ["mniej lęku", "przed oceną"], "", "bx");
+    out += B(100, 176, 140, 48, ["myślenie", "twórcze"], "", "bx");
+    out += B(8, 92, 140, 48, ["akceptacja", "odmienności"], "", "bx");
+    out += A(240, 40, 266, 90, "ln-a") + A(266, 140, 240, 188, "ln-a") + A(100, 194, 74, 142, "ln-a") + A(74, 90, 100, 42, "ln-a");
+    out += T(40, 70, ["wzmacnia", "integrację"], "ts ta");
+    return { w: 340, h: 232, body: out };
+  }
+
+  W.registerFigs.push(function () {
+    W.addFigs("mpt-w2", {
+      tuckman: { n: "s2", c: ["tuckman", "f-formowanie", "f-szturmowanie", "f-normowanie", "f-wykonanie", "f-zamkniecie", "nie-wszystkie"], cap: "Pięć faz według Tuckmana. Nie każda grupa przechodzi przez wszystkie, ale formowanie zachodzi zawsze.", fn: mptwTuckman },
+      energia: { n: "s4", c: ["rogers", "blokery", "energia"], cap: "Lęk kieruje energię na autoprezentację i obronę. Bezpieczeństwo i wolność przestawiają ją na eksplorację i kreację.", fn: mptwEnergia },
+      bariery: { n: "s6", c: ["konformizm", "ocenocentryzm", "autocenzura", "krytyk", "oryginalnosc"], cap: "Pięć barier ze slajdów 7 i 8 i to, co wtedy słychać w głowie uczestnika.", fn: mptwBariery },
+      produkcja: { n: "s7", c: ["blokowanie", "produkcja"], cap: "Blokowanie produkcji: mówi jedna osoba, reszta trzyma pomysły w głowie i je gubi. Pomaga zapisywanie.", fn: mptwProdukcja },
+      piaskownica: { n: "s8", c: ["piaskownica", "kontrakt", "stop", "zakaz", "proces-w2", "nie-przyjazn"], cap: "Kontrakt grupowy w trzech zasadach. Integracja to nie przymus przyjaźni.", fn: mptwPiaskownica },
+      cele: { n: "s10", c: ["plynnosc", "elastycznosc", "odpornosc"], cap: "Trzy cele psychopedagogiki twórczości z przykładami z wykładu.", fn: mptwCele },
+      petla: { n: "s10", c: ["petla", "odmiennosc"], cap: "Pętla ze slajdu 13: bezpieczeństwo zmniejsza lęk, to uruchamia twórczość, a akceptacja różnych pomysłów wzmacnia integrację.", fn: mptwPetla }
     });
   });
 

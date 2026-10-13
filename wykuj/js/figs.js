@@ -651,6 +651,134 @@
     });
   });
 
+  /* ---------- MPT, wykład 2: integracja grupy ---------- */
+
+  function mptwTuckman() {
+    var rows = [
+      ["Formowanie", "niepewność, poznawanie się, cele, role"], ["Szturmowanie", "konflikty i walka o władzę"],
+      ["Normowanie", "zaufanie i wspólne zasady"], ["Wykonanie", "wysoka wydajność, współpraca"],
+      ["Zamknięcie", "refleksja, celebracja, pożegnanie"]
+    ];
+    var out = "", rowH = 50;
+    rows.forEach(function (r, i) {
+      var y = 6 + i * rowH;
+      out += R(8, y, 324, rowH - 8, i === 0 ? "bx-a" : "bx");
+      out += '<circle class="acf" cx="28" cy="' + (y + 21) + '" r="12"/>' + T(28, y + 25.5, String(i + 1), "num");
+      out += T(50, y + 18, r[0], "tb", "start");
+      out += T(50, y + 34, r[1], "ts", "start");
+    });
+    out += T(322, 6 + 18, "zawsze", "ts ta", "end");
+    var yb = 6 + 5 * rowH;
+    out += R(8, yb, 324, 32, "bx-x") + T(170, yb + 20, "nie każda grupa przechodzi wszystkie fazy", "ts");
+    return { w: 340, h: yb + 40, body: out };
+  }
+
+  function mptwEnergia() {
+    var out = "";
+    out += T(83, 14, "lęk w grupie", "ts tr") + T(257, 14, "po integracji", "ts ta");
+    out += B(8, 24, 150, 58, "lęk przed", ["oceną, wyśmianiem,", "odrzuceniem"], "bx-r");
+    out += A(83, 82, 83, 108);
+    out += B(8, 110, 150, 58, "energia na", ["autoprezentację", "i obronę"], "bx-x");
+    out += B(182, 24, 150, 58, "bezpieczeństwo", ["i psychologiczna", "wolność (Rogers)"], "bx-a");
+    out += A(257, 82, 257, 108, "ln-a");
+    out += B(182, 110, 150, 58, "energia na", ["eksplorację", "i kreację"], "bx-a");
+    out += A(158, 139, 181, 139, "ln-a");
+    out += T(170, 192, "integracja redukuje lęk i przestawia energię", "ts ta");
+    return { w: 340, h: 200, body: out };
+  }
+
+  function mptwBariery() {
+    var rows = [
+      ["user", "Konformizm rówieśniczy", "„byle nie być innym”", "sl. 7"],
+      ["exam", "Lęk przed oceną", "„jaka jest poprawna odpowiedź?”", "sl. 7"],
+      ["lock", "Autocenzura", "„nie mów tego, wyśmieją cię”", "sl. 7"],
+      ["moon", "Próżniactwo społeczne", "„ktoś inny coś wymyśli”", "sl. 8"],
+      ["wall", "Blokowanie produkcji", "„zaraz zapomnę, co chciałem…”", "sl. 8"]
+    ];
+    var out = "", rowH = 50;
+    rows.forEach(function (r, i) {
+      var y = 6 + i * rowH;
+      out += R(8, y, 324, rowH - 8, "bx");
+      out += I(r[0], 20, y + 9, 24);
+      out += T(56, y + 18, r[1], "tb", "start");
+      out += T(56, y + 34, r[2], "ts", "start");
+      out += T(322, y + 18, r[3], "ts", "end");
+    });
+    return { w: 340, h: 6 + 5 * rowH, body: out };
+  }
+
+  function mptwProdukcja() {
+    var out = "";
+    [48, 128, 208, 288].forEach(function (cx, i) {
+      if (i === 0) out += B(cx - 38, 10, 76, 36, "mówię", "", "bx-a");
+      else out += R(cx - 38, 10, 76, 36, "bx-x") + Tc(cx, 28, ["trzymam", "pomysł…"], "ts");
+      out += L(cx, 46, cx, 56);
+      out += I("user", cx - 15, 58, 30);
+    });
+    out += T(170, 112, "reszta czeka na swoją kolej", "ts");
+    out += B(8, 122, 100, 54, "pamięć", ["robocza", "zapchana"], "bx") + A(108, 149, 120, 149);
+    out += B(120, 122, 100, 54, "nie słucham", ["i nic nowego", "nie wymyślam"], "bx") + A(220, 149, 232, 149);
+    out += B(232, 122, 100, 54, "pomysł", ["ulatuje"], "bx-r");
+    out += B(60, 192, 220, 40, "zapisuj pomysły na bieżąco", "", "bx-a");
+    return { w: 340, h: 240, body: out };
+  }
+
+  function mptwPiaskownica() {
+    var out = T(170, 16, "bezpieczna piaskownica = kontrakt grupowy", "ts");
+    out += R(8, 24, 324, 150, "bx-g");
+    var cards = [["hand", "STOP", ["prawo", "do odmowy"]], ["x", ["zakaz", "krytyki"], ["też wobec", "siebie"]], ["spiral", ["docenianie", "procesu"], ["odwaga,", "nie wynik"]]];
+    cards.forEach(function (c, i) {
+      var x = 18 + i * 103, cx = x + 49;
+      out += R(x, 38, 98, 124, "bx");
+      out += I(c[0], cx - 14, 48, 28);
+      out += T(cx, [].concat(c[1]).length > 1 ? 94 : 100, c[1], "tb");
+      out += T(cx, 134, c[2], "ts");
+    });
+    out += T(170, 196, "✗ nie zmuszamy do przyjaźni", "ts tr");
+    return { w: 340, h: 206, body: out };
+  }
+
+  function mptwCele() {
+    var rows = [
+      ["spark", "Płynność", "dużo pomysłów w krótkim czasie", "„do czego jeszcze służy spinacz?”"],
+      ["redo", "Elastyczność", "zmiana kierunku, łamanie schematów", "„a gdyby bajka skończyła się inaczej?”"],
+      ["heart", "Odporność emocjonalna", "błąd = informacja zwrotna", "prawo jazdy za 15. razem"]
+    ];
+    var out = "", rowH = 70;
+    rows.forEach(function (r, i) {
+      var y = 6 + i * rowH;
+      out += R(8, y, 324, rowH - 8, "bx");
+      out += I(r[0], 20, y + 17, 28);
+      out += T(62, y + 20, r[1], "tb", "start");
+      out += T(62, y + 36, r[2], "ts", "start");
+      out += T(62, y + 52, r[3], "ts ta", "start");
+    });
+    return { w: 340, h: 6 + 3 * rowH, body: out };
+  }
+
+  function mptwPetla() {
+    var out = "";
+    out += B(100, 8, 140, 48, ["bezpieczeństwo", "/ integracja"], "", "bx-a");
+    out += B(192, 92, 140, 48, ["mniej lęku", "przed oceną"], "", "bx");
+    out += B(100, 176, 140, 48, ["myślenie", "twórcze"], "", "bx");
+    out += B(8, 92, 140, 48, ["akceptacja", "odmienności"], "", "bx");
+    out += A(240, 40, 266, 90, "ln-a") + A(266, 140, 240, 188, "ln-a") + A(100, 194, 74, 142, "ln-a") + A(74, 90, 100, 42, "ln-a");
+    out += T(40, 70, ["wzmacnia", "integrację"], "ts ta");
+    return { w: 340, h: 232, body: out };
+  }
+
+  W.registerFigs.push(function () {
+    W.addFigs("mpt-w2", {
+      tuckman: { n: "s2", c: ["tuckman", "f-formowanie", "f-szturmowanie", "f-normowanie", "f-wykonanie", "f-zamkniecie", "nie-wszystkie"], cap: "Pięć faz według Tuckmana. Nie każda grupa przechodzi przez wszystkie, ale formowanie zachodzi zawsze.", fn: mptwTuckman },
+      energia: { n: "s4", c: ["rogers", "blokery", "energia"], cap: "Lęk kieruje energię na autoprezentację i obronę. Bezpieczeństwo i wolność przestawiają ją na eksplorację i kreację.", fn: mptwEnergia },
+      bariery: { n: "s6", c: ["konformizm", "ocenocentryzm", "autocenzura", "krytyk", "oryginalnosc"], cap: "Pięć barier ze slajdów 7 i 8 i to, co wtedy słychać w głowie uczestnika.", fn: mptwBariery },
+      produkcja: { n: "s7", c: ["blokowanie", "produkcja"], cap: "Blokowanie produkcji: mówi jedna osoba, reszta trzyma pomysły w głowie i je gubi. Pomaga zapisywanie.", fn: mptwProdukcja },
+      piaskownica: { n: "s8", c: ["piaskownica", "kontrakt", "stop", "zakaz", "proces-w2", "nie-przyjazn"], cap: "Kontrakt grupowy w trzech zasadach. Integracja to nie przymus przyjaźni.", fn: mptwPiaskownica },
+      cele: { n: "s10", c: ["plynnosc", "elastycznosc", "odpornosc"], cap: "Trzy cele psychopedagogiki twórczości z przykładami z wykładu.", fn: mptwCele },
+      petla: { n: "s10", c: ["petla", "odmiennosc"], cap: "Pętla ze slajdu 13: bezpieczeństwo zmniejsza lęk, to uruchamia twórczość, a akceptacja różnych pomysłów wzmacnia integrację.", fn: mptwPetla }
+    });
+  });
+
   /* ================= Ćwiczenia, dr Ozga: czytanka 1 (widzenie) ================= */
 
   function P(d, cls) {

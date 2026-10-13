@@ -32,7 +32,7 @@ Dopowiedzenia można wyłączyć w profilu, a egzamin próbny zawsze je pomija.
 
 | Przedmiot | Moduły |
 | --- | --- |
-| Metody pracy twórczej z dziećmi i młodzieżą (MPT) | Wykład 1: Specyfika |
+| Metody pracy twórczej z dziećmi i młodzieżą (MPT) | Wykład 1: Specyfika · Wykład 2: Integracja grupy |
 | Antropologia filozoficzna (AF) | Wykład 1: Czym jest antropologia filozoficzna · Wykład 2: Fakt ludzki widziany od zewnątrz |
 | Logika (LOG) | Wykład 1: Semiotyka: język i znak + przewodnik „Jak zdać logikę” |
 | Procesy poznawcze: percepcja i uwaga (PP) | Wykład 1: Wprowadzenie do percepcji i uwagi |
