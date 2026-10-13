@@ -113,14 +113,15 @@
     var st = talkState(m);
     var known = m.talk.filter(function (t, i) { return st[i] === 1; }).length;
     var todo = m.talk.map(function (t, i) { return i; }).filter(function (i) { return st[i] !== 1; });
+    var tx = W.talkText(m);
 
     root.innerHTML =
-      top("Na zajęcia", W.modLabel(m) + ": " + m.title) +
+      top(tx.name, W.modLabel(m) + ": " + m.title) +
       '<div class="page guide talk">' +
       '<section class="g-sec"><h2 class="sec-h">Jak z tego korzystać</h2>' +
       '<ol class="steps">' +
-      "<li><b>Przeczytaj pytanie</b><span>Takie pytania mogą paść na zajęciach: z dyskusji, wejściówki albo odpytywania.</span></li>" +
-      "<li><b>Odpowiedz na głos albo na brudno</b><span>Mówienie własnymi słowami utrwala najmocniej. Wystarczą 2–4 zdania.</span></li>" +
+      "<li><b>Przeczytaj pytanie</b><span>" + esc(tx.where) + "</span></li>" +
+      "<li><b>Odpowiedz na głos albo na brudno</b><span>" + esc(tx.how) + "</span></li>" +
       "<li><b>Porównaj ze wzorcem</b><span>Sprawdź, czy padły słowa-klucze. Oceń się uczciwie: to, czego nie umiesz, wróci w następnej rundzie.</span></li></ol>" +
       '<div class="row talk-go">' +
       '<button class="btn primary big" data-run="todo"' + (todo.length ? "" : " disabled") + ">" +
@@ -128,7 +129,7 @@
       (known ? '<button class="btn ghost" data-run="all">Wszystkie od nowa</button>' : "") +
       "</div></section>" +
       '<section class="g-sec"><h2 class="sec-h">Pytania <small>' + known + "/" + m.talk.length + " umiem</small></h2>" +
-      '<p class="g-lead">Rozwiń pytanie, żeby od razu zobaczyć wzorcową odpowiedź (dobre do szybkiej powtórki przed zajęciami).</p>' +
+      '<p class="g-lead">Rozwiń pytanie, żeby od razu zobaczyć wzorcową odpowiedź (dobre do szybkiej powtórki ' + tx.before + ").</p>" +
       '<ol class="theory">' +
       m.talk
         .map(function (t, i) {
@@ -152,7 +153,7 @@
   function answerHtml(t) {
     return (
       '<p class="th-k">Wzorcowa odpowiedź</p><div class="t-ans">' + t.a + "</div>" +
-      (t.keys ? '<p class="th-k">Słowa-klucze, które warto powiedzieć</p><ul class="t-keys">' + t.keys.map(function (k) { return "<li>" + esc(k) + "</li>"; }).join("") + "</ul>" : "") +
+      (t.keys ? '<p class="th-k">Słowa-klucze, których warto użyć</p><ul class="t-keys">' + t.keys.map(function (k) { return "<li>" + esc(k) + "</li>"; }).join("") + "</ul>" : "") +
       (t.trap ? '<div class="fixnote"><p class="ans-k">Uważaj</p><p>' + t.trap + "</p></div>" : "") +
       (t.src ? '<p class="t-src">' + esc(t.src) + "</p>" : "")
     );
@@ -168,14 +169,14 @@
       var t = m.talk[list[i]];
       revealed = false;
       root.innerHTML =
-        top("Na zajęcia", "Pytanie " + (i + 1) + " z " + list.length, '<span class="clock">' + score + " umiem</span>") +
+        top(W.talkText(m).name, "Pytanie " + (i + 1) + " z " + list.length, '<span class="clock">' + score + " umiem</span>") +
         '<div class="page sheet">' +
         '<div class="lbar slim"><i style="width:' + Math.round((i / list.length) * 100) + '%"></i></div>' +
         '<article class="task"><span class="task-n display">' + (i + 1) + "</span>" +
         '<h2 class="task-q">' + esc(t.q) + "</h2>" +
         (t.hint ? '<p class="t-hint">' + W.icon("bulb") + esc(t.hint) + "</p>" : "") + "</article>" +
         '<label class="draft-l" for="tdraft-' + list[i] + '">Twoja odpowiedź (na głos albo tutaj, nikt jej nie sprawdza)</label>' +
-        '<textarea id="tdraft-' + list[i] + '" class="draft" rows="4" placeholder="Powiedz albo napisz 2–4 zdania…"></textarea>' +
+        '<textarea id="tdraft-' + list[i] + '" class="draft" rows="4" placeholder="' + esc(W.talkText(m).ph) + '"></textarea>' +
         '<div class="reveal" hidden><div class="answer">' + answerHtml(t) + "</div></div>" +
         '<div class="sheet-act"><button class="btn primary big" data-a="show">Pokaż wzorcową odpowiedź</button></div>' +
         "</div>";
@@ -216,7 +217,7 @@
       W.resultScreen(root, {
         fail: score < list.length / 2,
         title: score + "/" + list.length,
-        sub: left ? "Do powtórki zostało " + left + (left === 1 ? " pytanie" : left < 5 ? " pytania" : " pytań") + ". Wrócą w następnej rundzie." : "Umiesz odpowiedzieć na wszystkie pytania. Jesteś gotowy na zajęcia.",
+        sub: left ? "Do powtórki zostało " + left + (left === 1 ? " pytanie" : left < 5 ? " pytania" : " pytań") + ". Wrócą w następnej rundzie." : "Umiesz odpowiedzieć na wszystkie pytania. " + W.talkText(m).ready,
         confetti: !left,
         stats: [
           { label: "Umiem", value: String(score), tone: "good" },

@@ -425,6 +425,165 @@
     });
   });
 
+  /* ---------- Antropologia, wykład 2: fakt ludzki od zewnątrz ---------- */
+
+  function afwPlan() {
+    var items = [
+      ["target", "Fakt ludzki od zewnątrz", "punkt wyjścia (ten wykład)"], ["eye", "Doświadczenie od wewnątrz", "„Ja” i akty „moje”"],
+      ["user", "Dusza i ciało", "struktura bytu, płciowość"],
+      ["column", "Osoba", "wobec natury i kultury"], ["bulb", "Poznanie", "zmysły, rozum, prawda"],
+      ["heart", "Działanie", "wolność, miłość, dobro i zło"], ["chat", "Społeczność", "prawo, państwo, rodzina, naród"],
+      ["pencil", "Sztuka", "piękno, dzieło, arcydzieło"], ["star", "Religia", "filozofia religii (Zdybicka)"],
+      ["moon", "Śmierć", "czy wystarczy definicja medyczna?"]
+    ];
+    var out = "", rowH = 42;
+    items.forEach(function (it, i) {
+      var y = 6 + i * rowH;
+      out += R(8, y, 324, rowH - 6, i === 0 ? "bx-a" : "bx");
+      out += '<circle class="acf" cx="26" cy="' + (y + 18) + '" r="11"/>' + T(26, y + 22.5, String(i + 1), "num");
+      out += I(it[0], 44, y + 7, 22, "ta");
+      out += T(76, y + 16, it[1], "tb", "start");
+      out += T(76, y + 30, it[2], "ts", "start");
+    });
+    var yb = 6 + 10 * rowH;
+    out += R(8, yb, 324, 34, "bx-x");
+    out += T(170, yb + 21, "potem: historia antropologii (może poza testem)", "ts");
+    return { w: 340, h: yb + 42, body: out };
+  }
+
+  function afwEtapy() {
+    var out = "";
+    out += T(170, 14, "nauki realne (łac. res – rzecz)", "ts");
+    out += B(8, 22, 150, 58, "1 · Ustalenie i opis", "determinacja faktu", "bx");
+    out += A(158, 51, 182, 51);
+    out += B(182, 22, 150, 58, ["2 · Interpretacja", "i wyjaśnianie"], "", "bx");
+    out += A(83, 80, 83, 120, "ln-a", true) + A(257, 80, 257, 120, "ln-a", true);
+    out += T(170, 104, "przenosimy", "ts ta");
+    out += B(8, 122, 150, 66, "Fakt ludzki", ["opis: od zewnątrz", "i od wewnątrz"], "bx-a");
+    out += A(158, 155, 182, 155);
+    out += B(182, 122, 150, 66, "Wyjaśnienie", ["uniesprzecznianie:", "wskazanie racji"], "bx");
+    out += T(170, 208, "antropologia filozoficzna (realistyczna)", "ts");
+    return { w: 340, h: 216, body: out };
+  }
+
+  function afwFakt() {
+    var out = "";
+    out += B(95, 8, 150, 52, "„człowiek”", ["pojęcie ogólne", "(powszechnik)"], "bx-x");
+    out += T(292, 26, ["✗ nie od", "pojęcia"], "ts tr");
+    out += T(40, 22, "metapoziom", "ts");
+    var names = ["Agata", "Jan", "Katarzyna", "… miliardy"];
+    var tops = [140, 157, 183, 200];
+    out += R(8, 118, 324, 92, "bx-a");
+    names.forEach(function (n, i) {
+      var cx = 48 + i * 81;
+      out += A(cx, 124, tops[i], 62);
+      out += I("user", cx - 14, 128, 28, "ta");
+      out += T(cx, 172, n, "ts");
+    });
+    out += T(40, 94, "abstrakcja", "ts");
+    out += T(170, 198, "FAKT LUDZKI: punkt wyjścia", "tb ta");
+    return { w: 340, h: 218, body: out };
+  }
+
+  function afwKierunek() {
+    var out = "";
+    var cols = [
+      { x: 8, head: "pozytywizm", cls: "ts tr", boxes: [[["nauki", "szczegółowe"], "start", "bx"], [["obraz człowieka", "z nauk"], "", "bx"], [["filozofia", "na końcu"], "zwieńczenie nauk", "bx-x"]] },
+      { x: 178, head: "wykład: filozofia klasyczna", cls: "ts ta", boxes: [[["poznanie", "przednaukowe"], "start: zdrowy rozsądek", "bx"], ["filozofia", ["fundament,", "autonomiczna"], "bx-a"], [["nauki", "szczegółowe"], "zakładają filozofię", "bx"]] }
+    ];
+    cols.forEach(function (c) {
+      out += T(c.x + 77, 14, c.head, c.cls);
+      c.boxes.forEach(function (b, i) {
+        var y = 24 + i * 80;
+        out += B(c.x, y, 154, 54, b[0], b[1] || null, b[2]);
+        if (i < 2) out += A(c.x + 77, y + 54, c.x + 77, y + 80);
+      });
+    });
+    out += T(85, 256, ["✗ obraz naukowy jest", "tylko pozornie jednolity"], "ts tr");
+    return { w: 340, h: 280, body: out };
+  }
+
+  function afwDrogi() {
+    var out = "";
+    out += B(8, 8, 154, 78, "Od zewnątrz", ["obserwator z boku", "obiektywne", "przyroda i społeczność"], "bx");
+    out += B(178, 8, 154, 78, "Od wewnątrz", ["przeżycie mojego „ja”", "subiektywne", "trudne do przekazania"], "bx");
+    out += A(85, 86, 148, 124) + A(255, 86, 192, 124);
+    out += T(40, 106, ["miara", "obiektywna"], "ts");
+    out += T(300, 106, ["Wojtyła:", "dopuścić!"], "ts ta");
+    out += B(95, 126, 150, 50, "Fakt ludzki", "oba się dopełniają", "bx-a");
+    return { w: 340, h: 184, body: out };
+  }
+
+  function afwZoon() {
+    var out = "";
+    out += B(8, 8, 150, 44, "zoon logikon", "gr.", "bx") + A(158, 30, 182, 30) + B(182, 8, 150, 44, "zoe = życie", "", "bx");
+    out += B(8, 60, 150, 44, "animal rationale", "łac.", "bx") + A(158, 82, 182, 82) + B(182, 60, 150, 44, "anima = dusza", "", "bx");
+    out += B(8, 120, 150, 50, ["„zwierzę", "rozumne”"], "gubi element życia", "bx-r");
+    out += T(170, 150, "→", "tb");
+    out += B(182, 120, 150, 50, ["istota żywa", "rozumna"], "bez redukcji", "bx-a");
+    out += B(8, 186, 150, 50, "rodzaj najbliższy", "istoty żywe", "bx");
+    out += T(170, 220, "+", "huge-s ta");
+    out += B(182, 186, 150, 50, "różnica gatunkowa", "rozumność", "bx");
+    out += T(170, 258, "= klasyczna definicja człowieka", "ts ta");
+    return { w: 340, h: 266, body: out };
+  }
+
+  function afwNarzedzie() {
+    var out = "";
+    out += B(8, 8, 150, 48, "zwierzę", "narzędzie-oznaka", "bx");
+    out += A(83, 56, 83, 82);
+    out += B(8, 84, 150, 50, "cel biologiczny", ["przetrwanie jednostki", "lub gatunku"], "bx");
+    out += B(182, 8, 150, 48, "człowiek", "np. przypadkowy kij", "bx-a");
+    out += A(257, 56, 257, 82);
+    out += B(182, 84, 150, 50, "wiele funkcji", ["obrona, podpora,", "dawanie znaków"], "bx");
+    out += T(257, 152, "cele pozabiologiczne", "ts ta");
+    out += T(83, 152, "jeden cel: przeżyć", "ts");
+    out += T(170, 176, "rozwój narzędzi wymaga:", "ts");
+    out += B(8, 184, 100, 50, "język", "znaki umowne", "bx") + A(108, 209, 120, 209);
+    out += B(120, 184, 100, 50, "społeczność", "zorganizowana", "bx") + A(220, 209, 232, 209);
+    out += B(232, 184, 100, 50, "narzędzia", "i postęp", "bx-a");
+    out += T(75, 262, "wiele części", "ts");
+    [0, 1, 2].forEach(function (i) {
+      var y = 270 + i * 28;
+      out += B(40, y, 70, 22, "część", "", "bx");
+      out += L(110, y + 11, 218, 298);
+    });
+    out += '<circle class="bx-a" cx="254" cy="298" r="36"/>' + Tc(254, 298, ["jedno", "działanie"], "ts");
+    out += T(170, 368, "celowe sprzężenie wielości dla jedności działania", "ts ta");
+    return { w: 340, h: 378, body: out };
+  }
+
+  function afwPoznanie() {
+    var rows = [
+      ["shapes", "Rozumowe", "rozumie układ relacji w narzędziu", "→ byt racjonalny"],
+      ["eye", "Kontemplacyjno-estetyczne", "teatr, muzyka, religia, piękno", "→ bezproduktywne"],
+      ["moon", "Refleksyjne", "cmentarze: ujmuje całość życia", "→ niezgoda na śmierć"]
+    ];
+    var out = T(170, 14, "fakt ludzki od zewnątrz ujawnia trzy rodzaje poznania:", "ts");
+    rows.forEach(function (r, i) {
+      var y = 24 + i * 70;
+      out += R(8, y, 324, 62, i === 0 ? "bx-a" : "bx");
+      out += I(r[0], 20, y + 17, 28, "ta");
+      out += T(62, y + 20, r[1], "tb", "start");
+      out += T(62, y + 36, r[2], "ts", "start");
+      out += T(62, y + 52, r[3], "ts ta", "start");
+    });
+    return { w: 340, h: 24 + 3 * 70, body: out };
+  }
+
+  W.registerFigs.push(function () {
+    W.addFigs("af-w2", {
+      plan: { n: "n2", c: ["kolejnosc", "systemowa"], cap: "Dziesięć tez części systemowej. Ten wykład to punkt 1: fakt ludzki od zewnątrz.", fn: afwPlan },
+      etapy: { n: "n5", c: ["dwa-etapy", "determinacja", "zasadnicza", "przeniesienie", "form-real"], cap: "Dwa etapy nauk realnych przenosimy do antropologii, bo ma być realistyczna: najpierw fakt ludzki i jego opis, potem wyjaśnienie.", fn: afwEtapy },
+      fakt: { n: "n6", c: ["fakt-ludzki", "punkt-wyjscia", "powszechnik", "metapoziom", "nie-jan"], cap: "„Człowiek” to pojęcie, które powstaje z poznania wielu konkretnych ludzi. Punkt wyjścia to fakt ludzki: realni ludzie, nie pojęcie i nie jeden Jan.", fn: afwFakt },
+      kierunek: { n: "n7", c: ["problem2", "pozornie", "pozytywizm", "fundament", "przednaukowe", "autonomia-start"], cap: "Pozytywizm każe filozofii czekać na nauki. Wykład odwraca kierunek: start od zdrowego rozsądku, filozofia jako fundament.", fn: afwKierunek },
+      drogi: { n: "n9", c: ["zewnetrzne", "wewnetrzne", "dopelniaja", "wojtyla"], cap: "Dwie drogi do faktu ludzkiego dopełniają się. O dopuszczenie doświadczenia wewnętrznego upominał się Wojtyła.", fn: afwDrogi },
+      zoon: { n: "n10", c: ["skreslone", "zoon-logikon", "animal-rationale", "przeklad", "rodzaj", "roznica"], cap: "W greckim i łacińskim słowie jest życie, a w polskim „zwierzęciu” go brak. Dlatego: istota żywa (rodzaj najbliższy) + rozumność (różnica gatunkowa).", fn: afwZoon },
+      narzedzie: { n: "n12", c: ["oznaki", "narz-pozabiol", "wielofunkcyjne", "lancuch", "uklad"], cap: "Narzędzie zwierzęcia służy przetrwaniu, narzędzie człowieka wielu celom. Narzędzia wymagają społeczności, a ta języka. Każde narzędzie to części połączone dla jednego działania.", fn: afwNarzedzie },
+      poznanie: { n: "n13", c: ["rozumowe", "racjonalny", "kontemplacyjne", "refleksyjne", "wniosek"], cap: "Wniosek wykładu: patrząc z zewnątrz, widzimy u człowieka trzy rodzaje poznania.", fn: afwPoznanie }
+    });
+  });
+
   /* ================= Metody pracy twórczej ================= */
 
   function mptOlowki() {

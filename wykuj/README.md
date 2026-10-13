@@ -33,7 +33,7 @@ Dopowiedzenia można wyłączyć w profilu, a egzamin próbny zawsze je pomija.
 | Przedmiot | Moduły |
 | --- | --- |
 | Metody pracy twórczej z dziećmi i młodzieżą (MPT) | Wykład 1: Specyfika |
-| Antropologia filozoficzna (AF) | Wykład 1: Czym jest antropologia filozoficzna |
+| Antropologia filozoficzna (AF) | Wykład 1: Czym jest antropologia filozoficzna · Wykład 2: Fakt ludzki widziany od zewnątrz |
 | Logika (LOG) | Wykład 1: Semiotyka: język i znak + przewodnik „Jak zdać logikę” |
 | Procesy poznawcze: percepcja i uwaga (PP) | Wykład 1: Wprowadzenie do percepcji i uwagi |
 
@@ -63,6 +63,10 @@ Czytanka to zwykły moduł z `kind: "reading"` i kilkoma dodatkami:
 * **Widżety** w streszczeniu i we wprowadzeniu do lekcji: `<div data-widget="hamowanie">`
   to interaktywny symulator hamowania obocznego (`js/reading.js`).
 * Egzamin nazywa się „kartkówką próbną”, a ramki ★ to dopowiedzenia spoza czytanki.
+
+Wykład też może mieć pole `talk`. Wtedy tryb nazywa się „Pytania opisowe” i służy
+do ćwiczenia opisowej części testu (np. Antropologia, wykład 2): piszesz odpowiedź
+na brudno, odsłaniasz wzorzec ze słowami-kluczami i oceniasz się sam.
 
 Przedmiot może mieć przewodnik po zaliczeniu (`Wykuj.registerCourse`, np.
 `modules/lg-kurs.js`): zasady egzaminu, listę pytań teoretycznych z szkieletami
@@ -144,7 +148,7 @@ js/session.js       przebieg lekcji i ekran wyniku
 js/games.js         fiszki, quiz na czas, pary, sortownia, egzamin
 js/screens.js       start, moduł, ścieżka, notatki, profil
 js/guide.js         przewodnik „Jak zdać” i trener kartek egzaminacyjnych
-js/reading.js       czytanki: oryginał, „Na zajęcia”, widżety
+js/reading.js       czytanki: oryginał, „Na zajęcia” / „Pytania opisowe”, widżety
 js/app.js           router
 modules/            jeden plik na wykład albo czytankę
 assets/             zdjęcia stron czytanek

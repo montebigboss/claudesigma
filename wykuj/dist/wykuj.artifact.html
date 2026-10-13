@@ -4866,6 +4866,18 @@ a.pg-off {
     return { gen: r ? "czytanki" : "wykładu", nom: r ? "czytanka" : "wykład" }[form || "gen"];
   };
 
+  /* Pytania otwarte (pole talk): przy czytance do omówienia na zajęciach,
+   * przy wykładzie do opisowej części testu. */
+  W.talkText = function (m) {
+    return m.kind === "reading"
+      ? { name: "Na zajęcia", desc: "Pytania do omówienia z wzorcową odpowiedzią", step: "Powiedz własnymi słowami", count: "pytań na zajęcia",
+          where: "Takie pytania mogą paść na zajęciach: z dyskusji, wejściówki albo odpytywania.",
+          how: "Mówienie własnymi słowami utrwala najmocniej. Wystarczą 2–4 zdania.", before: "przed zajęciami", ph: "Powiedz albo napisz 2–4 zdania…", ready: "Jesteś gotowy na zajęcia." }
+      : { name: "Pytania opisowe", desc: "Odpowiedz pełnymi zdaniami, jak na teście", step: "Napisz własnymi słowami", count: "pytań opisowych",
+          where: "Takie pytania mogą paść w opisowej części testu.",
+          how: "Na teście piszesz, więc najlepiej na brudno. Wystarczy 4–6 zdań z kluczowymi terminami.", before: "przed testem", ph: "Napisz 4–6 zdań, jak na teście…", ready: "Jesteś gotowy na pytania opisowe." };
+  };
+
   /* Obrazy z assets/: w pliku jednoplikowym siedzą w W.IMG jako data URI. */
   W.img = function (path) {
     return (W.IMG && W.IMG[path]) || path;
@@ -7644,8 +7656,8 @@ Wykuj.registerModule({
   official: "Cel i organizacja wykładu",
   lecturer: null,
   term: "KUL · kurs dla psychologów · 01.10.2026",
-  passing: null,
-  examNote: "Zasady zaliczenia nie padły w materiałach. Próg 50% to tylko punkt odniesienia.",
+  passing: "Test pisemny: pytania zamknięte (prawda/fałsz i wyboru) oraz 1–3 pytania opisowe (zapowiedź z wykładu 2).",
+  examNote: "Na teście będą też 1–3 pytania opisowe (ćwiczysz je w wykładzie 2). Progu nie podano, 50% to tylko punkt odniesienia.",
   passRatio: 0.5,
   sourceNames: { S: "slajdy i skrypt prowadzącego", K: "definicja słowo w słowo", D: "★ dopowiedzenie spoza materiałów" },
 
@@ -8850,6 +8862,1673 @@ Wykuj.registerModule({
       "<p><b>Co dalej według tez:</b> fakt ludzki „od zewnątrz” i „od wewnątrz” (Ja i akty „moje”), dusza i ciało, osoba – natura – kultura, poznanie i prawda, działanie (miłość, wolność, moralność, uczucia, dobro i zło), człowiek wobec społeczności, sztuka i piękno, człowiek jako byt religijny, śmierć. Potem historia: źródła biblijne i orfickie, starożytność, średniowiecze (Augustyn, Nemezjusz z Emezy, Boecjusz, Tomasz) i nowożytność (od Kartezjusza po postmodernizm).</p>" +
       "<p><b>Podręcznik:</b> M. A. Krąpiec, „Ja – człowiek”. Wersja skrócona: „Człowiek jako osoba”. Antropologia w pigułce: „Rozmowy z Ojcem Krąpcem: O człowieku”.</p>" +
       "<aside class='extra'><p>Uwaga na dwa „historyzmy”: na slajdzie 09 to pogląd, że człowiek jest wytworem epoki (problem antropologii kulturowej), a w planie kursu to sposób wykładania przedmiotu przez jego dzieje.</p></aside>" }
+  ]
+});
+
+</script>
+    <script>
+/* Moduł: Antropologia filozoficzna, wykład 2: Fakt ludzki widziany „od zewnątrz”.
+ *
+ * Źródła: prezentacja prowadzącej „Fakt ludzki widziany od zewnątrz” (7 slajdów)
+ * i transkrypcja nagrania wykładu (powtórka wykładu 1, tezy kursu, literatura,
+ * zasady zaliczenia, omówienie slajdów).
+ *
+ *   "S" slajd (domyślne, pomijane)
+ *   "K" do zapamiętania słowo w słowo
+ *   "U" powiedziane na wykładzie (z transkrypcji)
+ *   "D" dopowiedzenie spoza materiałów prowadzącej (★). Egzamin próbny je pomija.
+ *
+ * Każde ćwiczenie ma x: dlaczego poprawna odpowiedź jest poprawna.
+ * w: dlaczego nie pasują błędne opcje (po kolei za poprawną; w multi za o[]).
+ * talk: pytania opisowe z wzorcową odpowiedzią (na teście będą 1–3 takie pytania).
+ */
+Wykuj.registerModule({
+  id: "af-w2",
+  course: { id: "af", name: "Antropologia filozoficzna", short: "AF", theme: "indigo", icon: "column" },
+  number: 2,
+  title: "Fakt ludzki widziany od zewnątrz",
+  official: "Fakt ludzki widziany „od zewnątrz”",
+  lecturer: null,
+  term: "KUL · kurs dla psychologów",
+  passing: "Test pisemny: pytania zamknięte (prawda/fałsz i wyboru) oraz 1–3 pytania opisowe.",
+  examNote: "Na teście będą też 1–3 pytania opisowe. Ćwiczysz je w trybie „Pytania opisowe”. Progu nie podano, 50% to tylko punkt odniesienia.",
+  passRatio: 0.5,
+  sourceNames: { S: "slajdy prowadzącej", K: "do zapamiętania słowo w słowo", U: "powiedziane na wykładzie (nagranie)", D: "★ dopowiedzenie spoza materiałów" },
+
+  sets: {
+    rodz: { label: "Która antropologia?", items: ["Przyrodnicza", "Kulturowa (społeczna)", "Teologiczna", "Filozoficzna"],
+      why: ["antropologia, która bada człowieka jako organizm i jeden z gatunków przyrody",
+            "antropologia, która bada człowieka przez kulturę; nazwy „kulturowa” i „społeczna” używa się zamiennie",
+            "antropologia oparta na Objawieniu; dla filozofii może być zwieńczeniem albo inspiracją",
+            "antropologia, która bada człowieka rozumem naturalnym, autonomicznie, realistycznie i z doświadczenia"] },
+    tezy: { label: "Który punkt części systemowej?", numbered: true,
+      items: ["Fakt ludzki od zewnątrz", "Doświadczenie od wewnątrz", "Dusza i ciało", "Osoba, natura, kultura", "Poznanie i prawda", "Działanie: wolność, miłość, moralność",
+              "Człowiek wobec społeczności", "Człowiek i sztuka", "Człowiek jako byt religijny", "Śmierć"],
+      why: ["punkt wyjścia: fakt ludzki dostępny w doświadczeniu „od zewnątrz” (ten wykład)",
+            "„Ja” jako działający, „Ja” i akty „moje”: doświadczenie bycia człowiekiem od środka",
+            "struktura bytu ludzkiego: duchowość i cielesność, przy ciele także płciowość",
+            "teoria osoby budowana w relacji do natury i do kultury",
+            "zmysły, rozum i problem prawdy",
+            "miłość, decyzja, wolność, moralność, uczucia, rozumienie dobra i problem zła",
+            "człowiek jako byt społeczny: filozofia prawa, polityki, państwa, rodziny, narodu",
+            "człowiek jako artysta: sztuka, technika, arcydzieło (i może antydzieło)",
+            "filozofia religii (prace s. prof. Zofii Zdybickiej), a nie teologia",
+            "koniec części systemowej: czy definicja medyczna wystarczy, czy filozofia ma własną koncepcję śmierci"] },
+    cecha: { label: "Która cecha z przeglądu?",
+      items: ["Bez naturalnej niszy ekologicznej", "Narzędzia i postęp techniczny", "Społeczność także umowna", "Język znaków umownych",
+              "Poznanie kontemplacyjne", "Świadomość bycia ku śmierci"],
+      why: ["człowiek może żyć wszędzie: na północy i południu, na lodzie, wysoko, pod ziemią, w różnych temperaturach",
+            "człowiek wytwarza i doskonali narzędzia dla celów pozabiologicznych, stąd kolejne epoki techniki",
+            "obok społeczności naturalnych (rodzina, naród) człowiek tworzy konwencjonalne, oparte na umowie",
+            "człowiek umawia się, co znaczą znaki: tworzy nowe języki i przekłada z jednego na drugi",
+            "człowiek ogląda coś dla samego oglądania: sztuka, przeżycia religijne, piękno przyrody",
+            "człowiek wie, że umrze, i daje temu wyraz, np. budując cmentarze"] },
+    poznanie: { label: "Który rodzaj poznania?", items: ["Rozumowe", "Kontemplacyjno-estetyczne", "Refleksyjne"],
+      why: ["poznanie, które rozumie układ relacji w narzędziu: budowanie narzędzi i posługiwanie się nimi",
+            "poznanie bezproduktywne, dla samego oglądania: teatr, muzyka, religia, piękno przyrody",
+            "poznanie, w którym człowiek ujmuje całość swojego życia, łącznie z jego końcem: cmentarze"] }
+  },
+
+  units: [
+    { id: "powtorka", title: "Powtórka z wykładu 1", sub: "Co prowadząca przypomniała na start", icon: "redo" },
+    { id: "mapa", title: "Mapa kursu i zaliczenie", sub: "Tezy części systemowej, test, literatura", icon: "path" },
+    { id: "kompetencje", title: "Gdy nauka mówi za dużo", sub: "Przekraczanie kompetencji: dwa przykłady", icon: "wall" },
+    { id: "nauki", title: "Nauki realne: dwa etapy", sub: "Slajd 2: najpierw fakt, potem wyjaśnienie", icon: "split" },
+    { id: "fakt", title: "Fakt ludzki, nie „człowiek”", sub: "Punkt wyjścia: pewne pytanie na teście", icon: "target", seq: true,
+      teach: "<p><b>Najważniejsze zdanie wykładu:</b> punktem wyjścia antropologii realistycznej jest <mark>fakt ludzki</mark>. Prowadząca powiedziała wprost, że odpowiedź „człowiek” na kolokwium nie dostanie punktu.</p>" +
+        "<p>Dlaczego? „Człowiek” to <b>pojęcie ogólne</b> (powszechnik), które powstaje w głowie, gdy poznamy wielu konkretnych ludzi. To już wynik poznania, czyli <b>metapoziom</b>. Gdybyśmy zaczęli od pojęcia, antropologia byłaby tylko analizą słowa. Nie możemy też zacząć od jednego konkretnego Jana, bo to nienaukowe. „Fakt ludzki” jest realny, a zarazem pasuje do każdego człowieka.</p>" },
+    { id: "problemy", title: "Dwa kłopoty z faktem", sub: "Slajdy 2–3: fakty nagie i pozytywizm", icon: "x" },
+    { id: "start", title: "Start od zdrowego rozsądku", sub: "Slajd 3: poznanie przednaukowe i autonomia", icon: "home" },
+    { id: "drogi", title: "Od zewnątrz i od wewnątrz", sub: "Slajdy 3–4: dwie drogi do faktu ludzkiego", icon: "eye",
+      teach: "<p>Fakt ludzki można opisać na dwa sposoby i to jest w antropologii wyjątkowe:</p>" +
+        "<ul><li><b>Od zewnątrz</b>: patrzę na innych ludzi jak obserwator. Doświadczenie <b>przedmiotowe, obiektywne</b>, daje „miarę obiektywną”.</li>" +
+        "<li><b>Od wewnątrz</b>: sam jestem człowiekiem i przeżywam siebie jako działającego. Doświadczenie <b>podmiotowe, subiektywne</b>, trudne do przekazania innym.</li></ul>" +
+        "<p>Oba punkty widzenia <b>dopełniają się</b>. O dopuszczenie doświadczenia wewnętrznego spierał się z Krąpcem <b>Wojtyła</b>. Ten wykład omawia drogę zewnętrzną.</p>" },
+    { id: "zoon", title: "Zwierzę rozumne? Istota żywa", sub: "Dlaczego prowadząca skreśla „zwierzę”", icon: "pulse", seq: true,
+      teach: "<p>Na slajdzie stoi „od strony zewnętrznej <s>zwierzę</s>”. Prowadząca to skreśla. Klasyczna definicja człowieka to gr. <b>zoon logikon</b> i łac. <b>animal rationale</b>, po polsku „zwierzę rozumne”.</p>" +
+        "<p>Ale w <b>zoon</b> siedzi <b>zoe</b> (życie), a w <b>animal</b> siedzi <b>anima</b> (dusza). Polskie „zwierzę” gubi ten element życia, więc wychodzi redukcja: „tylko zwierzę”. Lepiej: <mark>istota żywa</mark> rozumna.</p>" +
+        "<p>Budowa definicji: <b>rodzaj najbliższy</b> = istoty żywe (razem z roślinami i zwierzętami) + <b>różnica gatunkowa</b> = rozumność.</p>" },
+    { id: "przeglad", title: "Człowiek od zewnątrz", sub: "Slajdy 4–5: przegląd cech i przekraczanie przyrody", icon: "user", table: true },
+    { id: "faber", title: "Homo faber", sub: "Slajd 6: narzędzia, społeczność, język", icon: "hand" },
+    { id: "poznanie", title: "Trzy rodzaje poznania", sub: "Slajd 7: rozumowe, kontemplacyjne, refleksyjne", icon: "bulb",
+      teach: "<p>Slajd 7 zbiera wszystko w jeden wniosek. Fakt ludzki widziany od zewnątrz ujawnia <b>trzy rodzaje poznania</b>:</p>" +
+        "<ol><li><b>Rozumowe</b>: kto buduje narzędzie, musi rozumieć układ relacji między jego częściami. Dlatego człowiek to <b>byt racjonalny</b>, czyli używający rozumu celowo.</li>" +
+        "<li><b>Kontemplacyjno-estetyczne</b> (bezproduktywne): teatr, muzyka, religia. Jedziemy tysiące kilometrów, żeby zobaczyć wodospad, choć do niczego się to nie przydaje.</li>" +
+        "<li><b>Refleksyjne</b>: cmentarze. Człowiek ujmuje całość swojego życia, łącznie ze śmiercią.</li></ol>" },
+    { id: "mix", title: "Rozpoznaj w życiu", sub: "Sytuacje z codzienności", icon: "dice" },
+    { id: "boss", title: "Test końcowy", sub: "Wszystko z wykładu 2, 15 pytań", icon: "crown", boss: true }
+  ],
+
+  concepts: [
+    /* ---------- Powtórka ---------- */
+    { id: "def-af", u: "powtorka", s: "K", term: "Definicja antropologii filozoficznej",
+      plain: "Patrzymy na to, co człowiek robi i tworzy, żeby się dowiedzieć, jakim jest bytem i jakie ma miejsce w świecie. Prowadząca: ta definicja na pewno będzie na kolokwium.",
+      def: "Dziedzina filozofii, która bada człowieka, jego działania i wytwory, o ile wskazują one na jego określoną strukturę ontyczną i egzystencjalną pozycję w świecie.",
+      sh: "bada działania i wytwory, o ile wskazują na strukturę ontyczną" },
+    { id: "personalizm", u: "powtorka", s: "U", term: "Personalizm",
+      plain: "Nurt, w którego centrum jest osoba. Jest młody: przełom XIX i XX wieku, głównie XX wiek. Samo pojęcie osoby jest dużo starsze.",
+      def: "Personalizm jako nurt w rozumieniu człowieka jest stosunkowo nowy: przełom XIX i XX wieku, głównie wiek XX. Koncepcja osoby powstała oczywiście wcześniej.",
+      sh: "młody nurt, głównie XX wiek" },
+    { id: "kult-spol", u: "powtorka", s: "U", term: "Kulturowa czy społeczna?",
+      plain: "Jedna antropologia, dwie nazwy, używane zamiennie. U nas ostatnio modniejsza jest nazwa „kulturowa”.",
+      def: "Prowadząca: kulturowa „bodajże” w systemie anglosaskim, społeczna w systemie niemieckim. Nazw używa się zamiennie; w ostatnich latach w Polsce modniejsza jest „kulturowa”.",
+      sh: "dwie nazwy jednej antropologii" },
+    { id: "teol-zwien", u: "powtorka", s: "U", term: "Teologiczna wobec filozoficznej",
+      plain: "Teologia nie jest dla filozofa punktem wyjścia, ale może być zwieńczeniem jego dociekań albo podsunąć mu, co badać.",
+      def: "Antropologia teologiczna w stosunku do filozofii może stanowić zwieńczenie dociekań filozoficznych albo inspirację do badań filozoficznych. Korelacje między antropologiami są różne.",
+      sh: "zwieńczenie albo inspiracja" },
+    { id: "metoda-nie-autor", u: "powtorka", s: "U", term: "Autonomia wobec teologii",
+      plain: "O tym, czy coś jest filozofią, decyduje metoda, a nie to, kto pisał. Święty, który rozumuje samym rozumem, uprawia filozofię.",
+      def: "Autonomia antropologii filozoficznej dotyczy nauk szczegółowych i teologii. Nie chodzi o to, kto ją uprawiał (np. święci Kościoła), tylko jaką metodę przyjmuje: filozofia rozum naturalny, teologia rozum nadprzyrodzony i tezy Objawienia, których nie odkryjemy ludzkim rozumem.",
+      sh: "decyduje metoda, nie autor" },
+    { id: "bez-objawienia", u: "powtorka", s: "U", term: "Racjonalna i aposterioryczna",
+      plain: "Nie zaczynamy od prawdy objawionej, np. od biblijnego opisu stworzenia. Zaczynamy od doświadczenia i używamy rozumu.",
+      def: "W punkcie wyjścia nie wolno mieć tez objawionych (np. biblijnej prawdy o stworzeniu człowieka); filozoficzną teorię stworzenia trzeba uzyskać inaczej. Antropologie irracjonalne nie są honorowane. Aposterioryczna = oparta na doświadczeniu.",
+      sh: "bez Objawienia na starcie, z doświadczenia" },
+    { id: "realist-w2", u: "powtorka", s: "U", term: "Realistyczna",
+      plain: "Teoria ma pasować do prawdziwych ludzi, a nie do wymyślonego, idealnego obrazu człowieka.",
+      def: "Teoria antropologiczna ma się uzgadniać z rzeczywistością konkretnej ludzkiej osoby i wyjaśniać realne fenomeny ludzkiego życia, a nie być idealną, wyłącznie abstrakcyjną wizją. Realiści, a nie idealiści.",
+      sh: "zgodna z realnym człowiekiem, nie z ideą" },
+    { id: "niesprzecznosc", u: "powtorka", s: "U", term: "Uniesprzecznianie i zasada niesprzeczności",
+      plain: "Nie można powiedzieć, że coś naraz jest i nie jest. Wyjaśniając, wskazujemy coś realnego, dzięki czemu fakt nie jest sprzeczny.",
+      def: "Sprzeczność powstaje, gdy mówimy, że jakiś byt jest niebytem albo niebyt bytem: to złamanie zasady niesprzeczności. Uniesprzeczniając, odwołujemy się do racji bytowej, czyli realnej rzeczywistości. W filozofii jest też miejsce na hipotezy.",
+      sh: "byt nie jest niebytem" },
+    { id: "po-co-metoda", u: "powtorka", s: "U", term: "Po co część metodologiczna",
+      plain: "Przyda się przy pracy magisterskiej, która łączy np. badania mózgu z filozofią: trzeba w niej pokazać, że to różne metody i różne cele.",
+      def: "Elementy metodologii nabierają sensu np. w pracy magisterskiej łączącej dane z antropologii przyrodniczej (psychologia empiryczna, badania nad mózgiem) z elementami antropologii filozoficznej czy kulturowej: trzeba pokazać, że części pracy mają inne metody i cele.",
+      sh: "rozdziela metody w pracy interdyscyplinarnej" },
+
+    /* ---------- Mapa kursu i zaliczenie ---------- */
+    { id: "systemowa", u: "mapa", s: "U", term: "Część systemowa",
+      plain: "Rdzeń kursu: uporządkowana odpowiedź na pytanie, kim jest człowiek. Otwarta, nie dogmatyczna, z mnóstwem miejsca na nowe badania.",
+      def: "W wykładzie idzie jako trzecia, ale jest najważniejsza, więc zaczynamy od niej teraz. Systemowe rozważanie, kim jest człowiek; nie system zamknięty ani dogmaty, tylko dynamiczna część z wieloma tematami do badań. Pełna, integralna odpowiedź łączy wiele nauk, nawet lingwistykę.",
+      sh: "rdzeń kursu, system otwarty" },
+    { id: "historia-koniec", u: "mapa", s: "U", term: "Historia na koniec",
+      plain: "Część historyczną przeniesiono na koniec semestru. Możliwe, że w ogóle nie trafi do testu.",
+      def: "Historia antropologii przeniesiona na koniec, bo studenci mają osobno historię filozofii. Prowadząca zastanowi się, czy wrzucać ją do testu; test może objąć metodologię i część systemową. Na koniec: paradygmaty człowieka i osoby albo przegląd głównych filozofów.",
+      sh: "na końcu semestru, może poza testem" },
+    { id: "kolejnosc", u: "mapa", s: "U", term: "Kolejność części systemowej",
+      plain: "Najpierw od czego zaczynamy i jak opisać człowieka, potem z czego jest zbudowany, a na końcu co robi: poznaje, działa, żyje z innymi, tworzy, wierzy i umiera.",
+      def: "Tezy: 1. fakt ludzki od zewnątrz → 2. doświadczenie od wewnątrz („Ja” i akty „moje”) → 3. dusza i ciało → 4. osoba, natura, kultura → 5. poznanie → 6. działanie → 7. człowiek wobec społeczności → 8. człowiek i sztuka → 9. człowiek jako byt religijny → 10. śmierć.",
+      sh: "od faktu ludzkiego do śmierci" },
+    { id: "bez-dualizmu", u: "mapa", s: "U", term: "Dusza i ciało osobno, ale bez dualizmu",
+      plain: "Duszę i ciało omawia się po kolei, ale to tylko porządek wykładu. Kurs odrzuca dualizm: człowiek to jeden byt.",
+      def: "W tezach duszę i ciało analizuje się osobno, jakby przyjmować dualizm antropologiczny, a kurs ten dualizm odrzuca. Prowadząca szuka sposobu, by pokazać je razem: funkcje duszy względem ciała i ciała względem duszy.",
+      sh: "osobno w wykładzie, jedność w teorii" },
+    { id: "cialo-plec", u: "mapa", s: "U", term: "Nowe pytania o ciało",
+      plain: "Kiedyś sprawy ciała były dość oczywiste. Rozwój medycyny i biologii sprawił, że dziś pytania o ciało i płciowość wymagają odpowiedzi filozofów.",
+      def: "Przy ciele tradycyjnie omawia się płciowość. Rozwój technik medycznych i antropologii przyrodniczych rodzi cały szereg problemów antropologicznych w rozumieniu ciała (np. dyskusja o płciowości), co wymusza odpowiedzi filozofów.",
+      sh: "medycyna rodzi pytania o ciało i płeć" },
+    { id: "osoba-nk", u: "mapa", s: "U", term: "Osoba wobec natury i kultury",
+      plain: "To, z czego człowiek jest zbudowany, jeszcze nie mówi do końca, jakim jest bytem. Odpowiedź daje teoria osoby.",
+      def: "Wskazanie na strukturę (duchowość i cielesność) nie mówi jeszcze do końca, jakiego rodzaju bytem jest człowiek. Teorię osoby buduje się w relacji do natury i do kultury; tu kończy się część o strukturze bytu ludzkiego.",
+      sh: "teoria osoby w relacji do natury i kultury" },
+    { id: "antydzielo", u: "mapa", s: "U", term: "Arcydzieło i antydzieło",
+      plain: "Skoro są arcydzieła, to czy jest ich przeciwieństwo? Współczesna sztuka sama nazywa się czasem antysztuką.",
+      def: "Przy twórczości: pod jakimi warunkami coś osiąga status arcydzieła (np. dzieła Michała Anioła, dyskutowana „Lalka”) i czy można wskazać opozycję, antydzieło, skoro współczesna sztuka określa się jako antysztuka, a artyści jako antyartyści, żeby zerwać z klasycznymi kanonami.",
+      sh: "przeciwieństwo arcydzieła" },
+    { id: "filo-religii", u: "mapa", s: "U", term: "Filozofia religii",
+      plain: "O religii mówimy jak filozofowie, nie jak teolodzy.",
+      def: "Dziedzinę religii omawia się na terenie filozofii religii, bez wchodzenia w teologię, korzystając z prac s. prof. Zofii Zdybickiej: pierwszej zakonnicy profesor w Polsce, kierowniczki katedry filozofii religii.",
+      sh: "religia od strony filozofii (Zdybicka)" },
+    { id: "smierc", u: "mapa", s: "U", term: "Filozoficzna interpretacja śmierci",
+      plain: "Czy śmierć to tylko to, co stwierdza lekarz, np. śmierć mózgu? Czy filozofia ma o niej coś własnego do powiedzenia?",
+      def: "Koniec części systemowej. Pytanie, czy wystarcza definicja medyczna (śmierć mózgowa, tzw. bierne, pasywne rozumienie śmierci), czy jest „coś za tym momentem” i filozofia może podać własną koncepcję śmierci.",
+      sh: "czy wystarczy definicja medyczna?" },
+    { id: "test", u: "mapa", s: "U", term: "Test pisemny",
+      plain: "Zaliczenie to test na kartce: pytania zamknięte, a do tego 1–3 pytania opisowe, żeby każdy pisał trochę inaczej i nie dało się ściągnąć od sąsiada.",
+      def: "Zaliczenie: test pisemny. Pytania rozstrzygnięcia (prawda/fałsz) albo wyboru oraz jedno, dwa albo trzy szersze pytania opisowe, które indywidualizują test.",
+      sh: "zamknięte + 1–3 opisowe" },
+    { id: "podreczniki", u: "mapa", s: "U", term: "Podręczniki Krąpca",
+      plain: "Główny podręcznik części systemowej to „Ja – człowiek”. Jest trudny, więc są dwie krótsze wersje.",
+      def: "Część systemowa opiera się głównie na M. A. Krąpcu „Ja – człowiek”. Wersja skrócona: „Człowiek jako osoba”. Najmniejsza: „Rozmowy z Ojcem Krąpcem: O człowieku” (rozmawia R. J. Weksler-Waszkinel), czyli „antropologia w pigułce”.",
+      sh: "„Ja – człowiek” i krótsze wersje" },
+    { id: "klasyka", u: "mapa", s: "U", term: "Klasyka: Arystoteles i Wojtyła",
+      plain: "Najważniejsze źródło klasyczne to traktat Arystotelesa „O duszy”. Z Lublina: „Osoba i czyn” Karola Wojtyły.",
+      def: "Traktat „O duszy” Arystotelesa to najważniejszy klasyczny punkt wyjścia (źródło, z którego bierzemy wątki). Wojtyła: „Osoba i czyn” (powstała w Lublinie, jest w karcie przedmiotu) i mniejsza, popularna książeczka „Rozważania o istocie człowieka”.",
+      sh: "„O duszy” i „Osoba i czyn”" },
+
+    /* ---------- Kompetencje ---------- */
+    { id: "kaminski", u: "kompetencje", s: "U", term: "Ks. Stanisław Kamiński",
+      plain: "Metodolog z KUL, nazywany „pogotowiem metodologicznym”: pomagał ustawić prace z innych dziedzin, zwłaszcza łączące kilka perspektyw.",
+      def: "Skrypt z metodologii (na Teamsie) opiera się na tekstach ks. Stanisława Kamińskiego, naczelnego metodologa KUL, zwanego pogotowiem metodologicznym dla innych kierunków (np. socjologii, psychologii, prac interdyscyplinarnych).",
+      sh: "„pogotowie metodologiczne” KUL" },
+    { id: "wizja", u: "kompetencje", s: "U", term: "„Naukowa, filozoficzna i teologiczna wizja człowieka”",
+      plain: "Tekst Kamińskiego o tym, jak ułożyć różne antropologie obok siebie, żeby się dopełniały, a nie wykluczały.",
+      def: "Artykuł w „Jak filozofować?” (w tezach kursu w części o statusie metodologicznym). Pokazuje, jak uporządkować różne antropologie na osiach, by budować gmach integralnej wiedzy o człowieku: żeby się nie wykluczały, dopełniały i nie przekraczały swoich kompetencji.",
+      sh: "jak ułożyć antropologie, by się dopełniały" },
+    { id: "kompetencje", u: "kompetencje", s: "U", term: "Przekroczenie kompetencji",
+      plain: "Nauka ogłasza coś, czego jej metoda nie pozwala stwierdzić. Genetyk może badać geny, ale z samych genów nie rozstrzygnie, czym jest człowiek jako całość.",
+      def: "W metodologii chodzi o to, czy dana nauka może daną metodą dojść do danej tezy. Różne nauki głoszą tezy z przekroczeniem swoich kompetencji metodologicznych.",
+      sh: "teza, do której metoda nie uprawnia" },
+    { id: "genetycy", u: "kompetencje", s: "U", term: "„Człowiek jest zwierzęciem”",
+      plain: "Dwóch genetyków ogłosiło, że człowiek to zwierzę. Prowadząca: to już redukcja.",
+      def: "Przykład z wykładu 1 przypomniany na wykładzie 2: twierdzenie dwójki genetyków, że człowiek jest zwierzęciem, to redukcja, czyli przekroczenie kompetencji.",
+      sh: "redukcja z genetyki" },
+    { id: "dziewczynki", u: "kompetencje", s: "U", term: "„Na początku wszyscy jesteśmy dziewczynkami”",
+      plain: "Tak mówią czasem lekarze, bo w życiu płodowym narządy męskie wyłaniają się później. Ale to, w jakiej kolejności coś powstaje, nie mówi, czym to jest.",
+      def: "Przykład z popularnej medycyny: z kolejności wyłaniania się narządów w życiu płodowym robi się znak równości. Z perspektywy filozoficznej to błędna teza: pomieszanie opisu stawania się z tym, czym (kim) coś jest, czyli z naturą bytu.",
+      sh: "stawanie się pomylone z naturą" },
+    { id: "cel-kursu", u: "kompetencje", s: "U", term: "Cel kursu według prowadzącej",
+      plain: "Umieć odróżnić tezę filozoficzną od uzasadnionej tezy nauk szczegółowych.",
+      def: "Jeśli po antropologii będziemy umieli rozróżnić, gdzie mamy do czynienia z tezą ściśle filozoficzną, a gdzie z uzasadnioną tezą antropologii szczegółowych, cel będzie osiągnięty.",
+      sh: "odróżniać tezę filozoficzną od naukowej" },
+
+    /* ---------- Nauki realne ---------- */
+    { id: "form-real", u: "nauki", s: "U", term: "Nauki formalne i realne",
+      plain: "Formalne zajmują się samą formą, np. ilością. Realne badają rzeczywistość: łac. res to rzecz.",
+      def: "Podział nauk u Kamińskiego. Formalne zajmują się stroną formalną (aspekt ilościowy czy jakościowy); realne (res – rzecz) badają rzeczywistość, np. biologia, części fizyki, przyrodoznawstwo.",
+      sh: "forma czy rzeczywistość (res)" },
+    { id: "dwa-etapy", u: "nauki", term: "Dwa etapy postępowania teoretycznego",
+      plain: "Najpierw ustal, co jest faktem, i opisz go. Dopiero potem tłumacz, skąd się wziął.",
+      def: "W naukach realnych wyróżnia się dwa etapy: 1) ustalenie i opis faktów, 2) próby ich interpretacji oraz wyjaśnianie.",
+      sh: "opis faktów, potem interpretacja i wyjaśnianie" },
+    { id: "determinacja", u: "nauki", s: "U", term: "Determinacja faktu",
+      plain: "Fachowa nazwa opisu faktu: zebranie informacji o nim, zanim zaczniemy go wyjaśniać.",
+      def: "Ustalić i opisać fakt to inaczej zdeterminować go, czyli uzyskać o nim pewne informacje. Drugi poziom, interpretacja przechodząca w wyjaśnianie, jest bardziej skomplikowany.",
+      sh: "inna nazwa opisu faktu" },
+    { id: "zasadnicza", u: "nauki", term: "Sprawa zasadnicza",
+      plain: "Dwie rzeczy na start: co dokładnie wyjaśniamy i jak będziemy to wyjaśniać.",
+      def: "Sprawą zasadniczą jest ustalenie faktu jako przedmiotu badań i wyjaśnień oraz wskazanie sposobu wyjaśnienia tego faktu (to już metoda antropologii).",
+      sh: "co wyjaśniamy i jak" },
+    { id: "przeniesienie", u: "nauki", s: "U", term: "Dlaczego etapy z nauk realnych?",
+      plain: "Chcemy antropologii realistycznej, która bada prawdziwego człowieka, a nie go wymyśla. Dlatego bierzemy schemat od nauk o rzeczywistości.",
+      def: "Etapy postępowania z nauk realnych przenosimy do antropologii filozoficznej, bo ma być realistyczna: badać rzeczywistość, a nie wymyślać koncepcję człowieka.",
+      sh: "bo antropologia ma być realistyczna" },
+
+    /* ---------- Fakt ludzki ---------- */
+    { id: "fakt-ludzki", u: "fakt", s: "K", term: "Fakt ludzki",
+      plain: "Prawdziwy człowiek, taki jak ty czy sąsiad, wzięty jako to, od czego zaczynamy. Nie słowo „człowiek” ze słownika.",
+      def: "Faktem danym nam do wyjaśnienia jest sam człowiek ujęty w swych istotnych bytowych właściwościach. Czym jest fakt bycia człowiekiem i jak jest nam dany = FAKT LUDZKI.",
+      sh: "człowiek w istotnych właściwościach bytowych" },
+    { id: "punkt-wyjscia", u: "fakt", s: "U", term: "Punkt wyjścia antropologii",
+      plain: "Na teście: punkt wyjścia to FAKT LUDZKI. Napiszesz „człowiek”, stracisz punkt.",
+      def: "Punktem wyjścia antropologii realistycznej jest fakt ludzki. Prowadząca: odpowiedź „człowiek” na kolokwium nie dostanie punktu, trzeba napisać „fakt ludzki”, choć terminu „człowiek” cały czas używamy.",
+      sh: "fakt ludzki, a nie „człowiek”" },
+    { id: "powszechnik", u: "fakt", s: "U", term: "Powszechnik",
+      plain: "Słowo „człowiek” powstaje w głowie, gdy poznamy wielu konkretnych ludzi i wyciągniemy, co mają wspólnego. To już wynik poznania, a nie sama rzeczywistość.",
+      def: "„Człowiek” to pojęcie ogólne, tzw. powszechnik: ujmuje właściwości konstytutywne bycia człowiekiem. Orzekamy je o konkretnej Agacie, Janie, Katarzynie i miliardach innych osób.",
+      sh: "pojęcie ogólne orzekane o wielu" },
+    { id: "metapoziom", u: "fakt", s: "U", term: "Metapoziom",
+      plain: "Poziom „nad” rzeczywistością: myśli i pojęcia o rzeczach, a nie same rzeczy.",
+      def: "Pojęcie ogólne jest na metapoziomie, bo jest rezultatem poznawania konkretnych ludzkich osób. Gdyby punktem wyjścia było pojęcie, antropologia byłaby analizą treści pojęcia „człowiek”.",
+      sh: "poziom pojęć o rzeczach" },
+    { id: "nie-jan", u: "fakt", s: "U", term: "Dlaczego nie „konkretny Jan”?",
+      plain: "Jeden Jan to za mało: nauka nie może zaczynać od jednej osoby, skoro ma mówić o każdym człowieku.",
+      def: "Nie możemy nazwać punktem wyjścia konkretnego Jana: byłoby to nienaukowe, bo jesteśmy w relacji do tego jednego indywiduum. „Fakt ludzki” jest realny, a pasuje do miliardów ludzkich istot: do nas samych i do innych.",
+      sh: "jedno indywiduum to za mało" },
+    { id: "krapiec-konkret", u: "fakt", s: "U", term: "Krąpiec: konkret, nie pojęcie",
+      plain: "Abstrakcja jest potrzebna, ale łatwo w niej utonąć i zgubić prawdziwego człowieka.",
+      def: "Ojciec Krąpiec: chodzi o konkret, o ludzką osobę, indywiduum. Tworząc pojęcia ogólne przez abstrakcję, nie możemy stracić kontaktu z realną rzeczywistością człowieka.",
+      sh: "abstrakcja nie może odciąć od konkretu" },
+    { id: "tym-gorzej", u: "fakt", s: "U", term: "„Tym gorzej dla faktów”",
+      plain: "Postawa idealisty: jeśli teoria nie pasuje do faktów, winne są fakty. Realista robi odwrotnie: poprawia teorię.",
+      def: "W dziejach filozofii było wiele idealistycznych koncepcji; gdy nie pasowały do faktów, to „tym gorzej dla faktów, nie dla teorii”. Filozof łatwo gubi się w teorii, która odrywa go od rzeczywistości.",
+      sh: "teoria ważniejsza od faktów" },
+
+    /* ---------- Dwa problemy ---------- */
+    { id: "nagie", u: "problemy", term: "Problem 1: nie ma faktów nagich",
+      plain: "Nie da się patrzeć bez żadnych „okularów”: zawsze coś już zakładamy. Dlatego trudno oddzielić opis od interpretacji.",
+      def: "Trudno oddzielić opis faktu ludzkiego od jego interpretacji teoretycznej, bo nie istnieją fakty nagie, nieuwikłane w jakiegoś typu przeżycie poznawcze, które determinuje i kieruje poznawaniem samego faktu.",
+      sh: "opis zawsze miesza się z interpretacją" },
+    { id: "neutralnosc", u: "problemy", s: "U", term: "Neutralność opisu",
+      plain: "Opis ma być „nijaki”: bez przemycania gotowych teorii. Nawet dobór słów może coś przemycić.",
+      def: "Dane do opisu mają być maksymalnie neutralne (łac. neutrum – nijaki: ani taki, ani taki, niewychylony w stronę jakiejś interpretacji) i zdroworozsądkowe. Wkraść się może światopogląd przyrodniczy, kulturowy, ideologie; interpretację wnosi już terminologia.",
+      sh: "„nijaki”, bez przemycanej teorii" },
+    { id: "swiatopoglad", u: "problemy", s: "U", term: "Światopogląd naukowy",
+      plain: "Wychowaliśmy się w nim, więc patrzymy przez niego automatycznie. Na pierwszym roku filozofii próbowano studentów z niego „wyczyścić”.",
+      def: "Wychowujemy się w światopoglądzie naukowym, który wnosi presupozycje do opisu. Na 1. roku filozofii próbowano „wyczyścić” z niego studentów; powinien on kształtować się dopiero później. Fachowcy pytają, czy pełna neutralność jest w ogóle możliwa.",
+      sh: "źródło ukrytych założeń w opisie" },
+    { id: "problem2", u: "problemy", term: "Problem 2: najpierw nauka, potem filozofia?",
+      plain: "Niektórzy chcą, żeby filozof zabierał głos dopiero wtedy, gdy nauki powiedzą już wszystko o człowieku.",
+      def: "Postuluje się, by fakt ludzki stanowił obraz człowieka dostarczony przez nauki szczegółowe. Twierdzi się, że filozofia powinna zastanawiać się nad człowiekiem dopiero wtedy, gdy nauka wypowie o nim swoje zdanie.",
+      sh: "fakt ludzki jako obraz z nauk" },
+    { id: "pozornie", u: "problemy", term: "Obraz naukowy tylko pozornie jednolity",
+      plain: "Nauki nie dają jednego obrazu człowieka: każda daje swój kawałek, a kawałki się nie składają.",
+      def: "Odpowiedź na problem 2: nie jest to proste, gdyż obraz naukowy człowieka tylko pozornie jest jednolity.",
+      sh: "nauki nie dają jednego obrazu" },
+    { id: "pozytywizm", u: "problemy", s: "U", term: "Paradygmat pozytywistyczny",
+      plain: "Od XIX wieku: nauki szczegółowe to wzór ścisłości, a filozofia ma przyjść na końcu jako ich podsumowanie.",
+      def: "Od XIX wieku przez XX do dziś: nauki szczegółowe są wzorem ścisłości i poznania naukowego, a filozofia musi podlegać uściślaniu i ma być na końcu, jako ogólne zwieńczenie. To filozofia nieautonomiczna wobec nauk szczegółowych.",
+      sh: "filozofia jako zwieńczenie nauk" },
+    { id: "fundament", u: "problemy", s: "U", term: "Filozofia jako fundament",
+      plain: "Odwracamy kierunek: filozofia jest na początku, jako podstawa. Nauki i tak zakładają jakąś filozofię, tylko często o tym nie wiedzą.",
+      def: "Filozofia jest najbardziej ogólna i teoretyczna, ma najszerszy przedmiot, więc jest podstawowa: ogólna teoria dla nauk szczegółowych i praktycznych. Nauki zakładają jakąś wersję filozofii, często nieuświadomioną. Historycznie filozofia była wszechnauką, z której wyłoniły się specjalizacje.",
+      sh: "podstawa, a nie zwieńczenie" },
+    { id: "nieautonom", u: "problemy", s: "U", term: "Antropologie nieautonomiczne",
+      plain: "Przyrodnicza, kulturowa, społeczna i teologiczna uogólniają wyniki swoich nauk, więc nie mogą się z nimi nie zgodzić.",
+      def: "Antropologie oparte na naukach (przyrodnicza, kulturowa, społeczna, teologiczna) są uogólniającą refleksją zamykającą dane typy poznania. To filozofie nieautonomiczne: nie mają wolności wobec tez tych nauk. Dlatego „bijemy się” o antropologię filozoficzną autonomiczną.",
+      sh: "bez wolności wobec tez swoich nauk" },
+
+    /* ---------- Start od zdrowego rozsądku ---------- */
+    { id: "przednaukowe", u: "start", term: "Poznanie przednaukowe",
+      plain: "Zwykłe, codzienne poznawanie, zanim zaczniemy robić naukę: widzę ludzi, rozmawiam z nimi, wiem, że istnieją.",
+      def: "Najbezpieczniej wybrać punkt wyjścia filozofii klasycznej – realistycznej, która wyrasta z poznania przednaukowego, spontanicznego (zdroworozsądkowego) i dane tego poznania swoiście opracowuje.",
+      sh: "przednaukowe, spontaniczne, zdroworozsądkowe" },
+    { id: "autonomia-start", u: "start", term: "Autonomia dzięki punktowi wyjścia",
+      plain: "Skoro zaczynamy od codziennego doświadczenia, a nie od wyników biologii, filozofia nie zależy od biologii.",
+      def: "Dzięki wyjściu od poznania przednaukowego zachowujemy autonomię od nauk szczegółowych. Na wykładzie: punkt wyjścia jest najważniejszy dla autonomii nauk; każda nauka, walcząc o autonomię, stara się mieć odrębny punkt wyjścia.",
+      sh: "własny punkt wyjścia daje autonomię" },
+    { id: "realista", u: "start", s: "U", term: "Każdy jest realistą",
+      plain: "Na co dzień nikt nie wątpi, że krzesło, na którym siada, jest prawdziwe. Nawet filozof idealista w praktyce zachowuje się jak realista.",
+      def: "Krąpiec: w życiu codziennym każdy z nas jest realistą, nawet filozof idealista w praktyce ma do czynienia z realnymi rzeczami. Filozofia klasyczna „uszlachetnia” ten realizm dnia codziennego i wykorzystuje go w punkcie wyjścia.",
+      sh: "realizm dnia codziennego" },
+    { id: "byt-konkretny", u: "start", s: "U", term: "Byt konkretny i fakt ludzki",
+      plain: "Metafizyka zaczyna od konkretnej, istniejącej rzeczy. Antropologia tak samo: od konkretnej ludzkiej rzeczywistości.",
+      def: "W metafizyce chodzi o wyjście od bytu konkretnego, w antropologii od faktu ludzkiego, czyli od jakiejś rzeczywistości ludzkiej, i dopiero jej opracowywanie.",
+      sh: "start metafizyki i start antropologii" },
+
+    /* ---------- Od zewnątrz i od wewnątrz ---------- */
+    { id: "zewnetrzne", u: "drogi", term: "Doświadczenie zewnętrzne",
+      plain: "Patrzysz na ludzi z boku, jak obserwator: co robią, jak żyją, co budują. Każdy może to sprawdzić.",
+      def: "Ustalenie faktu ludzkiego przez odwołanie się do „zewnętrznej” obserwacji człowieka. Daje poczucie miary obiektywnej w ustaleniu przedmiotu wyjaśnień filozoficznych; doświadczenie przedmiotowe, obiektywne.",
+      sh: "obserwacja z boku, miara obiektywna" },
+    { id: "wewnetrzne", u: "drogi", term: "Doświadczenie wewnętrzne",
+      plain: "Każdy z nas sam jest człowiekiem, więc wie od środka, jak to jest myśleć, decydować, cierpieć. Tego nie widać z zewnątrz.",
+      def: "Ustalenie faktu ludzkiego przez odwołanie się do „wewnętrznego doświadczenia” bycia człowiekiem jako działającego. Subiektywne, podmiotowe: zamknięte w moim „ja”, bardzo trudne do przekazania innym („nie rozumiesz mojego bólu”).",
+      sh: "przeżywanie siebie od środka" },
+    { id: "dopelniaja", u: "drogi", term: "Oba punkty widzenia dopełniają się",
+      plain: "Nie wybieramy jednego. Obserwacja z boku i przeżycie od środka razem dają pełny obraz.",
+      def: "Oba punkty widzenia dopełniają się. W antropologii zachodzi wyjątkowa sytuacja: ogląd człowieka może być dokonywany od zewnątrz i od wewnątrz.",
+      sh: "zewnętrzne i wewnętrzne razem" },
+    { id: "wojtyla", u: "drogi", s: "U", term: "Spór Krąpca z Wojtyłą",
+      plain: "Wojtyła upierał się, żeby obok obserwacji z boku dopuścić też przeżycie od środka. Pytamy o człowieka, ale pytamy jako ludzie.",
+      def: "Spory między Krąpcem a Wojtyłą: Wojtyła postulował, by dopuścić do głosu doświadczenie wewnętrzne, bo pytamy o człowieka jako ludzie i każdy przeżywa siebie od wewnątrz. Stąd napięcie między miarą obiektywną (zewnętrzną) a subiektywną, podmiotową (wewnętrzną).",
+      sh: "Wojtyła za doświadczeniem wewnętrznym" },
+    { id: "dwa-aspekty", u: "drogi", term: "Dwa aspekty spojrzenia z zewnątrz",
+      plain: "Z zewnątrz widać człowieka na dwóch tłach: w przyrodzie i wśród innych ludzi.",
+      def: "Ujmujemy człowieka w zasadniczych wymiarach: w aspekcie stosunku do zdeterminowanego świata przyrody, w którym żyje i z którym jest istotnie związany, oraz w aspekcie społecznych uwarunkowań jego życia.",
+      sh: "przyroda i społeczność" },
+    { id: "dynamicznie", u: "drogi", term: "Nie kim jest, ale co i jak działa",
+      plain: "Nie zaczynamy od definicji. Patrzymy, co człowiek robi, i z tego wnioskujemy, kim jest.",
+      def: "Człowiek ukazywany jest nie tyle w tym, czym lub kim jest (statycznie), ale w tym, co i jak działa. Kim jest człowiek, dowiadujemy się z analizy tego, co i jak działa; dane czerpiemy z bezpośredniego oglądu człowieka.",
+      sh: "z działania do tego, kim jest" },
+
+    /* ---------- Zwierzę rozumne? ---------- */
+    { id: "skreslone", u: "zoon", s: "U", term: "Skreślone „zwierzę”",
+      plain: "Na slajdzie stoi „od strony zewnętrznej zwierzę”. Prowadząca to skreśla: lepiej „istota żywa”.",
+      def: "Tekst za podręcznikiem: „od strony zewnętrznej zwierzę”. Prowadząca skreśla to słowo: wynika ono ze złej etymologii w przekładzie greckiego zoon logikon i łacińskiego animal rationale. Zamiast tego: istota żywa.",
+      sh: "„zwierzę” zastąpione „istotą żywą”" },
+    { id: "zoon-logikon", u: "zoon", s: "U", term: "Zoon logikon",
+      plain: "Greckie określenie człowieka. Zoon pochodzi od zoe, czyli „życie”. Chodzi o istotę żywą, która ma rozum (logos).",
+      def: "Grecka klasyczna definicja człowieka, tłumaczona „zwierzę rozumne”. W terminie zoon jest zoe – życie.",
+      sh: "gr. zoe – życie" },
+    { id: "animal-rationale", u: "zoon", s: "U", term: "Animal rationale",
+      plain: "Łacińska wersja. Animal pochodzi od anima, czyli „dusza”. Chodzi o istotę ożywioną, a nie o „zwierzę” w potocznym sensie.",
+      def: "Łacińska klasyczna definicja człowieka, tłumaczona „zwierzę rozumne”. W terminie animal jest anima – dusza.",
+      sh: "łac. anima – dusza" },
+    { id: "przeklad", u: "zoon", s: "U", term: "Nieadekwatny przekład",
+      plain: "Po polsku „zwierzę” gubi element życia, który jest w grece i łacinie. Wychodzi „tylko zwierzę”, czyli redukcja.",
+      def: "W terminie greckim i łacińskim jest element życia, a polskie „zwierzę” go wprost nie zawiera. To nieadekwatność terminologiczna: zamiast „istota żywa” wychodzi „tylko zwierzę”, jakbyśmy dokonywali redukcji.",
+      sh: "„zwierzę” gubi element życia" },
+    { id: "rodzaj", u: "zoon", s: "U", term: "Rodzaj najbliższy",
+      plain: "Najbliższa szersza grupa, do której należymy: istoty żywe, razem z roślinami i zwierzętami.",
+      def: "Klasyczna definicja wskazuje rodzaj najbliższy. Dla człowieka to byty żywe: podlegamy procesom życiowym w przyrodzie („macierz rodzajowa”). Odróżnia nas to od przyrody nieożywionej i nie ma w tym żadnej redukcji.",
+      sh: "byty żywe" },
+    { id: "roznica", u: "zoon", s: "U", term: "Różnica gatunkowa",
+      plain: "To, co wyróżnia człowieka wśród istot żywych: rozumność.",
+      def: "Differentia specifica: to, co wyodrębnia gatunek. U człowieka rozumność (rationale, logikon), pod którą kryje się ogromna przestrzeń różnych kwestii.",
+      sh: "rozumność" },
+    { id: "zywina", u: "zoon", s: "U", term: "Żywina",
+      plain: "Staropolskie słowo na zwierzęta domowe, od „żyć”. Takiego słowa z elementem życia brakuje nam dziś do przekładu zoon i animal.",
+      def: "Staropolski termin (prowadząca znalazła go „chyba u Zofii Kossak”) na bydło, zwierzęta domowe: żyje, więc musi jeść i pić. Takie terminy zanikły, bo język się upraszcza, a lepiej oddawały rodzaj najbliższy.",
+      sh: "staropolskie słowo od „żyć”" },
+    { id: "jakosc-ilosc", u: "zoon", s: "U", term: "Różnica jakościowa czy ilościowa?",
+      plain: "Starsza antropologia: człowiek różni się od zwierząt rodzajem, jest czymś innym. Dziś częściej: tylko stopniem, ma więcej tego samego.",
+      def: "Stara antropologia (hasła z 1. tomu Encyklopedii Katolickiej, lata 1977–78) kładła wielki nacisk na odmienność gatunku ludzkiego: różnica jakościowa. Współcześnie idzie to bardziej w stronę różnicy ilościowej.",
+      sh: "rodzajem czy stopniem" },
+    { id: "ssak", u: "zoon", s: "U", term: "Nawet Krąpiec nie jest neutralny",
+      plain: "Nazwanie człowieka ssakiem czy zwierzęciem to już przeniesienie słów z biologii, a z nimi gotowej interpretacji.",
+      def: "U Krąpca od strony zewnętrznej człowiek jest „ssakiem”, „zwierzęciem”. To przenoszenie terminologii z przyrodoznawstwa na teren opisu; klasyfikacja (ssak, organizm biologiczny) włącza rozstrzygnięcia tych dyscyplin. Trzeba dbać o maksymalną neutralność.",
+      sh: "biologia przemycona do opisu" },
+
+    /* ---------- Przegląd ---------- */
+    { id: "nisza", u: "przeglad", term: "Bez naturalnej niszy ekologicznej",
+      plain: "Każdy gatunek ma swoje wąskie miejsce do życia. Człowiek żyje wszędzie: na północy i południu, na lodzie, wysoko, nawet w miastach pod ziemią.",
+      def: "Człowiek jest bez naturalnej niszy ekologicznej rozumianej wąsko, jak u innych gatunków: może żyć w różnych warunkach i temperaturach. To pierwsza rzecz, która odróżnia go od innych gatunków.",
+      sh: "żyje wszędzie, nie w jednym miejscu" },
+    { id: "pozabiol", u: "przeglad", term: "Cele pozabiologiczne",
+      plain: "Człowiek żyje jak każda istota żywa, ale robi mnóstwo rzeczy, które do przeżycia nie są potrzebne: sztuka, podróże, nauka.",
+      def: "Od strony zewnętrznej istota żywa, ale działająca dla celów pozabiologicznych. Możliwości i cele ludzkiego działania wykraczają daleko poza potrzeby biologiczne: człowiek działa o wiele więcej, niż trzeba do utrzymania organizmu przy życiu.",
+      sh: "działa ponad potrzeby przeżycia" },
+    { id: "niezdet", u: "przeglad", term: "Niezdeterminowany prawami przyrody",
+      plain: "Przyroda to nasz dom, ale nie ustala z góry, co zrobimy.",
+      def: "Od strony zewnętrznej człowiek widzi siebie przede wszystkim jako istotę, której działanie nie jest zdeterminowane prawami świata przyrody, mimo iż przyroda jest naturalnym środowiskiem jego życia.",
+      sh: "przyroda to środowisko, nie wyrocznia" },
+    { id: "krewny", u: "przeglad", term: "Krewny przyrody, a zarazem różny",
+      plain: "Ciało mamy jak inne istoty żywe (oddychamy, trawimy), ale jako całość jesteśmy od przyrody zupełnie inni.",
+      def: "Człowiek jest z jednej strony krewnym przyrody przez swój ustrój fizjologiczny i jego funkcjonowanie, a przy tym jest od niej diametralnie różny. Pracą swojego rozumu przetwarza, doskonali i uzupełnia naturę.",
+      sh: "ciałem krewny, rozumem inny" },
+    { id: "intelekt", u: "przeglad", term: "Poznanie intelektualne",
+      plain: "Tylko człowiek tworzy pojęcia i myśli o całym świecie naraz, np. pyta, dlaczego w ogóle coś istnieje.",
+      def: "Jako jedyny w świecie przyrody człowiek jest zdolny do poznania intelektualnego rzeczywistości, ujmowania w swoim myśleniu całości tejże rzeczywistości i tworzenia pojęć.",
+      sh: "pojęcia i myślenie o całości" },
+    { id: "pietno", u: "przeglad", term: "Piętno rozumności",
+      plain: "Wszystko, co człowiek robi, nosi ślad rozumu. Najlepiej widać to w języku.",
+      def: "Każde ludzkie działanie naznaczone jest piętnem rozumności, czemu człowiek daje wyraz choćby w codziennym posługiwaniu się językiem: najbardziej twórczym i ludzkim narzędziem, które mogła utworzyć tylko istota rozumna.",
+      sh: "każde działanie nosi ślad rozumu" },
+    { id: "jezyk", u: "przeglad", term: "Język jako system znaków umownych",
+      plain: "Zwierzęta też się porozumiewają, ale naturalnie. My umawiamy się, co znaczą znaki: możemy wymyślić nowy język albo przełożyć jeden na drugi.",
+      def: "Człowiek posługuje się językiem jako systemem znaków umownych, nie tylko naturalną komunikacją. Na wykładzie: możemy tworzyć języki (esperanto, mowa znaków Indian, języki komputerowe) i przechodzić z języka na język.",
+      sh: "znaki umowne, nie tylko naturalne" },
+    { id: "spolecznosci", u: "przeglad", s: "U", term: "Społeczności naturalne i konwencjonalne",
+      plain: "Rodzina czy naród łączą nas z natury. Uczelnia łączy nas umową. Zwierzęta mają tylko te pierwsze.",
+      def: "Przyroda zna życie społeczne, ale społeczności innych bytów żywych są wyłącznie naturalne. Ludzie mają naturalne (rodzina, ród, naród) i konwencjonalne, kontraktualne (np. społeczność uniwersytetu).",
+      sh: "z natury i z umowy" },
+    { id: "przekracza", u: "przeglad", term: "Człowiek „przekracza” przyrodę",
+      plain: "Człowiek robi rzeczy, których przyroda nie wymaga: buduje szkoły, sądy, cmentarze, świątynie, przyjaźni się, zawiera małżeństwa, podróżuje.",
+      def: "Człowiek w swym działaniu „przekracza” determinanty rządzące światem przyrody. Spontanicznie przeżywa swoje człowieczeństwo i inność od przyrody i rozmaicie to uzewnętrznia: szkoły, sądy, cmentarze, związki przyjacielskie i małżeńskie, świątynie, turystyka.",
+      sh: "szkoły, sądy, świątynie, turystyka" },
+    { id: "ku-smierci", u: "przeglad", term: "Bycie ku śmierci",
+      plain: "Człowiek wie, że umrze, i coś z tym robi: chowa zmarłych, stawia groby, pamięta.",
+      def: "Człowiek jest zdolny do uświadomienia sobie bycia ku śmierci; świadczą o tym m.in. cmentarze.",
+      sh: "wie, że umrze" },
+
+    /* ---------- Homo faber ---------- */
+    { id: "homo-faber", u: "faber", term: "Homo faber",
+      plain: "Po łacinie „człowiek wytwórca”. Patrząc z zewnątrz na historię, widzimy człowieka przede wszystkim jako twórcę narzędzi.",
+      def: "Człowiek widziany „od zewnątrz” jawi się w historii przede wszystkim jako twórca narzędzi – homo faber.",
+      sh: "człowiek – twórca narzędzi" },
+    { id: "epoki", u: "faber", term: "Epoki narzędzi",
+      plain: "Dzieje ludzkości nazywamy od narzędzi: kamień, brąz, żelazo, para, prąd, atom.",
+      def: "Epoki rozwoju ludzkości są naznaczone wytwarzaniem narzędzi: epoka kamienia łupanego, spiżu, żelaza, pary wodnej, elektryczności, energii jądrowej.",
+      sh: "kamień, spiż, żelazo, para, prąd, atom" },
+    { id: "oznaki", u: "faber", term: "Narzędzia-oznaki zwierząt",
+      plain: "Zwierzęta też używają narzędzi, ale zawsze po to, żeby przeżyć same albo żeby przetrwał gatunek.",
+      def: "Narzędzia-oznaki używane przez zwierzęta służą zachowaniu życia jednostki lub gatunku, czyli celom biologicznym. Na wykładzie: także wtedy, gdy są niezwykłymi konstrukcjami czy wzorem dla stylów architektonicznych.",
+      sh: "przetrwanie jednostki lub gatunku" },
+    { id: "narz-pozabiol", u: "faber", term: "Narzędzie dla celów pozabiologicznych",
+      plain: "Nawet przypadkowy kij w ręku człowieka służy nie tylko przeżyciu, ale np. dawaniu znaków. Cała sztuka to rzeczy ponad przeżycie.",
+      def: "Narzędzie znalezione przez człowieka (np. przypadkowy kij) czy wytworzone służy zasadniczo celom pozabiologicznym, w odróżnieniu od narzędzi-oznak zwierząt. Na wykładzie: np. sztuki piękne przekraczają poziom celów biologicznych.",
+      sh: "służy celom ponad przeżycie" },
+    { id: "wielofunkcyjne", u: "faber", term: "Wielofunkcyjność narzędzia",
+      plain: "Ten sam kij: można się nim bronić, podeprzeć się albo dawać nim znaki.",
+      def: "Narzędzie służące celom pozabiologicznym bywa wielofunkcyjne: kijem można się bronić, można się podeprzeć, można go użyć do nadawania znaków sygnalizacyjnych i porozumiewania się.",
+      sh: "kij: obrona, podpora, sygnał" },
+    { id: "srodowisko", u: "faber", term: "Środowisko narzędziowo-kulturowe",
+      plain: "Narzędzia rozrosły się tak, że dziś żyjemy głównie wśród nich: drogi, miasta, fabryki, domy.",
+      def: "Wytworzone narzędzia rozwijają się w ciągu historii do tego stopnia, że tworzą obecnie w dużej mierze narzędziowo-kulturowe środowisko życia człowieka: drogi, miasta, fabryki, domy.",
+      sh: "drogi, miasta, fabryki, domy" },
+    { id: "lancuch", u: "faber", term: "Narzędzia, społeczność, język",
+      plain: "Żeby rozwijać narzędzia, trzeba współpracować. Żeby współpracować, trzeba się porozumieć umownymi znakami.",
+      def: "Rozwój narzędzi jest możliwy jedynie w społecznościach zorganizowanych, te zaś są możliwe jedynie przy używaniu ludzkiego języka jako systemu znaków umownych.",
+      sh: "narzędzia wymagają społeczności, a ta języka" },
+    { id: "uklad", u: "faber", s: "K", term: "Układ konieczny relacji",
+      plain: "Narzędzie to części dobrane tak, żeby razem coś robiły. Telefon działa tylko wtedy, gdy wszystkie części są ze sobą właściwie połączone.",
+      def: "Narzędzia jawią się jako celowo złożone z różnych „części” składowych, tworzących w narzędziu układ konieczny relacji, będących celowym sprzężeniem wielości dla jedności działania.",
+      sh: "celowe sprzężenie wielości dla jedności działania" },
+    { id: "zlozonosc", u: "faber", s: "U", term: "Złożoność ludzkich narzędzi",
+      plain: "Komputer, telefon czy samochód mają tyle wewnętrznych powiązań, że przyroda sama nigdy by czegoś takiego nie zrobiła.",
+      def: "Narzędzia tworzone przez człowieka są tak skomplikowane i mają tyle wewnętrznych relacji (komputer, telefon, pojazdy), że przekraczają wszelkie możliwości tego, co mogłaby wytworzyć przyroda.",
+      sh: "ponad możliwości przyrody" },
+
+    /* ---------- Trzy rodzaje poznania ---------- */
+    { id: "rozumowe", u: "poznanie", term: "Poznanie rozumowe",
+      plain: "Żeby zbudować narzędzie, trzeba zrozumieć, jak jego części ze sobą współpracują. To robota rozumu.",
+      def: "Człowiek tworzący system narzędzi poznaje wewnętrzny układ relacji w narzędziu. Poznanie relacji suponuje (zakłada), że człowiek rozumie ten układ, a więc używa poznania rozumnego, koniecznego do poznania i wytwarzania narzędzia.",
+      sh: "rozumie układ relacji w narzędziu" },
+    { id: "racjonalny", u: "poznanie", term: "Byt racjonalny",
+      plain: "Ktoś, kto używa rozumu w jakimś celu: planuje, dobiera środki, przewiduje.",
+      def: "Człowiek widziany „od zewnątrz” jest zatem bytem racjonalnym, tzn. używającym swego rozumu celowo.",
+      sh: "używa rozumu celowo" },
+    { id: "kontemplacyjne", u: "poznanie", term: "Poznanie kontemplacyjno-estetyczne",
+      plain: "Patrzenie dla samego patrzenia: muzyka, teatr, modlitwa, widok wodospadu. Nic z tego nie mamy, a jedziemy tysiące kilometrów.",
+      def: "Poznanie kontemplatywne (bezproduktywne), estetyczne, występujące w przeżyciach teatru, muzyki, religii. Na wykładzie: podróż tysięcy kilometrów do wodospadu Niagara czy Wielkiego Kanionu to cele pozabiologiczne, bo „do niczego się nie przydaje”.",
+      sh: "bezproduktywne: teatr, muzyka, religia" },
+    { id: "refleksyjne", u: "poznanie", term: "Poznanie refleksyjne",
+      plain: "Człowiek patrzy na całe swoje życie z dystansu, łącznie z tym, że się skończy. Najlepiej świadczą o tym cmentarze.",
+      def: "Występuje u człowieka poznanie refleksyjne, znaczone budową cmentarzy, świadczących o tym, że człowiek całość swego życia ujmuje w swym poznaniu.",
+      sh: "ogarnia całość życia" },
+    { id: "cmentarze", u: "poznanie", s: "U", term: "Co mówią cmentarze",
+      plain: "Grób to znak: myślę o śmierci i się na nią nie godzę. Jeśli nie przetrwam ciałem, przetrwam w pamięci innych.",
+      def: "Cmentarze to refleksja nad faktem śmierci i zarazem niezgoda na śmierć, czyli otwarcie na dalsze trwanie: jeżeli nie w swojej fizyczności, to w pamięci innych. „Jest grób, jest znak”.",
+      sh: "refleksja i niezgoda na śmierć" },
+    { id: "wniosek", u: "poznanie", term: "Co mówi fakt ludzki od zewnątrz",
+      plain: "Z samego patrzenia z boku widać trzy rodzaje poznania: rozum (narzędzia), kontemplację (sztuka, religia) i refleksję (groby).",
+      def: "„Fakt ludzki” widziany „od zewnątrz” wiele informuje o tym, kim jest człowiek: ujawnia jego poznanie rozumowe w budowaniu i posługiwaniu się narzędziami, będącymi koniecznym układem relacji; ujawnia poznanie kontemplacyjno-estetyczne oraz refleksyjne.",
+      sh: "rozumowe, kontemplacyjno-estetyczne, refleksyjne" }
+  ],
+
+  exercises: [
+    /* ---------- Powtórka z wykładu 1 ---------- */
+    { u: "powtorka", t: "cloze", s: "K",
+      q: "Antropologia filozoficzna bada człowieka, jego działania i wytwory, o ile wskazują one na jego określoną ___ i egzystencjalną pozycję w świecie.",
+      a: ["strukturę ontyczną", "strukturę psychiczną", "pozycję społeczną", "naturę biologiczną"],
+      x: "Struktura ontyczna, czyli budowa bytowa człowieka. Prowadząca przypomniała, że ta definicja na pewno będzie na kolokwium.",
+      w: ["Psychikę bada psychologia. Definicja mówi o strukturze bytowej (ontycznej).",
+          "Pozycja jest w drugiej części definicji, ale „egzystencjalna pozycja w świecie”, a nie społeczna.",
+          "Naturę biologiczną bada antropologia przyrodnicza."] },
+    { u: "powtorka", t: "mcq", s: "U",
+      q: "Co prowadząca powiedziała o definicji antropologii filozoficznej z wykładu 1?",
+      a: ["Że na pewno będzie na kolokwium", "Że nie trzeba jej znać na pamięć", "Że zmieni ją na następnym wykładzie", "Że jest tylko w literaturze dodatkowej"],
+      x: "Definicja „na pewno będzie na kolokwium”, więc warto zrobić przy niej gwiazdkę i znać ją słowo w słowo.",
+      w: ["Wręcz przeciwnie: zapowiedziała ją na kolokwium.",
+          "Nic takiego nie padło: definicja zostaje.",
+          "Definicja była na slajdach wykładu 1, a nie tylko w literaturze."] },
+    { u: "powtorka", t: "tf", s: "U", q: "Personalizm jako nurt jest stosunkowo nowy: to przełom XIX i XX wieku, głównie wiek XX.", a: true,
+      x: "Tak. Pojęcie osoby jest dużo starsze, ale personalizm jako nurt to głównie XX wiek." },
+    { u: "powtorka", t: "tf", s: "U", q: "Nazw „antropologia kulturowa” i „antropologia społeczna” używa się zamiennie.", a: true,
+      x: "Tak. Według prowadzącej to różne tradycje nazewnicze (anglosaska i niemiecka), ale nazwy są używane zamiennie. U nas modniejsza jest „kulturowa”." },
+    { u: "powtorka", t: "mcq", s: "U",
+      q: "Czym może być antropologia teologiczna w stosunku do filozofii?",
+      a: ["Zwieńczeniem albo inspiracją dla filozofii", "Punktem wyjścia każdej filozofii człowieka", "Działem antropologii przyrodniczej", "Metodą uniesprzeczniania w filozofii"],
+      x: "Na wykładzie: teologiczna może być zwieńczeniem dociekań filozoficznych albo inspiracją do badań filozoficznych.",
+      w: ["Nie: w punkcie wyjścia filozofii nie może być tez objawionych.",
+          "Teologiczna to dział teologii, a nie nauk przyrodniczych.",
+          "Uniesprzecznianie to metoda filozofii, a nie teologii."] },
+    { u: "powtorka", t: "mcq", s: "U",
+      q: "Święty Kościoła pisze o człowieku. Co według prowadzącej decyduje, czy to filozofia, czy teologia?",
+      a: ["Przyjęta metoda: rozum naturalny czy Objawienie", "To, czy autor był duchownym, czy świeckim", "To, czy tekst powstał przed czy po Kartezjuszu", "To, czy autor został ogłoszony świętym"],
+      x: "Liczy się metoda, a nie autor. Filozofia korzysta z rozumu naturalnego, teologia z rozumu nadprzyrodzonego i tez Objawienia.",
+      w: ["Status autora nie ma znaczenia, liczy się metoda.",
+          "Epoka nie decyduje o tym, czy coś jest filozofią.",
+          "Prowadząca wprost: nie chodzi o to, czy autor był święty."] },
+    { u: "powtorka", t: "tf", s: "U", q: "Antropologia filozoficzna może w punkcie wyjścia przyjąć biblijną prawdę o stworzeniu człowieka.", a: false,
+      x: "Fałsz. W punkcie wyjścia nie wolno mieć tez objawionych. Filozoficzną teorię stworzenia trzeba uzyskać inaczej, rozumem." },
+    { u: "powtorka", t: "mcq", s: "U",
+      q: "Co znaczy, że antropologia filozoficzna jest realistyczna?",
+      a: ["Teoria ma się zgadzać z rzeczywistością konkretnej osoby", "Teoria opiera się wyłącznie na wynikach badań mózgu", "Teoria tworzy idealną, wzorcową wizję człowieka", "Teoria opisuje tylko to, co da się zmierzyć"],
+      x: "Realistyczna: teoria uzgadnia się z rzeczywistością konkretnej ludzkiej osoby i wyjaśnia realne fenomeny życia, a nie buduje idealnej wizji.",
+      w: ["To byłaby antropologia nieautonomiczna, uzależniona od neuronauk.",
+          "Idealna, abstrakcyjna wizja to właśnie to, czego realizm unika.",
+          "Realizm nie ogranicza się do pomiarów, chodzi o zgodność z rzeczywistością."] },
+    { u: "powtorka", t: "mcq", s: "U",
+      q: "Kiedy według wykładu powstaje sprzeczność, której unika uniesprzecznianie?",
+      a: ["Gdy mówimy, że byt jest niebytem albo niebyt bytem", "Gdy dwie nauki szczegółowe podają różne liczby", "Gdy teoria nie korzysta z żadnych hipotez", "Gdy opis faktu jest zbyt zdroworozsądkowy"],
+      x: "Sprzeczność to złamanie zasady niesprzeczności: byt jest niebytem albo niebyt bytem. Uniesprzeczniając, odwołujemy się do racji bytowej.",
+      w: ["Rozbieżne wyniki to problem empiryczny, nie sprzeczność w sensie zasady niesprzeczności.",
+          "Hipotezy są dozwolone także w filozofii.",
+          "Opis ma być właśnie zdroworozsądkowy i neutralny."] },
+    { u: "powtorka", t: "tf", s: "U", q: "W filozofii nie ma miejsca na hipotezy, są zarezerwowane tylko dla nauk szczegółowych.", a: false,
+      x: "Fałsz. Zwykle tę funkcję metodologiczną przypisuje się naukom szczegółowym, ale prowadząca podkreśliła, że hipotezy są też w filozofii." },
+    { u: "powtorka", t: "which", set: "rodz", s: "U", q: "Na poprzednich etapach nauki (biologia, fizyka) poznaliśmy ją najlepiej: człowiek jako organizm i jeden z gatunków.", a: 1,
+      x: "To antropologia przyrodnicza. Prowadząca: jest nam najbliższa, bo znamy ją ze szkoły." },
+    { u: "powtorka", t: "mcq", s: "U",
+      q: "Kiedy według prowadzącej szczególnie przyda się część metodologiczna antropologii?",
+      a: ["Przy pracy łączącej różne antropologie, np. magisterskiej", "Przy rozwiązywaniu testów psychologicznych z pacjentem", "Przy nauce historii filozofii starożytnej", "Przy pisaniu streszczeń podręcznika Krąpca"],
+      x: "W pracy, która łączy np. badania nad mózgiem z filozofią, trzeba pokazać, że jej części mają inne metody i cele. Do tego służy metodologia.",
+      w: ["Testy psychologiczne to praktyka kliniczna, nie metodologia antropologii.",
+          "Historia filozofii to osobna część kursu (przeniesiona na koniec).",
+          "Nic takiego nie padło na wykładzie."] },
+
+    /* ---------- Mapa kursu i zaliczenie ---------- */
+    { u: "mapa", t: "mcq", s: "U",
+      q: "Która część kursu jest według prowadzącej najważniejsza i od niej zaczynamy teraz?",
+      a: ["Systemowa", "Historyczna", "Wstępna", "Teologiczna"],
+      x: "Część systemowa: w wykładzie idzie jako trzecia, ale jest najważniejsza, więc zaczynamy od niej zaraz po wstępie.",
+      w: ["Historyczną przeniesiono na koniec semestru.",
+          "Wstępna (metodologiczna) była na wykładzie 1 i już się skończyła.",
+          "Takiej części kursu nie ma; teologia to inna dziedzina."] },
+    { u: "mapa", t: "mcq", s: "U",
+      q: "Co stanie się z historyczną częścią kursu?",
+      a: ["Trafi na koniec semestru i może nie wejść do testu", "Zostanie omówiona jako pierwsza, przed częścią systemową", "Zastąpi część systemową, bo jest ważniejsza", "Będzie tylko na ćwiczeniach z innym prowadzącym"],
+      x: "Prowadząca przeniosła historię na koniec, bo studenci mają osobno historię filozofii. Zastanowi się, czy w ogóle wrzucać ją do testu.",
+      w: ["Odwrotnie: historia jest przeniesiona na koniec.",
+          "Część systemowa jest najważniejsza, historia jej nie zastąpi.",
+          "Nic takiego nie padło."] },
+    { u: "mapa", t: "order", s: "U", q: "Ułóż początek części systemowej w kolejności z tez.",
+      a: ["Fakt ludzki od zewnątrz", "Doświadczenie od wewnątrz", "Dusza i ciało", "Osoba wobec natury i kultury"],
+      x: "Tezy 1–4: fakt ludzki od zewnątrz, doświadczenie od wewnątrz („Ja” i akty „moje”), struktura bytu (dusza i ciało) i teoria osoby." },
+    { u: "mapa", t: "order", s: "U", q: "Ułóż dalszą część systemową w kolejności z tez.",
+      a: ["Poznanie", "Działanie", "Człowiek wobec społeczności", "Twórczość", "Religia", "Śmierć"],
+      x: "Tezy 5–10: poznanie (zmysły, rozum, prawda), działanie (miłość, wolność, moralność), społeczność, sztuka, religia i na koniec śmierć." },
+    { u: "mapa", t: "which", set: "tezy", s: "U", q: "Wolność, decyzja, miłość, moralność, uczucia, dobro i problem zła.", a: 6,
+      x: "To punkt o działaniu człowieka." },
+    { u: "mapa", t: "which", set: "tezy", s: "U", q: "Filozofia prawa, polityki, państwa, rodziny i narodu.", a: 7,
+      x: "To człowiek wobec społeczności, czyli jako byt społeczny." },
+    { u: "mapa", t: "which", set: "tezy", s: "U", q: "Pytanie, kiedy coś staje się arcydziełem i czy istnieje antydzieło.", a: 8,
+      x: "To twórczość: człowiek jako artysta, sztuka i technika." },
+    { u: "mapa", t: "which", set: "tezy", s: "U", q: "Czy definicja medyczna (np. śmierć mózgu) nam wystarcza?", a: 10,
+      x: "To ostatni, dziesiąty punkt części systemowej: filozoficzna interpretacja śmierci." },
+    { u: "mapa", t: "which", set: "tezy", s: "U", q: "„Ja” i akty „moje”: jak to jest być człowiekiem od środka.", a: 2,
+      x: "To punkt 2: doświadczenie „od wewnątrz”. Ten wykład omawia punkt 1, czyli spojrzenie od zewnątrz." },
+    { u: "mapa", t: "tf", s: "U", q: "Kurs omawia duszę i ciało osobno, bo przyjmuje dualizm antropologiczny.", a: false,
+      x: "Fałsz. Omawia je osobno tylko dla porządku wykładu. Kurs odrzuca dualizm, a prowadząca szuka sposobu, żeby pokazać je razem." },
+    { u: "mapa", t: "mcq", s: "U",
+      q: "Dlaczego według prowadzącej ciało stało się dziś problemem antropologicznym?",
+      a: ["Przez rozwój technik medycznych i nauk przyrodniczych", "Bo filozofia klasyczna w ogóle nie zajmowała się ciałem", "Bo kurs uznał ciało za jedyny składnik człowieka", "Przez to, że psychologia przestała badać ciało"],
+      x: "Problematyka ciała była dość oczywista, ale rozwój technik medycznych i antropologii przyrodniczych rodzi nowe pytania, np. o płciowość.",
+      w: ["Ciało i płciowość omawiano tradycyjnie; nowe są pytania wynikające z medycyny.",
+          "Kurs odrzuca taki monizm, ciało to jeden z wymiarów człowieka.",
+          "Nic takiego nie padło na wykładzie."] },
+    { u: "mapa", t: "mcq", s: "U",
+      q: "Na czyich pracach opiera się na kursie dziedzina religii?",
+      a: ["S. prof. Zofii Zdybickiej", "Ks. Stanisława Kamińskiego", "Ojca Mieczysława Krąpca", "Karola Wojtyły"],
+      x: "Religię omawia się na terenie filozofii religii, z pomocą prac s. prof. Zdybickiej, pierwszej zakonnicy profesor w Polsce.",
+      w: ["Kamiński to metodolog, na jego tekstach oparty jest skrypt z metodologii.",
+          "Krąpiec to autor głównego podręcznika części systemowej.",
+          "Wojtyła pojawił się przy doświadczeniu wewnętrznym i „Osobie i czynie”."] },
+    { u: "mapa", t: "mcq", s: "U",
+      q: "Jak będzie wyglądało zaliczenie antropologii?",
+      a: ["Test pisemny: pytania zamknięte i 1–3 opisowe", "Egzamin ustny z losowanym zestawem pytań", "Praca zaliczeniowa na wybrany temat", "Test w Teamsie sprawdzany automatycznie"],
+      x: "Test pisemny: pytania rozstrzygnięcia (prawda/fałsz) albo wyboru, plus jedno, dwa albo trzy pytania opisowe.",
+      w: ["Nie, będzie test pisemny.",
+          "O pracy zaliczeniowej nie było mowy.",
+          "Prowadząca wspomniała Teamsa, ale uznała, że i tak trzeba by sprawdzać ręcznie. Będzie test pisemny."] },
+    { u: "mapa", t: "mcq", s: "U",
+      q: "Po co w teście będą pytania opisowe?",
+      a: ["Żeby zindywidualizować test i utrudnić ściąganie", "Żeby zastąpić pytania z definicjami", "Żeby sprawdzić znajomość historii filozofii", "Żeby oceniać styl i ortografię studentów"],
+      x: "Przy samych pytaniach zamkniętych łatwo „zapuścić żurawia”. Pytania opisowe sprawiają, że każdy pisze trochę inaczej.",
+      w: ["Pytania zamknięte zostają, opisowe są dodatkiem.",
+          "Historia filozofii może w ogóle nie wejść do testu.",
+          "Nic takiego nie padło."] },
+    { u: "mapa", t: "match", s: "U",
+      pairs: [
+        ["„Ja – człowiek”", "główny podręcznik Krąpca"],
+        ["„Człowiek jako osoba”", "skrócona wersja podręcznika"],
+        ["„O duszy”", "traktat Arystotelesa"],
+        ["„Osoba i czyn”", "Wojtyła, powstała w Lublinie"]],
+      x: "Część systemowa stoi na Krąpcu („Ja – człowiek”, skrót: „Człowiek jako osoba”). Klasyczne źródło to „O duszy” Arystotelesa, a z Lublina „Osoba i czyn” Wojtyły." },
+    { u: "mapa", t: "tf", s: "U", q: "Kurs miał być konwersatorium, ale ze względu na liczbę osób zmieniono go na wykład.", a: true,
+      x: "Tak. Konwersatorium jest dla małych grup. Mimo to w trakcie wykładu można zadawać pytania." },
+    { u: "mapa", t: "tf", s: "U", q: "Część systemowa to system zamknięty: zbiór dogmatów, których się nie dyskutuje.", a: false,
+      x: "Fałsz. Prowadząca: to bardzo dynamiczna część, „broń Boże zamknięta dogmatycznie”, z masą miejsca do badań i prac." },
+
+    /* ---------- Kompetencje ---------- */
+    { u: "kompetencje", t: "mcq", s: "U",
+      q: "Dlaczego ks. Stanisława Kamińskiego nazywano „pogotowiem metodologicznym”?",
+      a: ["Pomagał ustawić metodologię prac z różnych dziedzin", "Prowadził dyżury medyczne dla studentów KUL", "Napisał podręcznik pierwszej pomocy dla filozofów", "Szybko recenzował prace na wszystkich wydziałach"],
+      x: "Ludzie z socjologii, psychologii czy prac interdyscyplinarnych biegli do niego na konsultacje, a on „ustawiał” im metodologię.",
+      w: ["To przenośnia: pomoc metodologiczna, nie medyczna.",
+          "Nic takiego nie napisał.",
+          "Chodziło o konsultacje metodologiczne, nie o recenzje."] },
+    { u: "kompetencje", t: "mcq", s: "U",
+      q: "Co pokazuje tekst Kamińskiego „Naukowa, filozoficzna i teologiczna wizja człowieka”?",
+      a: ["Jak ułożyć antropologie, by się dopełniały", "Że filozofia powinna zastąpić nauki o człowieku", "Że teologia jest jedyną pełną antropologią", "Jak odróżnić człowieka od zwierząt na podstawie genów"],
+      x: "Tekst pokazuje, jak uporządkować różne antropologie na osiach, żeby budować integralną wiedzę o człowieku: bez wykluczania się i bez przekraczania kompetencji.",
+      w: ["Chodzi o dopełnianie się, a nie zastępowanie.",
+          "Tekst porządkuje kilka antropologii, nie wybiera jednej.",
+          "To pytanie biologii, nie tego tekstu."] },
+    { u: "kompetencje", t: "mcq", s: "U",
+      q: "O co według prowadzącej najbardziej chodzi w metodologii?",
+      a: ["Czy dana nauka może swoją metodą dojść do danej tezy", "Jak najszybciej zebrać dane do pracy dyplomowej", "Jak pisać przypisy i bibliografię w pracy", "Która nauka jest najstarsza i najbardziej ceniona"],
+      x: "Metodologia pyta, czy nauka może daną metodą dojść do danej tezy, czyli czy nie przekracza swoich kompetencji.",
+      w: ["Zbieranie danych to praktyka badawcza, nie sedno metodologii.",
+          "To technika pisania, a nie metodologia nauk.",
+          "Wiek i prestiż nauk nie są tu kryterium."] },
+    { u: "kompetencje", t: "mcq", s: "U",
+      q: "Dwóch genetyków ogłasza: „człowiek jest zwierzęciem”. Jak to ocenia prowadząca?",
+      a: ["To redukcja, czyli przekroczenie kompetencji", "To poprawna teza filozoficzna z genetyki", "To dobry punkt wyjścia antropologii", "To przykład neutralnego opisu faktu"],
+      x: "Genetyka bada geny, a z nich nie rozstrzygnie, czym jest człowiek jako całość. Takie twierdzenie to redukcja.",
+      w: ["Genetyka nie formułuje tez filozoficznych o całym człowieku.",
+          "Punktem wyjścia jest fakt ludzki, a nie teza genetyki.",
+          "Słowo „zwierzę” właśnie nie jest neutralne, przemyca redukcję."] },
+    { u: "kompetencje", t: "mcq", s: "U",
+      q: "Lekarz mówi: „na początku wszyscy jesteśmy dziewczynkami”. Jaki błąd wskazuje prowadząca?",
+      a: ["Pomylenie opisu stawania się z tym, czym coś jest", "Pomylenie przyczyny ze skutkiem w rozwoju płodu", "Uogólnienie z jednego przypadku na wszystkich", "Pomylenie płci biologicznej z kulturową"],
+      x: "Z kolejności wyłaniania się narządów w życiu płodowym nie wynika, czym jest dany byt. Opis stawania się to co innego niż natura bytu.",
+      w: ["Prowadząca nie mówiła o przyczynie i skutku, tylko o stawaniu się i naturze.",
+          "To nie jest uogólnienie z jednego przypadku.",
+          "Na wykładzie chodziło o naturę bytu, nie o rozróżnienie płci biologicznej i kulturowej."] },
+    { u: "kompetencje", t: "tf", s: "U", q: "Z tego, w jakiej kolejności coś się rozwija, wynika, czym to jest.", a: false,
+      x: "Fałsz. To właśnie błąd z przykładu „wszyscy jesteśmy dziewczynkami”: opis stawania się to co innego niż natura bytu." },
+    { u: "kompetencje", t: "mcq", s: "U",
+      q: "Kiedy według prowadzącej cel kursu antropologii będzie osiągnięty?",
+      a: ["Gdy odróżnimy tezę filozoficzną od tezy nauk szczegółowych", "Gdy zapamiętamy biografie wszystkich omawianych filozofów", "Gdy przeczytamy w całości „Osobę i czyn” Wojtyły", "Gdy zdamy test bez żadnego pytania opisowego"],
+      x: "Prowadząca: jeśli po kursie będziemy wiedzieć, gdzie jest teza ściśle filozoficzna, a gdzie uzasadniona teza antropologii szczegółowych, cel jest osiągnięty.",
+      w: ["Biografie nie są celem, część historyczna może nawet nie wejść do testu.",
+          "O „Osobie i czynie” prowadząca żartowała, że to ciężka lektura.",
+          "Pytania opisowe na teście będą."] },
+    { u: "kompetencje", t: "sort", s: "U", q: "Teza mieści się w kompetencjach nauki czy je przekracza?",
+      cats: ["W kompetencjach", "Przekracza kompetencje"],
+      why: ["Nauka mówi o tym, co jej metoda potrafi zbadać: o swoim wycinku człowieka.",
+            "Nauka wypowiada się o całym człowieku albo o jego naturze, choć jej metoda do tego nie uprawnia."],
+      items: [
+        ["„Ludzie i szympansy mają wiele wspólnych genów”", 0],
+        ["„Człowiek jest tylko zwierzęciem”", 1],
+        ["„Narządy płodu wyłaniają się w określonej kolejności”", 0],
+        ["„Na początku wszyscy jesteśmy dziewczynkami”", 1],
+        ["„Kora wzrokowa reaguje na krawędzie”", 0],
+        ["„Człowiek to nic więcej niż mózg”", 1]],
+      x: "Nauka może opisywać swój wycinek (geny, rozwój płodu, mózg). Gdy mówi „tylko” albo „na początku wszyscy jesteśmy…”, wypowiada się o naturze całego człowieka, czyli przekracza kompetencje." },
+
+    /* ---------- Nauki realne ---------- */
+    { u: "nauki", t: "mcq", s: "U",
+      q: "Czym różnią się nauki realne od formalnych w podziale Kamińskiego?",
+      a: ["Realne badają rzeczywistość, formalne stronę formalną", "Realne są ścisłe, formalne są humanistyczne", "Realne są nowsze, formalne pochodzą ze starożytności", "Realne używają liczb, formalne tylko słów"],
+      x: "Nauki realne (res – rzecz) badają rzeczywistość. Formalne zajmują się stroną formalną, np. aspektem ilościowym.",
+      w: ["Podział nie przebiega między ścisłymi a humanistycznymi.",
+          "Wiek nauk nie jest kryterium tego podziału.",
+          "To odwrotnie: aspekt ilościowy to sprawa nauk formalnych."] },
+    { u: "nauki", t: "type", s: "U", q: "Od jakiego łacińskiego słowa (znaczy „rzecz”) pochodzi nazwa nauk realnych?", a: ["res"],
+      x: "Res to po łacinie rzecz. Nauki realne zajmują się rzeczywistością." },
+    { u: "nauki", t: "order", q: "Ułóż etapy postępowania teoretycznego w naukach realnych.",
+      a: ["Ustalenie faktu", "Opis faktu", "Interpretacja", "Wyjaśnianie"],
+      x: "Slajd 2: najpierw ustalenie i opis faktów, potem próby interpretacji oraz wyjaśnianie." },
+    { u: "nauki", t: "cloze",
+      q: "W naukach realnych wyróżnia się dwa etapy: ustalenie i opis faktów oraz próby ich ___ i wyjaśnianie.",
+      a: ["interpretacji", "kwantyfikacji", "falsyfikacji", "klasyfikacji"],
+      x: "Drugi etap to interpretacja, która przechodzi w wyjaśnianie.",
+      w: ["Kwantyfikacja to ujęcie w liczbach, a slajd mówi o interpretacji.",
+          "Falsyfikacja to obalanie hipotez (Popper), tego nie ma na slajdzie.",
+          "Klasyfikacja należy raczej do opisu, a drugi etap to interpretacja."] },
+    { u: "nauki", t: "mcq", s: "U",
+      q: "Jak inaczej nazywa się na wykładzie opis faktu?",
+      a: ["Determinacja faktu", "Uniesprzecznienie faktu", "Interpretacja faktu", "Redukcja faktu"],
+      x: "Opisać fakt to inaczej go zdeterminować, czyli uzyskać o nim pewne informacje.",
+      w: ["Uniesprzecznianie to metoda wyjaśniania, czyli drugi etap.",
+          "Interpretacja to drugi etap, już po opisie.",
+          "Redukcja to błąd, a nie opis."] },
+    { u: "nauki", t: "multi", q: "Co według slajdu 2 jest sprawą zasadniczą?",
+      a: ["ustalenie faktu jako przedmiotu badań i wyjaśnień", "wskazanie sposobu wyjaśnienia tego faktu"],
+      o: ["zebranie opinii wszystkich nauk szczegółowych", "wybór jednej koncepcji filozoficznej na start"],
+      x: "Slajd 2: sprawą zasadniczą jest ustalenie faktu (co badamy i wyjaśniamy) oraz wskazanie sposobu jego wyjaśnienia (metoda).",
+      w: ["Właśnie nie: fakt ludzki nie ma być obrazem złożonym z nauk szczegółowych.",
+          "Start to fakt, a nie wybór gotowej koncepcji."] },
+    { u: "nauki", t: "mcq", s: "U",
+      q: "Dlaczego etapy z nauk realnych przenosimy do antropologii filozoficznej?",
+      a: ["Bo ma być realistyczna: badać, a nie wymyślać", "Bo filozofia jest jedną z nauk przyrodniczych", "Bo tak nakazuje teologia od średniowiecza", "Bo nauki formalne nie mają żadnych etapów"],
+      x: "Chcemy antropologii realistycznej, czyli badającej rzeczywistość, a nie wymyślającej koncepcję człowieka. Dlatego bierzemy schemat od nauk o rzeczywistości.",
+      w: ["Filozofia nie jest nauką przyrodniczą, ma własną metodę.",
+          "Teologia nie wyznacza metody filozofii.",
+          "Nie o to chodzi: powodem jest realizm antropologii."] },
+    { u: "nauki", t: "tf", q: "Według slajdu 2 najpierw wyjaśniamy fakt, a dopiero potem go opisujemy.", a: false,
+      x: "Fałsz. Odwrotnie: najpierw ustalenie i opis, potem interpretacja i wyjaśnianie. Tak samo w wykładzie 1: od opisu faktu do jego uzasadnienia." },
+    { u: "nauki", t: "mcq",
+      q: "Co jest według slajdu 2 faktem danym nam do wyjaśnienia w antropologii?",
+      a: ["Człowiek ujęty w swych istotnych bytowych właściwościach", "Pojęcie człowieka zawarte w słownikach i encyklopediach", "Suma wyników wszystkich nauk szczegółowych o człowieku", "Mózg człowieka i jego aktywność neuronalna"],
+      x: "Faktem danym do wyjaśnienia jest sam człowiek ujęty w swych istotnych bytowych właściwościach, czyli fakt ludzki.",
+      w: ["Pojęcie to metapoziom; punktem wyjścia ma być realny fakt.",
+          "To byłby problem 2, czyli podejście nieautonomiczne.",
+          "To wycinek badany przez neuronauki."] },
+    { u: "nauki", t: "which", set: "rodz", s: "U", q: "Wyjaśnia człowieka na gruncie nauk realnych, takich jak biologia i przyrodoznawstwo.", a: 1,
+      x: "Biologia i przyrodoznawstwo to nauki realne. Na ich gruncie wyjaśnia człowieka antropologia przyrodnicza." },
+
+    /* ---------- Fakt ludzki, nie „człowiek” ---------- */
+    { u: "fakt", t: "mcq", s: "U",
+      q: "Co jest punktem wyjścia antropologii filozoficznej realistycznej?",
+      a: ["Fakt ludzki", "Człowiek", "Pojęcie człowieka", "Konkretny Jan"],
+      x: "Fakt ludzki. Prowadząca: za odpowiedź „człowiek” na kolokwium nie będzie punktu.",
+      w: ["Pułapka z kolokwium: „człowiek” to pojęcie ogólne, a nie punkt wyjścia.",
+          "Pojęcie to metapoziom. Antropologia byłaby wtedy tylko analizą treści pojęcia.",
+          "Jedno indywiduum to za mało, byłoby to nienaukowe."] },
+    { u: "fakt", t: "type", s: "U", q: "Wpisz punkt wyjścia antropologii realistycznej (dwa słowa).", a: ["fakt ludzki"],
+      x: "Fakt ludzki. To pewne pytanie na kolokwium." },
+    { u: "fakt", t: "cloze", s: "K",
+      q: "Faktem danym nam do wyjaśnienia jest sam człowiek ujęty w swych istotnych ___ właściwościach.",
+      a: ["bytowych", "biologicznych", "psychicznych", "społecznych"],
+      x: "Bytowych, czyli dotyczących tego, czym człowiek jest jako byt.",
+      w: ["Biologiczne to wycinek antropologii przyrodniczej.",
+          "Psychiczne to wycinek psychologii.",
+          "Społeczne to wycinek socjologii czy antropologii kulturowej."] },
+    { u: "fakt", t: "mcq", s: "U",
+      q: "Dlaczego „człowiek” nie nadaje się na punkt wyjścia?",
+      a: ["To pojęcie ogólne, wynik poznania, a nie sama rzeczywistość", "To słowo pochodzi z teologii i nie należy do filozofii", "To termin zbyt potoczny, by używać go w nauce", "To pojęcie, którego prowadząca nie używa na wykładzie"],
+      x: "„Człowiek” to powszechnik: powstaje z poznania wielu konkretnych ludzi, więc jest na metapoziomie. Start od pojęcia zrobiłby z antropologii analizę pojęcia.",
+      w: ["Prowadząca mówi, że termin pochodzi raczej z antropologii przyrodniczej.",
+          "Problemem nie jest potoczność, tylko to, że to pojęcie ogólne.",
+          "Używa go cały czas, bo nie da się bez niego obejść."] },
+    { u: "fakt", t: "mcq", s: "U",
+      q: "Czym jest powszechnik?",
+      a: ["Pojęciem ogólnym orzekanym o wielu konkretnych osobach", "Najczęstszym słowem używanym w języku potocznym", "Cechą wspólną wszystkich zwierząt w przyrodzie", "Twierdzeniem uznawanym przez wszystkie nauki"],
+      x: "Powszechnik to pojęcie ogólne, np. „człowiek”, które orzekamy o Agacie, Janie, Katarzynie i miliardach innych.",
+      w: ["Nie chodzi o częstość użycia słowa.",
+          "Powszechnik to pojęcie, a nie cecha przyrody.",
+          "To nie twierdzenie, tylko pojęcie."] },
+    { u: "fakt", t: "tf", s: "U", q: "Pojęcie „człowiek” jest na metapoziomie, bo jest rezultatem poznawania konkretnych ludzkich osób.", a: true,
+      x: "Tak. Pojęcie powstaje z poznania konkretów, więc jest poziom „nad” rzeczywistością." },
+    { u: "fakt", t: "mcq", s: "U",
+      q: "Czym byłaby antropologia, gdyby jej punktem wyjścia było pojęcie „człowiek”?",
+      a: ["Analizą treści pojęcia „człowiek”", "Biologią człowieka i jego genów", "Historią poglądów na człowieka", "Teologią stworzenia człowieka"],
+      x: "Wtedy antropologia byłaby tylko analizą treści pojęcia. Krąpiec by się na to wściekł: chodzi o konkret, o ludzką osobę.",
+      w: ["Biologia to nauka szczegółowa, nie analiza pojęcia.",
+          "Historia poglądów to część historyczna kursu.",
+          "Teologia opiera się na Objawieniu, a nie na analizie pojęcia."] },
+    { u: "fakt", t: "mcq", s: "U",
+      q: "Dlaczego punktem wyjścia nie może być konkretny Jan?",
+      a: ["Bo jedno indywiduum to start nienaukowy", "Bo Jan może kłamać o sobie w ankiecie", "Bo konkretnych ludzi bada tylko psychologia", "Bo Jan nie zna antropologii filozoficznej"],
+      x: "Start od jednego indywiduum byłby nienaukowy, bo bylibyśmy w relacji tylko do tej jednej osoby. Fakt ludzki jest realny, a pasuje do wszystkich ludzi.",
+      w: ["Nie chodzi o wiarygodność relacji, tylko o to, że jedna osoba to za mało.",
+          "Konkretnych ludzi badają różne nauki, nie tylko psychologia.",
+          "To nie ma związku z punktem wyjścia."] },
+    { u: "fakt", t: "mcq", s: "U",
+      q: "Przed czym przestrzegał ojciec Krąpiec przy tworzeniu pojęć ogólnych?",
+      a: ["Przed utratą kontaktu z realną rzeczywistością człowieka", "Przed używaniem łaciny w opisie człowieka", "Przed korzystaniem z wyników nauk szczegółowych", "Przed zadawaniem pytań o śmierć i religię"],
+      x: "Abstrakcja jest potrzebna, ale nie możemy przez nią stracić kontaktu z konkretną ludzką osobą.",
+      w: ["Krąpiec sam używał terminów łacińskich.",
+          "Wyniki nauk wolno uwzględniać, byle nie robić z nich punktu wyjścia.",
+          "Te pytania są w części systemowej kursu."] },
+    { u: "fakt", t: "mcq", s: "U",
+      q: "„Tym gorzej dla faktów” to według prowadzącej postawa…",
+      a: ["idealistyczna: teoria ważniejsza od faktów", "realistyczna: fakty ważniejsze od teorii", "pozytywistyczna: liczą się tylko fakty", "sceptyczna: fakty i teorie są niepewne"],
+      x: "Idealistyczne koncepcje nie pasowały do faktów, więc „tym gorzej dla faktów, nie dla teorii”. Realizm robi odwrotnie.",
+      w: ["Realista poprawia teorię, a nie fakty.",
+          "Pozytywizm stawia nauki szczegółowe na pierwszym miejscu, ale to hasło opisuje idealizm.",
+          "Sceptycyzm nie był tu omawiany."] },
+    { u: "fakt", t: "tf", s: "U", q: "Po wyborze terminu „fakt ludzki” prowadząca przestaje używać słowa „człowiek”.", a: false,
+      x: "Fałsz. Termin „człowiek” jest używany cały czas, bo nie da się bez niego obejść. Chodzi tylko o to, żeby punkt wyjścia nie był pojęciem." },
+    { u: "fakt", t: "mcq", s: "U",
+      q: "Do kogo pasuje „fakt ludzki” jako punkt wyjścia?",
+      a: ["Do miliardów ludzi: do nas samych i do innych", "Tylko do ludzi badanych w laboratorium", "Tylko do autora danej teorii", "Tylko do ludzi z jednej kultury"],
+      x: "Fakt ludzki jest realny, a zarazem pasuje do miliardów ludzkich istot, także do nas samych.",
+      w: ["Fakt ludzki nie ogranicza się do badanych.",
+          "To byłby punkt wyjścia „konkretny Jan”, odrzucony jako nienaukowy.",
+          "Antropologia filozoficzna szuka ujęcia uniwersalnego."] },
+
+    /* ---------- Dwa kłopoty z faktem ---------- */
+    { u: "problemy", t: "mcq",
+      q: "Dlaczego trudno oddzielić opis faktu ludzkiego od interpretacji (problem 1)?",
+      a: ["Bo nie istnieją fakty nagie, zawsze uwikłane w poznanie", "Bo każdy człowiek jest inny i nie da się go opisać", "Bo filozofia nie ma żadnej metody opisu faktów", "Bo opis należy wyłącznie do nauk szczegółowych"],
+      x: "Slajd 2: nie istnieją fakty nagie, nieuwikłane w jakiegoś typu przeżycie poznawcze, które determinuje i kieruje poznawaniem faktu.",
+      w: ["Różnorodność ludzi to nie jest problem 1 ze slajdu.",
+          "Filozofia ma metodę, problemem jest uwikłanie w interpretację.",
+          "Opis jest pierwszym etapem także w filozofii."] },
+    { u: "problemy", t: "cloze",
+      q: "Nie istnieją fakty ___, nie uwikłane w jakiegoś typu przeżycie poznawcze.",
+      a: ["nagie", "obiektywne", "naukowe", "proste"],
+      x: "Fakty nagie, czyli „gołe”, bez żadnej interpretacji. Takich nie ma.",
+      w: ["Slajd mówi o faktach nagich; obiektywność to inna sprawa.",
+          "Fakty naukowe właśnie są uwikłane w teorie.",
+          "Slajd nie mówi o faktach prostych."] },
+    { u: "problemy", t: "mcq", s: "U",
+      q: "Co znaczy, że opis faktu ludzkiego ma być neutralny?",
+      a: ["„Nijaki”: niewychylony w stronę żadnej interpretacji", "Obojętny emocjonalnie wobec badanego człowieka", "Zgodny z poglądami większości naukowców", "Pisany w trzeciej osobie liczby pojedynczej"],
+      x: "Łac. neutrum – nijaki, ani taki, ani taki. Opis nie może przemycać gotowej interpretacji, nawet przez terminologię.",
+      w: ["Nie chodzi o emocje, tylko o brak przemycanej teorii.",
+          "Zgodność z większością to nie neutralność.",
+          "To sprawa stylu, nie neutralności opisu."] },
+    { u: "problemy", t: "multi", s: "U", q: "Co według prowadzącej może się wkraść do opisu faktu ludzkiego?",
+      a: ["wątki z antropologii przyrodniczej", "światopogląd kulturowy", "ideologie społeczne", "interpretacja ukryta w terminologii"],
+      o: ["poznanie przednaukowe", "zdrowy rozsądek"],
+      x: "Wkraść się może światopogląd przyrodniczy, kulturowy, ideologie; nawet sama terminologia wnosi interpretację.",
+      w: ["Poznanie przednaukowe to właśnie dobry punkt wyjścia, a nie zagrożenie.",
+          "Opis ma być zdroworozsądkowy, to cel, a nie zagrożenie."] },
+    { u: "problemy", t: "tf", s: "U", q: "Na pierwszym roku filozofii próbowano „wyczyścić” studentów ze światopoglądu naukowego.", a: true,
+      x: "Tak. Chodziło o to, by nie przenosić presupozycji z naukowego światopoglądu do opisu. Ten światopogląd ma się kształtować później." },
+    { u: "problemy", t: "mcq",
+      q: "Na czym polega problem 2 z faktem ludzkim?",
+      a: ["Postuluje się, by fakt ludzki był obrazem z nauk szczegółowych", "Fakt ludzki jest zbyt oczywisty, by go opisywać", "Człowiek zmienia się w czasie i fakt się dezaktualizuje", "Doświadczenie wewnętrzne przeczy zewnętrznemu"],
+      x: "Slajd 2: postuluje się, by fakt ludzki stanowił obraz człowieka z nauk szczegółowych, a filozofia zabierała głos dopiero po nauce.",
+      w: ["Oczywistość nie jest tu problemem.",
+          "Nie o to chodzi w problemie 2.",
+          "Oba doświadczenia się dopełniają, a nie przeczą sobie."] },
+    { u: "problemy", t: "mcq",
+      q: "Co slajd 3 odpowiada na postulat, by filozofia czekała na obraz człowieka z nauk?",
+      a: ["Że obraz naukowy człowieka tylko pozornie jest jednolity", "Że nauki szczegółowe w ogóle nie badają człowieka", "Że filozofia jest starsza, więc ma pierwszeństwo", "Że nauki szczegółowe zawsze się ze sobą zgadzają"],
+      x: "„Niestety, nie jest to proste, gdyż obraz naukowy człowieka tylko pozornie jest jednolity.” Nauki dają kawałki, które się nie składają.",
+      w: ["Badają, ale każda swój wycinek.",
+          "Slajd nie argumentuje wiekiem filozofii.",
+          "Właśnie nie: obraz jest jednolity tylko pozornie."] },
+    { u: "problemy", t: "mcq", s: "U",
+      q: "Jak paradygmat pozytywistyczny widzi miejsce filozofii?",
+      a: ["Na końcu, jako uogólniające zwieńczenie nauk", "Na początku, jako fundament wszystkich nauk", "Poza nauką, jako sprawę prywatnych przekonań", "Na równi z teologią, jako źródło Objawienia"],
+      x: "Pozytywizm (od XIX wieku): nauki szczegółowe to wzór ścisłości, a filozofia ma być ich zwieńczeniem. To filozofia nieautonomiczna.",
+      w: ["Tak widzi filozofię wykład, który odwraca kierunek pozytywistyczny.",
+          "Nie o tym była mowa: pozytywizm daje filozofii miejsce, ale na końcu.",
+          "Objawienie to sprawa teologii."] },
+    { u: "problemy", t: "mcq", s: "U",
+      q: "Dlaczego według wykładu filozofia ma być fundamentem, a nie zwieńczeniem nauk?",
+      a: ["Bo jest najogólniejsza i ma najszerszy przedmiot", "Bo ma najwięcej wyników eksperymentalnych", "Bo powstała później niż nauki szczegółowe", "Bo opiera się na tezach Objawienia"],
+      x: "Filozofia jest najbardziej ogólna i teoretyczna, ma najszerszy przedmiot. Nauki zakładają jakąś filozofię, często nieuświadomioną.",
+      w: ["Filozofia nie opiera się na eksperymentach.",
+          "Odwrotnie: filozofia była wszechnauką, z której wyłoniły się nauki szczegółowe.",
+          "To teologia opiera się na Objawieniu."] },
+    { u: "problemy", t: "tf", s: "U", q: "Nauki szczegółowe zakładają jakąś wersję filozofii, choć często tego sobie nie uświadamiają.", a: true,
+      x: "Tak. To jeden z argumentów, że filozofia jest fundamentem, a nie zwieńczeniem." },
+    { u: "problemy", t: "mcq", s: "U",
+      q: "Dlaczego antropologie przyrodnicza, kulturowa, społeczna i teologiczna są nieautonomiczne?",
+      a: ["Nie mają wolności wobec tez nauk, na których się opierają", "Nie mają żadnego przedmiotu badań ani metody", "Są uprawiane wyłącznie przez filozofów", "Odrzucają wszystkie wyniki nauk szczegółowych"],
+      x: "Są uogólniającą refleksją nad swoimi naukami, więc nie mogą się z ich tezami nie zgodzić. Dlatego „bijemy się” o antropologię autonomiczną.",
+      w: ["Mają przedmiot i metodę, tylko zależne od nauk.",
+          "Uprawiają je raczej przedstawiciele tych nauk.",
+          "Odwrotnie: są od tych wyników zależne."] },
+    { u: "problemy", t: "tf", s: "U", q: "Historycznie filozofia była „wszechnauką”, z której wyłoniły się nauki szczegółowe.", a: true,
+      x: "Tak. W historii kultury i nauki filozofia była pierwszą nauką, w której było wszystko, a specjalizacje wyłoniły się z niej później." },
+
+    /* ---------- Start od zdrowego rozsądku ---------- */
+    { u: "start", t: "mcq",
+      q: "Z czego według slajdu 3 wyrasta filozofia klasyczna – realistyczna?",
+      a: ["Z poznania przednaukowego, spontanicznego", "Z wyników nauk przyrodniczych XIX wieku", "Z analizy pojęć zawartych w słownikach", "Z tez Objawienia o naturze człowieka"],
+      x: "Wyrasta z poznania przednaukowego, spontanicznego (zdroworozsądkowego) i swoiście opracowuje jego dane.",
+      w: ["To byłby punkt wyjścia filozofii nieautonomicznej (pozytywizm).",
+          "Start od pojęć to metapoziom, odrzucony przy fakcie ludzkim.",
+          "Objawienie to teologia, a nie filozofia."] },
+    { u: "start", t: "mcq",
+      q: "Co daje start od poznania przednaukowego?",
+      a: ["Autonomię od nauk szczegółowych", "Pewność wszystkich wniosków filozofii", "Zgodność z każdą teorią naukową", "Możliwość pominięcia opisu faktu"],
+      x: "Slajd 3: dzięki temu zachowujemy autonomię od nauk szczegółowych.",
+      w: ["Slajd nie obiecuje pewności wniosków.",
+          "Chodzi o niezależność, a nie zgodność z każdą teorią.",
+          "Opis faktu jest zawsze pierwszym etapem."] },
+    { u: "start", t: "tf", s: "U", q: "Punkt wyjścia jest najważniejszy dla autonomii nauki: każda nauka, walcząc o autonomię, stara się mieć własny punkt wyjścia.", a: true,
+      x: "Tak. Własny punkt wyjścia to podstawa niezależności nauki." },
+    { u: "start", t: "mcq", s: "U",
+      q: "Co ojciec Krąpiec mówił o realizmie w życiu codziennym?",
+      a: ["Że w życiu codziennym każdy z nas jest realistą", "Że tylko filozofowie bywają prawdziwymi realistami", "Że życie codzienne jest pełne złudzeń idealizmu", "Że zdrowy rozsądek zawsze myli się co do świata"],
+      x: "W praktyce wszyscy jesteśmy realistami, nawet filozof idealista ma do czynienia z realnymi rzeczami. Filozofia klasyczna ten realizm „uszlachetnia”.",
+      w: ["Odwrotnie: realistami są wszyscy, nie tylko filozofowie.",
+          "Krąpiec mówił, że na co dzień jesteśmy realistami.",
+          "Zdrowy rozsądek jest punktem wyjścia, a nie źródłem błędów."] },
+    { u: "start", t: "match", s: "U",
+      pairs: [
+        ["metafizyka wychodzi od…", "bytu konkretnego"],
+        ["antropologia wychodzi od…", "faktu ludzkiego"],
+        ["filozofia klasyczna wyrasta z…", "poznania przednaukowego"],
+        ["pozytywizm stawia filozofię…", "na końcu, jako zwieńczenie"]],
+      x: "Metafizyka startuje od bytu konkretnego, antropologia od faktu ludzkiego. Obie wyrastają z poznania przednaukowego. Pozytywizm stawia filozofię na końcu." },
+    { u: "start", t: "cloze",
+      q: "Filozofia klasyczna wyrasta z poznania przednaukowego, spontanicznego i dane tego poznania swoiście ___.",
+      a: ["opracowuje", "odrzuca", "pomija", "mierzy"],
+      x: "Opracowuje, czyli przyjmuje dane zdrowego rozsądku i obrabia je filozoficznie.",
+      w: ["Odwrotnie: od tych danych zaczyna.",
+          "Nie pomija, tylko z nich wyrasta.",
+          "Mierzenie to sprawa nauk szczegółowych."] },
+    { u: "start", t: "mcq", s: "U",
+      q: "Czym w metafizyce jest odpowiednik faktu ludzkiego?",
+      a: ["Byt konkretny", "Pojęcie bytu", "Byt idealny", "Niebyt"],
+      x: "W metafizyce wychodzimy od bytu konkretnego, w antropologii od faktu ludzkiego.",
+      w: ["Pojęcie to metapoziom, jak „człowiek” w antropologii.",
+          "Byt idealny to droga idealizmu.",
+          "Niebyt nie może być punktem wyjścia."] },
+    { u: "start", t: "tf", q: "Według slajdu 3 wybór punktu wyjścia filozofii klasycznej to „najbezpieczniejsza” droga.", a: true,
+      x: "Tak: „najbezpieczniej wybrać punkt wyjścia filozofii klasycznej – realistycznej”, bo zachowuje autonomię od nauk." },
+    { u: "start", t: "sort", q: "Gdzie stoi filozofia: na początku czy na końcu?",
+      cats: ["Pozytywizm", "Filozofia klasyczna"],
+      why: ["W pozytywizmie filozofia przychodzi na końcu, jako uogólnienie wyników nauk.",
+            "W filozofii klasycznej filozofia wyrasta z poznania przednaukowego i jest fundamentem."],
+      items: [
+        ["filozofia jako zwieńczenie nauk", 0], ["nauki jako wzór ścisłości", 0], ["fakt ludzki = obraz z nauk szczegółowych", 0],
+        ["start od poznania przednaukowego", 1], ["filozofia jako fundament", 1], ["realizm dnia codziennego", 1]],
+      x: "Pozytywizm stawia filozofię na końcu, jako zwieńczenie nauk. Wykład odwraca kierunek: filozofia wyrasta z poznania przednaukowego i jest fundamentem." },
+
+    /* ---------- Od zewnątrz i od wewnątrz ---------- */
+    { u: "drogi", t: "mcq",
+      q: "Na jakie dwa sposoby według slajdu 3 można ustalić fakt ludzki?",
+      a: ["Przez zewnętrzną obserwację i wewnętrzne doświadczenie", "Przez eksperyment i ankietę psychologiczną", "Przez Objawienie i tradycję Kościoła", "Przez analizę pojęć i definicji słownikowych"],
+      x: "Przez „zewnętrzną” obserwację człowieka i przez „wewnętrzne doświadczenie” bycia człowiekiem jako działającego.",
+      w: ["To metody nauk szczegółowych, a nie dwie drogi ze slajdu.",
+          "To źródła teologii.",
+          "Start od pojęć to metapoziom, odrzucony przy fakcie ludzkim."] },
+    { u: "drogi", t: "mcq",
+      q: "Co według slajdu 3 daje odwołanie się do faktu ludzkiego widzianego „od zewnątrz”?",
+      a: ["Poczucie miary obiektywnej", "Pewność co do własnych przeżyć", "Dostęp do cudzych myśli", "Wgląd w strukturę duszy"],
+      x: "Odwołanie się do faktu ludzkiego widzianego od zewnątrz daje poczucie miary obiektywnej w ustaleniu przedmiotu wyjaśnień.",
+      w: ["Własne przeżycia daje doświadczenie wewnętrzne.",
+          "Z zewnątrz widać działania, a nie myśli.",
+          "Strukturę bytu dopiero się wyjaśnia, w kolejnych częściach kursu."] },
+    { u: "drogi", t: "tf", q: "Według slajdu 3 punkty widzenia zewnętrzny i wewnętrzny wykluczają się, więc trzeba wybrać jeden.", a: false,
+      x: "Fałsz. Slajd mówi wprost: „Oba punkty widzenia dopełniają się”." },
+    { u: "drogi", t: "mcq", s: "U",
+      q: "Kto według wykładu postulował dopuszczenie do głosu doświadczenia wewnętrznego?",
+      a: ["Karol Wojtyła", "Stanisław Kamiński", "Arystoteles", "Zofia Zdybicka"],
+      x: "To spór Krąpca z Wojtyłą. Wojtyła: pytamy o człowieka jako ludzie, każdy przeżywa siebie od wewnątrz, więc to doświadczenie trzeba dopuścić.",
+      w: ["Kamiński to metodolog, „pogotowie metodologiczne”.",
+          "Arystoteles to źródło klasyczne („O duszy”), nie uczestnik tego sporu.",
+          "Zdybicka to filozofia religii."] },
+    { u: "drogi", t: "mcq", s: "U",
+      q: "Dlaczego doświadczenie wewnętrzne jest subiektywne?",
+      a: ["Jest zamknięte w moim „ja” i trudno je przekazać innym", "Jest mniej prawdziwe niż obserwacja z zewnątrz", "Zależy od mody i nastroju w danej epoce", "Mają je tylko niektórzy, wybrani ludzie"],
+      x: "To doświadczenie tylko mojego „ja”, bardzo trudne do przekazania: „nie rozumiesz mojego bólu”. Stąd miara subiektywna, podmiotowa.",
+      w: ["Subiektywne nie znaczy fałszywe; chodzi o to, że jest z perspektywy podmiotu.",
+          "Nie o modę chodzi, tylko o perspektywę „ja”.",
+          "Każdy człowiek przeżywa siebie od wewnątrz."] },
+    { u: "drogi", t: "match", s: "U",
+      pairs: [
+        ["doświadczenie zewnętrzne", "przedmiotowe, obiektywne"],
+        ["doświadczenie wewnętrzne", "podmiotowe, subiektywne"],
+        ["Wojtyła", "dopuścić przeżycie od środka"],
+        ["slajd 3 o obu drogach", "dopełniają się"]],
+      x: "Zewnętrzne jest przedmiotowe i obiektywne, wewnętrzne podmiotowe i subiektywne. Wojtyła walczył o dopuszczenie wewnętrznego. Oba się dopełniają." },
+    { u: "drogi", t: "multi", q: "W jakich dwóch aspektach ujmujemy człowieka od zewnątrz (slajd 4)?",
+      a: ["stosunek do zdeterminowanego świata przyrody", "społeczne uwarunkowania jego życia"],
+      o: ["relacja do Boga w świetle Objawienia", "wewnętrzne przeżycia jego „ja”"],
+      x: "Slajd 4: człowiek w aspekcie stosunku do świata przyrody, z którym jest istotnie związany, i w aspekcie społecznych uwarunkowań życia.",
+      w: ["To perspektywa antropologii teologicznej.",
+          "To doświadczenie wewnętrzne, a nie zewnętrzne."] },
+    { u: "drogi", t: "mcq",
+      q: "Jak według slajdu 4 dowiadujemy się, kim jest człowiek?",
+      a: ["Z analizy tego, co i jak człowiek działa", "Z definicji człowieka podanej przez filozofów", "Z badań genetycznych i neurobiologicznych", "Z tego, co ludzie sami o sobie deklarują"],
+      x: "Człowiek ukazywany jest nie statycznie (czym lub kim jest), ale w tym, co i jak działa. Z analizy działania dowiadujemy się, kim jest.",
+      w: ["Definicja to punkt dojścia, a nie start.",
+          "To wycinki nauk szczegółowych.",
+          "Deklaracje to nie to samo co analiza działania."] },
+    { u: "drogi", t: "cloze",
+      q: "Człowiek ukazywany jest nie tyle w tym, czym lub kim jest, czyli ___, ale w tym, co i jak działa.",
+      a: ["statycznie", "dynamicznie", "historycznie", "teologicznie"],
+      x: "Statycznie. Wykład pokazuje człowieka dynamicznie, przez działanie.",
+      w: ["Pułapka: dynamicznie to właśnie ujęcie przez działanie, które slajd wybiera.",
+          "Slajd nie mówi tu o historii.",
+          "Teologia nie ma tu nic do rzeczy."] },
+    { u: "drogi", t: "tf", q: "W antropologii zachodzi wyjątkowa sytuacja: ogląd człowieka może być dokonywany od zewnątrz i od wewnątrz.", a: true,
+      x: "Tak. Badacz sam jest człowiekiem, więc ma też dostęp „od środka”. Tego nie ma np. w zoologii." },
+    { u: "drogi", t: "mcq", s: "U",
+      q: "Który z tych opisów to doświadczenie wewnętrzne?",
+      a: ["Przeżywam, że to ja podejmuję decyzję", "Widzę, że ludzie budują szkoły i sądy", "Obserwuję, że ludzie żyją w różnych klimatach", "Liczę, ile narzędzi wytworzyła epoka żelaza"],
+      x: "Przeżycie siebie jako działającego, „od środka”, to doświadczenie wewnętrzne.",
+      w: ["To obserwacja z zewnątrz.",
+          "To obserwacja z zewnątrz (brak naturalnej niszy).",
+          "To obserwacja historii z zewnątrz."] },
+    { u: "drogi", t: "tf", s: "U", q: "Ten wykład omawia przede wszystkim fakt ludzki widziany od zewnątrz.", a: true,
+      x: "Tak. Tytuł prezentacji to „Fakt ludzki widziany od zewnątrz”. Doświadczenie wewnętrzne to kolejny temat." },
+
+    /* ---------- Zwierzę rozumne? Istota żywa ---------- */
+    { u: "zoon", t: "mcq", s: "U",
+      q: "Co prowadząca skreśla w zdaniu „od strony zewnętrznej zwierzę”?",
+      a: ["Słowo „zwierzę”, zamiast niego „istota żywa”", "Słowa „od strony zewnętrznej”, bo opis jest wewnętrzny", "Nic, uważa to zdanie za w pełni poprawne", "Całe zdanie, bo człowiek nie należy do przyrody"],
+      x: "Skreśla „zwierzę”: to skutek złej etymologii w przekładzie zoon i animal. Lepiej: istota żywa.",
+      w: ["Opis jest właśnie zewnętrzny, to się zgadza.",
+          "Skreśla słowo „zwierzę”.",
+          "Człowiek jest istotą żywą w przyrodzie, chodzi tylko o słowo."] },
+    { u: "zoon", t: "match", s: "U",
+      pairs: [
+        ["zoon (gr.)", "od zoe – życie"],
+        ["animal (łac.)", "od anima – dusza"],
+        ["logikon / rationale", "rozumny"],
+        ["żywina (staropolskie)", "zwierzęta domowe"]],
+      x: "W greckim zoon jest zoe (życie), w łacińskim animal jest anima (dusza). Logikon i rationale to „rozumny”. Żywina to staropolskie słowo od „żyć”." },
+    { u: "zoon", t: "mcq", s: "U",
+      q: "Co znaczy greckie zoe, od którego pochodzi zoon?",
+      a: ["Życie", "Zwierzę", "Rozum", "Dusza"],
+      x: "Zoe to życie. Dlatego zoon to raczej „istota żywa” niż „zwierzę”.",
+      w: ["To właśnie zły przekład, który prowadząca skreśla.",
+          "Rozum to logos (logikon).",
+          "Dusza to łacińskie anima."] },
+    { u: "zoon", t: "mcq", s: "U",
+      q: "Co znaczy łacińskie anima, od którego pochodzi animal?",
+      a: ["Dusza", "Ciało", "Zwierzę", "Rozum"],
+      x: "Anima to dusza. Animal rationale to istota ożywiona (mająca duszę) i rozumna.",
+      w: ["Ciało to corpus.",
+          "„Zwierzę” to właśnie przekład, który gubi element życia.",
+          "Rozum to ratio (rationale)."] },
+    { u: "zoon", t: "mcq", s: "U",
+      q: "Co jest złego w przekładzie „zwierzę rozumne”?",
+      a: ["„Zwierzę” gubi element życia z greki i łaciny", "„Rozumne” jest zbyt mocnym słowem dla człowieka", "Przekład jest za długi i niewygodny w użyciu", "Grecy nie znali pojęcia rozumu"],
+      x: "W zoon (zoe) i animal (anima) jest element życia. Polskie „zwierzę” go nie ma, więc wychodzi „tylko zwierzę”, czyli redukcja.",
+      w: ["Rozumność to właśnie różnica gatunkowa człowieka.",
+          "Problemem jest sens, a nie długość.",
+          "Logikon pochodzi od logos, rozumu."] },
+    { u: "zoon", t: "mcq", s: "U",
+      q: "Co jest rodzajem najbliższym w klasycznej definicji człowieka?",
+      a: ["Istoty żywe", "Ssaki", "Zwierzęta", "Byty rozumne"],
+      x: "Rodzaj najbliższy to byty żywe, razem z roślinami i zwierzętami. Odróżnia nas od przyrody nieożywionej, bez redukcji.",
+      w: ["„Ssak” to terminologia z biologii, przemycona nawet do opisu u Krąpca.",
+          "To właśnie przekład, który prowadząca skreśla.",
+          "Rozumność to różnica gatunkowa, a nie rodzaj."] },
+    { u: "zoon", t: "mcq", s: "U",
+      q: "Co jest różnicą gatunkową człowieka?",
+      a: ["Rozumność", "Życie", "Cielesność", "Ruch"],
+      x: "Różnica gatunkowa (differentia specifica) to rozumność: rationale, logikon.",
+      w: ["Życie to rodzaj najbliższy, wspólny z roślinami i zwierzętami.",
+          "Ciało mają wszystkie istoty żywe.",
+          "Ruch mają też zwierzęta."] },
+    { u: "zoon", t: "order", s: "U", q: "Ułóż kroki klasycznej definicji człowieka.",
+      a: ["Rodzaj najbliższy: istota żywa", "Różnica gatunkowa: rozumność", "Definicja: istota żywa rozumna"],
+      x: "Definicja przez rodzaj najbliższy i różnicę gatunkową: istota żywa + rozumność = istota żywa rozumna (zoon logikon, animal rationale)." },
+    { u: "zoon", t: "tf", s: "U", q: "Zaliczenie człowieka do istot żywych to redukcja.", a: false,
+      x: "Fałsz. Bycie istotą żywą to rodzaj najbliższy, wspólny z roślinami i zwierzętami, i nie ma w tym redukcji. Redukcją jest „tylko zwierzę”." },
+    { u: "zoon", t: "mcq", s: "U",
+      q: "Dlaczego prowadząca przywołuje słowo „żywina”?",
+      a: ["Bo zawiera element życia, którego brak w „zwierzęciu”", "Bo tak Krąpiec nazywał człowieka w podręczniku", "Bo to dokładny przekład greckiego logikon", "Bo to nazwa antropologii przyrodniczej w XIX wieku"],
+      x: "Żywina to staropolskie słowo od „żyć” (zwierzęta domowe). Takie terminy zanikły, a lepiej oddawały rodzaj najbliższy: istoty żywe.",
+      w: ["Krąpiec pisał „ssak”, „zwierzę”, a nie „żywina”.",
+          "Logikon znaczy „rozumny”.",
+          "Nic takiego nie padło."] },
+    { u: "zoon", t: "mcq", s: "U",
+      q: "Jak zmieniło się według prowadzącej podejście do różnicy między człowiekiem a innymi gatunkami?",
+      a: ["Dawniej jakościowa, dziś częściej ilościowa", "Dawniej ilościowa, dziś częściej jakościowa", "Zawsze uważano ją za wyłącznie ilościową", "Dziś uważa się, że różnicy w ogóle nie ma"],
+      x: "Stara antropologia (Encyklopedia Katolicka, lata 70.) podkreślała różnicę jakościową. Współcześnie idzie to w stronę ilościowej.",
+      w: ["Odwrotnie.",
+          "Dawniej podkreślano jakościową odmienność.",
+          "Różnica jest, spór dotyczy jej rodzaju."] },
+    { u: "zoon", t: "mcq", s: "U",
+      q: "Dlaczego nawet opis u Krąpca nie jest w pełni neutralny?",
+      a: ["Bo przenosi terminy z biologii, np. „ssak”", "Bo opiera się na Objawieniu i tezach wiary", "Bo pomija całkowicie ciało człowieka", "Bo jest napisany w pierwszej osobie"],
+      x: "Od strony zewnętrznej „ssak”, „zwierzę”: to terminologia z przyrodoznawstwa, która wnosi rozstrzygnięcia tych dyscyplin do opisu.",
+      w: ["Krąpiec uprawia filozofię, nie teologię.",
+          "Nie pomija ciała, problemem są terminy.",
+          "Forma gramatyczna nie ma tu znaczenia."] },
+    { u: "zoon", t: "cloze", s: "U",
+      q: "Definicja klasyczna wskazuje rodzaj ___ i różnicę gatunkową.",
+      a: ["najbliższy", "najwyższy", "ludzki", "biologiczny"],
+      x: "Rodzaj najbliższy (genus proximum) i różnica gatunkowa (differentia specifica).",
+      w: ["Najwyższy rodzaj byłby zbyt ogólny; definicja potrzebuje najbliższego.",
+          "Ludzki to gatunek, a nie rodzaj.",
+          "To przemyca terminologię biologii."] },
+
+    /* ---------- Człowiek od zewnątrz ---------- */
+    { u: "przeglad", t: "multi", q: "Co wymienia slajd 4 w krótkim przeglądzie człowieka widzianego od zewnątrz?",
+      a: ["bez naturalnej niszy ekologicznej", "posługuje się narzędziami", "żyje w społeczności", "posługuje się językiem znaków umownych", "zdolny do poznania kontemplacyjnego", "uświadamia sobie bycie ku śmierci"],
+      o: ["kieruje się wyłącznie instynktem", "żyje tylko w jednym klimacie"],
+      x: "Slajd 4: bez niszy, istota żywa dla celów pozabiologicznych, narzędzia, społeczność, język znaków umownych, postęp techniczny, poznanie kontemplacyjne, bycie ku śmierci (cmentarze).",
+      w: ["Odwrotnie: działanie człowieka nie jest zdeterminowane prawami przyrody.",
+          "Odwrotnie: człowiek nie ma naturalnej niszy i żyje wszędzie."] },
+    { u: "przeglad", t: "mcq",
+      q: "Co znaczy, że człowiek jest „bez naturalnej niszy ekologicznej”?",
+      a: ["Może żyć w bardzo różnych warunkach i klimatach", "Nie ma żadnego wpływu na środowisko przyrodnicze", "Nie potrzebuje jedzenia ani schronienia", "Żyje tylko w miastach, nigdy w przyrodzie"],
+      x: "Inne gatunki mają wąską niszę. Człowiek żyje na północy i południu, na lodzie, wysoko, nawet pod ziemią i w różnych temperaturach.",
+      w: ["Nisza to nie wpływ na środowisko.",
+          "Jest istotą żywą, potrzeby biologiczne ma.",
+          "Żyje wszędzie, także poza miastami."] },
+    { u: "przeglad", t: "mcq",
+      q: "Co według slajdu 5 człowiek widzi przede wszystkim, patrząc na siebie od zewnątrz?",
+      a: ["Że jego działanie nie jest zdeterminowane prawami przyrody", "Że jest jednym z wielu gatunków ssaków naczelnych", "Że jego zachowanie wynika w całości z genów", "Że nie ma żadnego związku ze światem przyrody"],
+      x: "Slajd 5: człowiek widzi siebie jako istotę, której działanie nie jest zdeterminowane prawami przyrody, mimo że przyroda to jego naturalne środowisko.",
+      w: ["To terminologia biologii, przed którą wykład przestrzega.",
+          "To redukcja, sprzeczna ze slajdem.",
+          "Przyroda jest naturalnym środowiskiem jego życia, a fizjologią jest jej krewnym."] },
+    { u: "przeglad", t: "cloze",
+      q: "Człowiek jest krewnym przyrody przez swój ustrój ___, a przy tym jest od niej diametralnie różny.",
+      a: ["fizjologiczny", "społeczny", "duchowy", "językowy"],
+      x: "Przez ustrój fizjologiczny i jego funkcjonowanie. Rozumem jest od przyrody diametralnie różny.",
+      w: ["Społeczność też jest w przyrodzie, ale slajd mówi o fizjologii.",
+          "Duchowość to raczej to, co różni.",
+          "Język to cecha różniąca człowieka od przyrody."] },
+    { u: "przeglad", t: "multi", q: "Co według slajdu 5 człowiek robi z naturą pracą swojego rozumu?",
+      a: ["przetwarza", "doskonali", "uzupełnia"],
+      o: ["niszczy", "kopiuje"],
+      x: "Slajd 5: człowiek pracą rozumu przetwarza, doskonali i uzupełnia naturę.",
+      w: ["Tego slajd nie mówi.",
+          "Slajd mówi o przetwarzaniu i uzupełnianiu, a nie kopiowaniu."] },
+    { u: "przeglad", t: "mcq",
+      q: "Jakie narzędzie slajd 5 nazywa najbardziej twórczym i ludzkim?",
+      a: ["Język", "Kij", "Komputer", "Pismo"],
+      x: "Język: najbardziej twórcze i ludzkie narzędzie, które mogła utworzyć tylko istota rozumna.",
+      w: ["Kij to przykład narzędzia wielofunkcyjnego ze slajdu 6.",
+          "Komputer padł jako przykład złożonego narzędzia, ale nie „najbardziej ludzkiego”.",
+          "Slajd mówi o języku, nie o piśmie."] },
+    { u: "przeglad", t: "mcq",
+      q: "Co według slajdu 5 potrafi tylko człowiek w świecie przyrody?",
+      a: ["Poznać intelektualnie rzeczywistość i tworzyć pojęcia", "Porozumiewać się z innymi osobnikami gatunku", "Żyć w grupie i dzielić się zadaniami", "Używać przedmiotów jako narzędzi"],
+      x: "Jako jedyny w przyrodzie jest zdolny do poznania intelektualnego, ujmowania w myśleniu całości rzeczywistości i tworzenia pojęć.",
+      w: ["Komunikują się też inne byty żywe (naturalnie).",
+          "Życie społeczne zna też przyroda.",
+          "Narzędzi używają też zwierzęta, ale do celów biologicznych."] },
+    { u: "przeglad", t: "mcq", s: "U",
+      q: "Czym różnią się ludzkie społeczności od zwierzęcych?",
+      a: ["Obok naturalnych są też konwencjonalne, oparte na umowie", "Ludzie w ogóle nie tworzą społeczności naturalnych", "Zwierzęta w ogóle nie żyją w żadnych społecznościach", "Ludzkie społeczności są wyłącznie rodzinne"],
+      x: "Zwierzęce społeczności są wyłącznie naturalne. My mamy naturalne (rodzina, ród, naród) i konwencjonalne (np. uniwersytet).",
+      w: ["Rodzina czy naród to społeczności naturalne, mamy je.",
+          "Przyroda zna życie społeczne.",
+          "Mamy też konwencjonalne, np. uczelnię."] },
+    { u: "przeglad", t: "mcq", s: "U",
+      q: "Czym ludzki język różni się od komunikacji innych istot żywych?",
+      a: ["Jest systemem znaków umownych, nie tylko naturalnych", "Ludzie porozumiewają się, a zwierzęta wcale tego nie robią", "Ludzki język służy wyłącznie do przetrwania gatunku", "Ludzki język jest wrodzony i nie wymaga nauki"],
+      x: "Inne istoty też się komunikują, ale naturalnie. Ludzki język to system znaków umownych: tworzymy nowe języki i przekładamy z jednego na drugi.",
+      w: ["Zwierzęta też się komunikują, tylko naturalnie.",
+          "Język służy też celom pozabiologicznym.",
+          "Nic takiego nie padło; umowność wręcz zakłada uczenie się."] },
+    { u: "przeglad", t: "multi", s: "U", q: "Jakie przykłady podała prowadząca, by pokazać, że język jest umowny?",
+      a: ["esperanto", "mowa znaków Indian", "języki komputerowe", "przekład z języka na język"],
+      o: ["śpiew ptaków", "taniec pszczół"],
+      x: "Możemy tworzyć języki (esperanto, mowa znaków, języki komputerowe) i przechodzić z języka na język.",
+      w: ["Śpiew ptaków to naturalna komunikacja.",
+          "Taniec pszczół to naturalna komunikacja."] },
+    { u: "przeglad", t: "multi", q: "Jak według slajdu 5 człowiek uzewnętrznia swoją inność od przyrody?",
+      a: ["buduje szkoły i sądy", "buduje cmentarze", "zawiera przyjaźnie i małżeństwa", "gromadzi się w świątyniach", "uprawia turystykę"],
+      o: ["buduje gniazda na zimę", "znaczy terytorium"],
+      x: "Slajd 5: szkoły, sądy, cmentarze, związki przyjacielskie, małżeńskie, świątynie, turystyka.",
+      w: ["To zachowanie dla celów biologicznych, typowe dla przyrody.",
+          "To naturalne zachowanie wielu zwierząt."] },
+    { u: "przeglad", t: "tf", q: "Według slajdu 5 człowiek działa o wiele więcej, niż byłoby mu potrzebne do utrzymania organizmu przy życiu.", a: true,
+      x: "Tak. To ostatnie zdanie slajdu 5: cele człowieka wykraczają daleko poza potrzeby biologiczne." },
+    { u: "przeglad", t: "which", set: "cecha", q: "Ludzie mieszkają za kołem podbiegunowym, na pustyniach i w wysokich górach.", a: 1,
+      x: "Człowiek nie ma naturalnej, wąskiej niszy ekologicznej." },
+    { u: "przeglad", t: "which", set: "cecha", q: "Grupa studentów tworzy koło naukowe i uchwala jego regulamin.", a: 3,
+      x: "Koło naukowe to społeczność konwencjonalna (umowna), a nie naturalna." },
+    { u: "przeglad", t: "which", set: "cecha", q: "Ktoś układa nowy szyfr i uczy go przyjaciela.", a: 4,
+      x: "Szyfr to nowy system znaków umownych." },
+    { u: "przeglad", t: "which", set: "cecha", q: "Rodzina co roku odwiedza groby bliskich.", a: 6,
+      x: "Cmentarze świadczą o świadomości bycia ku śmierci." },
+    { u: "przeglad", t: "which", set: "cecha", q: "Ktoś godzinami słucha muzyki w filharmonii.", a: 5,
+      x: "Słuchanie muzyki dla niej samej to poznanie kontemplacyjne (estetyczne)." },
+    { u: "przeglad", t: "which", set: "cecha", q: "Po epoce pary przyszła epoka elektryczności.", a: 2,
+      x: "Kolejne epoki to doskonalenie narzędzi, czyli postęp techniczny." },
+
+    /* ---------- Homo faber ---------- */
+    { u: "faber", t: "mcq",
+      q: "Jako kto według slajdu 6 jawi się człowiek w historii, widziany od zewnątrz?",
+      a: ["Twórca narzędzi, homo faber", "Myśliciel, homo sapiens", "Gracz, homo ludens", "Istota religijna, homo religiosus"],
+      x: "Slajd 6: człowiek widziany od zewnątrz jawi się w historii przede wszystkim jako twórca narzędzi – homo faber.",
+      w: ["To nazwa gatunku, slajd 6 mówi o homo faber.",
+          "★ Homo ludens to określenie Huizingi, nie ze slajdu.",
+          "Religia pojawia się przy poznaniu kontemplacyjnym, ale slajd 6 mówi o homo faber."] },
+    { u: "faber", t: "order", q: "Ułóż epoki ze slajdu 6 od najstarszej.",
+      a: ["Kamień łupany", "Spiż", "Żelazo", "Para wodna", "Elektryczność", "Energia jądrowa"],
+      x: "Epoka kamienia łupanego, spiżu (brązu), żelaza, pary wodnej, elektryczności, energii jądrowej." },
+    { u: "faber", t: "mcq",
+      q: "Czemu służą narzędzia-oznaki używane przez zwierzęta?",
+      a: ["Zachowaniu życia jednostki lub gatunku", "Wyrażaniu piękna i przeżyć estetycznych", "Porozumiewaniu się za pomocą umownych znaków", "Upamiętnianiu zmarłych członków stada"],
+      x: "Slajd 6: narzędzia-oznaki zwierząt służą zachowaniu życia jednostki lub gatunku, czyli celom biologicznym.",
+      w: ["To cel pozabiologiczny, typowo ludzki.",
+          "Znaki umowne to język człowieka.",
+          "Upamiętnianie zmarłych (cmentarze) to cecha człowieka."] },
+    { u: "faber", t: "mcq",
+      q: "Czemu zasadniczo służy narzędzie człowieka, nawet przypadkowy kij?",
+      a: ["Celom pozabiologicznym", "Wyłącznie zdobywaniu pożywienia", "Tylko obronie przed drapieżnikami", "Jedynie budowie schronienia"],
+      x: "Narzędzie znalezione czy wytworzone przez człowieka służy zasadniczo celom pozabiologicznym, w odróżnieniu od narzędzi-oznak zwierząt.",
+      w: ["Zdobywanie pożywienia to cel biologiczny.",
+          "Obrona to tylko jedna z funkcji kija.",
+          "Schronienie to cel biologiczny."] },
+    { u: "faber", t: "multi", q: "Do czego według slajdu 6 może służyć kij?",
+      a: ["do obrony", "do podpierania się", "do nadawania znaków sygnalizacyjnych"],
+      o: ["do rozpalania ognia przez tarcie", "do pisania liter"],
+      x: "Slajd 6: kijem można się bronić, podeprzeć się i użyć go do nadawania znaków i porozumiewania się. To wielofunkcyjność narzędzia.",
+      w: ["Tego przykładu nie ma na slajdzie.",
+          "Tego przykładu nie ma na slajdzie."] },
+    { u: "faber", t: "mcq",
+      q: "Co tworzą dziś według slajdu 6 rozwinięte narzędzia?",
+      a: ["Narzędziowo-kulturowe środowisko życia człowieka", "Nową niszę ekologiczną dla gatunku ludzkiego", "Zagrożenie, które zniszczy ludzką kulturę", "Odrębny gatunek istot sztucznych"],
+      x: "Narzędzia rozwinęły się tak, że w dużej mierze tworzą narzędziowo-kulturowe środowisko życia: drogi, miasta, fabryki, domy.",
+      w: ["Człowiek właśnie nie ma naturalnej niszy.",
+          "Slajd nie ocenia narzędzi jako zagrożenia.",
+          "Nic takiego nie ma na slajdzie."] },
+    { u: "faber", t: "order", q: "Ułóż zależność ze slajdu 6: co jest warunkiem czego? Zacznij od najbardziej podstawowego.",
+      a: ["Język znaków umownych", "Społeczność zorganizowana", "Rozwój narzędzi"],
+      x: "Rozwój narzędzi jest możliwy tylko w społecznościach zorganizowanych, a te tylko przy używaniu języka jako systemu znaków umownych. Język jest więc najbardziej podstawowy." },
+    { u: "faber", t: "tf", q: "Według slajdu 6 rozwój narzędzi jest możliwy także u jednostki żyjącej w zupełnej samotności.", a: false,
+      x: "Fałsz. Rozwój narzędzi jest możliwy jedynie w społecznościach zorganizowanych, a te wymagają języka." },
+    { u: "faber", t: "cloze", s: "K",
+      q: "Części narzędzia tworzą układ konieczny relacji, będących celowym sprzężeniem ___ dla jedności działania.",
+      a: ["wielości", "jedności", "przyczyn", "energii"],
+      x: "Celowe sprzężenie wielości (wielu części) dla jedności działania (jednego celu).",
+      w: ["Pułapka: jedność jest na końcu zdania („dla jedności działania”).",
+          "Slajd mówi o wielości części, a nie przyczyn.",
+          "Slajd nie mówi o energii."] },
+    { u: "faber", t: "mcq",
+      q: "Co znaczy „celowe sprzężenie wielości dla jedności działania”?",
+      a: ["Wiele części dobranych tak, by razem służyły jednemu celowi", "Wiele narzędzi używanych naraz przez jedną osobę", "Wielu ludzi pracujących nad jednym narzędziem", "Wiele celów osiąganych jednym narzędziem"],
+      x: "To opis budowy narzędzia: wiele części składowych połączonych celowo, żeby narzędzie działało jako jedność.",
+      w: ["Chodzi o części jednego narzędzia, nie o wiele narzędzi.",
+          "Chodzi o części narzędzia, nie o ludzi.",
+          "To wielofunkcyjność (kij), a nie układ relacji."] },
+    { u: "faber", t: "mcq", s: "U",
+      q: "Co prowadząca mówi o złożoności ludzkich narzędzi, np. telefonu?",
+      a: ["Przekracza możliwości tego, co wytworzyłaby przyroda", "Jest podobna do złożoności gniazd ptasich", "Wynika z instynktu, a nie z rozumu", "Nie ma znaczenia dla antropologii filozoficznej"],
+      x: "Komputer, telefon czy pojazdy mają tyle wewnętrznych relacji, że przekraczają wszelkie możliwości tego, co mogłaby wytworzyć przyroda.",
+      w: ["Konstrukcje zwierząt służą celom biologicznym i są dużo prostsze.",
+          "Wymagają poznania rozumowego układu relacji.",
+          "Ma: z niej wynika poznanie rozumowe człowieka."] },
+    { u: "faber", t: "sort", q: "Narzędzie zwierzęcia czy człowieka?",
+      cats: ["Zwierzę", "Człowiek"],
+      why: ["Narzędzia-oznaki zwierząt służą przetrwaniu jednostki lub gatunku.",
+            "Narzędzia człowieka służą też celom pozabiologicznym, są wielofunkcyjne i złożone."],
+      items: [
+        ["kamień do rozbicia orzecha, by się najeść", 0], ["gałązka do wyciągania termitów", 0], ["żeremie bobrów", 0, "Niezwykła konstrukcja, ale dla przetrwania: cel biologiczny."],
+        ["skrzypce", 1], ["kij do dawania znaków", 1], ["fabryka", 1], ["telefon", 1]],
+      x: "Narzędzia zwierząt służą przetrwaniu, nawet gdy są imponujące. Narzędzia człowieka służą też celom pozabiologicznym (muzyka, znaki) i bywają bardzo złożone." },
+
+    /* ---------- Trzy rodzaje poznania ---------- */
+    { u: "poznanie", t: "mcq",
+      q: "Dlaczego budowanie narzędzi świadczy o poznaniu rozumowym?",
+      a: ["Trzeba rozumieć układ relacji między częściami narzędzia", "Narzędzia wymagają dużej siły fizycznej i zręczności", "Narzędzia buduje się tylko w szkołach i na uczelniach", "Bez narzędzi człowiek nie mógłby się najeść"],
+      x: "Kto tworzy narzędzia, poznaje ich wewnętrzny układ relacji, a to suponuje (zakłada) rozumienie, czyli poznanie rozumne.",
+      w: ["Siła to nie poznanie.",
+          "Narzędzia buduje się wszędzie.",
+          "To cel biologiczny, a nie argument za rozumem."] },
+    { u: "poznanie", t: "mcq",
+      q: "Co według slajdu 7 znaczy, że człowiek jest bytem racjonalnym?",
+      a: ["Że używa swego rozumu celowo", "Że zawsze działa bez emocji", "Że nigdy się nie myli", "Że ma największy mózg w przyrodzie"],
+      x: "Slajd 7: bytem racjonalnym, tzn. używającym swego rozumu celowo.",
+      w: ["Racjonalność to nie brak emocji.",
+          "Racjonalny nie znaczy nieomylny.",
+          "Slajd nie mówi o wielkości mózgu."] },
+    { u: "poznanie", t: "mcq",
+      q: "Dlaczego poznanie kontemplacyjne nazywa się bezproduktywnym?",
+      a: ["Nic z niego nie wytwarzamy, oglądamy dla samego oglądania", "Bo jest mniej wartościowe od poznania rozumowego", "Bo jest dostępne tylko dla nielicznych ludzi", "Bo nie wymaga żadnego udziału zmysłów"],
+      x: "Kontemplacja niczego nie produkuje i do niczego się nie przydaje: teatr, muzyka, religia, widok wodospadu. Właśnie dlatego jest pozabiologiczna.",
+      w: ["Bezproduktywne nie znaczy gorsze.",
+          "Każdy człowiek jest do niego zdolny.",
+          "Przeżycia estetyczne angażują zmysły."] },
+    { u: "poznanie", t: "multi", q: "W jakich przeżyciach według slajdu 7 występuje poznanie kontemplacyjno-estetyczne?",
+      a: ["teatr", "muzyka", "religia"],
+      o: ["budowa narzędzi", "budowa cmentarzy"],
+      x: "Slajd 7: przeżycia teatru, muzyki, religii.",
+      w: ["To poznanie rozumowe.",
+          "To poznanie refleksyjne."] },
+    { u: "poznanie", t: "mcq",
+      q: "O czym według slajdu 7 świadczą cmentarze?",
+      a: ["Że człowiek ujmuje w poznaniu całość swego życia", "Że człowiek boi się zwierząt i chroni zmarłych", "Że człowiek nie zna przyczyn śmierci", "Że człowiek jest zdolny do pracy fizycznej"],
+      x: "Poznanie refleksyjne, znaczone budową cmentarzy: człowiek całość swego życia ujmuje w poznaniu.",
+      w: ["Nic takiego nie ma na slajdzie.",
+          "Chodzi o refleksję, nie o wiedzę medyczną.",
+          "To nie jest argument ze slajdu 7."] },
+    { u: "poznanie", t: "mcq", s: "U",
+      q: "Co według prowadzącej wyraża grób oprócz refleksji nad śmiercią?",
+      a: ["Niezgodę na śmierć i otwarcie na dalsze trwanie", "Lęk przed karą za życie niezgodne z prawem", "Chęć pokazania majątku rodziny innym", "Obowiązek nałożony przez przepisy sanitarne"],
+      x: "Cmentarz to refleksja nad śmiercią i zarazem niezgoda na nią: jeśli nie w fizyczności, to trwanie w pamięci innych. „Jest grób, jest znak”.",
+      w: ["Nic takiego nie padło.",
+          "Nic takiego nie padło.",
+          "To cel praktyczny, a nie to, co mówi prowadząca."] },
+    { u: "poznanie", t: "which", set: "poznanie", q: "Inżynier projektuje most i oblicza, jak każda belka przenosi obciążenie.", a: 1,
+      x: "Rozumienie układu relacji między częściami konstrukcji to poznanie rozumowe." },
+    { u: "poznanie", t: "which", set: "poznanie", q: "Ktoś leci przez pół świata, żeby zobaczyć Wielki Kanion.", a: 2,
+      x: "Oglądanie piękna przyrody dla niego samego to poznanie kontemplacyjno-estetyczne. Do niczego się nie przydaje, i o to chodzi." },
+    { u: "poznanie", t: "which", set: "poznanie", q: "Ktoś pisze testament i myśli, co zostawi po sobie.", a: 3,
+      x: "Ujmowanie całości swojego życia, łącznie z jego końcem, to poznanie refleksyjne." },
+    { u: "poznanie", t: "which", set: "poznanie", q: "Ktoś modli się w ciszy w pustym kościele.", a: 2,
+      x: "Przeżycie religijne to według slajdu 7 przykład poznania kontemplacyjnego." },
+    { u: "poznanie", t: "which", set: "poznanie", q: "Mechanik rozumie, dlaczego silnik nie zapala, bo wie, jak działają jego części.", a: 1,
+      x: "Poznanie układu relacji w narzędziu to poznanie rozumowe." },
+    { u: "poznanie", t: "cloze",
+      q: "Fakt ludzki widziany od zewnątrz ujawnia poznanie rozumowe, kontemplacyjno-estetyczne oraz ___.",
+      a: ["refleksyjne", "zmysłowe", "religijne", "naukowe"],
+      x: "Trzecie to poznanie refleksyjne (cmentarze).",
+      w: ["Poznanie zmysłowe mają też zwierzęta; slajd 7 mówi o refleksyjnym.",
+          "Religia jest przykładem poznania kontemplacyjnego.",
+          "Slajd nie wymienia poznania naukowego."] },
+    { u: "poznanie", t: "match",
+      pairs: [
+        ["poznanie rozumowe", "narzędzie jako układ relacji"],
+        ["poznanie kontemplacyjno-estetyczne", "teatr, muzyka, religia"],
+        ["poznanie refleksyjne", "budowa cmentarzy"],
+        ["byt racjonalny", "używa rozumu celowo"]],
+      x: "Trzy rodzaje poznania ze slajdu 7 i ich znaki, plus definicja bytu racjonalnego." },
+
+    /* ---------- Rozpoznaj w życiu ---------- */
+    { u: "mix", t: "mcq",
+      q: "Student pisze na teście: „Punktem wyjścia antropologii realistycznej jest człowiek”. Co powie prowadząca?",
+      a: ["Brak punktu: trzeba napisać „fakt ludzki”", "Pełny punkt: to synonim faktu ludzkiego", "Pół punktu, bo odpowiedź jest niepełna", "Pełny punkt, jeśli doda definicję człowieka"],
+      x: "Prowadząca powiedziała wprost: za „człowieka” punktu nie będzie, poprawna odpowiedź to „fakt ludzki”.",
+      w: ["To nie synonim: „człowiek” to pojęcie ogólne, metapoziom.",
+          "O półpunktach nie było mowy, prowadząca mówiła: „nie będzie punktu”.",
+          "Definicja nic nie zmienia, punkt wyjścia to fakt ludzki."] },
+    { u: "mix", t: "mcq",
+      q: "Psycholożka pisze pracę o mózgu i chce dodać rozdział filozoficzny. Do czego przyda się jej część metodologiczna antropologii?",
+      a: ["Pokaże, że rozdziały mają różne metody i cele", "Pozwoli pominąć wyniki badań nad mózgiem", "Zastąpi część empiryczną pracy", "Udowodni, że filozofia jest ważniejsza od psychologii"],
+      x: "Prowadząca: w pracy łączącej antropologię przyrodniczą z filozoficzną trzeba pokazać, że części mają inne metody i inne cele.",
+      w: ["Wyniki empiryczne zostają, tylko trzeba je odróżnić od tez filozoficznych.",
+          "Nie zastępuje, tylko porządkuje.",
+          "Nie o ranking chodzi, tylko o rozdzielenie kompetencji."] },
+    { u: "mix", t: "mcq",
+      q: "Popularny artykuł głosi: „Skoro mamy 98% genów wspólnych z szympansami, jesteśmy tylko małpami”. Co to za błąd według wykładu?",
+      a: ["Przekroczenie kompetencji i redukcja", "Poprawne wnioskowanie z faktów", "Błąd w obliczeniach genetycznych", "Przykład doświadczenia wewnętrznego"],
+      x: "Genetyka może porównywać geny, ale nie rozstrzyga, czym jest człowiek jako całość. „Tylko małpy” to redukcja, jak „człowiek jest zwierzęciem”.",
+      w: ["Wniosek wychodzi poza to, co metoda genetyki może stwierdzić.",
+          "Problem nie leży w liczbach, tylko we wniosku.",
+          "To teza o człowieku z zewnątrz, nie przeżycie od środka."] },
+    { u: "mix", t: "mcq",
+      q: "Mówisz przyjacielowi: „Nie rozumiesz, co czuję po stracie”. Jakie doświadczenie opisujesz?",
+      a: ["Wewnętrzne: subiektywne, trudne do przekazania", "Zewnętrzne: obiektywne, dostępne obserwatorowi", "Przednaukowe: wspólne wszystkim ludziom", "Kontemplacyjne: estetyczne i bezproduktywne"],
+      x: "Prowadząca podała dokładnie taki przykład: „nie rozumiesz mojego bólu”. To doświadczenie wewnętrzne, zamknięte w moim „ja”.",
+      w: ["Obserwator widzi tylko zachowanie, nie przeżycie.",
+          "Przeżycie straty jest właśnie bardzo osobiste.",
+          "To nie kontemplacja, tylko przeżycie własnego „ja”."] },
+    { u: "mix", t: "tf", q: "Ktoś buduje dom, żeby mieć schronienie przed zimnem. To przykład celu wyłącznie pozabiologicznego.", a: false,
+      x: "Fałsz. Schronienie przed zimnem to cel biologiczny. Pozabiologiczny byłby np. dom zaprojektowany, żeby był piękny, albo świątynia." },
+    { u: "mix", t: "which", set: "cecha", q: "Turysta jedzie w Bieszczady tylko po to, żeby popatrzeć na zachód słońca.", a: 5,
+      x: "Patrzenie dla samego patrzenia to poznanie kontemplacyjne. Prowadząca: turystyka i podróże do wodospadów to cele pozabiologiczne." },
+    { u: "mix", t: "which", set: "cecha", q: "Programistka pisze program w Pythonie.", a: 4,
+      x: "Języki komputerowe to przykład z wykładu: system znaków umownych." },
+    { u: "mix", t: "which", set: "poznanie", q: "Na Wszystkich Świętych zapalasz znicz i myślisz, co zostanie po tobie.", a: 3,
+      x: "Groby i myślenie o całości życia to poznanie refleksyjne." },
+    { u: "mix", t: "mcq",
+      q: "Kolega mówi: „Filozofia powinna poczekać, aż neuronauki wszystko o człowieku wyjaśnią”. Jaki to paradygmat?",
+      a: ["Pozytywistyczny: filozofia jako zwieńczenie nauk", "Klasyczny: filozofia jako fundament nauk", "Teologiczny: filozofia jako służebnica wiary", "Realistyczny: start od zdrowego rozsądku"],
+      x: "To problem 2 ze slajdu i paradygmat pozytywistyczny. Wykład go odrzuca: obraz naukowy jest tylko pozornie jednolity.",
+      w: ["Filozofia klasyczna mówi odwrotnie: fundament, a nie czekanie.",
+          "Nie o teologię tu chodzi.",
+          "Realizm zaczyna od poznania przednaukowego, a nie od neuronauk."] },
+    { u: "mix", t: "mcq",
+      q: "Która wypowiedź najlepiej oddaje sens skreślenia „zwierzęcia” na slajdzie?",
+      a: ["„Jesteśmy istotami żywymi, ale nie tylko zwierzętami”", "„Człowiek nie ma nic wspólnego z przyrodą”", "„Człowiek to po prostu bardzo mądre zwierzę”", "„Słowo »zwierzę« jest w nauce zakazane”"],
+      x: "Należymy do istot żywych (rodzaj najbliższy), ale „zwierzę” po polsku redukuje człowieka. Rozumność to różnica gatunkowa.",
+      w: ["Człowiek jest krewnym przyrody przez ustrój fizjologiczny.",
+          "To właśnie redukcja, którą prowadząca odrzuca.",
+          "Nikt tego nie zakazuje; chodzi o nieadekwatny przekład."] }
+  ],
+
+  sortDecks: [
+    { id: "zew-wew", title: "Od zewnątrz czy od wewnątrz?", sub: "Dwie drogi do faktu ludzkiego",
+      cats: ["Zewnętrzne", "Wewnętrzne"],
+      why: ["Doświadczenie zewnętrzne: patrzę na człowieka z boku, jak obserwator. Przedmiotowe, obiektywne.",
+            "Doświadczenie wewnętrzne: przeżywam siebie od środka jako działającego. Podmiotowe, subiektywne."],
+      items: [
+        ["widzę, że ludzie budują cmentarze", 0], ["obserwuję, że ludzie żyją w każdym klimacie", 0], ["liczę epoki narzędzi w historii", 0],
+        ["miara obiektywna", 0], ["doświadczenie przedmiotowe", 0], ["człowiek na tle przyrody", 0],
+        ["patrzę, jak ludzie zakładają stowarzyszenia", 0, "Społeczne uwarunkowania życia to drugi aspekt spojrzenia z zewnątrz."],
+        ["wiem, jak to jest podjąć trudną decyzję", 1], ["„nie rozumiesz mojego bólu”", 1], ["przeżywam siebie jako działającego", 1],
+        ["miara subiektywna, podmiotowa", 1], ["bardzo trudne do przekazania innym", 1],
+        ["dopuścić je postulował Wojtyła", 1, "W sporze z Krąpcem Wojtyła upierał się, by dopuścić doświadczenie wewnętrzne: pytamy o człowieka jako ludzie."],
+        ["to ja myślę i ja wybieram", 1]] },
+    { id: "przyroda", title: "Wspólne z przyrodą czy tylko ludzkie?", sub: "Człowiek na tle świata przyrody",
+      cats: ["Wspólne z przyrodą", "Tylko u człowieka"],
+      why: ["To człowiek ma wspólne z innymi istotami żywymi: tym jest „krewnym przyrody”.",
+            "Tym człowiek „przekracza” przyrodę: cele pozabiologiczne, umowność, rozum."],
+      items: [
+        ["ustrój fizjologiczny", 0], ["procesy życiowe", 0], ["społeczności naturalne", 0, "Rodzinę czy stado zna też przyroda. Ludzkie są dodatkowo społeczności konwencjonalne."],
+        ["komunikacja naturalna", 0], ["narzędzia do przetrwania", 0, "Zwierzęta używają narzędzi-oznak dla przetrwania jednostki lub gatunku."],
+        ["życie w społeczności", 0, "Pułapka: przyroda też zna życie społeczne. Tylko ludzkie są społeczności konwencjonalne."],
+        ["imponujące konstrukcje", 0, "Niektóre konstrukcje zwierząt są wzorem dla architektury, ale służą celom biologicznym."],
+        ["społeczności konwencjonalne", 1], ["język znaków umownych", 1], ["narzędzia dla celów pozabiologicznych", 1],
+        ["tworzenie pojęć", 1], ["myślenie o całości rzeczywistości", 1], ["cmentarze", 1], ["podróż, by zobaczyć wodospad", 1],
+        ["postęp techniczny", 1], ["życie bez naturalnej niszy", 1]] },
+    { id: "start", title: "Dobry czy zły punkt wyjścia?", sub: "Od czego zacząć antropologię realistyczną",
+      cats: ["Zły start", "Dobry start"],
+      why: ["To nie nadaje się na punkt wyjścia: pojęcie, jedno indywiduum, gotowe wyniki nauk albo Objawienie.",
+            "To pasuje do punktu wyjścia antropologii realistycznej: fakt ludzki z poznania przednaukowego."],
+      items: [
+        ["fakt ludzki", 1], ["człowiek w istotnych właściwościach bytowych", 1], ["poznanie przednaukowe, spontaniczne", 1],
+        ["rzeczywistość ludzka", 1], ["doświadczenie zewnętrzne i wewnętrzne", 1], ["realizm dnia codziennego", 1],
+        ["człowiek jako pojęcie ogólne", 0, "Pojęcie to metapoziom. Na kolokwium „człowiek” jako punkt wyjścia to brak punktu."],
+        ["konkretny Jan", 0, "Jedno indywiduum to start nienaukowy."],
+        ["obraz człowieka z nauk szczegółowych", 0, "To problem 2: podejście pozytywistyczne, nieautonomiczne."],
+        ["biblijny opis stworzenia", 0, "Tezy objawione nie mogą być w punkcie wyjścia filozofii."],
+        ["analiza treści pojęcia", 0], ["idealna wizja człowieka", 0], ["wyniki neuronauk jako gotowy fakt", 0]] },
+    { id: "pozytywizm", title: "Pozytywizm czy filozofia klasyczna?", sub: "Gdzie stoi filozofia: na końcu czy u podstaw",
+      cats: ["Pozytywizm", "Filozofia klasyczna"],
+      why: ["Paradygmat pozytywistyczny: nauki szczegółowe są wzorem, filozofia przychodzi na końcu jako ich zwieńczenie.",
+            "Filozofia klasyczna (wykład): filozofia wyrasta z poznania przednaukowego i jest fundamentem, autonomicznym wobec nauk."],
+      items: [
+        ["filozofia jako zwieńczenie", 0], ["nauki szczegółowe wzorem ścisłości", 0], ["filozof czeka, aż nauka się wypowie", 0],
+        ["fakt ludzki = obraz z nauk", 0], ["filozofia nieautonomiczna", 0], ["od XIX wieku do dziś", 0],
+        ["filozofia jako fundament", 1], ["filozofia autonomiczna", 1], ["start od poznania przednaukowego", 1],
+        ["filozofia jako dawna wszechnauka", 1], ["nauki zakładają jakąś filozofię", 1],
+        ["obraz naukowy pozornie jednolity", 1, "To odpowiedź slajdu 3 na postulat pozytywistyczny."]] }
+  ],
+
+  minimum: [
+    ["Punkt wyjścia: pewne pytanie", "<b>Fakt ludzki</b>, nie „człowiek”. Prowadząca: za „człowieka” na kolokwium nie będzie punktu."],
+    ["Definicja faktu ludzkiego", "Faktem danym nam do wyjaśnienia jest <b>sam człowiek ujęty w swych istotnych bytowych właściwościach</b>. Czym jest fakt bycia człowiekiem i jak jest nam dany = fakt ludzki."],
+    ["Dlaczego nie „człowiek”?", "„Człowiek” to <b>pojęcie ogólne (powszechnik)</b>, rezultat poznania wielu osób, czyli <b>metapoziom</b>. Start od pojęcia = analiza pojęcia. Start od konkretnego Jana = nienaukowy."],
+    ["Dwa etapy nauk realnych", "1) <b>ustalenie i opis</b> faktów (determinacja), 2) <b>interpretacja i wyjaśnianie</b>. Sprawa zasadnicza: ustalić fakt i wskazać sposób jego wyjaśnienia."],
+    ["Problem 1", "<b>Nie ma faktów nagich</b>: opis zawsze miesza się z interpretacją. Dlatego opis ma być maksymalnie <b>neutralny</b> (neutrum – nijaki) i zdroworozsądkowy."],
+    ["Problem 2 i odpowiedź", "Postulat: fakt ludzki = obraz z nauk, filozofia na końcu (<b>pozytywizm</b>). Odpowiedź: obraz naukowy jest <b>tylko pozornie jednolity</b>; startujemy od <b>poznania przednaukowego</b>, więc zachowujemy <b>autonomię</b>. Filozofia to fundament, nie zwieńczenie."],
+    ["Dwie drogi", "<b>Zewnętrzna</b> obserwacja (obiektywna, przedmiotowa) i <b>wewnętrzne</b> doświadczenie bycia człowiekiem jako działającego (subiektywne, podmiotowe). <b>Dopełniają się</b>. Wewnętrzne postulował <b>Wojtyła</b> w sporze z Krąpcem."],
+    ["Od zewnątrz: jak patrzymy", "Dwa aspekty: <b>przyroda</b> i <b>społeczność</b>. Nie statycznie (kim jest), ale <b>co i jak działa</b>."],
+    ["Zwierzę? Istota żywa!", "Zoon (<b>zoe – życie</b>), animal (<b>anima – dusza</b>); polskie „zwierzę” gubi życie i redukuje. <b>Rodzaj najbliższy</b>: istoty żywe. <b>Różnica gatunkowa</b>: rozumność."],
+    ["Przegląd cech", "Bez naturalnej <b>niszy</b>; istota żywa dla celów <b>pozabiologicznych</b>; <b>narzędzia</b> i postęp; <b>społeczność</b> (także konwencjonalna); <b>język znaków umownych</b>; poznanie <b>kontemplacyjne</b>; <b>bycie ku śmierci</b> (cmentarze)."],
+    ["Homo faber", "Epoki: kamień łupany, spiż, żelazo, para, elektryczność, energia jądrowa. Narzędzia człowieka: <b>pozabiologiczne, wielofunkcyjne</b> (kij). Narzędzia ← społeczność ← <b>język</b>. Narzędzie = <b>celowe sprzężenie wielości dla jedności działania</b>."],
+    ["Trzy poznania", "<b>Rozumowe</b> (układ relacji w narzędziu; byt racjonalny = używa rozumu celowo), <b>kontemplacyjno-estetyczne</b> (teatr, muzyka, religia), <b>refleksyjne</b> (cmentarze: całość życia)."],
+    ["Zaliczenie", "<b>Test pisemny</b>: pytania zamknięte (prawda/fałsz, wyboru) i <b>1–3 opisowe</b>. Historia filozofii może w ogóle nie wejść do testu."]
+  ],
+
+  deep: [
+    { q: "Krąpiec czy Wojtyła: czy przeżycie od środka to wiedza?",
+      a: "Krąpiec stawiał na doświadczenie zewnętrzne, bo daje miarę obiektywną. Wojtyła upierał się, by dopuścić też wewnętrzne: pytamy o człowieka, ale pytamy jako ludzie, więc każdy ma dostęp do bycia człowiekiem od środka. Problem: przeżycie jest zamknięte w moim „ja” i trudne do przekazania („nie rozumiesz mojego bólu”). Wykład rozstrzyga: oba punkty widzenia się dopełniają.",
+      link: "Doświadczenie wewnętrzne (Ja i akty „moje”) to zapewne temat kolejnego wykładu." },
+    { q: "„Na początku wszyscy jesteśmy dziewczynkami”",
+      a: "Lekarze mówią tak, bo w życiu płodowym narządy męskie wyłaniają się później. Prowadząca: to pomieszanie opisu stawania się z tym, czym coś jest. Kolejność etapów nie mówi o naturze bytu. ★ Embriologia też tak tego nie ujmuje: płeć genetyczna (XX albo XY) jest ustalona od poczęcia, a do ok. 7. tygodnia zarodek ma niezróżnicowane gonady i zawiązki obu dróg płciowych.",
+      link: "Wróci przy ciele i płciowości w części o strukturze bytu." },
+    { q: "Różnica rodzajem czy stopniem?",
+      a: "Stara antropologia (hasła z Encyklopedii Katolickiej z lat 70.) podkreślała, że człowiek różni się od innych gatunków jakościowo. Dziś częściej mówi się o różnicy ilościowej. ★ Klasyczne zdanie po stronie „ilościowej” napisał Darwin w „O pochodzeniu człowieka” (1871): różnica umysłu człowieka i wyższych zwierząt, choć wielka, jest różnicą stopnia, a nie rodzaju.",
+      link: "Przy przeglądzie cech zobacz, które z nich wykład traktuje jako jakościowe: język umowny, cele pozabiologiczne, pojęcia." },
+    { q: "„Tym gorzej dla faktów”",
+      a: "Tak prowadząca streściła postawę idealistów: gdy teoria nie pasuje do faktów, winne są fakty. Realista robi odwrotnie. ★ Powiedzenie przypisuje się często Heglowi, ale najpewniej to anegdota, a nie cytat z jego dzieł.",
+      link: "To sedno cechy „realistyczna” z wykładu 1." },
+    { q: "Homo faber, homo sapiens, homo ludens",
+      a: "Slajd 6 widzi człowieka w historii przede wszystkim jako homo faber, twórcę narzędzi. ★ Termin spopularyzował Henri Bergson w „Ewolucji twórczej” (1907): proponował mówić „homo faber” zamiast „homo sapiens”, bo inteligencja to według niego zdolność wytwarzania narzędzi, zwłaszcza narzędzi do robienia narzędzi. Johan Huizinga dopisał „homo ludens”, człowieka bawiącego się.",
+      link: "Wykład z narzędzi wyprowadza rozum: kto buduje narzędzie, rozumie układ relacji." },
+    { q: "Bycie ku śmierci i cmentarze",
+      a: "Slajd 4 mówi o uświadomieniu sobie bycia ku śmierci, a slajd 7 o poznaniu refleksyjnym, znaczonym budową cmentarzy. Prowadząca: grób to refleksja nad śmiercią i zarazem niezgoda na nią. Jeśli nie przetrwam fizycznie, to w pamięci innych. ★ Wyrażenie „bycie ku śmierci” pochodzi od Martina Heideggera („Bycie i czas”, 1927).",
+      link: "Śmierć wróci jako ostatni punkt części systemowej: czy definicja medyczna wystarczy?" },
+    { q: "Arcydzieło i antydzieło",
+      a: "Prowadząca pyta: skoro jest kategoria arcydzieła (Michał Anioł, dyskutowana „Lalka”), czy jest też jego opozycja? Współczesna sztuka sama nazywa się czasem antysztuką, a artyści antyartystami, żeby zerwać z klasycznymi kanonami. ★ Klasyczny przykład antysztuki to „Fontanna” Marcela Duchampa (1917), czyli pisuar wystawiony jako dzieło.",
+      link: "Temat części o twórczości: sztuka, technika, dzieło." },
+    { q: "Kulturowa czy społeczna: która nazwa skąd?",
+      a: "Prowadząca powiedziała „bodajże”: kulturowa w systemie anglosaskim, społeczna w niemieckim, a nazw używa się zamiennie. ★ W podręcznikach podział bywa opisywany inaczej: antropologia społeczna (social anthropology) to tradycja brytyjska, a kulturowa (cultural anthropology) amerykańska. Na teście ważne jest, że nazwy są używane zamiennie.",
+      link: "Cztery antropologie to temat wykładu 1." }
+  ],
+
+  story: {
+    title: "Słowniczek z filozoficznego na nasze",
+    intro: "Trudne słowa z wykładu 2 przetłumaczone na zwykły język. Na teście używaj jednak słów z lewej kolumny.",
+    items: [
+      ["fakt ludzki", "prawdziwy człowiek jako punkt wyjścia (nie słowo „człowiek”)"],
+      ["powszechnik", "pojęcie ogólne, które orzekamy o wielu (np. „człowiek”)"],
+      ["metapoziom", "poziom myśli o rzeczach, a nie samych rzeczy"],
+      ["determinacja faktu", "opis faktu: zebranie o nim informacji"],
+      ["fakt nagi", "fakt bez żadnej interpretacji (takich nie ma)"],
+      ["neutralny (neutrum)", "„nijaki”: nie przemyca żadnej teorii"],
+      ["presupozycja", "ukryte założenie, które przyjmujemy, zanim zaczniemy"],
+      ["poznanie przednaukowe", "zwykłe, codzienne poznanie, zdrowy rozsądek"],
+      ["autonomiczny", "niezależny, z własnym punktem wyjścia i metodą"],
+      ["pozytywizm", "pogląd, że wzorem wiedzy są nauki szczegółowe"],
+      ["res", "rzecz (stąd nauki „realne”)"],
+      ["zoon / zoe", "istota żywa / życie (gr.)"],
+      ["animal / anima", "istota ożywiona / dusza (łac.)"],
+      ["rodzaj najbliższy", "najbliższa szersza grupa (dla człowieka: istoty żywe)"],
+      ["różnica gatunkowa", "to, co wyróżnia w tej grupie (dla człowieka: rozum)"],
+      ["nisza ekologiczna", "wąskie „miejsce do życia” gatunku"],
+      ["konwencjonalny, kontraktualny", "oparty na umowie, a nie na naturze"],
+      ["homo faber", "człowiek wytwórca, twórca narzędzi"],
+      ["suponować", "zakładać jako warunek"],
+      ["kontemplacja", "oglądanie dla samego oglądania"],
+      ["refleksja", "myślenie o sobie i swoim życiu jako całości"]
+    ]
+  },
+
+  table: {
+    title: "Człowiek na tle przyrody",
+    head: ["Co porównujemy", "W przyrodzie", "U człowieka"],
+    rows: [
+      ["Miejsce do życia", "wąska nisza ekologiczna", "bez naturalnej niszy: północ, południe, lód, góry, pod ziemią"],
+      ["Działanie", "zdeterminowane prawami przyrody", "niezdeterminowane; cele daleko poza potrzebami biologicznymi"],
+      ["Narzędzia", "narzędzia-oznaki dla przetrwania jednostki lub gatunku", "dla celów pozabiologicznych, wielofunkcyjne, coraz bardziej złożone (postęp)"],
+      ["Społeczność", "wyłącznie naturalna", "naturalna (rodzina, naród) i konwencjonalna (np. uniwersytet)"],
+      ["Komunikacja", "naturalna", "język jako system znaków umownych (nowe języki, przekład)"],
+      ["Poznanie", "bez poznania intelektualnego", "pojęcia, całość rzeczywistości; poznanie rozumowe, kontemplacyjne, refleksyjne"],
+      ["Śmierć", "brak cmentarzy", "bycie ku śmierci: groby jako znak refleksji i niezgody na śmierć"]
+    ]
+  },
+
+  talk: [
+    { q: "Co jest punktem wyjścia antropologii filozoficznej realistycznej? Dlaczego nie „człowiek”?",
+      a: "<p>Punktem wyjścia jest <b>fakt ludzki</b>: sam człowiek ujęty w swych istotnych bytowych właściwościach. Czym jest fakt bycia człowiekiem i jak jest nam dany.</p><p>Nie „człowiek”, bo to <b>pojęcie ogólne (powszechnik)</b>, które powstaje z poznania wielu konkretnych osób, więc jest już na <b>metapoziomie</b>. Gdyby punktem wyjścia było pojęcie, antropologia byłaby tylko analizą treści pojęcia i straciłaby kontakt z realnym człowiekiem. Nie może to być też konkretny Jan, bo start od jednego indywiduum byłby nienaukowy. Fakt ludzki jest realny, a pasuje do każdego człowieka.</p>",
+      keys: ["fakt ludzki", "istotne bytowe właściwości", "pojęcie ogólne, powszechnik", "metapoziom", "konkretny Jan: nienaukowe", "kontakt z rzeczywistością (Krąpiec)"],
+      trap: "Prowadząca: za odpowiedź „człowiek” nie będzie punktu.",
+      src: "Slajd 2 i nagranie" },
+    { q: "Jakie dwa etapy postępowania teoretycznego wyróżnia się w naukach realnych? Jak przenosi się je do antropologii?",
+      a: "<p>W naukach realnych (res – rzecz; badają rzeczywistość) są dwa etapy: <b>1) ustalenie i opis faktów</b> (determinacja faktu), <b>2) interpretacja i wyjaśnianie</b>.</p><p>Antropologia filozoficzna przejmuje ten schemat, bo ma być <b>realistyczna</b>: badać człowieka, a nie wymyślać jego koncepcję. Sprawą zasadniczą jest ustalenie faktu jako przedmiotu badań (fakt ludzki) i wskazanie sposobu jego wyjaśnienia (metoda, czyli uniesprzecznianie).</p>",
+      keys: ["nauki realne a formalne", "ustalenie i opis", "interpretacja i wyjaśnianie", "determinacja", "realizm", "przedmiot + sposób wyjaśnienia"],
+      src: "Slajd 2 i nagranie" },
+    { q: "Omów dwa problemy związane z ustaleniem faktu ludzkiego.",
+      a: "<p><b>Problem 1:</b> trudno oddzielić opis faktu od jego interpretacji, bo <b>nie istnieją fakty nagie</b>, nieuwikłane w jakieś przeżycie poznawcze. Do opisu wkradają się np. światopogląd przyrodniczy, kulturowy, ideologie, a nawet terminologia. Dlatego opis ma być maksymalnie <b>neutralny</b> („nijaki”) i zdroworozsądkowy.</p><p><b>Problem 2:</b> postuluje się, by fakt ludzki był <b>obrazem człowieka z nauk szczegółowych</b>, a filozofia zabierała głos dopiero po nauce (paradygmat <b>pozytywistyczny</b>, filozofia nieautonomiczna). Odpowiedź: obraz naukowy jest <b>tylko pozornie jednolity</b>. Filozofia jest najogólniejsza, więc jest fundamentem, a nie zwieńczeniem.</p>",
+      keys: ["fakty nagie", "opis a interpretacja", "neutralność", "obraz z nauk szczegółowych", "pozytywizm", "pozornie jednolity", "fundament, nie zwieńczenie"],
+      src: "Slajdy 2–3 i nagranie" },
+    { q: "Dlaczego filozofia klasyczna zaczyna od poznania przednaukowego i co jej to daje?",
+      a: "<p>Filozofia klasyczna – realistyczna wyrasta z <b>poznania przednaukowego, spontanicznego, zdroworozsądkowego</b> i swoiście opracowuje jego dane. Krąpiec: w życiu codziennym każdy jest realistą; filozofia ten realizm „uszlachetnia”.</p><p>Dzięki temu zachowujemy <b>autonomię od nauk szczegółowych</b>: nie musimy czekać na ich wyniki ani przejmować ich założeń. Punkt wyjścia jest najważniejszy dla autonomii nauki. Tak jak metafizyka wychodzi od bytu konkretnego, antropologia wychodzi od faktu ludzkiego.</p>",
+      keys: ["przednaukowe, spontaniczne, zdroworozsądkowe", "realizm dnia codziennego", "autonomia od nauk", "punkt wyjścia a autonomia", "byt konkretny / fakt ludzki"],
+      src: "Slajd 3 i nagranie" },
+    { q: "Porównaj doświadczenie zewnętrzne i wewnętrzne w ustaleniu faktu ludzkiego.",
+      a: "<p><b>Zewnętrzne</b>: obserwacja człowieka z boku, jak obserwator. Doświadczenie przedmiotowe, <b>obiektywne</b>: daje poczucie miary obiektywnej. Ujmuje człowieka na tle przyrody i w społecznych uwarunkowaniach życia, przez to, co i jak działa.</p><p><b>Wewnętrzne</b>: doświadczenie bycia człowiekiem jako działającego, od środka. Podmiotowe, <b>subiektywne</b>, zamknięte w moim „ja” i trudne do przekazania („nie rozumiesz mojego bólu”). O jego dopuszczenie spierał się z Krąpcem <b>Wojtyła</b>: pytamy o człowieka jako ludzie.</p><p>Oba punkty widzenia <b>dopełniają się</b>; to wyjątkowa sytuacja antropologii.</p>",
+      keys: ["obiektywne, przedmiotowe", "subiektywne, podmiotowe", "miara obiektywna", "człowiek jako działający", "Krąpiec – Wojtyła", "dopełniają się"],
+      src: "Slajdy 3–4 i nagranie" },
+    { q: "Dlaczego prowadząca skreśla słowo „zwierzę” w opisie człowieka widzianego od zewnątrz?",
+      a: "<p>Klasyczna definicja to gr. <b>zoon logikon</b> i łac. <b>animal rationale</b>, po polsku „zwierzę rozumne”. Ale w zoon jest <b>zoe – życie</b>, a w animal <b>anima – dusza</b>. Polskie „zwierzę” gubi ten element życia, więc przekład jest nieadekwatny i prowadzi do <b>redukcji</b> („tylko zwierzę”).</p><p>Definicja wskazuje <b>rodzaj najbliższy</b>: istoty żywe (razem z roślinami i zwierzętami, bez redukcji) i <b>różnicę gatunkową</b>: rozumność. Dlatego lepiej: istota żywa (rozumna). Nazwy biologiczne („ssak”) przemycają do opisu rozstrzygnięcia przyrodoznawstwa, a opis ma być neutralny.</p>",
+      keys: ["zoon logikon", "animal rationale", "zoe – życie", "anima – dusza", "redukcja", "rodzaj najbliższy: istoty żywe", "różnica gatunkowa: rozumność"],
+      src: "Slajd 4 i nagranie" },
+    { q: "Scharakteryzuj człowieka widzianego od zewnątrz.",
+      a: "<p>Człowiek jest <b>bez naturalnej niszy ekologicznej</b> (żyje wszędzie). To <b>istota żywa, ale działająca dla celów pozabiologicznych</b>: jego działanie nie jest zdeterminowane prawami przyrody i wykracza daleko poza potrzeby organizmu. Ustrojem fizjologicznym jest krewnym przyrody, a zarazem jest od niej diametralnie różny: rozumem przetwarza, doskonali i uzupełnia naturę.</p><p>Posługuje się <b>narzędziami</b> i je doskonali (postęp techniczny), żyje w <b>społeczności</b> (także konwencjonalnej), używa <b>języka jako systemu znaków umownych</b>. Jako jedyny tworzy pojęcia i myśli o całości rzeczywistości. Jest zdolny do <b>poznania kontemplacyjnego</b> i <b>świadomy bycia ku śmierci</b> (cmentarze). Swoją inność od przyrody uzewnętrznia w szkołach, sądach, świątyniach, przyjaźniach, małżeństwach, turystyce.</p>",
+      keys: ["bez niszy ekologicznej", "cele pozabiologiczne", "niezdeterminowany prawami przyrody", "narzędzia i postęp", "społeczność konwencjonalna", "znaki umowne", "kontemplacja", "bycie ku śmierci"],
+      src: "Slajdy 4–5 i nagranie" },
+    { q: "Czym różni się narzędzie człowieka od narzędzia zwierzęcia? Co z tego wynika o człowieku?",
+      a: "<p>Narzędzia-oznaki zwierząt służą <b>celom biologicznym</b>: zachowaniu życia jednostki lub gatunku. Narzędzie człowieka, nawet przypadkowy kij, służy <b>celom pozabiologicznym</b> i bywa <b>wielofunkcyjne</b> (kijem można się bronić, podeprzeć, dawać znaki). Narzędzia rozwijają się w historii (epoki: kamień łupany, spiż, żelazo, para, elektryczność, energia jądrowa) i tworzą <b>środowisko narzędziowo-kulturowe</b>.</p><p>Rozwój narzędzi wymaga <b>społeczności zorganizowanej</b>, a ta <b>języka znaków umownych</b>. Narzędzie to <b>układ konieczny relacji</b>, „celowe sprzężenie wielości dla jedności działania”. Kto je tworzy, musi ten układ rozumieć, więc człowiek jest <b>bytem racjonalnym</b> (homo faber).</p>",
+      keys: ["narzędzia-oznaki: cele biologiczne", "cele pozabiologiczne", "wielofunkcyjność (kij)", "epoki", "społeczność i język", "układ konieczny relacji", "byt racjonalny"],
+      src: "Slajdy 6–7" },
+    { q: "Jakie rodzaje poznania ujawnia fakt ludzki widziany od zewnątrz?",
+      a: "<p><b>Poznanie rozumowe</b>: tworząc i używając narzędzi, człowiek poznaje układ relacji między ich częściami, a to zakłada rozumienie. Człowiek jest więc bytem racjonalnym, używającym rozumu celowo.</p><p><b>Poznanie kontemplacyjno-estetyczne</b> (bezproduktywne): teatr, muzyka, religia, podziwianie przyrody (podróż do wodospadu), czyli cele pozabiologiczne.</p><p><b>Poznanie refleksyjne</b>: budowa cmentarzy świadczy, że człowiek ujmuje całość swego życia. Grób to refleksja nad śmiercią i niezgoda na nią: trwanie w pamięci innych.</p>",
+      keys: ["rozumowe: układ relacji", "byt racjonalny", "kontemplacyjno-estetyczne: teatr, muzyka, religia", "bezproduktywne", "refleksyjne: cmentarze", "całość życia"],
+      src: "Slajd 7 i nagranie" },
+    { q: "Podaj przykład przekroczenia kompetencji przez naukę szczegółową i wyjaśnij, na czym polega błąd.",
+      a: "<p>W metodologii pytamy, czy dana nauka swoją metodą może dojść do danej tezy. <b>Przykład 1:</b> genetycy twierdzą, że „człowiek jest zwierzęciem”. Genetyka bada geny, ale nie rozstrzyga, czym jest człowiek jako całość, więc to <b>redukcja</b>. <b>Przykład 2:</b> „na początku wszyscy jesteśmy dziewczynkami”, bo narządy męskie wyłaniają się w życiu płodowym później. To pomieszanie <b>opisu stawania się</b> z tym, <b>czym coś jest</b> (naturą bytu).</p><p>Cel kursu: umieć odróżnić tezę ściśle filozoficzną od uzasadnionej tezy nauk szczegółowych. Pomaga w tym metodologia ks. Kamińskiego.</p>",
+      keys: ["kompetencje metodologiczne", "„człowiek jest zwierzęciem”: redukcja", "„wszyscy jesteśmy dziewczynkami”", "stawanie się a natura", "teza filozoficzna a naukowa", "Kamiński"],
+      src: "Nagranie" }
+  ],
+
+  notes: [
+    { id: "n1", n: 1, title: "Powtórka z wykładu 1", html:
+      "<div class='plain'><p>Prowadząca zaczęła od przypomnienia. Najważniejsze: <b>definicja na pewno będzie na kolokwium</b>, więc trzeba ją znać słowo w słowo.</p></div>" +
+      "<div class='key'><p>Antropologia filozoficzna: dziedzina filozofii, która bada człowieka, jego działania i wytwory, <b>o ile</b> wskazują one na jego określoną <b>strukturę ontyczną</b> i <b>egzystencjalną pozycję w świecie</b>.</p></div>" +
+      "<ul><li><b>Personalizm</b> to nurt stosunkowo nowy (przełom XIX i XX wieku, głównie XX), choć pojęcie osoby jest dużo starsze.</li>" +
+      "<li><b>Cztery antropologie:</b> przyrodnicza (najbliższa nam ze szkoły), kulturowa albo społeczna (nazwy używane zamiennie; u nas modniejsza „kulturowa”), teologiczna (dla filozofii może być zwieńczeniem albo inspiracją), filozoficzna.</li>" +
+      "<li><b>Autonomiczna</b> wobec nauk szczegółowych i wobec teologii. Liczy się <b>metoda, a nie autor</b>: filozofia używa rozumu naturalnego, teologia rozumu nadprzyrodzonego i tez Objawienia.</li>" +
+      "<li><b>Realistyczna:</b> teoria zgodna z rzeczywistością konkretnej osoby, a nie idealna wizja. <b>Racjonalna:</b> bez tez objawionych w punkcie wyjścia (np. biblijnego opisu stworzenia), bez antropologii irracjonalnych. <b>Aposterioryczna:</b> z doświadczenia.</li>" +
+      "<li><b>Trzy części:</b> wstępna (metodologia; przyda się np. w pracy magisterskiej łączącej badania mózgu z filozofią), historyczna (przeniesiona na koniec), systemowa (najważniejsza, zaczyna się teraz).</li>" +
+      "<li><b>Uniesprzecznianie:</b> sprzeczność powstaje, gdy mówimy, że byt jest niebytem albo niebyt bytem (zasada niesprzeczności). Wyjaśniając, wskazujemy rację bytową, czyli coś realnego. W filozofii też jest miejsce na hipotezy.</li></ul>" },
+    { id: "n2", n: 2, title: "Mapa części systemowej", html:
+      "<div class='plain'><p>Część systemowa odpowiada na pytanie, kim jest człowiek. To nie dogmaty, tylko otwarty system z mnóstwem tematów do badań. Idzie od punktu wyjścia, przez budowę człowieka, do tego, co robi. W tezach kursu ma 10 punktów.</p></div>" +
+      "<ol><li><b>Fakt ludzki</b> dostępny w doświadczeniu „od zewnątrz” (ten wykład).</li>" +
+      "<li>Doświadczenie <b>„od wewnątrz”</b>: „Ja” jako działający, „Ja” i akty „moje”.</li>" +
+      "<li><b>Dusza i ciało</b>: omawiane osobno, ale kurs <b>odrzuca dualizm</b>. Przy ciele płciowość; rozwój medycyny rodzi nowe pytania.</li>" +
+      "<li><b>Osoba</b> w relacji do natury i kultury: sama struktura nie mówi do końca, jakim bytem jest człowiek.</li>" +
+      "<li><b>Poznanie</b>: zmysły, rozum, rozumienie prawdy.</li>" +
+      "<li><b>Działanie</b>: miłość, decyzja, wolność, moralność, uczucia, dobro, problem zła.</li>" +
+      "<li><b>Człowiek wobec społeczności</b>: prawo, polityka, państwo, rodzina, naród.</li>" +
+      "<li><b>Człowiek i sztuka</b>: piękno, dzieło, technika, arcydzieło. Czy istnieje antydzieło, skoro współczesna sztuka nazywa się antysztuką?</li>" +
+      "<li><b>Człowiek jako byt religijny</b>: filozofia religii, nie teologia (prace s. prof. Zofii Zdybickiej, pierwszej zakonnicy profesor w Polsce).</li>" +
+      "<li><b>Śmierć</b>: czy wystarczy definicja medyczna (śmierć mózgu, bierne rozumienie śmierci), czy filozofia ma własną koncepcję?</li></ol>" +
+      "<p><b>Historia antropologii</b> na koniec semestru: paradygmaty człowieka i osoby albo przegląd filozofów (może Kartezjusz, Hume, Kant, Hegel, marksizm, ewolucjonizm, egzystencjalizm, Scheler, Wojtyła, postmodernizm). Może w ogóle nie wejść do testu.</p>" +
+      "<aside class='extra'><p>Anegdota z wykładu: wykłady o. Krąpca z lat 70. przyciągały „cały Lublin” i podobno były tak piękne, że aż „się chciało umierać”.</p></aside>" },
+    { id: "n3", n: 3, title: "Zaliczenie i literatura", html:
+      "<div class='plain'><p>Na zaliczenie jest <b>test pisemny</b>. Oprócz pytań zamkniętych będą <b>1–3 pytania opisowe</b>, żeby każdy pisał trochę inaczej. Dlatego w tym module jest tryb „Pytania opisowe” z wzorcowymi odpowiedziami.</p></div>" +
+      "<ul><li>Pytania <b>rozstrzygnięcia</b> (prawda/fałsz) albo <b>wyboru</b> plus jedno, dwa albo trzy szersze <b>opisowe</b>.</li>" +
+      "<li>Kurs miał być konwersatorium, ale ze względu na liczbę osób jest wykładem. Pytania można zadawać w trakcie.</li>" +
+      "<li>Materiały (prezentacje, skrypty) są na Teamsie.</li></ul>" +
+      "<p><b>Literatura:</b></p><ul>" +
+      "<li>M. A. Krąpiec, <b>„Ja – człowiek”</b>: główny podręcznik części systemowej. Krótsze wersje: <b>„Człowiek jako osoba”</b> i „Rozmowy z Ojcem Krąpcem: O człowieku” (rozmawia R. J. Weksler-Waszkinel), czyli „antropologia w pigułce”.</li>" +
+      "<li>Arystoteles, <b>„O duszy”</b>: najważniejsze źródło klasyczne.</li>" +
+      "<li>K. Wojtyła, <b>„Osoba i czyn”</b> (powstała w Lublinie, jest w karcie przedmiotu) i „Rozważania o istocie człowieka”.</li>" +
+      "<li>Skrypt z metodologii oparty na tekstach ks. <b>Stanisława Kamińskiego</b>; jego artykuł „Naukowa, filozoficzna i teologiczna wizja człowieka” w „Jak filozofować?”.</li>" +
+      "<li>Do poszerzenia: R. Darowski „Filozofia człowieka”, A. Siemianowski „Antropologia filozoficzna”, P. S. Mazur „W kręgu pytań o człowieka. Vademecum antropologiczne” (ok. 50 pytań z krótkimi odpowiedziami), zbiory „Umysł – dusza – ciało” i „Spór o naturę ludzką”, A. Gudaniec o koncepcji antropologii Krąpca, hasło „antropologia” w Encyklopedii Katolickiej.</li></ul>" +
+      "<aside class='extra'><p>Prowadząca żartowała, że za przeczytanie „Osoby i czynu” „odpuszcza się ileś dni czyśćca”, bo to trudna lektura.</p></aside>" },
+    { id: "n4", n: 4, title: "Gdy nauka mówi za dużo", html:
+      "<div class='plain'><p>Każda nauka ma swoje kompetencje: to, co jej metoda pozwala stwierdzić. Kłopot zaczyna się, gdy nauka ogłasza coś o całym człowieku, choć bada tylko jego kawałek.</p></div>" +
+      "<p>Ks. <b>Stanisław Kamiński</b>, naczelny metodolog KUL, był nazywany <b>„pogotowiem metodologicznym”</b>: pomagał ustawić prace z socjologii, psychologii i prace interdyscyplinarne. Jego tekst „Naukowa, filozoficzna i teologiczna wizja człowieka” pokazuje, jak ułożyć antropologie na osiach, żeby się <b>dopełniały</b>, a nie wykluczały, i żeby żadna nie <b>przekraczała swoich kompetencji</b>.</p>" +
+      "<p>W metodologii chodzi o to, <b>czy dana nauka może daną metodą dojść do danej tezy</b>. Dwa przykłady przekroczenia:</p>" +
+      "<ul><li><b>„Człowiek jest zwierzęciem”</b> (dwóch genetyków): redukcja.</li>" +
+      "<li><b>„Na początku wszyscy jesteśmy dziewczynkami, a potem niektórzy stają się chłopcami”</b> (popularna medycyna, bo w życiu płodowym narządy męskie wyłaniają się później): pomieszanie <b>opisu stawania się</b> z tym, <b>czym coś jest</b>, czyli z naturą bytu.</li></ul>" +
+      "<div class='key'><p>Cel kursu: umieć rozróżnić, gdzie jest <b>teza ściśle filozoficzna</b>, a gdzie <b>uzasadniona teza antropologii szczegółowych</b>.</p></div>" },
+    { id: "n5", n: 5, title: "Nauki realne: dwa etapy", html:
+      "<div class='plain'><p>Zanim cokolwiek wyjaśnimy, trzeba ustalić, co dokładnie wyjaśniamy, i to opisać. Tak robią nauki o rzeczywistości i tak ma robić antropologia.</p></div>" +
+      "<p><b>Podział nauk u Kamińskiego:</b> <b>formalne</b> zajmują się stroną formalną (np. aspektem ilościowym), <b>realne</b> (łac. <i>res</i> – rzecz) badają rzeczywistość, np. biologia, części fizyki, przyrodoznawstwo.</p>" +
+      "<div class='key'><p>W naukach realnych wyróżnia się dwa etapy postępowania teoretycznego: <b>1) ustalenie i opis faktów</b>, <b>2) próby ich interpretacji oraz wyjaśnianie</b>.</p></div>" +
+      "<p>Opisać fakt to inaczej go <b>zdeterminować</b>, czyli uzyskać o nim informacje. Interpretacja przechodzi potem w wyjaśnianie. <b>Sprawa zasadnicza:</b> ustalenie faktu jako przedmiotu badań i wyjaśnień oraz wskazanie sposobu wyjaśnienia (metoda).</p>" +
+      "<p>Antropologia przejmuje ten schemat, bo ma być <b>realistyczna</b>: badać człowieka, a nie wymyślać jego koncepcję.</p>" +
+      "<aside class='extra'><p>Typowe nauki formalne to logika i matematyka: nie badają rzeczy, tylko formy rozumowania i zależności ilościowe.</p></aside>" },
+    { id: "n6", n: 6, title: "Fakt ludzki: punkt wyjścia", html:
+      "<div class='plain'><p>Od czego zaczyna antropologia? Od prawdziwego człowieka, takiego, jakiego spotykamy. Nie od słowa „człowiek”, bo słowo to już wynik myślenia o ludziach. I nie od jednego Jana, bo nauka ma mówić o wszystkich.</p></div>" +
+      "<div class='key'><p>Faktem danym nam do wyjaśnienia jest sam człowiek ujęty w swych istotnych bytowych właściwościach. Czym jest fakt bycia człowiekiem i jak jest nam dany = <b>FAKT LUDZKI</b>.</p></div>" +
+      "<!--fig:fakt-->" +
+      "<ul><li><b>„Człowiek”</b> to pojęcie ogólne, <b>powszechnik</b>: ujmuje właściwości konstytutywne bycia człowiekiem; orzekamy je o konkretnej Agacie, Janie, Katarzynie i miliardach innych. To <b>metapoziom</b>, rezultat poznania. Start od pojęcia zrobiłby z antropologii analizę treści pojęcia.</li>" +
+      "<li><b>Konkretny Jan</b> też odpada: start od jednego indywiduum byłby nienaukowy.</li>" +
+      "<li><b>Krąpiec:</b> chodzi o konkret, o ludzką osobę. Abstrakcja nie może odciąć nas od realnej rzeczywistości człowieka. Filozofowi łatwo zgubić się w teorii; idealiści mówili wtedy „<b>tym gorzej dla faktów</b>”.</li>" +
+      "<li>Termin „fakt ludzki” omija pojęcie „człowiek” w punkcie wyjścia, ale <b>słowa „człowiek” używamy dalej</b>, bo nie da się bez niego obejść.</li></ul>" +
+      "<div class='fixnote'><p class='ans-k'>Na kolokwium</p><p>Punkt wyjścia antropologii realistycznej to <mark>fakt ludzki</mark>. Odpowiedź „człowiek” = brak punktu.</p></div>" },
+    { id: "n7", n: 7, title: "Dwa kłopoty z faktem ludzkim", html:
+      "<div class='plain'><p>Kłopot pierwszy: nie da się patrzeć na człowieka zupełnie bez założeń. Kłopot drugi: niektórzy chcą, żeby filozofia poczekała, aż nauki wszystko wyjaśnią. Wykład odpowiada na oba.</p></div>" +
+      "<p><b>Problem 1.</b> Trudno oddzielić opis faktu ludzkiego od jego interpretacji teoretycznej, bo <b>nie istnieją fakty nagie</b>, nieuwikłane w jakiegoś typu przeżycie poznawcze, które determinuje i kieruje poznawaniem faktu.</p>" +
+      "<ul><li>Do opisu wkradają się wątki z antropologii przyrodniczej, światopogląd kulturowy, ideologie, a nawet sama terminologia.</li>" +
+      "<li>Opis ma być maksymalnie <b>neutralny</b> (łac. <i>neutrum</i> – nijaki: ani taki, ani taki) i <b>zdroworozsądkowy</b>. Fachowcy pytają, czy to w ogóle możliwe. Na 1. roku filozofii próbowano „wyczyścić” studentów ze światopoglądu naukowego.</li></ul>" +
+      "<p><b>Problem 2.</b> Postuluje się, by fakt ludzki był <b>obrazem człowieka dostarczonym przez nauki szczegółowe</b>, a filozofia zastanawiała się nad człowiekiem dopiero wtedy, gdy nauka wypowie swoje zdanie.</p>" +
+      "<!--fig:kierunek-->" +
+      "<ul><li>To <b>paradygmat pozytywistyczny</b> (od XIX wieku do dziś): nauki szczegółowe są wzorem ścisłości, filozofia ma być ich <b>zwieńczeniem</b>. To filozofia <b>nieautonomiczna</b>.</li>" +
+      "<li><b>Odpowiedź slajdu 3:</b> obraz naukowy człowieka <b>tylko pozornie jest jednolity</b>.</li>" +
+      "<li><b>Odwracamy kierunek:</b> filozofia jest najogólniejsza, najbardziej teoretyczna, ma najszerszy przedmiot, więc jest <b>fundamentem</b> dla nauk szczegółowych i praktycznych. Nauki zakładają jakąś filozofię, często nieuświadomioną. Historycznie filozofia była <b>wszechnauką</b>, z której wyłoniły się specjalizacje.</li>" +
+      "<li>Antropologie przyrodnicza, kulturowa, społeczna, teologiczna uogólniają swoje nauki, więc <b>nie mają wolności wobec ich tez</b> (są nieautonomiczne). Dlatego „bijemy się” o antropologię filozoficzną autonomiczną.</li></ul>" },
+    { id: "n8", n: 8, title: "Rozwiązanie: start od zdrowego rozsądku", html:
+      "<div class='plain'><p>Zamiast czekać na nauki, zaczynamy od tego, co każdy wie na co dzień: ludzie istnieją, działają, rozmawiają, budują. To zwykłe poznanie filozofia porządkuje po swojemu i dzięki temu jest od nauk niezależna.</p></div>" +
+      "<div class='key'><p>Najbezpieczniej wybrać punkt wyjścia filozofii klasycznej – realistycznej, która wyrasta z <b>poznania przednaukowego, spontanicznego</b> i dane tego poznania swoiście opracowuje. Dzięki temu zachowujemy <b>autonomię od nauk szczegółowych</b>.</p></div>" +
+      "<ul><li><b>Krąpiec:</b> w życiu codziennym każdy z nas jest realistą, nawet filozof idealista. Filozofia klasyczna „uszlachetnia” ten realizm dnia codziennego.</li>" +
+      "<li>Metafizyka wychodzi od <b>bytu konkretnego</b>, antropologia od <b>faktu ludzkiego</b>.</li>" +
+      "<li><b>Punkt wyjścia jest najważniejszy dla autonomii nauki</b>: każda nauka, walcząc o autonomię, stara się mieć odrębny punkt wyjścia.</li></ul>" },
+    { id: "n9", n: 9, title: "Od zewnątrz i od wewnątrz", html:
+      "<div class='plain'><p>Człowieka można poznać z boku, obserwując innych, i od środka, bo sami nim jesteśmy. W żadnej innej nauce badacz nie ma takiego podwójnego dostępu. Ten wykład omawia spojrzenie z boku.</p></div>" +
+      "<!--fig:drogi-->" +
+      "<p>Ustalenie faktu ludzkiego może się dokonać przez odwołanie się do:</p>" +
+      "<ul><li><b>„zewnętrznej” obserwacji</b> człowieka: doświadczenie przedmiotowe, obiektywne; daje <b>poczucie miary obiektywnej</b>;</li>" +
+      "<li><b>„wewnętrznego doświadczenia” bycia człowiekiem jako działającego</b>: podmiotowe, subiektywne, zamknięte w moim „ja”, trudne do przekazania („nie rozumiesz mojego bólu”).</li></ul>" +
+      "<p><b>Oba punkty widzenia dopełniają się.</b> Na wykładzie: spór <b>Krąpca z Wojtyłą</b>. Wojtyła postulował dopuszczenie doświadczenia wewnętrznego, bo pytamy o człowieka jako ludzie.</p>" +
+      "<p><b>Jak patrzymy z zewnątrz (slajd 4):</b> w dwóch aspektach, czyli w stosunku do zdeterminowanego świata <b>przyrody</b> (z którym człowiek jest istotnie związany) i w <b>społecznych</b> uwarunkowaniach życia. Człowieka pokazujemy nie statycznie (czym lub kim jest), ale w tym, <b>co i jak działa</b>. Z analizy działania dowiadujemy się, kim jest; dane czerpiemy z bezpośredniego oglądu.</p>" +
+      "<aside class='extra'><p>Na slajdzie jest literówka: „działaljącego”. Prowadząca sama ją zauważyła.</p></aside>" },
+    { id: "n10", n: 10, title: "Zwierzę rozumne czy istota żywa?", html:
+      "<div class='plain'><p>Na slajdzie stoi „od strony zewnętrznej zwierzę”, a prowadząca to skreśla. Nie dlatego, że człowiek nie należy do przyrody, tylko dlatego, że polskie „zwierzę” źle oddaje grekę i łacinę i robi z człowieka „tylko zwierzę”.</p></div>" +
+      "<!--fig:zoon-->" +
+      "<ul><li>Gr. <b>zoon logikon</b>: w <i>zoon</i> jest <b>zoe – życie</b>. Łac. <b>animal rationale</b>: w <i>animal</i> jest <b>anima – dusza</b>. Oba terminy mają element życia, a polskie „zwierzę” wprost go nie ma. To <b>nieadekwatność terminologiczna</b> i redukcja.</li>" +
+      "<li>Definicja klasyczna: <b>rodzaj najbliższy</b> + <b>różnica gatunkowa</b>. Rodzaj najbliższy to <b>istoty żywe</b> (razem z roślinami i zwierzętami podlegamy procesom życiowym; odróżnia nas to od przyrody nieożywionej, bez redukcji). Różnica gatunkowa to <b>rozumność</b>.</li>" +
+      "<li>Staropolska <b>„żywina”</b> (zwierzęta domowe: żyje, więc musi jeść i pić) miała element życia, ale takie słowa zanikły.</li>" +
+      "<li>Nawet u Krąpca opis nie jest neutralny: „ssak”, „zwierzę” to terminy z przyrodoznawstwa, które wnoszą jego rozstrzygnięcia.</li>" +
+      "<li>Stara antropologia (Encyklopedia Katolicka, lata 70.) podkreślała <b>jakościową</b> różnicę człowieka od innych gatunków; dziś częściej mówi się o <b>ilościowej</b>.</li></ul>" +
+      "<p><b>Wniosek:</b> od strony biologicznej jesteśmy jednym z gatunków przyrodniczych, ale w opisie lepiej mówić <mark>istota żywa</mark> (rozumna) niż „zwierzę”.</p>" },
+    { id: "n11", n: 11, title: "Człowiek widziany od zewnątrz", html:
+      "<div class='plain'><p>Co widać, gdy patrzymy na ludzi z boku? Żyją wszędzie, robią mnóstwo rzeczy niepotrzebnych do przeżycia, budują narzędzia, umawiają się co do znaków, podziwiają piękno i chowają zmarłych. Tym przekraczają przyrodę, choć ciałem do niej należą.</p></div>" +
+      "<p><b>Krótki przegląd (slajd 4):</b> człowiek jest <b>bez naturalnej niszy ekologicznej</b> · od strony zewnętrznej <s>zwierzę</s> <b>istota żywa</b>, ale dla <b>celów pozabiologicznych</b> · posługuje się <b>narzędziami</b> i je doskonali (<b>postęp techniczny</b>) · żyje w <b>społeczności</b> · posługuje się <b>językiem jako systemem znaków umownych</b> · jest zdolny do <b>poznania kontemplacyjnego</b> (przeżycia religijne i estetyczne) · uświadamia sobie <b>bycie ku śmierci</b> (cmentarze).</p>" +
+      "<p><b>Slajd 5:</b></p><ul>" +
+      "<li>Działanie człowieka <b>nie jest zdeterminowane prawami przyrody</b>, choć przyroda jest jego naturalnym środowiskiem.</li>" +
+      "<li>Jest <b>krewnym przyrody</b> przez ustrój fizjologiczny, a zarazem jest od niej <b>diametralnie różny</b>. Pracą rozumu <b>przetwarza, doskonali i uzupełnia</b> naturę.</li>" +
+      "<li>Jako jedyny w przyrodzie jest zdolny do <b>poznania intelektualnego</b>, ujmowania <b>całości</b> rzeczywistości i <b>tworzenia pojęć</b>.</li>" +
+      "<li>Każde działanie nosi <b>piętno rozumności</b>; najlepiej widać to w <b>języku</b>, najbardziej twórczym i ludzkim narzędziu.</li>" +
+      "<li>Człowiek <b>„przekracza”</b> determinanty przyrody: szkoły, sądy, cmentarze, przyjaźnie, małżeństwa, świątynie, turystyka. Działa o wiele więcej, niż trzeba do utrzymania organizmu przy życiu.</li></ul>" +
+      "<p><b>Z wykładu:</b> nisza: człowiek żyje na północy i południu, na lodzie, wysoko, w podziemnych miastach. Społeczności zwierząt są wyłącznie <b>naturalne</b>, ludzkie także <b>konwencjonalne</b> (uniwersytet). Komunikacja zwierząt jest naturalna, a ludzki język <b>umowny</b>: esperanto, mowa znaków Indian, języki komputerowe, przekład.</p>" +
+      "<aside class='extra'><p>Esperanto stworzył w 1887 roku Ludwik Zamenhof. To dobry przykład znaków umownych: cały język wymyślony przez jednego człowieka.</p></aside>" },
+    { id: "n12", n: 12, title: "Homo faber", html:
+      "<div class='plain'><p>Historię ludzkości dzielimy według narzędzi: kamień, brąz, żelazo, para, prąd, atom. Ludzkie narzędzia służą nie tylko przeżyciu, mają wiele zastosowań i wymagają współpracy, a ta wymaga umownego języka.</p></div>" +
+      "<div class='key'><p>Człowiek widziany „od zewnątrz” jawi się w historii przede wszystkim jako <b>twórca narzędzi – homo faber</b>.</p></div>" +
+      "<!--fig:narzedzie-->" +
+      "<ul><li><b>Epoki:</b> kamienia łupanego, spiżu, żelaza, pary wodnej, elektryczności, energii jądrowej.</li>" +
+      "<li>Narzędzie człowieka (nawet znalezione, np. przypadkowy kij) służy zasadniczo <b>celom pozabiologicznym</b>. <b>Narzędzia-oznaki</b> zwierząt służą zachowaniu życia jednostki lub gatunku.</li>" +
+      "<li>Narzędzie pozabiologiczne bywa <b>wielofunkcyjne</b>: kijem można się bronić, podeprzeć, nadawać znaki.</li>" +
+      "<li>Narzędzia tworzą dziś <b>narzędziowo-kulturowe środowisko</b> życia: drogi, miasta, fabryki, domy.</li>" +
+      "<li><b>Łańcuch warunków:</b> rozwój narzędzi jest możliwy tylko w <b>społecznościach zorganizowanych</b>, a te tylko przy <b>języku jako systemie znaków umownych</b>.</li>" +
+      "<li>Narzędzie to <b>układ konieczny relacji</b> między częściami: <mark>celowe sprzężenie wielości dla jedności działania</mark>.</li></ul>" +
+      "<p><b>Z wykładu:</b> zwierzęta też mają narzędzia, nawet konstrukcje podziwiane przez architektów, ale dla celów biologicznych. Ludzkie narzędzia (komputer, telefon, pojazdy) mają tyle wewnętrznych relacji, że przekraczają możliwości przyrody. Cała sztuka to cele pozabiologiczne.</p>" },
+    { id: "n13", n: 13, title: "Trzy rodzaje poznania", html:
+      "<div class='plain'><p>Wniosek z całego patrzenia z boku: człowiek ma trzy rodzaje poznania. Rozumie, jak działają jego narzędzia. Ogląda piękno dla samego oglądania. I myśli o całym swoim życiu, łącznie z jego końcem.</p></div>" +
+      "<!--fig:poznanie-->" +
+      "<ul><li><b>Poznanie rozumowe.</b> Tworząc narzędzia, człowiek poznaje ich wewnętrzny układ relacji; poznanie relacji <b>suponuje</b> (zakłada) rozumienie. Dlatego człowiek widziany od zewnątrz jest <b>bytem racjonalnym</b>, tzn. <b>używającym swego rozumu celowo</b>.</li>" +
+      "<li><b>Poznanie kontemplacyjno-estetyczne</b> (kontemplatywne, <b>bezproduktywne</b>): przeżycia teatru, muzyki, religii. Z wykładu: ktoś jedzie tysiące kilometrów, żeby zobaczyć wodospad Niagara czy Wielki Kanion. „Do niczego się to nie przydaje”, więc to cel pozabiologiczny.</li>" +
+      "<li><b>Poznanie refleksyjne</b>, znaczone budową <b>cmentarzy</b>: człowiek ujmuje w poznaniu <b>całość swego życia</b>. Grób to refleksja nad śmiercią i zarazem <b>niezgoda na śmierć</b>, otwarcie na dalsze trwanie: jeśli nie w fizyczności, to w pamięci innych. „Jest grób, jest znak.”</li></ul>" +
+      "<div class='key'><p>„Fakt ludzki” widziany „od zewnątrz” wiele informuje o tym, kim jest człowiek: ujawnia jego <b>poznanie rozumowe</b> w budowaniu i posługiwaniu się narzędziami, będącymi koniecznym układem relacji; ujawnia <b>poznanie kontemplacyjno-estetyczne</b> oraz <b>refleksyjne</b>.</p></div>" +
+      "<aside class='extra'><p>Nagranie urywa się przy cmentarzach. Kolejny temat według tez to doświadczenie wewnętrzne: „Ja” i akty „moje”.</p></aside>" }
   ]
 });
 
@@ -12740,6 +14419,165 @@ Wykuj.registerModule({
     });
   });
 
+  /* ---------- Antropologia, wykład 2: fakt ludzki od zewnątrz ---------- */
+
+  function afwPlan() {
+    var items = [
+      ["target", "Fakt ludzki od zewnątrz", "punkt wyjścia (ten wykład)"], ["eye", "Doświadczenie od wewnątrz", "„Ja” i akty „moje”"],
+      ["user", "Dusza i ciało", "struktura bytu, płciowość"],
+      ["column", "Osoba", "wobec natury i kultury"], ["bulb", "Poznanie", "zmysły, rozum, prawda"],
+      ["heart", "Działanie", "wolność, miłość, dobro i zło"], ["chat", "Społeczność", "prawo, państwo, rodzina, naród"],
+      ["pencil", "Sztuka", "piękno, dzieło, arcydzieło"], ["star", "Religia", "filozofia religii (Zdybicka)"],
+      ["moon", "Śmierć", "czy wystarczy definicja medyczna?"]
+    ];
+    var out = "", rowH = 42;
+    items.forEach(function (it, i) {
+      var y = 6 + i * rowH;
+      out += R(8, y, 324, rowH - 6, i === 0 ? "bx-a" : "bx");
+      out += '<circle class="acf" cx="26" cy="' + (y + 18) + '" r="11"/>' + T(26, y + 22.5, String(i + 1), "num");
+      out += I(it[0], 44, y + 7, 22, "ta");
+      out += T(76, y + 16, it[1], "tb", "start");
+      out += T(76, y + 30, it[2], "ts", "start");
+    });
+    var yb = 6 + 10 * rowH;
+    out += R(8, yb, 324, 34, "bx-x");
+    out += T(170, yb + 21, "potem: historia antropologii (może poza testem)", "ts");
+    return { w: 340, h: yb + 42, body: out };
+  }
+
+  function afwEtapy() {
+    var out = "";
+    out += T(170, 14, "nauki realne (łac. res – rzecz)", "ts");
+    out += B(8, 22, 150, 58, "1 · Ustalenie i opis", "determinacja faktu", "bx");
+    out += A(158, 51, 182, 51);
+    out += B(182, 22, 150, 58, ["2 · Interpretacja", "i wyjaśnianie"], "", "bx");
+    out += A(83, 80, 83, 120, "ln-a", true) + A(257, 80, 257, 120, "ln-a", true);
+    out += T(170, 104, "przenosimy", "ts ta");
+    out += B(8, 122, 150, 66, "Fakt ludzki", ["opis: od zewnątrz", "i od wewnątrz"], "bx-a");
+    out += A(158, 155, 182, 155);
+    out += B(182, 122, 150, 66, "Wyjaśnienie", ["uniesprzecznianie:", "wskazanie racji"], "bx");
+    out += T(170, 208, "antropologia filozoficzna (realistyczna)", "ts");
+    return { w: 340, h: 216, body: out };
+  }
+
+  function afwFakt() {
+    var out = "";
+    out += B(95, 8, 150, 52, "„człowiek”", ["pojęcie ogólne", "(powszechnik)"], "bx-x");
+    out += T(292, 26, ["✗ nie od", "pojęcia"], "ts tr");
+    out += T(40, 22, "metapoziom", "ts");
+    var names = ["Agata", "Jan", "Katarzyna", "… miliardy"];
+    var tops = [140, 157, 183, 200];
+    out += R(8, 118, 324, 92, "bx-a");
+    names.forEach(function (n, i) {
+      var cx = 48 + i * 81;
+      out += A(cx, 124, tops[i], 62);
+      out += I("user", cx - 14, 128, 28, "ta");
+      out += T(cx, 172, n, "ts");
+    });
+    out += T(40, 94, "abstrakcja", "ts");
+    out += T(170, 198, "FAKT LUDZKI: punkt wyjścia", "tb ta");
+    return { w: 340, h: 218, body: out };
+  }
+
+  function afwKierunek() {
+    var out = "";
+    var cols = [
+      { x: 8, head: "pozytywizm", cls: "ts tr", boxes: [[["nauki", "szczegółowe"], "start", "bx"], [["obraz człowieka", "z nauk"], "", "bx"], [["filozofia", "na końcu"], "zwieńczenie nauk", "bx-x"]] },
+      { x: 178, head: "wykład: filozofia klasyczna", cls: "ts ta", boxes: [[["poznanie", "przednaukowe"], "start: zdrowy rozsądek", "bx"], ["filozofia", ["fundament,", "autonomiczna"], "bx-a"], [["nauki", "szczegółowe"], "zakładają filozofię", "bx"]] }
+    ];
+    cols.forEach(function (c) {
+      out += T(c.x + 77, 14, c.head, c.cls);
+      c.boxes.forEach(function (b, i) {
+        var y = 24 + i * 80;
+        out += B(c.x, y, 154, 54, b[0], b[1] || null, b[2]);
+        if (i < 2) out += A(c.x + 77, y + 54, c.x + 77, y + 80);
+      });
+    });
+    out += T(85, 256, ["✗ obraz naukowy jest", "tylko pozornie jednolity"], "ts tr");
+    return { w: 340, h: 280, body: out };
+  }
+
+  function afwDrogi() {
+    var out = "";
+    out += B(8, 8, 154, 78, "Od zewnątrz", ["obserwator z boku", "obiektywne", "przyroda i społeczność"], "bx");
+    out += B(178, 8, 154, 78, "Od wewnątrz", ["przeżycie mojego „ja”", "subiektywne", "trudne do przekazania"], "bx");
+    out += A(85, 86, 148, 124) + A(255, 86, 192, 124);
+    out += T(40, 106, ["miara", "obiektywna"], "ts");
+    out += T(300, 106, ["Wojtyła:", "dopuścić!"], "ts ta");
+    out += B(95, 126, 150, 50, "Fakt ludzki", "oba się dopełniają", "bx-a");
+    return { w: 340, h: 184, body: out };
+  }
+
+  function afwZoon() {
+    var out = "";
+    out += B(8, 8, 150, 44, "zoon logikon", "gr.", "bx") + A(158, 30, 182, 30) + B(182, 8, 150, 44, "zoe = życie", "", "bx");
+    out += B(8, 60, 150, 44, "animal rationale", "łac.", "bx") + A(158, 82, 182, 82) + B(182, 60, 150, 44, "anima = dusza", "", "bx");
+    out += B(8, 120, 150, 50, ["„zwierzę", "rozumne”"], "gubi element życia", "bx-r");
+    out += T(170, 150, "→", "tb");
+    out += B(182, 120, 150, 50, ["istota żywa", "rozumna"], "bez redukcji", "bx-a");
+    out += B(8, 186, 150, 50, "rodzaj najbliższy", "istoty żywe", "bx");
+    out += T(170, 220, "+", "huge-s ta");
+    out += B(182, 186, 150, 50, "różnica gatunkowa", "rozumność", "bx");
+    out += T(170, 258, "= klasyczna definicja człowieka", "ts ta");
+    return { w: 340, h: 266, body: out };
+  }
+
+  function afwNarzedzie() {
+    var out = "";
+    out += B(8, 8, 150, 48, "zwierzę", "narzędzie-oznaka", "bx");
+    out += A(83, 56, 83, 82);
+    out += B(8, 84, 150, 50, "cel biologiczny", ["przetrwanie jednostki", "lub gatunku"], "bx");
+    out += B(182, 8, 150, 48, "człowiek", "np. przypadkowy kij", "bx-a");
+    out += A(257, 56, 257, 82);
+    out += B(182, 84, 150, 50, "wiele funkcji", ["obrona, podpora,", "dawanie znaków"], "bx");
+    out += T(257, 152, "cele pozabiologiczne", "ts ta");
+    out += T(83, 152, "jeden cel: przeżyć", "ts");
+    out += T(170, 176, "rozwój narzędzi wymaga:", "ts");
+    out += B(8, 184, 100, 50, "język", "znaki umowne", "bx") + A(108, 209, 120, 209);
+    out += B(120, 184, 100, 50, "społeczność", "zorganizowana", "bx") + A(220, 209, 232, 209);
+    out += B(232, 184, 100, 50, "narzędzia", "i postęp", "bx-a");
+    out += T(75, 262, "wiele części", "ts");
+    [0, 1, 2].forEach(function (i) {
+      var y = 270 + i * 28;
+      out += B(40, y, 70, 22, "część", "", "bx");
+      out += L(110, y + 11, 218, 298);
+    });
+    out += '<circle class="bx-a" cx="254" cy="298" r="36"/>' + Tc(254, 298, ["jedno", "działanie"], "ts");
+    out += T(170, 368, "celowe sprzężenie wielości dla jedności działania", "ts ta");
+    return { w: 340, h: 378, body: out };
+  }
+
+  function afwPoznanie() {
+    var rows = [
+      ["shapes", "Rozumowe", "rozumie układ relacji w narzędziu", "→ byt racjonalny"],
+      ["eye", "Kontemplacyjno-estetyczne", "teatr, muzyka, religia, piękno", "→ bezproduktywne"],
+      ["moon", "Refleksyjne", "cmentarze: ujmuje całość życia", "→ niezgoda na śmierć"]
+    ];
+    var out = T(170, 14, "fakt ludzki od zewnątrz ujawnia trzy rodzaje poznania:", "ts");
+    rows.forEach(function (r, i) {
+      var y = 24 + i * 70;
+      out += R(8, y, 324, 62, i === 0 ? "bx-a" : "bx");
+      out += I(r[0], 20, y + 17, 28, "ta");
+      out += T(62, y + 20, r[1], "tb", "start");
+      out += T(62, y + 36, r[2], "ts", "start");
+      out += T(62, y + 52, r[3], "ts ta", "start");
+    });
+    return { w: 340, h: 24 + 3 * 70, body: out };
+  }
+
+  W.registerFigs.push(function () {
+    W.addFigs("af-w2", {
+      plan: { n: "n2", c: ["kolejnosc", "systemowa"], cap: "Dziesięć tez części systemowej. Ten wykład to punkt 1: fakt ludzki od zewnątrz.", fn: afwPlan },
+      etapy: { n: "n5", c: ["dwa-etapy", "determinacja", "zasadnicza", "przeniesienie", "form-real"], cap: "Dwa etapy nauk realnych przenosimy do antropologii, bo ma być realistyczna: najpierw fakt ludzki i jego opis, potem wyjaśnienie.", fn: afwEtapy },
+      fakt: { n: "n6", c: ["fakt-ludzki", "punkt-wyjscia", "powszechnik", "metapoziom", "nie-jan"], cap: "„Człowiek” to pojęcie, które powstaje z poznania wielu konkretnych ludzi. Punkt wyjścia to fakt ludzki: realni ludzie, nie pojęcie i nie jeden Jan.", fn: afwFakt },
+      kierunek: { n: "n7", c: ["problem2", "pozornie", "pozytywizm", "fundament", "przednaukowe", "autonomia-start"], cap: "Pozytywizm każe filozofii czekać na nauki. Wykład odwraca kierunek: start od zdrowego rozsądku, filozofia jako fundament.", fn: afwKierunek },
+      drogi: { n: "n9", c: ["zewnetrzne", "wewnetrzne", "dopelniaja", "wojtyla"], cap: "Dwie drogi do faktu ludzkiego dopełniają się. O dopuszczenie doświadczenia wewnętrznego upominał się Wojtyła.", fn: afwDrogi },
+      zoon: { n: "n10", c: ["skreslone", "zoon-logikon", "animal-rationale", "przeklad", "rodzaj", "roznica"], cap: "W greckim i łacińskim słowie jest życie, a w polskim „zwierzęciu” go brak. Dlatego: istota żywa (rodzaj najbliższy) + rozumność (różnica gatunkowa).", fn: afwZoon },
+      narzedzie: { n: "n12", c: ["oznaki", "narz-pozabiol", "wielofunkcyjne", "lancuch", "uklad"], cap: "Narzędzie zwierzęcia służy przetrwaniu, narzędzie człowieka wielu celom. Narzędzia wymagają społeczności, a ta języka. Każde narzędzie to części połączone dla jednego działania.", fn: afwNarzedzie },
+      poznanie: { n: "n13", c: ["rozumowe", "racjonalny", "kontemplacyjne", "refleksyjne", "wniosek"], cap: "Wniosek wykładu: patrząc z zewnątrz, widzimy u człowieka trzy rodzaje poznania.", fn: afwPoznanie }
+    });
+  });
+
   /* ================= Metody pracy twórczej ================= */
 
   function mptOlowki() {
@@ -14279,7 +16117,7 @@ Wykuj.registerModule({
         { go: "path", t: "Przejdź ścieżkę", d: doneUnits + " z " + m.units.length + " lekcji", done: nu < 0 },
         { go: "cards", t: "Utrwal fiszkami", d: pr.learned + " z " + pr.total + " opanowanych", done: pr.learned >= Math.ceil(pr.total * 0.8) }
       ];
-      if (m.talk) steps.push({ go: "talk", t: "Powiedz własnymi słowami", d: talkN + " z " + m.talk.length + " pytań na zajęcia", done: talkN >= Math.ceil(m.talk.length * 0.8) });
+      if (m.talk) steps.push({ go: "talk", t: W.talkText(m).step, d: talkN + " z " + m.talk.length + " " + W.talkText(m).count, done: talkN >= Math.ceil(m.talk.length * 0.8) });
       steps.push({ go: "exam", t: "Sprawdź się", d: passed ? (reading ? "kartkówka próbna zaliczona" : "egzamin próbny zdany") : reading ? "kartkówka próbna" : "egzamin próbny", done: passed });
       var next = steps.filter(function (x) { return !x.done; })[0];
       return (
@@ -14306,7 +16144,7 @@ Wykuj.registerModule({
       { go: "review", ic: "redo", t: "Do poprawki", d: "Pytania, na których się potknąłeś", meta: misN ? misN + " pytań" : "Czysto", badge: misN, off: !misN },
       { go: "notes", ic: "book", t: reading ? "Streszczenie" : "Notatki", d: reading ? "Cały tekst po ludzku, ze schematami" : "Cały wykład, tabela i ściąga", meta: m.notes.length + " sekcji" }
     ];
-    if (m.talk) modes.splice(1, 0, { go: "talk", ic: "chat", t: "Na zajęcia", d: "Pytania do omówienia z wzorcową odpowiedzią", meta: talkKnown + "/" + m.talk.length + " umiem" });
+    if (m.talk) modes.splice(1, 0, { go: "talk", ic: "chat", t: W.talkText(m).name, d: W.talkText(m).desc, meta: talkKnown + "/" + m.talk.length + " umiem" });
     if (W.pagesOk(m)) {
       var pageN = m.pages.reduce(function (n, g) { return n + g.items.length; }, 0);
       modes.push({ go: "pages", ic: "exam", t: "Oryginał", d: "Zdjęcia stron czytanki, do powiększenia", meta: pageN + " stron" });
@@ -15098,14 +16936,15 @@ Wykuj.registerModule({
     var st = talkState(m);
     var known = m.talk.filter(function (t, i) { return st[i] === 1; }).length;
     var todo = m.talk.map(function (t, i) { return i; }).filter(function (i) { return st[i] !== 1; });
+    var tx = W.talkText(m);
 
     root.innerHTML =
-      top("Na zajęcia", W.modLabel(m) + ": " + m.title) +
+      top(tx.name, W.modLabel(m) + ": " + m.title) +
       '<div class="page guide talk">' +
       '<section class="g-sec"><h2 class="sec-h">Jak z tego korzystać</h2>' +
       '<ol class="steps">' +
-      "<li><b>Przeczytaj pytanie</b><span>Takie pytania mogą paść na zajęciach: z dyskusji, wejściówki albo odpytywania.</span></li>" +
-      "<li><b>Odpowiedz na głos albo na brudno</b><span>Mówienie własnymi słowami utrwala najmocniej. Wystarczą 2–4 zdania.</span></li>" +
+      "<li><b>Przeczytaj pytanie</b><span>" + esc(tx.where) + "</span></li>" +
+      "<li><b>Odpowiedz na głos albo na brudno</b><span>" + esc(tx.how) + "</span></li>" +
       "<li><b>Porównaj ze wzorcem</b><span>Sprawdź, czy padły słowa-klucze. Oceń się uczciwie: to, czego nie umiesz, wróci w następnej rundzie.</span></li></ol>" +
       '<div class="row talk-go">' +
       '<button class="btn primary big" data-run="todo"' + (todo.length ? "" : " disabled") + ">" +
@@ -15113,7 +16952,7 @@ Wykuj.registerModule({
       (known ? '<button class="btn ghost" data-run="all">Wszystkie od nowa</button>' : "") +
       "</div></section>" +
       '<section class="g-sec"><h2 class="sec-h">Pytania <small>' + known + "/" + m.talk.length + " umiem</small></h2>" +
-      '<p class="g-lead">Rozwiń pytanie, żeby od razu zobaczyć wzorcową odpowiedź (dobre do szybkiej powtórki przed zajęciami).</p>' +
+      '<p class="g-lead">Rozwiń pytanie, żeby od razu zobaczyć wzorcową odpowiedź (dobre do szybkiej powtórki ' + tx.before + ").</p>" +
       '<ol class="theory">' +
       m.talk
         .map(function (t, i) {
@@ -15137,7 +16976,7 @@ Wykuj.registerModule({
   function answerHtml(t) {
     return (
       '<p class="th-k">Wzorcowa odpowiedź</p><div class="t-ans">' + t.a + "</div>" +
-      (t.keys ? '<p class="th-k">Słowa-klucze, które warto powiedzieć</p><ul class="t-keys">' + t.keys.map(function (k) { return "<li>" + esc(k) + "</li>"; }).join("") + "</ul>" : "") +
+      (t.keys ? '<p class="th-k">Słowa-klucze, których warto użyć</p><ul class="t-keys">' + t.keys.map(function (k) { return "<li>" + esc(k) + "</li>"; }).join("") + "</ul>" : "") +
       (t.trap ? '<div class="fixnote"><p class="ans-k">Uważaj</p><p>' + t.trap + "</p></div>" : "") +
       (t.src ? '<p class="t-src">' + esc(t.src) + "</p>" : "")
     );
@@ -15153,14 +16992,14 @@ Wykuj.registerModule({
       var t = m.talk[list[i]];
       revealed = false;
       root.innerHTML =
-        top("Na zajęcia", "Pytanie " + (i + 1) + " z " + list.length, '<span class="clock">' + score + " umiem</span>") +
+        top(W.talkText(m).name, "Pytanie " + (i + 1) + " z " + list.length, '<span class="clock">' + score + " umiem</span>") +
         '<div class="page sheet">' +
         '<div class="lbar slim"><i style="width:' + Math.round((i / list.length) * 100) + '%"></i></div>' +
         '<article class="task"><span class="task-n display">' + (i + 1) + "</span>" +
         '<h2 class="task-q">' + esc(t.q) + "</h2>" +
         (t.hint ? '<p class="t-hint">' + W.icon("bulb") + esc(t.hint) + "</p>" : "") + "</article>" +
         '<label class="draft-l" for="tdraft-' + list[i] + '">Twoja odpowiedź (na głos albo tutaj, nikt jej nie sprawdza)</label>' +
-        '<textarea id="tdraft-' + list[i] + '" class="draft" rows="4" placeholder="Powiedz albo napisz 2–4 zdania…"></textarea>' +
+        '<textarea id="tdraft-' + list[i] + '" class="draft" rows="4" placeholder="' + esc(W.talkText(m).ph) + '"></textarea>' +
         '<div class="reveal" hidden><div class="answer">' + answerHtml(t) + "</div></div>" +
         '<div class="sheet-act"><button class="btn primary big" data-a="show">Pokaż wzorcową odpowiedź</button></div>' +
         "</div>";
@@ -15201,7 +17040,7 @@ Wykuj.registerModule({
       W.resultScreen(root, {
         fail: score < list.length / 2,
         title: score + "/" + list.length,
-        sub: left ? "Do powtórki zostało " + left + (left === 1 ? " pytanie" : left < 5 ? " pytania" : " pytań") + ". Wrócą w następnej rundzie." : "Umiesz odpowiedzieć na wszystkie pytania. Jesteś gotowy na zajęcia.",
+        sub: left ? "Do powtórki zostało " + left + (left === 1 ? " pytanie" : left < 5 ? " pytania" : " pytań") + ". Wrócą w następnej rundzie." : "Umiesz odpowiedzieć na wszystkie pytania. " + W.talkText(m).ready,
         confetti: !left,
         stats: [
           { label: "Umiem", value: String(score), tone: "good" },

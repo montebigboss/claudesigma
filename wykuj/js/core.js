@@ -118,6 +118,18 @@
     return { gen: r ? "czytanki" : "wykładu", nom: r ? "czytanka" : "wykład" }[form || "gen"];
   };
 
+  /* Pytania otwarte (pole talk): przy czytance do omówienia na zajęciach,
+   * przy wykładzie do opisowej części testu. */
+  W.talkText = function (m) {
+    return m.kind === "reading"
+      ? { name: "Na zajęcia", desc: "Pytania do omówienia z wzorcową odpowiedzią", step: "Powiedz własnymi słowami", count: "pytań na zajęcia",
+          where: "Takie pytania mogą paść na zajęciach: z dyskusji, wejściówki albo odpytywania.",
+          how: "Mówienie własnymi słowami utrwala najmocniej. Wystarczą 2–4 zdania.", before: "przed zajęciami", ph: "Powiedz albo napisz 2–4 zdania…", ready: "Jesteś gotowy na zajęcia." }
+      : { name: "Pytania opisowe", desc: "Odpowiedz pełnymi zdaniami, jak na teście", step: "Napisz własnymi słowami", count: "pytań opisowych",
+          where: "Takie pytania mogą paść w opisowej części testu.",
+          how: "Na teście piszesz, więc najlepiej na brudno. Wystarczy 4–6 zdań z kluczowymi terminami.", before: "przed testem", ph: "Napisz 4–6 zdań, jak na teście…", ready: "Jesteś gotowy na pytania opisowe." };
+  };
+
   /* Obrazy z assets/: w pliku jednoplikowym siedzą w W.IMG jako data URI. */
   W.img = function (path) {
     return (W.IMG && W.IMG[path]) || path;

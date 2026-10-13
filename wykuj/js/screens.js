@@ -232,7 +232,7 @@
         { go: "path", t: "Przejdź ścieżkę", d: doneUnits + " z " + m.units.length + " lekcji", done: nu < 0 },
         { go: "cards", t: "Utrwal fiszkami", d: pr.learned + " z " + pr.total + " opanowanych", done: pr.learned >= Math.ceil(pr.total * 0.8) }
       ];
-      if (m.talk) steps.push({ go: "talk", t: "Powiedz własnymi słowami", d: talkN + " z " + m.talk.length + " pytań na zajęcia", done: talkN >= Math.ceil(m.talk.length * 0.8) });
+      if (m.talk) steps.push({ go: "talk", t: W.talkText(m).step, d: talkN + " z " + m.talk.length + " " + W.talkText(m).count, done: talkN >= Math.ceil(m.talk.length * 0.8) });
       steps.push({ go: "exam", t: "Sprawdź się", d: passed ? (reading ? "kartkówka próbna zaliczona" : "egzamin próbny zdany") : reading ? "kartkówka próbna" : "egzamin próbny", done: passed });
       var next = steps.filter(function (x) { return !x.done; })[0];
       return (
@@ -259,7 +259,7 @@
       { go: "review", ic: "redo", t: "Do poprawki", d: "Pytania, na których się potknąłeś", meta: misN ? misN + " pytań" : "Czysto", badge: misN, off: !misN },
       { go: "notes", ic: "book", t: reading ? "Streszczenie" : "Notatki", d: reading ? "Cały tekst po ludzku, ze schematami" : "Cały wykład, tabela i ściąga", meta: m.notes.length + " sekcji" }
     ];
-    if (m.talk) modes.splice(1, 0, { go: "talk", ic: "chat", t: "Na zajęcia", d: "Pytania do omówienia z wzorcową odpowiedzią", meta: talkKnown + "/" + m.talk.length + " umiem" });
+    if (m.talk) modes.splice(1, 0, { go: "talk", ic: "chat", t: W.talkText(m).name, d: W.talkText(m).desc, meta: talkKnown + "/" + m.talk.length + " umiem" });
     if (W.pagesOk(m)) {
       var pageN = m.pages.reduce(function (n, g) { return n + g.items.length; }, 0);
       modes.push({ go: "pages", ic: "exam", t: "Oryginał", d: "Zdjęcia stron czytanki, do powiększenia", meta: pageN + " stron" });

@@ -18,8 +18,8 @@ Wykuj.registerModule({
   official: "Cel i organizacja wykładu",
   lecturer: null,
   term: "KUL · kurs dla psychologów · 01.10.2026",
-  passing: null,
-  examNote: "Zasady zaliczenia nie padły w materiałach. Próg 50% to tylko punkt odniesienia.",
+  passing: "Test pisemny: pytania zamknięte (prawda/fałsz i wyboru) oraz 1–3 pytania opisowe (zapowiedź z wykładu 2).",
+  examNote: "Na teście będą też 1–3 pytania opisowe (ćwiczysz je w wykładzie 2). Progu nie podano, 50% to tylko punkt odniesienia.",
   passRatio: 0.5,
   sourceNames: { S: "slajdy i skrypt prowadzącego", K: "definicja słowo w słowo", D: "★ dopowiedzenie spoza materiałów" },
 
