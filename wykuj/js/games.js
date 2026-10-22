@@ -652,7 +652,7 @@
       '<div class="page"><div class="exam-intro">' +
       '<p class="eyebrow">' + esc(m.course.name) + "</p>" +
       '<h1 class="display">Test zamknięty</h1>' +
-      "<ul class='rules'><li><b>" + N + " pytań</b> jednokrotnego wyboru, losowanych z " + (m.kind === "reading" ? "całej czytanki" : "całego wykładu") + "</li>" +
+      "<ul class='rules'><li><b>" + N + " pytań</b> jednokrotnego wyboru, losowanych z " + (m.nouns ? m.nouns.all : m.kind === "reading" ? "całej czytanki" : "całego wykładu") + "</li>" +
       "<li>Bez podpowiedzi. Wynik i omówienie dopiero po oddaniu</li>" +
       (m.kind === "reading" ? "<li>Tylko to, co jest w tekście. Bez dopowiedzeń ★</li>" : "<li>Tylko materiał prowadzącego (" + esc(m.sourceNames.S) + (m.sourceNames.U ? ", " + esc(m.sourceNames.U) : "") + "). Bez dopowiedzeń ★</li>") +
       (m.examNote ? "<li>" + esc(m.examNote) + "</li>" : "<li>Zaliczenie: <b>więcej niż " + Math.round(m.passRatio * 100) + "%</b>, jak na prawdziwym teście</li>") + "</ul>" +

@@ -121,7 +121,9 @@
                 return (
                   '<div class="shelf"><h4 class="shelf-h">' + W.icon("book") + "<span>" + esc(k) + "</span><small>" + n + "</small></h4>" +
                   '<div class="mods">' + list.map(modCard).join("") +
-                  ghost(n + 1, "Czytanka " + (n + 1), "Kolejna czytanka", "Wrzuć zdjęcia następnego tekstu, a pojawi się tutaj ze streszczeniem i ćwiczeniami.") +
+                  (list[0].ghost
+                    ? ghost(n + 1, list[0].ghost[0] + " " + (n + 1), list[0].ghost[1], list[0].ghost[2])
+                    : ghost(n + 1, "Czytanka " + (n + 1), "Kolejna czytanka", "Wrzuć zdjęcia następnego tekstu, a pojawi się tutaj ze streszczeniem i ćwiczeniami.")) +
                   "</div></div>"
                 );
               })
@@ -588,7 +590,7 @@
 
     root.innerHTML =
       top(m.kind === "reading" ? "Streszczenie" : "Notatki", W.modLabel(m) + ": " + m.title) +
-      '<div class="page notes ' + (st.extras ? "" : "no-extra") + (m.kind === "reading" ? " reading" : "") + '">' +
+      '<div class="page notes ' + (st.extras ? "" : "no-extra") + (m.kind === "reading" ? " reading" : "") + (m.notesClass ? " " + m.notesClass : "") + '">' +
       '<div class="legend">' +
       Object.keys(m.sourceNames)
         .map(function (k) { return '<span><i class="lg ' + SRC[k] + '"></i>' + esc(m.sourceNames[k]) + "</span>"; })

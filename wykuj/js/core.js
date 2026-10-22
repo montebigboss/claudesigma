@@ -114,6 +114,7 @@
     return m.label || "Wykład " + m.number;
   };
   W.modNoun = function (m, form) {
+    if (m.nouns) return m.nouns[form || "gen"];
     var r = m.kind === "reading";
     return { gen: r ? "czytanki" : "wykładu", nom: r ? "czytanka" : "wykład" }[form || "gen"];
   };

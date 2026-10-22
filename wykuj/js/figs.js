@@ -1166,6 +1166,230 @@
     });
   });
 
+  /* ---------- Ćwiczenia: mgr N. Wójcicka ---------- */
+
+  function wjMapa() {
+    var out = "";
+    out += R(8, 6, 324, 30, "bx-x") + T(170, 25, "nad całością: metodologia badań", "tb");
+    var q = [
+      [8, 44, "Procesy psychiczne", ["uczenie się, poznanie,", "spostrzeganie,", "emocje i motywacja"]],
+      [182, 44, "Rozwój i osobowość", ["rozwój, osobowość,", "rozwój moralny"]],
+      [8, 172, "Zdrowie i pomoc", ["zdrowie psychiczne,", "psychopatologia,", "psychoterapia"]],
+      [182, 172, "Relacje i kultura", ["psychologia", "społeczna", "i kulturowa"]]
+    ];
+    q.forEach(function (b) { out += B(b[0], b[1], 150, 82, b[2], b[3]); });
+    out += R(70, 130, 200, 38, "bx-a") + Tc(170, 149, "funkcjonowanie człowieka", "tb");
+    out += R(8, 262, 324, 30, "bx-g") + T(170, 281, "pod całością: etyka psychologa", "tb");
+    return { w: 340, h: 298, body: out };
+  }
+
+  function wjZmienne() {
+    var out = "";
+    out += T(170, 14, "operacjonalizacja: pojęcie → mierzalny wskaźnik", "ts ta");
+    out += B(8, 24, 140, 70, "niezależna", ["badacz ją zmienia", "(np. rodzaj modela)"], "bx-a");
+    out += A(150, 59, 190, 59, "ln-a");
+    out += B(192, 24, 140, 70, "zależna", ["badacz ją mierzy", "(np. liczba aktów", "agresji)"], "bx");
+    out += A(170, 136, 170, 66, "", true);
+    out += B(60, 138, 220, 46, "zmienne zewnętrzne", "wszystko inne, co się zmienia", "bx-x");
+    out += L(120, 184, 90, 204) + L(220, 184, 250, 204);
+    out += B(8, 204, 158, 64, "kontrolne", ["trzymane na stałym", "poziomie lub", "monitorowane"], "bx-g");
+    out += B(174, 204, 158, 64, "zakłócające (szum)", ["działają na obie", "zmienne i psują", "wynik"], "bx-r");
+    return { w: 340, h: 276, body: out };
+  }
+
+  function wjPawlow() {
+    var rows = [
+      ["przed", "pokarm (UCS)", "ślina (UCR)", "", "bodziec neutralny: tylko „co to?”"],
+      ["uczenie", "metronom + pokarm", "ślina", "bx-x", "wiele razy; metronom przed pokarmem"],
+      ["po", "metronom (CS)", "ślina (CR)", "bx-a", "sam bodziec warunkowy wystarcza"]
+    ];
+    var out = "", rowH = 78;
+    rows.forEach(function (r, i) {
+      var y = 6 + i * rowH;
+      out += T(8, y + 12, r[0], "ts ta", "start");
+      out += B(8, y + 18, 176, 38, r[1], null, r[3] || "bx");
+      out += A(186, y + 37, 204, y + 37, i === 2 ? "ln-a" : "");
+      out += B(206, y + 18, 126, 38, r[2], null, r[3] || "bx");
+      out += T(170, y + 70, r[4], "ts");
+    });
+    return { w: 340, h: 6 + 3 * rowH, body: out };
+  }
+
+  function wjPlusMinus() {
+    var out = "";
+    out += T(130, 16, "dodanie (+)", "tb") + T(262, 16, "odebranie (−)", "tb");
+    out += Tc(30, 72, ["częściej"], "ts ta") + Tc(30, 162, ["rzadziej"], "ts tr");
+    out += B(64, 26, 132, 86, "wzmocnienie +", ["pochwała za", "oddanie pracy"], "bx-a");
+    out += B(200, 26, 132, 86, "wzmocnienie −", ["zapinasz pas,", "pisk ustaje"], "bx-a");
+    out += B(64, 118, 132, 86, "kara +", ["upomnienie,", "mandat"], "bx-r");
+    out += B(200, 118, 132, 86, "kara −", ["utrata punktów,", "czatu, telefonu"], "bx-r");
+    out += T(170, 224, "„negatywne” = coś znika, nie „złe”", "ts");
+    out += T(170, 238, "o nazwie decyduje efekt: częściej czy rzadziej", "ts");
+    return { w: 340, h: 246, body: out };
+  }
+
+  function wjBobo() {
+    var groups = [
+      ["chłopcy: wszystkie akty agresji", [["model męski", 104, "bx-a"], ["model kobiecy", 48.4, "bx"]]],
+      ["naśladowana agresja fizyczna (średnio)", [["chłopcy", 38.2, "bx-a"], ["dziewczynki", 12.7, "bx"]]]
+    ];
+    var out = "", y = 6, max = 110;
+    groups.forEach(function (g) {
+      out += T(8, y + 12, g[0], "tb", "start");
+      y += 20;
+      g[1].forEach(function (b) {
+        var w = (b[1] / max) * 170;
+        out += T(8, y + 14, b[0], "ts", "start");
+        out += R(118, y, r1(w), 20, b[2]);
+        out += T(r1(124 + w), y + 14, String(b[1]).replace(".", ","), "tb", "start");
+        y += 26;
+      });
+      y += 10;
+    });
+    out += T(170, y + 6, "model męski działał silniej, zwłaszcza na chłopców", "ts ta");
+    return { w: 340, h: y + 14, body: out };
+  }
+
+  W.registerFigs.push(function () {
+    W.addFigs("wj-z1", {
+      mapa: { n: "s2", c: ["mapa", "procesy", "rozwoj", "zdrowie", "relacje", "etyka"], cap: "Mapa przedmiotu: w środku funkcjonowanie człowieka, wokół cztery obszary kolejnych zajęć. Nad całością metodologia, pod całością etyka psychologa.", fn: wjMapa },
+      zmienne: { n: "s5", c: ["zalezna", "niezalezna", "operacjonalizacja", "zewnetrzne", "kontrolne", "zaklocajace"], cap: "Badacz zmienia zmienną niezależną i mierzy zależną. Zmienne zewnętrzne mogą wpłynąć na ten związek, więc trzeba je kontrolować. Przykład: badanie lalki Bobo.", fn: wjZmienne }
+    });
+    W.addFigs("wj-z2", {
+      pawlow: { n: "s2", c: ["w-klasyczne", "ucs", "ucr", "cs", "cr", "ns"], cap: "Warunkowanie klasyczne w trzech krokach. Ta sama ślina jest raz reakcją bezwarunkową, raz warunkową: różni się tym, co ją wywołuje.", fn: wjPawlow },
+      plusminus: { n: "s5", c: ["wzmocnienie", "kara", "wzm-poz", "wzm-neg", "kara-poz", "kara-neg"], cap: "Dwa pytania: czy zachowanie ma być częstsze (wzmocnienie), czy rzadsze (kara)? Czy coś dodajemy (+), czy odbieramy (−)?", fn: wjPlusMinus },
+      bobo: { n: "s8", c: ["wyniki-bobo", "bobo"], cap: "Wyniki badania z lalką Bobo (Bandura, Ross, Ross, 1961) w liczbach podanych przez Hocka.", fn: wjBobo }
+    });
+  });
+
+  function wjModel() {
+    var out = "";
+    out += B(8, 6, 160, 34, "wejście (bodźce)", null);
+    out += A(88, 40, 88, 60);
+    out += B(8, 62, 160, 34, "rejestr sensoryczny", null);
+    out += A(170, 79, 200, 79, "", true) + T(206, 83, "utrata informacji", "ts tr", "start");
+    out += A(88, 96, 88, 124, "ln-a") + T(96, 114, "uwaga", "ts ta", "start");
+    out += B(8, 126, 160, 50, "pamięć operacyjna", "kontrola wykonawcza", "bx-a");
+    out += B(196, 118, 136, 66, ["pamięć", "długotrwała"], ["(wiedza", "metapoznawcza)"], "bx-x");
+    out += A(170, 142, 194, 142, "ln-a") + A(194, 162, 170, 162, "ln-a");
+    out += T(264, 202, ["przechowywanie →", "← odszukiwanie"], "ts", "middle");
+    out += A(88, 176, 88, 202);
+    out += B(8, 204, 160, 34, "wyjście (reakcja)", null);
+    out += T(264, 234, ["powtarzanie,", "organizowanie,", "elaboracja"], "ts ta", "middle");
+    return { w: 340, h: 268, body: out };
+  }
+
+  function wjPamiec() {
+    var out = "", names = [["ultra-", "krótkotrwała"], ["krótko-", "trwała"], ["długo-", "trwała"]];
+    names.forEach(function (n, i) {
+      out += R(8 + i * 110, 6, 104, 44, i === 2 ? "bx-a" : "bx") + Tc(60 + i * 110, 28, n, "tb");
+    });
+    out += A(112, 28, 118, 28) + A(222, 28, 228, 28);
+    out += L(280, 50, 87, 72) + L(280, 50, 253, 72);
+    out += B(8, 72, 158, 44, "jawna", "deklaratywna", "bx-a");
+    out += B(174, 72, 158, 44, "ukryta", "niedeklaratywna", "bx-x");
+    out += L(87, 116, 87, 128) + L(253, 116, 253, 128);
+    out += R(8, 128, 158, 64, "bx") + T(87, 150, ["epizodyczna", "(autobiograficzna)", "semantyczna"], "ts");
+    out += R(174, 128, 158, 64, "bx") + T(253, 150, ["proceduralna", "warunkowanie", "torowanie"], "ts");
+    out += T(87, 210, "wiem, że pamiętam", "ts ta") + T(253, 210, "działa bez przypominania", "ts");
+    return { w: 340, h: 218, body: out };
+  }
+
+  function wjTolman() {
+    var x0 = 44, x1 = 326, y0 = 22, y1 = 150;
+    var X = function (d) { return r1(x0 + (d - 1) * (x1 - x0) / 17); };
+    var Y = function (e) { return r1(y1 - e * (y1 - y0) / 10); };
+    var line = function (pts, cls) {
+      return '<polyline class="ln ' + cls + '" points="' + pts.map(function (p) { return X(p[0]) + "," + Y(p[1]); }).join(" ") + '"/>';
+    };
+    var out = "";
+    out += L(x0, y0, x0, y1) + L(x0, y1, x1, y1);
+    out += T(x0 - 6, Y(10) + 4, "dużo", "ts", "end") + T(x0 - 6, Y(0) + 4, "mało", "ts", "end");
+    out += T(8, 12, "błędy w labiryncie (schemat)", "ts", "start");
+    [1, 6, 11, 18].forEach(function (d) { out += T(X(d), y1 + 14, String(d), "ts"); });
+    out += T(185, y1 + 28, "dzień", "ts");
+    out += L(X(11), y0, X(11), y1, "ln-d") + T(X(11) + 4, y0 + 8, "pokarm dla O", "ts ta", "start");
+    out += line([[1, 9.5], [3, 7.5], [5, 6], [7, 4.5], [9, 3.4], [11, 2.6], [13, 2], [15, 1.7], [18, 1.5]], "");
+    out += line([[1, 9.6], [3, 8.6], [5, 8], [7, 7.5], [9, 7.1], [11, 6.8], [13, 6.6], [15, 6.4], [18, 6.2]], "ln-d");
+    out += line([[1, 9.4], [3, 8.5], [5, 7.9], [7, 7.4], [9, 7], [11, 6.7], [12, 3.5], [13, 1.8], [15, 1.5], [18, 1.3]], "ln-a");
+    out += T(X(18) + 2, Y(6.2) - 6, "B", "tb", "end") + T(X(18) + 2, Y(1.5) - 6, "K i O", "tb", "end");
+    out += T(170, y1 + 46, ["K: pokarm codziennie · B: nigdy · O: od 11. dnia"], "ts");
+    return { w: 340, h: y1 + 54, body: out };
+  }
+
+  function wjIntel() {
+    var c = [
+      [8, 6, "Spearman", ["czynnik g (ogólny)", "+ czynniki s (specjalne)"]],
+      [174, 6, "Thurstone", ["7 pierwotnych", "zdolności"]],
+      [8, 82, "Cattell", ["płynna Gf (nowe)", "skrystalizowana Gc", "(wiedza)"]],
+      [174, 82, "Sternberg", ["składnikowa,", "doświadczeniowa,", "kontekstualna"]]
+    ];
+    var out = "";
+    c.forEach(function (b, i) { out += B(b[0], b[1], 158, 68, b[2], b[3], i === 0 ? "bx-a" : "bx"); });
+    out += T(170, 168, "od jednej ogólnej zdolności do wielu odrębnych", "ts ta");
+    return { w: 340, h: 176, body: out };
+  }
+
+  /* poziome słupki parami: [etykieta, a, b], skala max */
+  function wjPairs(title, legend, rows, max, unit) {
+    var out = T(8, 14, title, "tb", "start"), y = 26;
+    out += R(8, y, 12, 10, "bx-a") + T(24, y + 9, legend[0], "ts", "start") + R(180, y, 12, 10, "bx") + T(196, y + 9, legend[1], "ts", "start");
+    y += 22;
+    rows.forEach(function (r) {
+      out += T(8, y + 20, r[0], "ts", "start");
+      if (r[1] == null) { out += T(110, y + 20, r[2], "ts", "start"); y += 42; return; }
+      [1, 2].forEach(function (k, j) {
+        var w = Math.max(3, (r[k] / max) * 160);
+        out += R(110, y + j * 17, r1(w), 13, j ? "bx" : "bx-a");
+        out += T(r1(116 + w), y + j * 17 + 11, String(r[k]).replace(".", ",") + unit, "ts", "start");
+      });
+      y += 42;
+    });
+    return { out: out, y: y };
+  }
+
+  function wjPigmalion() {
+    var p = wjPairs("wzrost IQ po roku (punkty)", ["„wielki potencjał”", "pozostali"],
+      [["cała szkoła", 12.2, 8.2], ["klasa 1 (ok.)", 27, 12], ["klasa 2 (ok.)", 16.5, 7], ["klasy 3–6", null, "brak różnicy"]], 28, "");
+    return { w: 340, h: p.y - 8, body: p.out };
+  }
+
+  function wjAsch() {
+    var p = wjPairs("% badanych przypisujących cechę", ["„ciepły”", "„zimny”"],
+      [["hojny", 91, 8], ["dobroduszny", 94, 17], ["towarzyski", 91, 38], ["dowcipny", 77, 13], ["uczciwy", 98, 94], ["silny", 98, 95]], 100, "%");
+    return { w: 340, h: p.y + 4, body: p.out };
+  }
+
+  function wjLoftus() {
+    var left = ["doświadczenie", "pamięć długotrwała", "pytanie", "odtworzenie", "odpowiedź"];
+    var right = ["doświadczenie", "pamięć długotrwała", "+ nowe informacje", "pytanie", "rekonstrukcja", "odpowiedź"];
+    var out = T(87, 14, "ujęcie tradycyjne", "tb") + T(253, 14, "Loftus", "tb ta");
+    var col = function (list, x, accentIdx) {
+      var s = "";
+      list.forEach(function (t, i) {
+        var y = 24 + i * 40;
+        s += R(x, y, 158, 28, i === accentIdx ? "bx-r" : i === list.length - 2 && x > 100 ? "bx-a" : "bx") + Tc(x + 79, y + 14, t, "ts");
+        if (i < list.length - 1) s += A(x + 79, y + 28, x + 79, y + 38);
+      });
+      return s;
+    };
+    out += col(left, 8, -1) + col(right, 174, 2);
+    out += T(87, 24 + 5 * 40 + 6, ["nowa informacja", "(np. presupozycja)", "wchodzi", "do wspomnienia"], "ts tr");
+    return { w: 340, h: 24 + 6 * 40, body: out };
+  }
+
+  W.registerFigs.push(function () {
+    W.addFigs("wj-z3", {
+      model: { n: "s1", c: ["system", "model-przetw"], cap: "Ogólny model przetwarzania informacji (według slajdu). Uwaga decyduje, co z rejestru sensorycznego trafi do pamięci operacyjnej, a ta stale wymienia się z pamięcią długotrwałą.", fn: wjModel },
+      pamiec: { n: "s3", c: ["trzy-magazyny", "jawna", "ukryta"], cap: "Podział pamięci ze slajdu. Pamięć długotrwała dzieli się na jawną i ukrytą.", fn: wjPamiec },
+      tolman: { n: "s5", c: ["utajone", "trzy-grupy"], cap: "Uczenie się utajone (schematycznie, według ryc. 4.3 u Hocka, bez dokładnych wartości). Grupa O po wprowadzeniu pokarmu w 2–3 dni dogania grupę K: mapę labiryntu zbudowała już wcześniej.", fn: wjTolman },
+      intel: { n: "s8", c: ["spearman", "thurstone", "cattell", "sternberg"], cap: "Cztery koncepcje inteligencji z zajęć (Nęcka, 2004).", fn: wjIntel },
+      pigmalion: { n: "s9", c: ["oak", "pigmalion"], cap: "Wzrost IQ w Oak School (Hock, ryc. 4.1). Uczniów „o wielkim potencjale” wybrano losowo; efekt był wyraźny tylko w klasach 1 i 2.", fn: wjPigmalion },
+      asch: { n: "s10", c: ["cieply-zimny", "centralne"], cap: "Wybrane wyniki Ascha (tab. 4.2 u Hocka). „Ciepły” zmienia ocenę hojności czy towarzyskości, ale prawie nie zmienia oceny uczciwości i siły.", fn: wjAsch },
+      loftus: { n: "s11", c: ["rekonstrukcja", "presupozycja"], cap: "Dwa ujęcia pamięci (według ryc. 4.7 u Hocka). U Loftus po zapisaniu zdarzenia do wspomnienia dołączają nowe informacje, a przy pytaniu przywołujemy już zrekonstruowaną wersję.", fn: wjLoftus }
+    });
+  });
+
   /* Rysuje wszystkie schematy po załadowaniu modułów. */
   W.buildFigs = function () {
     W.registerFigs.forEach(function (fn) { fn(); });

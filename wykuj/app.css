@@ -4736,3 +4736,27 @@ a.pg-off {
   color: inherit;
   text-decoration: none;
 }
+/* ---------- ćwiczenia z podstaw psychologii: kolor malinowy ---------- */
+.theme-rose {
+  --accent: #b8264c;
+  --accent-2: #8c1736;
+  --accent-soft: #f9dde5;
+  --on-accent: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-rose {
+    --accent: #ff86a3;
+    --accent-2: #d4506f;
+    --accent-soft: #3d1621;
+    --on-accent: #2a0710;
+  }
+}
+:root[data-theme="dark"] .theme-rose {
+  --accent: #ff86a3;
+  --accent-2: #d4506f;
+  --accent-soft: #3d1621;
+  --on-accent: #2a0710;
+}
+.reading.zaj aside.extra::before {
+  content: "★ spoza materiałów z zajęć";
+}

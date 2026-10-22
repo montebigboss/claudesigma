@@ -47,6 +47,7 @@ Każdy przedmiot ma własny kolor i ikonę. Ekran startowy ma dwie zakładki:
 | Prowadzący | Półka | Moduły |
 | --- | --- | --- |
 | Dr Wioletta Ozga (grupy 1, 2, 3, 8, 10) | Lektury i czytanki – po ludzku | Czytanka 1: Jak widzimy (Kalat „Wzrok” + Francuz „Imagia”) |
+| mgr Natalia Wójcicka (Podstawy psychologii i historii myśli psychologicznej) | Zajęcia i lektury | Zajęcia 1: Jak bada się psychologię · Zajęcia 2: Uczenie się i warunkowanie (+ Hock, rozdz. 3) · Zajęcia 3: Procesy poznawcze i inteligencja (+ Hock, rozdz. 4) |
 
 Czytanka to zwykły moduł z `kind: "reading"` i kilkoma dodatkami:
 
@@ -108,7 +109,12 @@ na koncie, więc działa na telefonie i komputerze.
 
 Moduły z tym samym `course.id` grupują się pod jednym przedmiotem na ekranie startowym.
 Nowy przedmiot to nowe `course.id`, skrót, `theme` (kolor: `green`, `indigo`, `teal`, `plum`
-albo `amber`; kolejne dodaje się w `app.css`) i `icon`.
+`amber` albo `rose`; kolejne dodaje się w `app.css`) i `icon`.
+
+Moduł zajęć (np. `wj-z1.js`) to czytanka bez zdjęć stron: streszczenie prezentacji
+i lektury. Pola `nouns` (`{ gen, nom, all }`, np. „zajęć”, „zajęcia”, „całych zajęć”)
+zmieniają słowa w interfejsie, `notesClass: "zaj"` podpisuje wstawki ★ jako „spoza
+materiałów z zajęć”, a `ghost` (`[etykieta, tytuł, opis]`) opisuje pustą kartę „kolejne”.
 
 ## Nowa czytanka
 
