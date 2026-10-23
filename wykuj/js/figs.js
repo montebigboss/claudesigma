@@ -1390,6 +1390,90 @@
     });
   });
 
+  function wjFigura() {
+    var half = [[16, 56], [34, 44], [48, 30], [56, 22], [62, 30], [70, 26], [78, 32], [86, 27], [98, 18], [112, 13], [136, 15], [154, 36], [168, 50]];
+    var cx = 90, pts = half.map(function (p) { return (cx + p[1]) + "," + p[0]; });
+    var left = half.slice().reverse().map(function (p) { return (cx - p[1]) + "," + p[0]; });
+    var out = '<rect class="acf" x="20" y="10" width="140" height="164" rx="6"/>';
+    out += '<path class="bx" d="M' + pts.join(" L") + " L" + left.join(" L") + ' Z"/>';
+    out += T(186, 40, "figura: biały kielich", "tb", "start") + T(186, 58, "tło: boki", "ts", "start");
+    out += T(186, 104, "albo odwrotnie:", "ts ta", "start");
+    out += T(186, 122, "figura: dwa profile", "tb", "start") + T(186, 140, "tło: jasny środek", "ts", "start");
+    out += T(186, 168, ["obu naraz nie widać"], "ts", "start");
+    return { w: 340, h: 184, body: out };
+  }
+
+  function wjStalosc() {
+    var out = L(8, 128, 332, 128);
+    out += I("user", 18, 30, 96) + T(66, 146, "3 m", "tb");
+    out += I("user", 268, 104, 24) + T(280, 146, "30 m", "tb");
+    out += T(226, 22, "obraz na siatkówce:", "ts", "middle") + T(226, 38, ["duży ↔ ok. 10 razy", "mniejszy"], "ts", "middle");
+    out += T(226, 72, "spostrzegamy:", "ts ta", "middle") + T(226, 88, ["obie osoby", "normalnego wzrostu"], "tb ta", "middle");
+    out += T(170, 170, "stałość wielkości: wyuczona (Kenge jej nie miał)", "ts");
+    return { w: 340, h: 180, body: out };
+  }
+
+  function wjSen() {
+    var x0 = 54, x1 = 330, lv = { R: 24, 1: 46, 2: 66, 3: 86, 4: 106 };
+    var X = function (h) { return r1(x0 + h * (x1 - x0) / 7); };
+    var seq = [[0, 1], [0.15, 2], [0.35, 3], [0.55, 4], [1.0, 3], [1.15, 2], [1.35, "R"], [1.5, 2], [1.75, 3], [1.95, 4], [2.25, 3], [2.45, 2], [2.85, "R"], [3.15, 2], [3.45, 3], [3.75, 2], [4.2, "R"], [4.6, 2], [5.3, "R"], [5.85, 2], [6.3, "R"], [7, "R"]];
+    var out = "";
+    ["REM", "faza 1", "faza 2", "faza 3", "faza 4"].forEach(function (t, i) { out += T(x0 - 6, [24, 46, 66, 86, 106][i] + 4, t, i ? "ts" : "ts ta", "end"); });
+    out += L(x0, 16, x0, 114) + L(x0, 114, x1, 114);
+    var d = "M" + X(0) + "," + lv[1];
+    for (var i = 1; i < seq.length; i++) d += " H" + X(seq[i][0]) + " V" + lv[seq[i][1]];
+    out += '<path class="ln" d="' + d + '"/>';
+    for (var j = 0; j < seq.length - 1; j++) if (seq[j][1] === "R") out += '<line class="ln ln-a" style="stroke-width:5" x1="' + X(seq[j][0]) + '" y1="24" x2="' + X(seq[j + 1][0]) + '" y2="24"/>';
+    [0, 1, 2, 3, 4, 5, 6, 7].forEach(function (h) { out += T(X(h), 128, String(h), "ts"); });
+    out += T(192, 144, "godziny snu (schemat)", "ts");
+    out += T(170, 162, "pierwszy REM po ok. 90 min · REM coraz dłuższy", "ts ta");
+    return { w: 340, h: 170, body: out };
+  }
+
+  function wjDement() {
+    var rows = [["noce wzorcowe", 80, "bx"], ["1. noc przywracania", 112, "bx-a"], ["bez badanych 3 i 7", 127, "bx-a"], ["kontrola (NREM)", 88, "bx-x"]];
+    var out = T(8, 14, "minuty marzeń sennych na noc (średnio)", "tb", "start"), y = 28;
+    rows.forEach(function (r) {
+      var w = r[1] / 130 * 130;
+      out += T(8, y + 14, r[0], "ts", "start");
+      out += R(150, y, r1(w), 20, r[2]) + T(r1(156 + w), y + 14, r[1] + " min", "tb", "start");
+      y += 30;
+    });
+    out += T(170, y + 10, "po pozbawieniu REM śnimy więcej: efekt odbicia", "ts ta");
+    return { w: 340, h: y + 18, body: out };
+  }
+
+  function wjAktywacja() {
+    var left = ["sen", "nieświadome pragnienia", "ego chce spać, lęk", "cenzor tworzy symbole", "treść jawna + utajona"];
+    var right = ["sen", "most w pniu mózgu", "aktywacja: impulsy", "synteza z pamięcią", "marzenie senne"];
+    var out = T(87, 14, "Freud", "tb") + T(253, 14, "Hobson i McCarley", "tb ta");
+    [[left, 8, "bx-x"], [right, 174, "bx-a"]].forEach(function (c) {
+      c[0].forEach(function (t, i) {
+        var y = 24 + i * 40;
+        out += R(c[1], y, 158, 28, i === 3 ? c[2] : "bx") + Tc(c[1] + 79, y + 14, t, "ts");
+        if (i < c[0].length - 1) out += A(c[1] + 79, y + 28, c[1] + 79, y + 38);
+      });
+    });
+    return { w: 340, h: 24 + 5 * 40, body: out };
+  }
+
+  function wjSpanos() {
+    var p = wjPairs("ocena bólu w komorze zimna (ok., ryc. 2.3)", ["czuwanie", "hipnoza"],
+      [["oczekiwali", 93, 25], ["nie oczekiwali", 50, 50]], 100, "");
+    return { w: 340, h: p.y + 16, body: p.out + T(170, p.y + 6, "oczekiwanie hipnozy zmienia ocenę bólu w czuwaniu", "ts ta") };
+  }
+
+  W.registerFigs.push(function () {
+    W.addFigs("wj-z4", {
+      figura: { n: "s2", c: ["figura-tlo"], cap: "Podwójna figura (jak ryc. 2.1 u Hocka): jasny kielich albo dwa profile po bokach, zwrócone do siebie. Mózg zawsze wybiera jedną figurę i jedno tło.", fn: wjFigura },
+      stalosc: { n: "s2", c: ["stalosc", "stalosc-wielkosci"], cap: "Stałość wielkości: osoba 30 m dalej daje dużo mniejszy obraz na siatkówce, a i tak widzimy ją jako normalnego wzrostu. Kenge, który całe życie widział najdalej na ok. 30 m, tej umiejętności nie miał.", fn: wjStalosc },
+      sen: { n: "s5", c: ["rem", "nrem", "cykle"], cap: "Schemat jednej nocy (nie dane z badania). Schodzimy przez fazy 1–4, wracamy i wchodzimy w REM (grube odcinki). Głęboki sen jest głównie na początku nocy, a REM wydłuża się nad ranem.", fn: wjSen },
+      dement: { n: "s6", c: ["efekt-odbicia", "wzorcowe", "kontrola-dement"], cap: "Wyniki Dementa (tab. 2.1 u Hocka). Po nocach pozbawiania REM czas snów rośnie; samo budzenie w NREM tego nie daje.", fn: wjDement },
+      aktywacja: { n: "s9", c: ["aktywacja-synteza", "freud-sny", "cenzor"], cap: "Dwa modele snów (według ryc. 2.2 u Hocka). U Freuda sny ukrywają pragnienia, u Hobsona i McCarleya mózg nadaje sens przypadkowym impulsom.", fn: wjAktywacja },
+      spanos: { n: "s12", c: ["komora-zimna", "oczekiwania"], cap: "Wyniki Spanosa (odczytane w przybliżeniu z ryc. 2.3 u Hocka). Ci, którzy oczekiwali hipnozy, w czuwaniu oceniali ból wysoko, a w hipnozie nisko. Ci, którzy jej nie oczekiwali, oceniali tak samo w obu warunkach.", fn: wjSpanos }
+    });
+  });
+
   /* Rysuje wszystkie schematy po załadowaniu modułów. */
   W.buildFigs = function () {
     W.registerFigs.forEach(function (fn) { fn(); });

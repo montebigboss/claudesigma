@@ -17447,6 +17447,929 @@ Wykuj.registerModule({
 });
 
 </script>
+    <script>
+/* Ćwiczenia: Podstawy psychologii i historii myśli psychologicznej (mgr Natalia Wójcicka).
+ * Zajęcia 4 (przygotowanie): lektura R. Hock, „40 prac badawczych…”, rozdz. 2
+ * „Spostrzeganie i świadomość” (s. 60–92): Turnbull, Aserinsky i Kleitman + Dement,
+ * Hobson i McCarley, Spanos. Na razie bez prezentacji z zajęć.
+ *
+ *   "S" lektura (domyślne)
+ *   "D" dopowiedzenie spoza lektury (★). Kartkówka próbna je pomija.
+ */
+Wykuj.registerModule({
+  id: "wj-z4",
+  kind: "reading",
+  course: { id: "wojcicka", name: "mgr Natalia Wójcicka", short: "Ćw. Wójcicka", groups: "Podstawy psychologii i historii myśli psychologicznej", theme: "rose", icon: "bulb", section: "cw" },
+  shelf: "Zajęcia i lektury",
+  nouns: { gen: "lektury", nom: "lektura", all: "całego rozdziału 2" },
+  notesClass: "zaj",
+  ghost: ["Zajęcia", "Kolejne zajęcia", "Wrzuć prezentację i rozdział z Hocka, a pojawią się tu streszczenie i ćwiczenia."],
+  number: 4,
+  label: "Zajęcia 4",
+  title: "Spostrzeganie i świadomość",
+  byline: "Lektura na zajęcia: Hock, rozdz. 2 (s. 60–92)",
+  sources: ["R. Hock, „40 prac badawczych, które zmieniły oblicze psychologii”, rozdz. 2 „Spostrzeganie i świadomość”, s. 60–92"],
+  term: "Ćwiczenia · lektura na zajęcia 4",
+  passing: null,
+  passRatio: 0.6,
+  examNote: "Moduł powstał z samej lektury, bez prezentacji z zajęć. Próg 60% to punkt odniesienia.",
+  minimumTitle: "Najważniejsze w 5 minut",
+  sourceNames: { S: "lektura (Hock, rozdz. 2)", D: "★ dopowiedzenie spoza lektury" },
+
+  sets: {
+    badanie: { label: "Które badanie z rozdziału 2?", numbered: true,
+      items: ["Turnbull (Kenge i Pigmeje BaMbuti)", "Aserinsky i Kleitman, Dement (sen REM)", "Hobson i McCarley (aktywacja i synteza)", "Spanos (hipnoza)"],
+      why: ["stałość wielkości zależy od doświadczenia i środowiska",
+            "odkrycie fazy REM i skutki pozbawiania marzeń sennych",
+            "sny to próba nadania sensu przypadkowym impulsom z pnia mózgu",
+            "hipnoza to podwyższona motywacja i oczekiwania, a nie odmienny stan"] },
+    strategia: { label: "Która strategia spostrzegania?", numbered: true,
+      items: ["Figura i tło", "Stałość kształtu", "Stałość wielkości"],
+      why: ["oddzielamy przedmiot (figurę) od tła",
+            "przedmiot ma ten sam kształt, choć patrzymy pod innym kątem",
+            "przedmiot ma tę samą wielkość, choć jest daleko"] },
+    sen: { label: "Czyje to ujęcie snów?", numbered: true,
+      items: ["Freud (psychoanaliza)", "Hobson i McCarley (aktywacja i synteza)"],
+      why: ["sny wyrażają ukryte, nieświadome pragnienia, zniekształcone przez cenzora",
+            "sny powstają, gdy mózg nadaje sens przypadkowym impulsom z pnia mózgu podczas REM"] },
+    hipnoza: { label: "Hilgard czy Spanos?", numbered: true,
+      items: ["Hilgard", "Spanos"],
+      why: ["hipnoza to odmienny stan świadomości (np. „bariera amnezji”)",
+            "hipnoza to zachowanie dobrowolne, umotywowane oczekiwaniami"] }
+  },
+
+  units: [
+    { id: "wstep", title: "Wrażenia i spostrzeganie", sub: "Wstęp do rozdziału 2", icon: "eye" },
+    { id: "strategie", title: "Figura, tło i stałość", sub: "Jak mózg porządkuje wrażenia", icon: "shapes",
+      teach: "<p>Mózg ma sztuczki, które porządkują wrażenia. <b>Figura i tło</b>: oddzielamy przedmiot od otoczenia (kielich czy dwa profile?).</p>" +
+        "<p><b>Stałość spostrzeżeń</b>: wiemy, że przedmiot się nie zmienia, choć obraz na siatkówce się zmienia. Obchodzisz krzesło – kształt ten sam (<b>stałość kształtu</b>). Autobus daleko – wielkość ta sama (<b>stałość wielkości</b>).</p>" },
+    { id: "turnbull", title: "Widzisz to, co znasz", sub: "Hock 2.1: Turnbull, 1961", icon: "path" },
+    { id: "natura", title: "Wrodzone czy wyuczone?", sub: "Kocięta, noworodki i wnioski", icon: "split" },
+    { id: "rem", title: "Odkrycie snu REM", sub: "Hock 2.2: Aserinsky i Kleitman, 1953", icon: "moon", seq: true,
+      teach: "<p>Po zaśnięciu schodzimy przez <b>4 fazy</b> coraz głębszego snu, potem wracamy i zamiast fazy 1 wchodzimy w <b>REM</b> (szybkie ruchy gałek ocznych). Wtedy jest większość marzeń sennych, a ciało jest <b>sparaliżowane</b>.</p>" +
+        "<p>Cykl NREM–REM powtarza się <b>5–6 razy</b> w nocy; pierwszy REM ok. 90 minut po zaśnięciu. Nad ranem REM się wydłuża.</p>" },
+    { id: "dement", title: "Pozbawianie marzeń sennych", sub: "Hock 2.2: Dement, 1960", icon: "pulse", table: true },
+    { id: "odbicie", title: "Efekt odbicia REM i co dalej", sub: "Alkohol, delirium, pamięć", icon: "redo" },
+    { id: "freud", title: "Sny według Freuda", sub: "Treść jawna i utajona", icon: "lock" },
+    { id: "aktywacja", title: "Aktywacja i synteza", sub: "Hock 2.3: Hobson i McCarley, 1977", icon: "bolt",
+      teach: "<p><b>Aktywacja</b>: podczas REM pień mózgu (most) sam z siebie wysyła przypadkowe impulsy. <b>Synteza</b>: wyższe części mózgu próbują nadać im sens, łącząc je z tym, co jest w pamięci. Wynik: marzenie senne.</p>" +
+        "<p>Bez cenzora, bez ukrytych pragnień. Dziwność snów wynika z przypadkowości impulsów, nie z kamuflażu.</p>" },
+    { id: "spor", title: "Spór o sny trwa", sub: "Foulkes, Kahan, Mancia, Hartmann", icon: "chat" },
+    { id: "hipnoza", title: "Hipnoza: odmienny stan?", sub: "Mesmer i Hilgard", icon: "spiral" },
+    { id: "spanos", title: "Jak w hipnozie", sub: "Hock 2.4: Spanos, 1982", icon: "hand" },
+    { id: "mix", title: "Rozpoznaj w życiu", sub: "Sytuacje z codzienności", icon: "dice" },
+    { id: "boss", title: "Kartkówka próbna", sub: "Cały rozdział 2, 15 pytań", icon: "crown", boss: true }
+  ],
+
+  concepts: [
+    { id: "spostrzeganie", u: "wstep", term: "Spostrzeganie (percepcja)",
+      plain: "Zmysły dostarczają mnóstwo danych, a mózg układa je w coś, co ma kształt i sens. To jest spostrzeganie.",
+      def: "Mózg organizuje natłok danych odbieranych przez zmysły w jednostki, które nadają im formę i znaczenie. Nie da się przetworzyć wszystkich informacji, którymi zmysły są bombardowane (Hock, s. 60).",
+      sh: "nadawanie formy i znaczenia danym zmysłowym" },
+    { id: "swiadomosc", u: "wstep", term: "Stan świadomości",
+      plain: "To, czy jesteś skupiona, rozkojarzona, śpisz, śnisz albo jesteś zahipnotyzowana. Od tego zależy, co i jak spostrzegasz.",
+      def: "Od poziomu świadomości w dużej mierze zależy, co spostrzegamy i jak mózg to organizuje. Stany: skoncentrowanie, brak koncentracji, fantazjowanie, marzenia na jawie, sen, śnienie, hipnoza, wpływ substancji psychoaktywnych (nawet kofeiny i nikotyny).",
+      sh: "od niego zależy, co spostrzegamy" },
+    { id: "wrazenia", u: "wstep", term: "Wrażenia",
+      plain: "Surowe dane ze zmysłów: światło, dźwięki, dotyk, zapachy, smaki. Jeszcze bez znaczenia.",
+      def: "Informacje nieustannie otrzymywane ze środowiska za pośrednictwem zmysłów. Większość filtrujemy i wykorzystujemy tylko niewielki procent. Wrażenia są surowcem dla spostrzegania.",
+      sh: "surowe dane ze zmysłów" },
+    { id: "trzy-dzialania", u: "wstep", term: "Trzy działania spostrzegania",
+      plain: "Mózg wybiera, na co zwrócić uwagę, układa to w kształty i wyjaśnia, co to jest.",
+      def: "(1) Wybór wrażeń, na które należy zwrócić uwagę; (2) organizowanie ich w rozpoznawalne wzorce i kształty; (3) interpretowanie tych wzorców w celu wyjaśniania i oceniania otaczającego świata. Przykład: czarne kształty na białej kartce czytamy jako słowa.",
+      sh: "wybór, organizowanie, interpretowanie" },
+    { id: "filtr", u: "wstep", term: "Filtrowanie wrażeń",
+      plain: "Gdyby filtr się zepsuł, świat byłby chaosem i nie dalibyśmy rady go znieść.",
+      def: "Nieustannie filtrujemy docierające dane. Hock: gdyby mechanizmy filtrujące się zepsuły, świat stałby się tak zagmatwany, że bylibyśmy przytłoczeni.",
+      sh: "chroni przed przytłoczeniem" },
+
+    { id: "figura-tlo", u: "strategie", term: "Figura i tło",
+      plain: "Mózg zawsze dzieli obraz na to, co ważne (figura), i resztę (tło). Na rysunku widzisz kielich albo dwa profile, ale nie oba naraz.",
+      def: "Naturalna skłonność do dzielenia wrażeń na figurę i tło. Ryc. 2.1: biały kielich albo dwa czarne profile; można się przełączać. Bez tej zdolności nie odnaleźlibyśmy znajomej osoby w tłumie; strój maskujący żołnierzy zaciera różnicę figura–tło.",
+      sh: "oddzielanie przedmiotu od otoczenia" },
+    { id: "stalosc", u: "strategie", term: "Stałość spostrzeżeń",
+      plain: "Wiemy, że rzeczy się nie zmieniają, choć obraz w oku zmienia się cały czas.",
+      def: "Zdolność uświadamiania sobie, że przedmioty mają pewne niezmienne cechy, nawet jeżeli radykalnie zmieniają się nasze wrażenia.",
+      sh: "przedmiot niezmienny mimo zmian wrażeń" },
+    { id: "stalosc-ksztaltu", u: "strategie", term: "Stałość kształtu",
+      plain: "Obchodzisz krzesło dookoła. Obraz w oku zmienia się z każdym krokiem, a ty i tak widzisz to samo krzesło.",
+      def: "Obraz krzesła na siatkówce zmienia się z każdym krokiem, ale spostrzegamy kształt krzesła jako niezmienny.",
+      sh: "ten sam kształt pod innym kątem" },
+    { id: "stalosc-wielkosci", u: "strategie", term: "Stałość wielkości",
+      plain: "Autobus daleko daje w oku obraz jak zabawka, a i tak wiesz, że jest duży.",
+      def: "Spostrzeganie znanych przedmiotów w ich stałych wymiarach niezależnie od odległości. Osoba 30 m dalej daje na siatkówce obraz mniej niż 10 cm, a widzimy ją jako normalnego wzrostu. Strategia najważniejsza dla badania Turnbulla.",
+      sh: "ta sama wielkość mimo odległości" },
+    { id: "zludzenia", u: "strategie", term: "Złudzenia i film",
+      plain: "Te same sztuczki mózgu można oszukać. W kinie model statku wydaje się prawdziwy, bo nie ma obok nic do porównania.",
+      def: "Model statku długości pół metra w pojemniku wygląda na statek naturalnej wielkości (brak obiektów porównawczych). W parodii „Airplane” (1980) telefon tuż przy kamerze wydaje się ogromny, a gdy aktor go podnosi, słuchawka jest prawie metrowa.",
+      sh: "brak punktów odniesienia oszukuje" },
+
+    { id: "turnbull", u: "turnbull", term: "Colin Turnbull",
+      plain: "Antropolog, nie psycholog. Mieszkał z Pigmejami w gęstym lesie Ituri i opisał, co się stało, gdy jego przewodnik pierwszy raz zobaczył otwartą przestrzeń.",
+      def: "Antropolog; koniec lat 50. XX w. w lesie Ituri (Zair, obecnie Kongo), badał życie Pigmejów BaMbuti. Artykuł (1961) nietypowy: bez ram teoretycznych i klarownej metody, ale często przywoływany przy spostrzeganiu.",
+      sh: "antropolog, las Ituri, BaMbuti" },
+    { id: "obserwacja", u: "turnbull", term: "Naturalna obserwacja",
+      plain: "Badacz patrzy, jak ludzie zachowują się w swoim zwykłym otoczeniu, niczego nie zmieniając.",
+      def: "Podstawowa metoda Turnbulla: obserwowanie zachowania w naturalnych sytuacjach. W psychologii też ważna (agresja dzieci w zabawie, szympansy), choć kosztowna i czasochłonna.",
+      sh: "obserwacja w naturalnym otoczeniu" },
+    { id: "kenge", u: "turnbull", term: "Kenge",
+      plain: "Młody Pigmej (ok. 22 lata), przewodnik Turnbulla. Nigdy nie widział otwartej przestrzeni.",
+      def: "Wraz z Turnbullem dotarł nad Jezioro Edwarda (Park Narodowy Ishango) u stóp gór Ruwenzori. Uznał to za „zły kraj, bo nie ma w nim drzew”; jego język nie miał słów na taki widok.",
+      sh: "przewodnik, pierwszy raz na równinie" },
+    { id: "bawoly", u: "turnbull", term: "Bawoły jak owady",
+      plain: "Kenge zobaczył stado bawołów kilka kilometrów dalej i zapytał: „co to za owady?”. Gdy podjechali, uznał, że rosną przez czary.",
+      def: "Kenge porównywał odległe bawoły do żuków i mrówek, a odpowiedź Turnbulla uznał za głupią. Gdy zbliżali się, a zwierzęta „rosły”, szepnął, że to czary. Łódź 3–4 km dalej uznał za kawałek drewna.",
+      sh: "brak stałości wielkości" },
+    { id: "srodowisko", u: "turnbull", term: "Środowisko kształtuje spostrzeganie",
+      plain: "W dżungli widać najwyżej na 30 metrów. Pigmeje nie mieli okazji ani potrzeby nauczyć się, że daleko = mały obraz.",
+      def: "Widoczność w Ituri ograniczona do ok. 30 m, więc BaMbuti nie wykształcili stałości wielkości. Wniosek: stałość wielkości jest wyuczona; zdolności rozwijają się tak, jak wymaga środowisko. Możliwe (brak badań), że mają lepiej rozwinięte dostrzeganie figura–tło.",
+      sh: "uczymy się tego, czego wymaga otoczenie" },
+    { id: "szybka-nauka", u: "turnbull", term: "Kenge szybko się uczył",
+      plain: "Pod koniec dnia Kenge przestał się bać i zgadywał, jakie to zwierzęta. Ale następnego dnia chciał wracać do lasu.",
+      def: "Kenge przestał być sceptyczny i szybko dostosowywał spostrzeganie do nowych wrażeń. Następnego dnia poprosił o powrót do dżungli.",
+      sh: "stałości można się szybko uczyć" },
+
+    { id: "natura-kultura", u: "natura", term: "Natura czy kultura?",
+      plain: "Czy rodzimy się z umiejętnością widzenia, czy uczymy się jej? Odpowiedź: trochę tak, trochę tak.",
+      def: "Nie ma jednej rozstrzygającej odpowiedzi: niektóre zdolności percepcyjne są wyuczone, inne wrodzone („fabrycznie zainstalowane standardowe wyposażenie”).",
+      sh: "część wrodzona, część wyuczona" },
+    { id: "niewidomi", u: "natura", term: "Figura–tło: częściowo wrodzone",
+      plain: "Ludzie niewidomi od urodzenia, którzy odzyskali wzrok, od razu odróżniali figurę od tła.",
+      def: "Badania osób niewidomych od urodzenia, które zyskały wzrok, wskazują, że zdolność spostrzegania figura–tło jest przynajmniej częściowo wrodzona.",
+      sh: "widać od razu po odzyskaniu wzroku" },
+    { id: "dzieci", u: "natura", term: "Stałość wielkości u dzieci",
+      plain: "Małe dzieci myślą, że odległe samochody to zabawki. Stałość wielkości pojawia się ok. 7–8 lat.",
+      def: "Dzieci do ok. 5 lat spostrzegają odległe samochody czy pociągi jako zabawki i chcą je mieć. Stałość wielkości rozwija się ok. 7–8 roku życia. Stałość percepcji jest wynikiem doświadczenia.",
+      sh: "rozwija się ok. 7–8 lat" },
+    { id: "kocieta", u: "natura", term: "Kocięta Blakemore’a i Coopera (1970)",
+      plain: "Kotki wychowane wśród samych pionowych pasków nie widziały poziomych linii i odwrotnie.",
+      def: "Kocięta w ciemności widziały tylko pionowe albo poziome paski. Koty „pionowe” reagowały na pionowe linie, ignorowały poziome, i odwrotnie. Wzrok nie był uszkodzony, ale pewne zdolności się nie rozwinęły, i to trwale.",
+      sh: "brak doświadczenia = brak zdolności" },
+    { id: "noworodki", u: "natura", term: "Noworodki i kolory (Adams, 1987)",
+      plain: "Trzydniowe dzieci dłużej patrzyły na kolorowe kwadraty niż na szare. Nie zdążyły się tego nauczyć.",
+      def: "Noworodki (3 dni) dłużej patrzyły na kolorowe kwadraty (czerwone, niebieskie, zielone) niż na szare o tym samym natężeniu światła. Dowód, że niektóre zdolności percepcyjne są wrodzone.",
+      sh: "preferencja kolorów od urodzenia" },
+
+    { id: "aserinsky", u: "rem", term: "Aserinsky i Kleitman",
+      plain: "Student zauważył, że śpiące niemowlęta czasem szybko ruszają oczami. Z kolegą sprawdził na dorosłych, czy to chwile śnienia.",
+      def: "1952: Eugene Aserinsky (student magisterski) obserwował okresy aktywności ruchowej gałek ocznych u śpiących niemowląt. Z Nathanielem Kleitmanem przebadał 20 dorosłych: elektrody przy oczach, budzenie i pytanie o sny.",
+      sh: "odkrywcy fazy REM" },
+    { id: "rem", u: "rem", term: "Sen REM",
+      plain: "Faza snu z szybkimi ruchami oczu. Wtedy śnimy najwięcej.",
+      def: "REM (rapid eye movement): szybkie ruchy gałek ocznych. Obudzeni w REM 27 razy, badani w 20 przypadkach wyraziście opowiadali sny, w 7 mieli „poczucie, że coś im się śniło”. Obudzeni poza REM 23 razy: w 19 brak marzeń, w 4 tylko poczucie.",
+      sh: "szybkie ruchy oczu, marzenia senne" },
+    { id: "nrem", u: "rem", term: "Sen NREM i fazy snu",
+      plain: "Sen bez szybkich ruchów oczu. Ma 4 fazy: od najpłytszej do najgłębszej.",
+      def: "Po zaśnięciu 4 fazy NREM: od najlżejszego snu (faza 1) do najgłębszego (faza 4). Potem sen spłyca się, a zamiast fazy 1 pojawia się REM.",
+      sh: "4 fazy bez szybkich ruchów oczu" },
+    { id: "cykle", u: "rem", term: "Cykle snu",
+      plain: "Przez noc 5–6 razy przechodzimy przez NREM i REM. Nad ranem REM trwa dłużej, więc rano mamy więcej snów.",
+      def: "Ok. 5–6 cykli NREM–REM na noc; pierwszy REM ok. 90 minut po zaśnięciu. NREM się skracają, REM wydłużają. W 7 godzin snu średnio 3–4 okresy aktywności oczu (Aserinsky).",
+      sh: "5–6 cykli, REM coraz dłuższy" },
+    { id: "paraliz", u: "rem", term: "Paraliż w REM",
+      plain: "W REM ciało jest unieruchomione, żebyśmy nie odgrywali snów. To mit, że wtedy się rzucamy.",
+      def: "Nieprawdziwe jest przekonanie, że w REM intensywnie się poruszamy. Ciało jest unieruchomione przez sygnały z mózgu, które paraliżują mięśnie: mechanizm przetrwania.",
+      sh: "mięśnie sparaliżowane, mechanizm przetrwania" },
+    { id: "kazdy-sni", u: "rem", term: "Każdy śni",
+      plain: "Nawet jeśli nie pamiętasz snów, to je masz.",
+      def: "Badania wykazały, że choć niewielki odsetek ludzi nigdy nie pamięta snów, wszyscy je mamy.",
+      sh: "śnią wszyscy, nie wszyscy pamiętają" },
+
+    { id: "dement", u: "dement", term: "William Dement",
+      plain: "Następca Aserinsky’ego. Chciał wiedzieć, po co nam sny: co się stanie, gdy ktoś nie będzie mógł śnić?",
+      def: "Interesowała go funkcja i znaczenie marzeń sennych: czy możliwe jest normalne funkcjonowanie bez nich? Leki tłumiące sny zbyt zaburzały sen, więc wybrał drastyczną metodę: budzenie przy każdym wejściu w REM.",
+      sh: "skutki pozbawiania snu REM" },
+    { id: "metoda-dement", u: "dement", term: "Metoda Dementa",
+      plain: "Kilka nocy normalnie, kilka nocy budzenia przy każdym śnie, potem znów spokojny sen. Dla porównania budzono też poza REM.",
+      def: "8 mężczyzn (23–32 lata), elektrody na głowie i przy oczach. (1) Noce wzorcowe; (2) 3–7 nocy pozbawiania REM (budzenie i siadanie na łóżku); (3) 1–6 nocy przywracania; (4) kontrolne przebudzenia w NREM (tyle samo nocy i przebudzeń) i kontrolne przywracanie. Bez drzemek w dzień.",
+      sh: "wzorzec, pozbawianie, przywracanie, kontrola" },
+    { id: "wzorcowe", u: "dement", term: "Ile śnimy?",
+      plain: "Ok. 80 minut na noc, czyli prawie jedna piąta snu. U wszystkich prawie tyle samo.",
+      def: "Noce wzorcowe: średni czas snu 6 h 50 min, marzenia senne średnio 80 min (19,5%). Różnica między badanymi zaledwie 7 minut.",
+      sh: "80 min, 19,5% snu" },
+    { id: "presja", u: "dement", term: "Rosnąca presja śnienia",
+      plain: "Im dłużej ktoś nie mógł śnić, tym częściej próbował wejść w REM.",
+      def: "Pierwszej nocy pozbawiania budzono 7–22 razy (średnio 11), ostatniej 13–30 (średnio 22): dwa razy więcej prób rozpoczęcia marzeń sennych.",
+      sh: "z 11 do 22 prób na noc" },
+    { id: "efekt-odbicia", u: "dement", term: "Efekt odbicia REM",
+      plain: "Po nocach bez snów mózg „nadrabia”: śnimy dłużej niż zwykle.",
+      def: "Pierwsza noc przywracania: 112 min marzeń (26,6%) wobec 80 min; bez badanych 3 i 7 nawet 127 min (29%), czyli wzrost o 50%. Większość śniła więcej przez 5 nocy. Dement nie użył tej nazwy; dziś to efekt odbicia REM.",
+      sh: "nadrabianie utraconych snów" },
+    { id: "kontrola-dement", u: "dement", term: "Grupa kontrolna przebudzeń",
+      plain: "Żeby sprawdzić, że to nie samo budzenie, budzono też poza snami. Wtedy efektu nie było.",
+      def: "Przebudzenia w NREM (tyle samo) nie zwiększyły czasu marzeń: 88 min (20,1%), bez istotnej różnicy. Skutek wynikał z braku REM, nie z budzenia.",
+      sh: "budzenie w NREM: brak efektu" },
+    { id: "wyjatki", u: "dement", term: "Badani 3 i 7",
+      plain: "Jeden przed badaniem wypił kilka drinków, drugi miał bardzo stabilny sen. U nich efektu odbicia nie było.",
+      def: "Badany 7 wypił kilka drinków na przyjęciu: alkohol wytłumił spodziewany wzrost marzeń. Badany 3: największy wzrost przebudzeń (z 7 do 30), ale brak odbicia; Dement uznał jego wzorzec snu za niezwykle stabilny.",
+      sh: "alkohol i stabilny sen" },
+    { id: "objawy", u: "dement", term: "Skutki w zachowaniu",
+      plain: "Pozbawieni snów byli trochę niespokojni, rozdrażnieni, gorzej się skupiali i więcej jedli.",
+      def: "U wszystkich: lekki lęk, irytacja, trudności z koncentracją. U 5 wyraźnie większy apetyt; 3 przytyło 1,5–2,5 kg. W okresie kontrolnym żadnych objawów.",
+      sh: "lęk, irytacja, koncentracja, apetyt" },
+
+    { id: "alkohol", u: "odbicie", term: "Alkohol i środki nasenne",
+      plain: "Alkohol i tabletki usypiają, ale tłumią REM. Po odstawieniu przychodzi silne odbicie i ludzie boją się zasnąć.",
+      def: "Alkohol, amfetamina, barbiturany wytłumiają REM. Po odstawieniu efekt odbicia jest silny i niepokojący, więc ludzie boją się zasnąć i wracają do tych środków.",
+      sh: "tłumią REM, potem silne odbicie" },
+    { id: "delirium", u: "odbicie", term: "Delirium tremens",
+      plain: "U alkoholików pozbawionych REM latami odbicie może pojawić się nawet na jawie, jako przerażające halucynacje.",
+      def: "Po odstawieniu alkoholu efekt odbicia może być tak silny, że występuje na jawie. Może to wyjaśniać delirium tremens (DTs): okropne, przerażające halucynacje (Greenberg, Perlman, 1967).",
+      sh: "odbicie REM na jawie" },
+    { id: "bez-szkody", u: "odbicie", term: "Dłuższe pozbawianie REM",
+      plain: "Późniejsze badania Dementa nie wykazały poważnych szkód długiego braku REM.",
+      def: "Dement (1974): dziesięć lat badań nie potwierdziło, że przedłużone wybiórcze pozbawianie snu REM ma poważne szkodliwe skutki.",
+      sh: "brak dowodów poważnych szkód" },
+    { id: "rem-pamiec", u: "odbicie", term: "REM a pamięć i uczenie się",
+      plain: "W REM mózg może utrwalać to, czego się nauczyliśmy.",
+      def: "W REM większa synteza białek, co może odzwierciedlać integrowanie nowych informacji w pamięci (Rossi, 1973). Stickgold i in. (2000): REM poprawia wykonanie niedawno wyuczonych zadań.",
+      sh: "utrwalanie nowych informacji" },
+    { id: "rem-wiezi", u: "odbicie", term: "REM a więzi (McNamara)",
+      plain: "Jedna z hipotez: REM wyewoluował, żeby wzmacniać więzi, np. dziecka z matką.",
+      def: "McNamara (1996): REM jako mechanizm przetrwania powstały w ewolucji, wspierający więzi społeczne (niemowlę–matka, partnerzy). Psychoanalitycy przyjęli to jako dowód przenikliwości Freuda.",
+      sh: "hipoteza więzi społecznych" },
+
+    { id: "freud-sny", u: "freud", term: "Sny według Freuda",
+      plain: "Freud uważał, że w snach wychodzą na jaw ukryte pragnienia, ale w przebraniu, żeby nas nie przestraszyły.",
+      def: "Sny są wyrazem nieświadomych pragnień, nieosiągalnych w świadomym życiu; dają wgląd w nieświadomość. Świadomy umysł nie zaakceptowałby ich, więc zaburzyłyby sen i wywołały lęk.",
+      sh: "zamaskowane nieświadome pragnienia" },
+    { id: "cenzor", u: "freud", term: "Cenzor",
+      plain: "Wyobrażony „strażnik” w umyśle, który przerabia niebezpieczne pragnienia na niewinne obrazy.",
+      def: "Hipotetyczny cenzor ukrywa prawdziwe pragnienia w obrazach, tworząc symbole, aby chronić sen i jednostkę.",
+      sh: "przebiera pragnienia w symbole" },
+    { id: "jawna", u: "freud", term: "Treść jawna",
+      plain: "To, co pamiętasz ze snu, czyli „fabuła”.",
+      def: "Zewnętrzne, pozorne znaczenie marzenia sennego, które pamiętamy po przebudzeniu.",
+      sh: "pozorna fabuła snu" },
+    { id: "utajona", u: "freud", term: "Treść utajona",
+      plain: "Ukryte, prawdziwe znaczenie snu, do którego dochodzi się przez interpretację.",
+      def: "Prawdziwe, nieświadome znaczenie snu. Aby do niego dotrzeć, trzeba zinterpretować treść jawną i poddać ją analizie.",
+      sh: "ukryte prawdziwe znaczenie" },
+    { id: "wyparcie", u: "freud", term: "Zapominanie snów: wyparcie",
+      plain: "Freud: zapominamy sny, bo ich treść jest niepokojąca i chcemy o niej zapomnieć.",
+      def: "Freud wyjaśniał zapominanie snów wyparciem: jeżeli treść jest zbyt niepokojąca, mamy motywację, aby ją zapomnieć.",
+      sh: "niepokojąca treść jest wypierana" },
+
+    { id: "hobson", u: "aktywacja", term: "Hobson i McCarley",
+      plain: "Psychiatrzy z Harvardu, którzy powiedzieli: sny to mózg próbujący nadać sens przypadkowym impulsom.",
+      def: "Allan Hobson i Robert McCarley, psychiatrzy i neurofizjologowie z Harvardu (1977). Artykuł wysoce techniczny; wstrząsnął środowiskiem naukowym.",
+      sh: "neurofizjologowie z Harvardu" },
+    { id: "aktywacja-synteza", u: "aktywacja", term: "Hipoteza aktywacji i syntezy",
+      plain: "Aktywacja: pień mózgu sam wysyła impulsy w REM. Synteza: reszta mózgu skleja z nich historię, korzystając z pamięci.",
+      def: "Sny są automatycznie wyzwalane przez procesy fizjologiczne. Mózg wzbudza się samoistnie w REM, a wzorce aktywności są porównywane z danymi w pamięci, aby zsyntetyzować je w treść snu. To REM jest przyczyną snów, a nie odwrotnie.",
+      sh: "przypadkowe impulsy + nadawanie sensu" },
+    { id: "stan-d", u: "aktywacja", term: "Stan D",
+      plain: "Tak autorzy nazwali sen z marzeniami sennymi. Mózg jest wtedy aktywny jak na jawie, ale zmysły i ruch są odcięte.",
+      def: "Stan D (od dream): część pnia mózgu odpowiedzialna za ruch i przetwarzanie danych zmysłowych jest tak samo aktywna jak w czuwaniu, ale napływ danych ze zmysłów i reakcje motoryczne są zablokowane. Sen chronią procesy fizjologiczne, a nie cenzor.",
+      sh: "sen z marzeniami, mózg aktywny" },
+    { id: "rdzen", u: "aktywacja", term: "Unieruchomienie w rdzeniu",
+      plain: "Mózg wysyła polecenia ruchu, ale rdzeń kręgowy ich nie przepuszcza. Stąd sny o ucieczce w zwolnionym tempie.",
+      def: "Unieruchomienie następuje w rdzeniu kręgowym, a nie w mózgu, więc mózg wysyła sygnały motoryczne, których ciało nie realizuje. To może wyjaśniać dziwny ruch w snach (niemożność ucieczki, zwolnione tempo). Wyjątek: mięśnie oczu, stąd szybkie ruchy gałek.",
+      sh: "dlatego w snach nie da się uciec" },
+    { id: "zegar", u: "aktywacja", term: "Sen jak zegar",
+      plain: "REM przychodzi w regularnych odstępach, jak w zegarku. Dlatego sny nie mogą być reakcją na pragnienia.",
+      def: "Mózg wchodzi w REM w regularnych, przewidywalnych odstępach i pozostaje w nim określony czas. Stan D jest zaprogramowany jak neurobiologiczny zegar, więc sny nie mogą być reakcją na zdarzenia z życia czy nieświadome pragnienia.",
+      sh: "REM w stałych odstępach" },
+    { id: "most", u: "aktywacja", term: "Most (generator snów)",
+      plain: "Część pnia mózgu, która włącza sny. Jej zablokowanie u kotów wyłączało REM na tygodnie.",
+      def: "Wyzwalacz, zasilanie i zegar generatora snów to most, część pnia mózgu z tyłu, w pobliżu podstawy. U kotów: szczyt aktywności w REM; zablokowanie – tygodnie bez REM; stymulacja – wcześniejszy i dłuższy REM. Techniki psychologiczne nie przedłużały REM.",
+      sh: "część pnia mózgu włączająca REM" },
+    { id: "ssaki", u: "aktywacja", term: "Sen u ssaków",
+      plain: "Wszystkie ssaki mają REM i NREM. Cykl szczura trwa 6 minut, słonia 2,5 godziny.",
+      def: "Wszystkie ssaki śpiąc przechodzą cyklicznie przez REM i NREM; cykle zależą od wielkości ciała (szczur 6 min, słoń 2,5 h). Zwierzęta narażone na drapieżniki mają krótsze okresy głębokiego snu. Dowód na fizjologiczne pochodzenie snów. Autorzy badali koty.",
+      sh: "cykl zależy od wielkości ciała" },
+    { id: "zapominanie", u: "aktywacja", term: "Dlaczego zapominamy sny",
+      plain: "Ok. 95% snów zapominamy, bo w REM mózg nie wytwarza substancji potrzebnych do zapisu w pamięci długotrwałej.",
+      def: "W REM powstrzymane jest wytwarzanie związków chemicznych potrzebnych do przemiany pamięci krótkotrwałej w długotrwałą. Jeśli sen nie jest wyrazisty i nie budzimy się w trakcie lub tuż po nim, treść ginie (ok. 95% snów). Wyjaśnienie fizjologiczne zamiast wyparcia.",
+      sh: "chemia REM blokuje zapis" },
+
+    { id: "hobson-1989", u: "spor", term: "Hobson po latach",
+      plain: "W 1989 roku Hobson złagodził stanowisko: sny są nonsensowne, ale mają osobiste znaczenie.",
+      def: "Książka „Sen” (1989): mimo nonsensowności sny mają głęboko osobiste znaczenie, bo mózg-umysł nadaje porządek chaosowi według naszego widzenia świata, spraw bieżących, wspomnień, uczuć i przekonań, bez cenzury i freudowskiej symboliki.",
+      sh: "sny mają osobiste znaczenie" },
+    { id: "foulkes", u: "spor", term: "Foulkes: sny jako próba",
+      plain: "Sny nie mają ukrytych przekazów, ale pokazują, jak działa nasz umysł, i mogą być próbą generalną: „co bym zrobił, gdyby…?”.",
+      def: "Foulkes (1985): sny nie zawierają nieświadomych przekazów, ale są źródłem informacji psychologicznych (jak umysł nadaje formę impulsom, które wspomnienia są ważne). Funkcje: przygotowanie na nowe zdarzenia, poznawcza próba, wiedza o sobie.",
+      sh: "poznawcza próba generalna" },
+    { id: "kahan", u: "spor", term: "Kahan i in. (2000)",
+      plain: "Myślenie we śnie jest podobne do myślenia na jawie, różni się raczej ilościowo. To podważa „przypadkowość” snów.",
+      def: "„Poznanie w marzeniach sennych jest bardziej podobne do poznania na jawie, niż wcześniej sądzono, a różnice są bardziej ilościowe niż jakościowe”. Pytanie: jak to możliwe, jeśli sny to skutek przypadkowych wyładowań?",
+      sh: "poznanie we śnie jak na jawie" },
+    { id: "mancia", u: "spor", term: "Neuronauka a psychoanaliza (Mancia)",
+      plain: "Neuronaukowcy pytają, jak mózg tworzy sny. Psychoanalitycy pytają, co sny znaczą dla konkretnej osoby.",
+      def: "Mancia (1999): nauki o układzie nerwowym interesują się strukturami i organizacją snów, psychoanaliza ich znaczeniem w kontekście relacji terapeutycznej i historii emocjonalnej osoby.",
+      sh: "jak powstają vs co znaczą" },
+    { id: "hartmann", u: "spor", term: "Hartmann (2000): czytanie, pisanie, liczenie",
+      plain: "Ludzie prawie nigdy nie śnią o czytaniu, pisaniu ani liczeniu, choć robią to codziennie godzinami.",
+      def: "456 opisów snów od 240 osób: żaden nie zawierał czytania ani pisania, jeden liczenie. 90% nigdy lub prawie nigdy nie śni o tych czynnościach, choć spędza nad nimi ok. 6 godzin dziennie. Jeśli sny to przypadkowe impulsy, dlaczego nigdy ich nie aktywują?",
+      sh: "„Three R’s” nie pojawiają się w snach" },
+
+    { id: "hipnoza", u: "hipnoza", term: "Hipnoza w powszechnym ujęciu",
+      plain: "Zwykle myślimy o hipnozie jak o tajemniczym transie, w którym ktoś przejmuje kontrolę nad umysłem.",
+      def: "Hipnoza jest zwykle postrzegana jako tajemniczy, silnie oddziałujący proces kontrolowania umysłu: odrębny, wyjątkowy stan świadomości, inny niż jawa i sen („trans”, „poddać się”). Nazwa od greckiego boga snu Hypnosa.",
+      sh: "„trans”, odmienny stan" },
+    { id: "mesmer", u: "hipnoza", term: "Mesmer i magnetyzm zwierzęcy",
+      plain: "W XVIII wieku Mesmer leczył „płynem magnetycznym” przy muzyce i półmroku. Od niego jest angielskie mesmerize.",
+      def: "Franz Anton Mesmer (1733–1815): zaburzenia histeryczne miały wynikać z braku równowagi uniwersalnego płynu magnetycznego w ciele. Seanse z muzyką, przyciemnionym światłem i żelaznymi prętami. Bywał skuteczny. Hipnoza stała się potem podstawą wczesnych technik Freuda.",
+      sh: "płyn magnetyczny, mesmerize" },
+    { id: "hilgard", u: "hipnoza", term: "Hilgard: hipnoza to odmienny stan",
+      plain: "Hilgard uważał, że w hipnozie dzieje się coś wyjątkowego: większa podatność na sugestie, lepsza pamięć, mniejszy ból.",
+      def: "Ernest Hilgard (1978), czołowy zwolennik hipnozy jako odmiennego stanu. Cechy: zwiększona podatność na sugestie, zachowania niedobrowolne, lepsza pamięć, intensywniejsze wyobrażenia, dysocjacja, analgezja.",
+      sh: "sugestia, pamięć, dysocjacja, analgezja" },
+    { id: "dysocjacja", u: "hipnoza", term: "Dysocjacja",
+      plain: "Świadomość dzieli się: część rzeczy zauważamy, a część dzieje się „obok”.",
+      def: "Zdolność do uświadamiania sobie pewnych wydarzeń przy jednoczesnym nieuświadamianiu sobie innych. Jedna z cech hipnozy według Hilgarda.",
+      sh: "część zdarzeń poza świadomością" },
+    { id: "analgezja", u: "hipnoza", term: "Analgezja i „bariera amnezji”",
+      plain: "Mniejsze odczuwanie bólu. Hilgard tłumaczył, że w hipnozie ból zostaje oddzielony od świadomości.",
+      def: "Analgezja: obniżona wrażliwość na ból. Hilgard: badani po szkoleniu z analgezji czuli mniej bólu w hipnozie niż w czuwaniu, bo część osoby doświadcza bólu, ukryta przed świadomością za „barierą amnezji”.",
+      sh: "mniej bólu, ból oddzielony od świadomości" },
+
+    { id: "spanos", u: "spanos", term: "Spanos: hipnoza to motywacja",
+      plain: "Spanos twierdził, że w hipnozie nie ma transu. Ludzie robią to, czego się po nich spodziewają, i bardzo chcą to zrobić dobrze.",
+      def: "Nicholas Spanos (1982): hipnoza to nic więcej niż stan podwyższonej motywacji, by zachowywać się w określony sposób. Zachowania hipnotyczne są podobne do innych zachowań społecznych: strategiczne i ukierunkowane na cel. Podsumował wiele badań (16 własnych).",
+      sh: "podwyższona motywacja, nie trans" },
+    { id: "niedobrowolne", u: "spanos", term: "Przekonanie o niedobrowolności",
+      plain: "Zahipnotyzowani tłumaczą sobie swoje ruchy tak, jakby robił je ktoś inny.",
+      def: "Testy hipnozy („twoja ręka jest ciężka”, „nie możesz rozdzielić dłoni”) to dwa życzenia naraz: zrób coś i uznaj, że dzieje się to bez twojej woli. Zahipnotyzowani spełniają oba. Sugestia („ręka jest lekka i się unosi”) daje częściej poczucie niedobrowolności niż polecenie („unieś rękę”).",
+      sh: "interpretują ruch jako cudzy" },
+    { id: "grawitacja", u: "spanos", term: "Ręka opada czy się unosi?",
+      plain: "Łatwiej uwierzyć, że ręka sama opada (pomaga grawitacja), niż że sama się unosi.",
+      def: "Zahipnotyzowani znacznie częściej uznawali opuszczanie ręki za niedobrowolne niż jej unoszenie. Według tradycyjnego ujęcia kierunek ruchu nie powinien mieć znaczenia.",
+      sh: "opadanie łatwiej uznać za niedobrowolne" },
+    { id: "wyobrazeniowe", u: "spanos", term: "Strategie wyobrażeniowe",
+      plain: "Kto mocno wyobrazi sobie gips na ręce, łatwiej uwierzy, że naprawdę nie może jej zgiąć.",
+      def: "Sugestie wyobrażeniowe (ręka w gipsie) bardziej absorbują niektórych ludzi; im większe zaabsorbowanie, tym częściej zachowanie uznawane za niedobrowolne. Podatność na hipnozę koreluje z ogólną skłonnością do zaabsorbowania (czytanie, muzyka, marzenia na jawie).",
+      sh: "zaabsorbowanie wyobrażeniem" },
+    { id: "oczekiwania", u: "spanos", term: "Oczekiwania tworzą hipnozę",
+      plain: "Ludzie zachowują się w hipnozie tak, jak według nich powinna wyglądać hipnoza.",
+      def: "Przekonania o hipnozie same wytwarzają „hipnotyczne” zachowania, a wzmacniają je metody wprowadzania i badania. Rytuał hipnozy ma w kulturze Zachodu ogromny bagaż znaczeń: ludzie spodziewają się, że stracą kontrolę.",
+      sh: "odgrywamy hipnozę zgodnie z przekonaniami" },
+    { id: "sztywne-rece", u: "spanos", term: "Wykład o sztywnych rękach",
+      plain: "Grupa, której powiedziano, że w hipnozie ręce same sztywnieją, miała sztywne ręce. Druga grupa nie.",
+      def: "Dwie grupy usłyszały ten sam wykład o hipnozie, ale jednej powiedziano, że w hipnozie samoistnie sztywnieją ręce. Po hipnozie część z tej grupy spontanicznie miała sztywne ręce, nikt z drugiej.",
+      sh: "oczekiwanie wywołało objaw" },
+    { id: "intensywnosc", u: "spanos", term: "Intensywność wyobrażeń",
+      plain: "Ta sama osoba twierdzi, że w hipnozie wyobraża sobie wyraźniej. Ale dwie różne grupy wypadają tak samo.",
+      def: "Badani porównujący wyobrażenia w hipnozie i bez niej mówili, że w hipnozie są intensywniejsze. Gdy porównano dwie różne grupy (z hipnozą i bez), średnia intensywność była podobna. Porównując się, oceniamy zgodnie z oczekiwaniami.",
+      sh: "różnica znika między grupami" },
+    { id: "komora-zimna", u: "spanos", term: "Komora zimna",
+      plain: "Ręka w lodowatej wodzie. Ci, którzy wiedzieli, że potem będzie hipnoza, w czuwaniu „czuli” więcej bólu, żeby hipnoza wypadła lepiej.",
+      def: "Test bólu: ręka w wodzie bliskiej 0 °C. Grupa spodziewająca się późniejszej hipnozy oceniała ból w czuwaniu wysoko, a w hipnozie nisko; grupa niespodziewająca się – tak samo w obu (ryc. 2.3). Zdaniem Spanosa badani „chcą wykazać, że są dobrymi badanymi”.",
+      sh: "oczekiwanie hipnozy zmienia ocenę bólu" },
+    { id: "implikacje", u: "spanos", term: "Co wynika ze Spanosa",
+      plain: "Spanos nie mówi, że hipnozy nie ma. Mówi, że to nie magia: nikt nie zrobi w hipnozie czegoś wbrew sobie.",
+      def: "Celem nie było wykazanie, że hipnoza nie istnieje, lecz że to silnie umotywowane, celowe zachowanie społeczne. Nie można zahipnotyzować wbrew woli, w hipnozie nie robi się rzeczy uznanych za aspołeczne ani nadludzkich. Hipnoza bywa pomocna, ale nie jest panaceum (rzucanie palenia, odzyskiwanie pamięci; Lazar, Dempster, 1981).",
+      sh: "nie magia, lecz zachowanie społeczne" },
+    { id: "diaz", u: "spanos", term: "Warunkowanie podatności (Diaz, Alvarez, 1997)",
+      plain: "Ludzi niepodatnych na hipnozę nauczono reagować na sugestie, nagradzając ich. Po treningu 6 z 10 reagowało.",
+      def: "10 osób o niskiej podatności: ćwiczenia reagowania na sugestie i wzmacnianie przez terapeutę (warunkowanie Skinnera). Po treningu 6 z 10 reagowało na sugestie hipnotyczne. Podatność zależy od zmiennych sytuacyjnych.",
+      sh: "podatności można się nauczyć" }
+  ],
+
+  exercises: [
+    /* ---------- Wstęp ---------- */
+    { u: "wstep", t: "mcq", q: "Co według Hocka robi mózg w spostrzeganiu?",
+      a: ["Nadaje danym zmysłowym formę i znaczenie", "Przetwarza wszystkie docierające bodźce", "Zapisuje wrażenia bez żadnych zmian", "Wyłącza zmysły, gdy jest ich za dużo"],
+      x: "Mózg organizuje natłok danych ze zmysłów w jednostki, które nadają im formę i znaczenie.",
+      w: ["Nie jest możliwe przetworzenie wszystkich.", "Wrażenia są przetwarzane i interpretowane.", "Zmysły działają, mózg filtruje dane."] },
+    { u: "wstep", t: "order", q: "Ułóż trzy działania procesów percepcyjnych.",
+      a: ["Wybór wrażeń, na które zwracamy uwagę", "Organizowanie w rozpoznawalne wzorce i kształty", "Interpretowanie wzorców, by wyjaśniać świat"],
+      x: "Wybór → organizowanie → interpretowanie (Hock, s. 62)." },
+    { u: "wstep", t: "sort", q: "Wrażenie czy spostrzeżenie?", cats: ["Wrażenie", "Spostrzeżenie"],
+      why: ["Surowe dane ze zmysłów, bez znaczenia.", "Dane uporządkowane i zinterpretowane."],
+      items: [["fale świetlne odbite od przedmiotów", 0], ["czarne kształty na białej kartce", 0], ["dźwięki docierające do ucha", 0],
+        ["„to jest słowo «kot»”", 1], ["„to dzwoni mój telefon”", 1], ["„tam stoi moja koleżanka”", 1]],
+      x: "Wrażenia to surowiec, spostrzeganie nadaje im znaczenie." },
+    { u: "wstep", t: "tf", q: "Według Hocka wykorzystujemy tylko niewielki procent docierających do nas wrażeń.", a: true,
+      x: "Tak. Nieustannie filtrujemy dane; gdyby filtr się zepsuł, świat byłby zbyt zagmatwany." },
+    { u: "wstep", t: "multi", q: "Które stany wymienia Hock jako różne stany świadomości?",
+      a: ["sen i śnienie", "fantazjowanie i marzenia na jawie", "hipnoza", "wpływ kofeiny lub nikotyny"],
+      o: ["stałość wielkości", "efekt Pigmaliona"],
+      x: "Stany świadomości wpływają na to, co spostrzegamy.",
+      w: ["To strategia spostrzegania, nie stan świadomości.", "To efekt oczekiwań z rozdziału 4."] },
+    { u: "wstep", t: "mcq", q: "Których zjawisk dotyczą cztery prace z rozdziału 2?",
+      a: ["Widzenia, snu, marzeń sennych i hipnozy", "Pamięci, uwagi, myślenia i języka", "Warunkowania, kar, nagród i modelowania", "Emocji, motywacji, stresu i zdrowia"],
+      x: "Hock: najciekawsze badania nad spostrzeganiem i świadomością dotyczą widzenia, snu, marzeń sennych i hipnozy.",
+      w: ["To procesy poznawcze z zajęć 3.", "To uczenie się z zajęć 2.", "To inne rozdziały."] },
+
+    /* ---------- Strategie ---------- */
+    { u: "strategie", t: "which", set: "strategia", q: "Na rysunku widzisz raz biały kielich, raz dwa czarne profile.", a: 1, x: "Przełączanie figury i tła (ryc. 2.1)." },
+    { u: "strategie", t: "which", set: "strategia", q: "Obchodzisz krzesło dookoła i wciąż widzisz to samo krzesło.", a: 2, x: "Obraz na siatkówce się zmienia, kształt spostrzegamy jako stały." },
+    { u: "strategie", t: "which", set: "strategia", q: "Autobus dwie przecznice dalej wydaje ci się normalnej wielkości.", a: 3, x: "Znane przedmioty widzimy w stałych wymiarach mimo odległości." },
+    { u: "strategie", t: "which", set: "strategia", q: "Szukasz przyjaciółki w tłumie na dworcu.", a: 1, x: "Wyodrębniasz figurę (ją) z tła (tłumu)." },
+    { u: "strategie", t: "mcq", q: "Dlaczego żołnierze noszą stroje maskujące?",
+      a: ["Bo zacierają różnicę między figurą a tłem", "Bo zaburzają przeciwnikowi stałość wielkości", "Bo zmieniają kształt sylwetki", "Bo wywołują u wroga efekt odbicia"],
+      x: "Maskowanie utrudnia oddzielenie figury (żołnierza) od tła (roślinności).",
+      w: ["Nie chodzi o wielkość.", "Kształt się nie zmienia, ginie kontrast z tłem.", "To pojęcie ze snu REM."] },
+    { u: "strategie", t: "mcq", q: "Czym jest stałość spostrzeżeń?",
+      a: ["Widzeniem przedmiotu jako niezmiennego", "Utrzymywaniem uwagi na jednym przedmiocie", "Pamiętaniem przedmiotu po jego zniknięciu", "Wrodzoną zdolnością widzenia kolorów"],
+      x: "Zdolność uświadamiania sobie, że przedmioty mają niezmienne cechy, nawet jeśli wrażenia się zmieniają.",
+      w: ["To uwaga.", "To pamięć.", "To inna zdolność (Adams, 1987)."] },
+    { u: "strategie", t: "mcq", q: "Dlaczego w filmie model statku długości pół metra wydaje się prawdziwym statkiem?",
+      a: ["Bo brak obiektów, z którymi można go porównać", "Bo kamera powiększa go wielokrotnie", "Bo widz nie zna prawdziwych statków", "Bo działa figura i tło"],
+      x: "Stałość wielkości wymaga punktów odniesienia; bez nich widzimy model jako statek naturalnej wielkości.",
+      w: ["Hock tłumaczy to brakiem porównania.", "Widzowie znają statki.", "Chodzi o wielkość, nie o oddzielenie od tła."] },
+    { u: "strategie", t: "tf", q: "Osoba 30 metrów od ciebie daje na siatkówce obraz mniej niż 10 cm, a i tak widzisz ją jako normalnego wzrostu.", a: true,
+      x: "Tak, to przykład stałości wielkości z Hocka." },
+
+    /* ---------- Turnbull ---------- */
+    { u: "turnbull", t: "mcq", q: "Kim był Colin Turnbull?",
+      a: ["Antropologiem", "Psychologiem eksperymentalnym", "Neurofizjologiem", "Psychoanalitykiem"],
+      x: "Turnbull był antropologiem, a jego artykuł nie miał ram teoretycznych ani klarownej metody.",
+      w: ["Hock podkreśla, że nie był psychologiem.", "To Hobson i McCarley.", "Nie."] },
+    { u: "turnbull", t: "mcq", q: "Gdzie Turnbull prowadził badania?",
+      a: ["W lesie Ituri w Zairze (dziś Kongo)", "W laboratorium snu na Harvardzie", "W szkole Oak School", "Na równinach Australii"],
+      x: "Koniec lat 50. XX w., gęsty las Ituri, Pigmeje BaMbuti.",
+      w: ["To Hobson i McCarley.", "To Rosenthal (rozdz. 4).", "Nie."] },
+    { u: "turnbull", t: "mcq", q: "Jaką metodą badał Turnbull?",
+      a: ["Naturalną obserwacją", "Eksperymentem laboratoryjnym", "Kwestionariuszem", "Testem inteligencji"],
+      x: "Obserwował zachowanie w naturalnych sytuacjach.",
+      w: ["Nie było laboratorium.", "Nie było ankiet.", "Nie."] },
+    { u: "turnbull", t: "mcq", q: "Jak Kenge nazwał bawoły widziane z odległości kilku kilometrów?",
+      a: ["Owadami", "Kamieniami", "Drzewami", "Chmurami"],
+      x: "Zapytał „co to za owady?” i porównywał je do żuków i mrówek.",
+      w: ["Za skały wziął ośnieżone szczyty.", "Nie.", "Pytał, czy góry to chmury."] },
+    { u: "turnbull", t: "mcq", q: "Co powiedział Kenge, gdy bawoły „rosły” w miarę zbliżania się?",
+      a: ["Że to czary", "Że to inne zwierzęta", "Że Turnbull go oszukuje", "Że to złudzenie optyczne"],
+      x: "Szepnął, że to czary. W naturalnej wielkości przestał się bać, ale nie rozumiał, czemu wcześniej były małe.",
+      w: ["Rozpoznał, że to bawoły.", "Śmiał się z Turnbulla wcześniej, przy bawołach z daleka.", "Nie znał takiego pojęcia."] },
+    { u: "turnbull", t: "mcq", q: "Dlaczego Pigmeje BaMbuti nie wykształcili stałości wielkości?",
+      a: ["Bo w dżungli widać najwyżej na ok. 30 m", "Bo mają wrodzoną wadę wzroku", "Bo nie znają pojęcia odległości", "Bo nie potrafią rozróżniać figury i tła"],
+      x: "Nie mieli okazji ani potrzeby, bo widoczność w lesie jest ograniczona.",
+      w: ["Wzrok był sprawny.", "Hock nic o tym nie mówi.", "Mogą mieć to wręcz lepiej rozwinięte."] },
+    { u: "turnbull", t: "tf", q: "Kenge był zachwycony równiną i chciał zostać tam dłużej.", a: false,
+      x: "Fałsz. Uznał to za „zły kraj, bo nie ma w nim drzew” i następnego dnia poprosił o powrót do dżungli." },
+    { u: "turnbull", t: "mcq", q: "Jak Kenge zinterpretował łódź rybacką 3–4 km od brzegu?",
+      a: ["Jako kawałek drewna", "Jako dużego ptaka", "Jako ślad czarów", "Jako bawołu w wodzie"],
+      x: "Nie wierzył, że łódź mieści kilku ludzi, dopóki nie przypomniał sobie bawołów.",
+      w: ["Nie.", "Czary to bawoły.", "Nie."] },
+    { u: "turnbull", t: "multi", q: "Co wynika z obserwacji Turnbulla?",
+      a: ["stałość wielkości jest wyuczona", "kultura i środowisko wpływają na spostrzeganie", "zdolności rozwijają się tak, jak wymaga otoczenie"],
+      o: ["stałość wielkości jest wrodzona", "Pigmeje widzą gorzej niż inni ludzie"],
+      x: "Hock: wyjaśnienie, dlaczego stałość wielkości jest wyuczona, a nie wrodzona.",
+      w: ["Turnbull pokazuje odwrotnie.", "Ich wzrok był sprawny; brakowało doświadczenia."] },
+
+    /* ---------- Natura ---------- */
+    { u: "natura", t: "sort", q: "Wrodzone czy wyuczone według Hocka?", cats: ["Raczej wrodzone", "Raczej wyuczone"],
+      why: ["Pojawia się bez doświadczenia.", "Wymaga doświadczenia i środowiska."],
+      items: [["odróżnianie figury od tła", 0], ["preferencja kolorowych kwadratów u noworodków", 0],
+        ["stałość wielkości", 1], ["reagowanie kota na poziome linie", 1], ["ocena wielkości odległych bawołów", 1]],
+      x: "Niektóre zdolności są wrodzone, inne wyuczone; nie ma jednej odpowiedzi." },
+    { u: "natura", t: "mcq", q: "Co pokazali Blakemore i Cooper (1970) na kociętach?",
+      a: ["Że bez doświadczenia zdolność się nie rozwija", "Że koty widzą lepiej w ciemności", "Że kocięta mają wrodzoną stałość wielkości", "Że koty śnią jak ludzie"],
+      x: "Kocięta z samymi pionowymi paskami ignorowały poziome linie, i odwrotnie. Brak był trwały.",
+      w: ["Nie o to chodziło.", "Badanie dotyczyło orientacji linii.", "Koty badali Hobson i McCarley (sen)."] },
+    { u: "natura", t: "mcq", q: "Dlaczego badanie Adamsa (1987) wskazuje na wrodzoność?",
+      a: ["Bo 3-dniowe dzieci nie zdążyły się nauczyć", "Bo dzieci były niewidome od urodzenia", "Bo dzieci znały już nazwy wszystkich kolorów", "Bo dzieci patrzyły dłużej na szare"],
+      x: "Noworodki dłużej patrzyły na kolorowe kwadraty niż szare o tym samym natężeniu; w trzy dni nie mogły się tego nauczyć.",
+      w: ["Badano zdrowe noworodki.", "Noworodki nie znają słów.", "Odwrotnie: na kolorowe."] },
+    { u: "natura", t: "mcq", q: "W jakim wieku rozwija się stałość wielkości u dzieci?",
+      a: ["Około 7–8 lat", "Zaraz po urodzeniu", "Około 2 lat", "Dopiero w dorosłości"],
+      x: "Do ok. 5 lat dzieci widzą odległe samochody jako zabawki; stałość wielkości rozwija się ok. 7–8 lat.",
+      w: ["Nie jest wrodzona.", "Za wcześnie.", "Za późno."] },
+    { u: "natura", t: "tf", q: "Badania osób niewidomych od urodzenia, które zyskały wzrok, sugerują, że figura–tło jest przynajmniej częściowo wrodzone.", a: true,
+      x: "Tak. Stałość percepcji jest natomiast wynikiem doświadczenia." },
+    { u: "natura", t: "mcq", q: "Jaki jest ogólny wniosek Hocka w sporze natura–kultura w spostrzeganiu?",
+      a: ["Część zdolności wrodzona, część wyuczona", "Wszystkie zdolności percepcyjne są wyuczone", "Wszystkie zdolności percepcyjne są wrodzone", "Spostrzeganie w ogóle nie zależy od mózgu"],
+      x: "Nie ma jednej odpowiedzi: jedne wyuczone, inne „fabrycznie zainstalowane”.",
+      w: ["Adams pokazuje coś innego.", "Turnbull pokazuje coś innego.", "Nie."] },
+
+    /* ---------- REM ---------- */
+    { u: "rem", t: "mcq", q: "Co zauważył Aserinsky u śpiących niemowląt?",
+      a: ["Okresy szybkich ruchów gałek ocznych", "Okresy całkowitego bezruchu oczu", "Że niemowlęta nie śnią", "Że niemowlęta śpią krócej"],
+      x: "Okresy aktywności ruchowej gałek ocznych; postawił hipotezę, że wiążą się z marzeniami sennymi.",
+      w: ["Zauważył właśnie ruchy.", "Nie mógł tego wiedzieć, stąd badania na dorosłych.", "Nie o tym była obserwacja."] },
+    { u: "rem", t: "mcq", q: "Ile razy na 27 przebudzeń w REM badani szczegółowo opowiedzieli swoje sny?",
+      a: ["20 razy", "27 razy", "7 razy", "4 razy"],
+      x: "W 20 przypadkach wyraziście, w 7 tylko „poczucie, że coś się śniło”.",
+      w: ["Nie wszyscy.", "Tyle razy tylko poczucie.", "To liczba z przebudzeń poza REM."] },
+    { u: "rem", t: "order", q: "Ułóż przebieg pierwszego cyklu snu.",
+      a: ["Zaśnięcie i faza 1", "Coraz głębszy sen aż do fazy 4", "Powrót przez fazy do lżejszego snu", "Sen REM zamiast fazy 1"],
+      x: "Po REM znów fazy NREM; 5–6 cykli na noc." },
+    { u: "rem", t: "tf", q: "W fazie REM intensywnie się poruszamy, bo odgrywamy sny.", a: false,
+      x: "Fałsz. To powszechne, ale błędne przekonanie: ciało jest sparaliżowane, co chroni przed zranieniem." },
+    { u: "rem", t: "mcq", q: "Po jakim czasie od zaśnięcia pojawia się pierwszy REM?",
+      a: ["Po około 90 minutach", "Od razu po zaśnięciu", "Po około 4 godzinach", "Tylko nad ranem"],
+      x: "Pierwszy REM ok. 90 minut po zaśnięciu; potem REM się wydłużają.",
+      w: ["Najpierw są fazy NREM.", "Za późno.", "REM jest kilka razy w nocy, nad ranem najdłuższy."] },
+    { u: "rem", t: "mcq", q: "Dlaczego nad ranem mamy więcej marzeń sennych?",
+      a: ["Bo okresy REM się wydłużają", "Bo jesteśmy bardziej zmęczeni", "Bo faza 4 jest dłuższa", "Bo mózg przestaje działać"],
+      x: "NREM się skracają, REM wydłużają.",
+      w: ["Nie o to chodzi.", "Odwrotnie: głęboki sen się skraca.", "Mózg jest w REM bardzo aktywny."] },
+    { u: "rem", t: "cloze", q: "W ciągu nocy przechodzimy ok. ___ cykli NREM i REM.",
+      a: ["5–6", "2", "10–12", "20"],
+      x: "Ok. 5–6 cykli.",
+      w: ["Za mało.", "Za dużo.", "Za dużo."] },
+
+    /* ---------- Dement ---------- */
+    { u: "dement", t: "mcq", q: "Jak Dement pozbawiał badanych marzeń sennych?",
+      a: ["Budził ich, ilekroć wchodzili w REM", "Podawał leki tłumiące marzenia", "Nie pozwalał im zasnąć całą noc", "Hipnotyzował ich przed snem"],
+      x: "Leki zbyt zaburzały sen, więc wybrał budzenie przy każdym wejściu w REM.",
+      w: ["Odrzucił to, bo zaburzały wzorzec snu.", "Badani spali, tylko bez REM.", "To inny temat."] },
+    { u: "dement", t: "mcq", q: "Ile średnio trwały marzenia senne w nocach wzorcowych?",
+      a: ["80 minut (19,5% snu)", "112 minut (26,6% snu)", "88 minut (20,1% snu)", "6 h 50 min"],
+      x: "80 minut, a różnica między badanymi wynosiła zaledwie 7 minut.",
+      w: ["To pierwsza noc przywracania.", "To kontrolne przywracanie.", "To całkowity czas snu."] },
+    { u: "dement", t: "mcq", q: "Po co Dement budził badanych także poza REM (w NREM)?",
+      a: ["Żeby wykluczyć, że skutki daje samo budzenie", "Żeby pozbawić ich także głębokiego snu", "Żeby sprawdzić, czy śnią w NREM", "Żeby skrócić czas badania"],
+      x: "To warunek kontrolny: tyle samo nocy i przebudzeń, ale bez pozbawiania REM.",
+      w: ["Celem nie było pozbawianie NREM.", "Nie o to chodziło.", "Nie."] },
+    { u: "dement", t: "order", q: "Ułóż etapy badania Dementa.",
+      a: ["Noce wzorcowe", "Pozbawianie snu REM", "Etap przywracania", "Kontrolne przebudzenia w NREM", "Kontrolne przywracanie"],
+      x: "Kontrola pokazała, że efekt wynika z braku REM, a nie z budzenia." },
+    { u: "dement", t: "mcq", q: "Co działo się z liczbą przebudzeń z nocy na noc pozbawiania REM?",
+      a: ["Rosła: średnio z 11 do 22", "Malała: średnio z 22 do 11", "Była cały czas stała", "Spadła prawie do zera"],
+      x: "Mózg coraz częściej próbował wejść w REM: dwa razy więcej prób ostatniej nocy.",
+      w: ["Odwrotnie.", "Nie.", "Nie."] },
+    { u: "dement", t: "mcq", q: "Ile trwały marzenia senne pierwszej nocy przywracania?",
+      a: ["Średnio 112 minut (26,6%)", "Średnio 80 minut (19,5%)", "Średnio 40 minut (10%)", "Średnio 6 godzin"],
+      x: "Bez badanych 3 i 7 nawet 127 minut (29%), czyli wzrost o 50%.",
+      w: ["To noce wzorcowe.", "Odwrotnie: czas wzrósł.", "Nie."] },
+    { u: "dement", t: "tf", q: "Kontrolne przebudzenia w NREM wyraźnie zwiększyły czas marzeń sennych.", a: false,
+      x: "Fałsz. 88 minut (20,1%), bez istotnej różnicy wobec 80 minut." },
+    { u: "dement", t: "mcq", q: "Dlaczego u badanego nr 7 nie było efektu odbicia?",
+      a: ["Wypił kilka drinków przed badaniem", "Miał niezwykle stabilny wzorzec snu", "Zasnął w ciągu dnia", "Zrezygnował z badania"],
+      x: "Alkohol wytłumił spodziewany wzrost marzeń sennych.",
+      w: ["To wyjaśnienie dla badanego nr 3.", "Drzemki były zakazane.", "Rezygnowali inni (8)."] },
+    { u: "dement", t: "multi", q: "Jakie objawy wystąpiły u badanych w czasie pozbawiania REM?",
+      a: ["nieznaczny lęk", "niewielka irytacja", "trudności z koncentracją", "większy apetyt"],
+      o: ["halucynacje", "utrata pamięci"],
+      x: "U 5 badanych wyraźnie większy apetyt, 3 przytyło. W okresie kontrolnym brak objawów.",
+      w: ["Tego nie zaobserwowano u Dementa (halucynacje to delirium tremens).", "Nie odnotowano."] },
+    { u: "dement", t: "mcq", q: "Jak dziś nazywa się zjawisko „nadrabiania” snów po ich utracie?",
+      a: ["Efekt odbicia REM", "Efekt Pigmaliona", "Uczenie się utajone", "Bariera amnezji"],
+      x: "Dement nie użył tej nazwy, ale tak się je dziś określa.",
+      w: ["To rozdz. 4.", "To Tolman.", "To pojęcie Hilgarda."] },
+
+    /* ---------- Odbicie ---------- */
+    { u: "odbicie", t: "mcq", q: "Dlaczego ludzie trudno rezygnują z alkoholu czy tabletek nasennych przed snem?",
+      a: ["Bo po odstawieniu niepokoi ich efekt odbicia", "Bo bez nich w ogóle nie ma snu REM", "Bo przyzwyczaja się do nich mięsień oka", "Bo zwiększają ilość marzeń sennych"],
+      x: "Środki tłumią REM; po odstawieniu odbicie jest tak silne i niepokojące, że ludzie boją się zasnąć.",
+      w: ["REM wraca, i to ze zdwojoną siłą.", "Nie.", "Odwrotnie: tłumią REM."] },
+    { u: "odbicie", t: "mcq", q: "Jak Hock wiąże delirium tremens z badaniami Dementa?",
+      a: ["Jako efekt odbicia REM na jawie", "Jako skutek budzenia w fazie NREM", "Jako rodzaj spontanicznej hipnozy", "Jako utratę stałości wielkości"],
+      x: "U alkoholików pozbawionych REM latami odbicie może wystąpić nawet na jawie: przerażające halucynacje.",
+      w: ["Nie.", "Nie.", "Nie."] },
+    { u: "odbicie", t: "tf", q: "Dement (1974) po latach badań stwierdził, że długie pozbawianie REM ma poważne szkodliwe skutki.", a: false,
+      x: "Fałsz. Dziesięć lat badań nie potwierdziło poważnych szkodliwych skutków." },
+    { u: "odbicie", t: "mcq", q: "Co może się dziać w mózgu podczas REM według Rossiego (1973)?",
+      a: ["Integrowanie nowych informacji w pamięci", "Usuwanie wszystkich wspomnień z dnia", "Odpoczynek całego mózgu", "Tworzenie nowych neuronów ruchowych"],
+      x: "W REM większa synteza białek; może to odzwierciedlać integrowanie informacji w pamięci.",
+      w: ["Nie.", "Mózg w REM jest aktywny.", "Nie."] },
+    { u: "odbicie", t: "mcq", q: "Jaką funkcję REM proponuje McNamara (1996)?",
+      a: ["Kształtowanie więzi społecznych", "Ochronę przed drapieżnikami", "Wytwarzanie halucynacji", "Regulację temperatury ciała"],
+      x: "REM jako mechanizm ewolucyjny wspierający więzi (niemowlę–matka, partnerzy).",
+      w: ["To argument Hobsona o głębokim śnie.", "Nie.", "Nie."] },
+
+    /* ---------- Freud ---------- */
+    { u: "freud", t: "mcq", q: "Czym są sny według Freuda?",
+      a: ["Wyrazem nieświadomych pragnień", "Przypadkowymi impulsami z pnia mózgu", "Powtórką zdarzeń z całego dnia", "Skutkiem ruchów gałek ocznych"],
+      x: "Sny wyrażają nieświadome pragnienia, nieosiągalne w świadomym życiu.",
+      w: ["To Hobson i McCarley.", "Freud szukał w nich ukrytej treści.", "Nie."] },
+    { u: "freud", t: "match", pairs: [["treść jawna", "pozorna fabuła snu"], ["treść utajona", "ukryte prawdziwe znaczenie"], ["cenzor", "przebiera pragnienia w symbole"], ["wyparcie", "zapominanie niepokojącej treści"]],
+      x: "Pojęcia freudowskiej teorii snów." },
+    { u: "freud", t: "mcq", q: "Po co według Freuda istnieje cenzor?",
+      a: ["Żeby chronić sen przed lękiem", "Żeby zapisać sen w pamięci", "Żeby wywołać ruchy gałek ocznych", "Żeby skrócić fazę REM"],
+      x: "Niezaakceptowane pragnienia zaburzyłyby sen i wywołały lęk, więc cenzor je maskuje.",
+      w: ["Nie.", "To opis fizjologiczny, nie freudowski.", "Nie."] },
+    { u: "freud", t: "tf", q: "Choć wiele prac Freuda zakwestionowano, jego koncepcja snów jest powszechnie akceptowana w kulturze Zachodu.", a: true,
+      x: "Tak, tak opisuje to Hock: prawie każdy zastanawiał się kiedyś, co naprawdę znaczy jego sen." },
+
+    /* ---------- Aktywacja ---------- */
+    { u: "aktywacja", t: "mcq", q: "Co według Hobsona i McCarleya jest przyczyną snów?",
+      a: ["Fizjologiczna aktywacja mózgu w REM", "Nieświadome pragnienia", "Wydarzenia z poprzedniego dnia", "Ukryte konflikty z dzieciństwa"],
+      x: "To REM powoduje marzenia senne, a nie odwrotnie. Sny są zdeterminowane neurologicznie.",
+      w: ["To Freud.", "Autorzy odrzucają to jako przyczynę.", "To psychoanaliza."] },
+    { u: "aktywacja", t: "order", q: "Ułóż kroki hipotezy aktywacji i syntezy (ryc. 2.2).",
+      a: ["Sen", "Generator w pniu mózgu wytwarza aktywność w REM", "Aktywacja neuronów czuciowych i ruchowych", "Synteza z danymi z pamięci", "Marzenie senne"],
+      x: "Bez cenzora i bez ukrytych pragnień." },
+    { u: "aktywacja", t: "mcq", q: "Jak autorzy nazwali sen z marzeniami sennymi?",
+      a: ["Stan D", "Stan R", "Faza 4", "Trans"],
+      x: "D od dream.",
+      w: ["Nie.", "To najgłębszy sen NREM.", "To pojęcie z hipnozy."] },
+    { u: "aktywacja", t: "mcq", q: "Co według autorów wyjaśnia sny, w których nie możesz uciec albo biegniesz w zwolnionym tempie?",
+      a: ["Rdzeń blokuje sygnały ruchu z mózgu", "Cenzor nie pozwala ci uciec przed lękiem", "Lęk przed konfliktem z dzieciństwa", "Brak stałości wielkości"],
+      x: "Unieruchomienie zachodzi w rdzeniu kręgowym, nie w mózgu.",
+      w: ["To ujęcie Freuda.", "To psychoanaliza.", "To Turnbull."] },
+    { u: "aktywacja", t: "mcq", q: "Która część mózgu jest według autorów generatorem snów?",
+      a: ["Most w pniu mózgu", "Kora wzrokowa", "Hipokamp w płacie", "Płat czołowy"],
+      x: "Most: z tyłu pnia mózgu, w pobliżu podstawy. Jego zablokowanie u kotów usuwało REM na tygodnie.",
+      w: ["Nie.", "Nie.", "Nie."] },
+    { u: "aktywacja", t: "mcq", q: "Jaki argument z regularności REM podają autorzy?",
+      a: ["Sny nie mogą być reakcją na pragnienia", "Sny są tym ważniejsze, im dłuższe", "Sny przychodzą, gdy jesteśmy zestresowani", "Sny trwają zawsze 7 minut"],
+      x: "REM przychodzi w przewidywalnych odstępach jak zegar, więc nie zależy od pragnień czy zdarzeń.",
+      w: ["Nie.", "Nie.", "Nie."] },
+    { u: "aktywacja", t: "mcq", q: "Jak autorzy tłumaczą dziwaczność snów?",
+      a: ["Przypadkowością impulsów", "Pracą cenzora", "Symbolami z dzieciństwa", "Brakiem uwagi"],
+      x: "Dziwność wynika z fizjologii: mózg z trudem nadaje sens przypadkowym sygnałom.",
+      w: ["To Freud.", "To psychoanaliza.", "Nie."] },
+    { u: "aktywacja", t: "mcq", q: "Dlaczego zapominamy ok. 95% snów według Hobsona i McCarleya?",
+      a: ["W REM nie działa zapis do pamięci trwałej", "Bo treść jest niepokojąca i ją wypieramy", "Bo śnimy tylko kilka sekund", "Bo budzimy się zawsze w fazie 4"],
+      x: "W REM brakuje związków chemicznych potrzebnych do przeniesienia treści z pamięci krótkotrwałej do długotrwałej.",
+      w: ["To wyjaśnienie Freuda.", "Sny trwają długo.", "Nie."] },
+    { u: "aktywacja", t: "multi", q: "Jakich metod użyli Hobson i McCarley?",
+      a: ["przeglądu 37 prac o śnie", "badań snu u kotów"],
+      o: ["budzenia ludzi w REM", "analizy treści snów pacjentów"],
+      x: "Przegląd literatury i badania na zwierzętach (stymulowanie i hamowanie obszarów mózgu).",
+      w: ["To Aserinsky i Dement.", "To psychoanaliza."] },
+    { u: "aktywacja", t: "tf", q: "Hobson i McCarley twierdzili, że zwierzęta na pewno mają marzenia senne.", a: false,
+      x: "Fałsz. Nie twierdzili tego; nikt nie wie na pewno. Twierdzili, że fizjologia snu u ssaków jest podobna." },
+
+    /* ---------- Spór ---------- */
+    { u: "spor", t: "mcq", q: "Jak Hobson zmienił stanowisko w książce „Sen” (1989)?",
+      a: ["Uznał, że sny mają osobiste znaczenie", "Wrócił do teorii cenzora Freuda", "Uznał, że sny w ogóle nie istnieją", "Odrzucił całkowicie znaczenie REM"],
+      x: "Sny są nonsensowne, ale mózg nadaje im porządek zgodny z naszymi sprawami, wspomnieniami i przekonaniami.",
+      w: ["Nadal odrzucał cenzurę i symbolikę.", "Nie.", "Nie."] },
+    { u: "spor", t: "mcq", q: "Jaką funkcję snów proponuje Foulkes (1985)?",
+      a: ["Poznawczą próbę: „co bym zrobił, gdyby…?”", "Spełnianie ukrytych, nieświadomych pragnień", "Usuwanie z pamięci złych wspomnień", "Odpoczynek dla mięśni gałek ocznych"],
+      x: "Sny mogą przygotowywać na nowe zdarzenia i zwiększać wiedzę o sobie.",
+      w: ["To Freud.", "Nie.", "Nie."] },
+    { u: "spor", t: "mcq", q: "Co pokazał Hartmann (2000)?",
+      a: ["Że prawie nie śnimy o czytaniu i pisaniu", "Że śnimy głównie o pracy i nauce", "Że sny dokładnie powtarzają cały dzień", "Że kobiety śnią więcej niż mężczyźni"],
+      x: "456 opisów: brak czytania i pisania, jedno liczenie. To podważa model przypadkowych impulsów.",
+      w: ["Odwrotnie.", "Nie o tym.", "Nie."] },
+    { u: "spor", t: "which", set: "sen", q: "Dziwne obrazy we śnie to kamuflaż prawdziwych pragnień.", a: 1, x: "Cenzor i symbole: Freud." },
+    { u: "spor", t: "which", set: "sen", q: "Dziwne obrazy we śnie to skutek przypadkowych impulsów.", a: 2, x: "Aktywacja i synteza." },
+    { u: "spor", t: "which", set: "sen", q: "Zapominamy sny, bo w REM nie działa zapis do pamięci długotrwałej.", a: 2, x: "Wyjaśnienie fizjologiczne Hobsona i McCarleya." },
+    { u: "spor", t: "which", set: "sen", q: "Aby zrozumieć sen, trzeba zinterpretować jego treść jawną.", a: 1, x: "Treść jawna i utajona: Freud." },
+    { u: "spor", t: "tf", q: "Kahan i in. (2000) wykazali, że myślenie we śnie bardzo różni się od myślenia na jawie.", a: false,
+      x: "Fałsz. Poznanie we śnie jest bardziej podobne do poznania na jawie, niż sądzono; różnice są raczej ilościowe." },
+
+    /* ---------- Hipnoza ---------- */
+    { u: "hipnoza", t: "mcq", q: "Czym wyjaśniał Mesmer zaburzenia histeryczne?",
+      a: ["Brakiem równowagi płynu magnetycznego", "Nieświadomymi, wypartymi pragnieniami", "Przypadkowymi impulsami mózgu", "Brakiem snu REM"],
+      x: "Magnetyzm zwierzęcy; od Mesmera pochodzi ang. mesmerize.",
+      w: ["To Freud.", "To Hobson i McCarley.", "To Dement."] },
+    { u: "hipnoza", t: "multi", q: "Jakie cechy hipnozy wymieniał Hilgard?",
+      a: ["zwiększona podatność na sugestię", "lepsza pamięć", "dysocjacja", "analgezja"],
+      o: ["paraliż mięśni oczu", "spadek motywacji"],
+      x: "Także: zachowania niedobrowolne i intensywniejsze wyobrażenia.",
+      w: ["To nie cecha hipnozy.", "Spanos mówi o wzroście motywacji."] },
+    { u: "hipnoza", t: "mcq", q: "Co Hilgard nazwał „barierą amnezji”?",
+      a: ["Oddzielenie bólu od świadomości w hipnozie", "Zapominanie snów po przebudzeniu", "Brak wspomnień z wczesnego dzieciństwa", "Niemożność zgięcia ręki"],
+      x: "Część osoby doświadcza bólu, ale ta część jest ukryta przed świadomością.",
+      w: ["To Hobson i McCarley.", "Nie.", "To test hipnozy."] },
+    { u: "hipnoza", t: "mcq", q: "Czym jest analgezja?",
+      a: ["Obniżoną wrażliwością na ból", "Zwiększoną podatnością na sugestię", "Nagłym zaśnięciem", "Lepszym zapamiętywaniem"],
+      x: "Analgezja: obniżona wrażliwość na ból.",
+      w: ["To inna cecha z listy Hilgarda.", "Nie.", "To inna cecha."] },
+    { u: "hipnoza", t: "which", set: "hipnoza", q: "Hipnoza to odmienny, wyjątkowy stan świadomości.", a: 1, x: "Hilgard." },
+    { u: "hipnoza", t: "which", set: "hipnoza", q: "Zachowania w hipnozie są strategiczne i ukierunkowane na cel.", a: 2, x: "Spanos." },
+
+    /* ---------- Spanos ---------- */
+    { u: "spanos", t: "mcq", q: "Czym jest hipnoza według Spanosa?",
+      a: ["Stanem podwyższonej motywacji", "Odmiennym stanem świadomości", "Rodzajem snu REM", "Oszustwem hipnotyzera"],
+      x: "To motywacja, by zachowywać się w określony sposób, zgodnie z oczekiwaniami.",
+      w: ["To Hilgard.", "Nie.", "Spanos nie mówi, że to oszustwo."] },
+    { u: "spanos", t: "mcq", q: "Która grupa częściej uznawała uniesienie ręki za niedobrowolne?",
+      a: ["Ta, która usłyszała sugestię „ręka jest lekka”", "Ta, która usłyszała polecenie „unieś rękę”", "Obie tak samo", "Żadna"],
+      x: "Sposób wyrażenia sugestii wpływa na to, czy zachowanie uznamy za dobrowolne.",
+      w: ["Bezpośrednie polecenie częściej odbierano jako dobrowolne.", "Nie.", "Nie."] },
+    { u: "spanos", t: "mcq", q: "Dlaczego opadanie ręki łatwiej uznać za niedobrowolne niż jej unoszenie?",
+      a: ["Bo pomaga grawitacja", "Bo ręka jest wtedy sztywna", "Bo działa bariera amnezji", "Bo działa efekt odbicia"],
+      x: "Unoszenie wymaga zignorowania grawitacji. W tradycyjnym ujęciu kierunek nie powinien mieć znaczenia.",
+      w: ["Nie.", "To pojęcie Hilgarda.", "To pojęcie ze snu."] },
+    { u: "spanos", t: "mcq", q: "Co stało się po wykładzie, w którym jednej grupie powiedziano, że w hipnozie sztywnieją ręce?",
+      a: ["Część tej grupy miała sztywne ręce", "Wszyscy w obu grupach mieli sztywne ręce", "Nikt nie miał sztywnych rąk", "Sztywnienie dotyczyło drugiej grupy"],
+      x: "Ludzie odgrywają hipnozę zgodnie ze swoimi przekonaniami.",
+      w: ["Nikt z drugiej grupy.", "Część miała.", "Odwrotnie."] },
+    { u: "spanos", t: "mcq", q: "Co się stało z różnicą w intensywności wyobrażeń, gdy porównano dwie różne grupy?",
+      a: ["Zniknęła: średnie były podobne", "Była jeszcze większa", "Odwróciła się", "Nie dało się jej zmierzyć"],
+      x: "Różnica pojawia się, gdy ta sama osoba porównuje dwie próby zgodnie z oczekiwaniami.",
+      w: ["Nie.", "Nie.", "Zmierzono ją."] },
+    { u: "spanos", t: "mcq", q: "Co pokazało badanie Spanosa z komorą zimna (ryc. 2.3)?",
+      a: ["Oczekiwanie hipnozy zmienia ocenę bólu", "Hipnoza zawsze zmniejsza ból o połowę", "Zimna woda nie wywołuje bólu", "Ból jest taki sam we wszystkich grupach"],
+      x: "Spodziewający się hipnozy w czuwaniu oceniali ból wysoko (zostawiając miejsce na poprawę), niespodziewający się – tak samo w obu warunkach.",
+      w: ["W grupie niespodziewającej się nie było różnicy.", "Wywołuje ból po ok. 10 s.", "Różnił się w grupie spodziewającej się."] },
+    { u: "spanos", t: "mcq", q: "Kogo zwykle wybiera się do badań nad hipnozą według Spanosa?",
+      a: ["Osoby wysoko podatne na hipnozę", "Osoby losowe z ulicy", "Osoby niepodatne, żeby sprawdzić hipnozę", "Wyłącznie pacjentów z bólem"],
+      x: "Badani wiedzą, że porównuje się czuwanie i hipnozę, i chcą wykazać jej skuteczność.",
+      w: ["Nie.", "Nie.", "Nie."] },
+    { u: "spanos", t: "tf", q: "Spanos chciał wykazać, że hipnoza w ogóle nie istnieje.", a: false,
+      x: "Fałsz. Chciał wykazać, że to umotywowane zachowanie społeczne, a nie odmienny stan świadomości." },
+    { u: "spanos", t: "multi", q: "Co według behawiorystów jest niemożliwe w hipnozie?",
+      a: ["zahipnotyzowanie kogoś wbrew woli", "zmuszenie do czynu uznanego za aspołeczny", "wyczyny nadludzkiej siły"],
+      o: ["reagowanie na sugestie", "zmniejszenie odczuwanego bólu"],
+      x: "Implikacje badań Spanosa.",
+      w: ["To możliwe i częste.", "Badani zgłaszali mniej bólu (choć Spanos tłumaczy to oczekiwaniami)."] },
+    { u: "spanos", t: "mcq", q: "Co pokazali Diaz i Alvarez (1997)?",
+      a: ["Że podatności na hipnozę można się nauczyć", "Że hipnoza skutecznie leczy uzależnienia", "Że hipnoza to odmienny stan świadomości", "Że sen REM zwiększa podatność na hipnozę"],
+      x: "Warunkowanie (wzmacnianie przez terapeutę): 6 z 10 osób o niskiej podatności zaczęło reagować na sugestie.",
+      w: ["Lazar i Dempster: nie jest skuteczniejsza.", "Badanie wspiera raczej Spanosa.", "Nie."] },
+
+    /* ---------- Mix ---------- */
+    { u: "mix", t: "which", set: "badanie", q: "Ktoś pierwszy raz widzi daleki horyzont i uważa, że krowy na łące to owady.", a: 1, x: "Brak stałości wielkości: Turnbull." },
+    { u: "mix", t: "which", set: "badanie", q: "Po kilku nocach przerywanego snu śnisz więcej i bardziej intensywnie.", a: 2, x: "Efekt odbicia REM: Dement." },
+    { u: "mix", t: "which", set: "badanie", q: "Śniło ci się, że uciekasz, ale nogi cię nie słuchają.", a: 3, x: "Blokada ruchu w rdzeniu kręgowym: Hobson i McCarley." },
+    { u: "mix", t: "which", set: "badanie", q: "Na pokazie hipnozy ochotnik robi dokładnie to, czego spodziewa się publiczność.", a: 4, x: "Oczekiwania i motywacja: Spanos." },
+    { u: "mix", t: "mcq", q: "Kolega pije alkohol co wieczór „na sen”, a po odstawieniu ma bardzo intensywne, niepokojące sny. Co to?",
+      a: ["Efekt odbicia REM", "Stałość spostrzeżeń", "Analgezja", "Treść utajona"],
+      x: "Alkohol tłumi REM, a po odstawieniu REM wraca ze zdwojoną siłą.",
+      w: ["To spostrzeganie.", "To hipnoza.", "To pojęcie Freuda."] },
+    { u: "mix", t: "tf", q: "Cztery prace z rozdziału 2 łączy to, że podważały wcześniej przyjęte poglądy lub odkrywały coś nowego o spostrzeganiu i świadomości.", a: true,
+      x: "Tak: stałość wielkości jest wyuczona, REM to faza snów, sny to aktywacja i synteza, hipnoza to motywacja." }
+  ],
+
+  sortDecks: [
+    { id: "freud-hobson", title: "Freud czy Hobson i McCarley?", sub: "Dwa ujęcia snów", cats: ["Freud", "Hobson i McCarley"],
+      why: ["Sny ukrywają nieświadome pragnienia.", "Sny to synteza przypadkowej aktywności mózgu."],
+      items: [["cenzor", 0], ["treść utajona", 0], ["wyparcie", 0], ["symbole", 0], ["nieświadome pragnienia", 0],
+        ["most w pniu mózgu", 1], ["stan D", 1], ["przypadkowe impulsy", 1], ["neurobiologiczny zegar", 1], ["badania na kotach", 1]] },
+    { id: "hilgard-spanos", title: "Hilgard czy Spanos?", sub: "Czym jest hipnoza", cats: ["Hilgard", "Spanos"],
+      why: ["Odmienny stan świadomości.", "Motywacja i oczekiwania."],
+      items: [["bariera amnezji", 0], ["dysocjacja", 0], ["odmienny stan świadomości", 0], ["ból ukryty przed świadomością", 0],
+        ["podwyższona motywacja", 1], ["oczekiwania badanych", 1], ["zachowanie strategiczne", 1], ["rytuał hipnozy", 1], ["chęć bycia dobrym badanym", 1]] },
+    { id: "rem-nrem", title: "REM czy NREM?", sub: "Fazy snu", cats: ["NREM", "REM"],
+      why: ["Fazy 1–4, bez szybkich ruchów oczu.", "Szybkie ruchy oczu, większość snów."],
+      items: [["faza 4, najgłębszy sen", 0], ["rzadkie, powolne ruchy oczu", 0], ["budzenie kontrolne u Dementa", 0], ["dłuższe na początku nocy", 0],
+        ["szybkie ruchy gałek ocznych", 1], ["paraliż mięśni", 1], ["większość marzeń sennych", 1], ["dłuższe nad ranem", 1], ["stan D", 1]] }
+  ],
+
+  minimum: [
+    ["Wrażenia a spostrzeganie", "<b>Wrażenia</b> = surowe dane ze zmysłów. <b>Spostrzeganie</b> = wybór, organizowanie i interpretowanie, czyli nadawanie znaczenia. Strategie: <b>figura i tło</b>, <b>stałość kształtu</b>, <b>stałość wielkości</b>."],
+    ["Turnbull (1961)", "Antropolog, las Ituri, Pigmej <b>Kenge</b> pierwszy raz na otwartej równinie: bawoły z daleka to „owady”, rosną przez „czary”, łódź to „kawałek drewna”. Widoczność w dżungli ok. 30 m, więc <b>stałość wielkości jest wyuczona</b>."],
+    ["Wrodzone czy wyuczone", "Figura–tło: częściowo wrodzone. Stałość wielkości: ok. 7–8 lat. Kocięta Blakemore’a i Coopera: bez doświadczenia zdolność się nie rozwija. Noworodki Adamsa wolą kolory. Wniosek: <b>część wrodzona, część wyuczona</b>."],
+    ["Aserinsky i Kleitman (1953)", "Odkrycie <b>REM</b>: obudzeni w REM w 20 z 27 razy opisali sny, poza REM w 19 z 23 razy nie. 4 fazy NREM, potem REM; <b>5–6 cykli</b>, pierwszy REM po ok. 90 min; ciało <b>sparaliżowane</b>. Każdy śni."],
+    ["Dement (1960)", "Budzenie przy każdym REM. Wzorzec: <b>80 min (19,5%)</b>. Próby REM rosną (11 → 22). Przywracanie: <b>112 min</b> (do 127 min, +50%) = <b>efekt odbicia REM</b>. Kontrola (budzenie w NREM): 88 min, bez efektu. Lęk, irytacja, apetyt."],
+    ["Efekt odbicia w życiu", "Alkohol i środki nasenne tłumią REM; po odstawieniu silne odbicie, u alkoholików nawet na jawie (<b>delirium tremens</b>). Długie pozbawianie REM: brak dowodów poważnych szkód (Dement, 1974)."],
+    ["Freud o snach", "Sny = zamaskowane <b>nieświadome pragnienia</b>. <b>Cenzor</b> tworzy symbole. <b>Treść jawna</b> (fabuła) i <b>utajona</b> (prawdziwe znaczenie). Zapominanie = <b>wyparcie</b>."],
+    ["Hobson i McCarley (1977)", "<b>Aktywacja i synteza</b>: w REM <b>most</b> w pniu mózgu wysyła przypadkowe impulsy, a wyższe części mózgu nadają im sens z pomocą pamięci. Brak cenzora; REM jak zegar; rdzeń blokuje ruch; 95% snów zapominamy z powodów chemicznych."],
+    ["Spór o sny", "Hobson (1989): sny mają osobiste znaczenie. Foulkes: poznawcza próba. Kahan: myślenie we śnie podobne do jawy. Hartmann: nie śnimy o czytaniu, pisaniu, liczeniu, co podważa przypadkowość."],
+    ["Spanos (1982)", "Hipnoza to <b>podwyższona motywacja i oczekiwania</b>, a nie odmienny stan (vs <b>Hilgard</b>: dysocjacja, analgezja, „bariera amnezji”). Sugestia daje poczucie niedobrowolności; wykład o sztywnych rękach; komora zimna: oczekiwanie hipnozy zmienia ocenę bólu."]
+  ],
+
+  deep: [
+    { q: "Dlaczego artykuł bez teorii i metody trafił do „40 prac”?",
+      a: "Turnbull nie był psychologiem i nie planował eksperymentu, ale jedna obserwacja Kenge pokazała coś, czego nie da się zbadać w laboratorium: jak wygląda świat dla kogoś, kto nigdy nie potrzebował stałości wielkości. To dobry przykład wartości naturalnej obserwacji i współpracy antropologii z psychologią.",
+      link: "Zajęcia 1: badania jakościowe i idiograficzne też dają ważną wiedzę." },
+    { q: "Czy Dement udowodnił, że sny są niezbędne do życia?",
+      a: "Nie do końca. Pokazał, że organizm „domaga się” REM (więcej prób, efekt odbicia), a brak snów daje lęk i irytację. Ale jego późniejsze badania nie wykazały poważnych szkód długiego pozbawiania REM. Silny wynik to raczej sam efekt odbicia niż szkodliwość braku snów.",
+      link: "Zwróć uwagę na grupę kontrolną: bez niej nie wiedzielibyśmy, czy szkodzi brak REM, czy samo budzenie." },
+    { q: "Freud czy Hobson i McCarley: kto ma rację?",
+      a: "Hock nie rozstrzyga. Hobson i McCarley dali mocne dane fizjologiczne, ale sam Hobson później przyznał, że sny mają osobiste znaczenie. Badania Kahana i Hartmanna pokazują, że sny nie są całkiem przypadkowe. Mancia zauważa, że obie strony pytają o co innego: jak sny powstają i co znaczą.",
+      link: "Por. zajęcia 2: behawioryści też podważali freudowską nieświadomość (Watson)." },
+    { q: "Co łączy Spanosa z Rosenthalem i Loftus?",
+      a: "Wszyscy pokazują siłę oczekiwań. U Rosenthala oczekiwania nauczyciela zmieniają ucznia, u Loftus pytanie zmienia wspomnienie, u Spanosa oczekiwania badanego tworzą „hipnozę”. Diaz i Alvarez dodają, że podatności na hipnozę można się nauczyć przez warunkowanie (Skinner).",
+      link: "Zajęcia 3 (Hock, rozdz. 4) i zajęcia 2 (warunkowanie instrumentalne)." }
+  ],
+
+  talk: [
+    { q: "Czym różnią się wrażenia od spostrzegania? Jakie strategie porządkowania wrażeń opisuje Hock?",
+      a: "<p><b>Wrażenia</b> to surowe dane ze zmysłów, a <b>spostrzeganie</b> nadaje im znaczenie: wybiera, organizuje i interpretuje. Strategie: <b>figura i tło</b> (kielich czy dwa profile; maskowanie żołnierzy), <b>stałość kształtu</b> (krzesło oglądane z różnych stron) i <b>stałość wielkości</b> (autobus daleko ma normalną wielkość). Te sztuczki można oszukać: model statku w filmie, telefon w „Airplane”.</p>",
+      keys: ["surowe dane", "wybór, organizowanie, interpretowanie", "figura i tło", "stałość kształtu i wielkości", "złudzenia"], src: "Hock s. 61–64" },
+    { q: "Opisz obserwacje Turnbulla. Czego uczą o spostrzeganiu?",
+      a: "<p>Antropolog Turnbull zabrał Kenge, Pigmeja z lasu Ituri, na otwartą równinę. Kenge wziął odległe bawoły za owady, a gdy się zbliżali, uznał to za czary; łódź wziął za kawałek drewna. W dżungli widać tylko na ok. 30 m, więc BaMbuti nie potrzebowali <b>stałości wielkości</b>. Wniosek: ta zdolność jest <b>wyuczona</b> i zależy od środowiska. Spór natura–kultura: figura–tło częściowo wrodzone (noworodki, niewidomi), kocięta Blakemore’a i Coopera.</p>",
+      keys: ["Kenge", "bawoły jak owady", "30 m widoczności", "stałość wielkości wyuczona", "natura i kultura"], src: "Hock s. 61–67" },
+    { q: "Jak odkryto sen REM i jak przebiega noc snu?",
+      a: "<p>Aserinsky zauważył szybkie ruchy oczu u śpiących niemowląt. Z Kleitmanem budził 20 dorosłych: w REM w 20 z 27 razy opowiadali sny, poza REM zwykle nie. Noc: 4 fazy NREM (coraz głębiej), powrót i <b>REM</b>; 5–6 cykli, pierwszy REM po ok. 90 min, nad ranem REM dłuższe. W REM ciało jest <b>sparaliżowane</b>. Każdy śni, choć nie każdy pamięta.</p>",
+      keys: ["niemowlęta", "27 przebudzeń", "4 fazy NREM", "5–6 cykli", "paraliż"], src: "Hock s. 68–70" },
+    { q: "Opisz eksperyment Dementa i efekt odbicia REM.",
+      a: "<p>Dement budził 8 mężczyzn przy każdym wejściu w REM przez 3–7 nocy. Wzorcowo śnili 80 min (19,5%). Liczba prób wejścia w REM rosła (11 → 22). Pierwszej nocy przywracania śnili 112 min (bez dwóch wyjątków 127 min, +50%): to <b>efekt odbicia REM</b>. W warunku kontrolnym (budzenie w NREM) efektu nie było. Badani byli niespokojni i rozdrażnieni, mieli większy apetyt. Odbicie wyjaśnia problemy po odstawieniu alkoholu i delirium tremens.</p>",
+      keys: ["budzenie w REM", "80 → 112 min", "efekt odbicia", "kontrola NREM", "alkohol, DTs"], src: "Hock s. 70–75" },
+    { q: "Porównaj freudowską teorię snów z hipotezą aktywacji i syntezy.",
+      a: "<p><b>Freud</b>: sny wyrażają nieświadome pragnienia; <b>cenzor</b> przebiera je w symbole; treść <b>jawna</b> i <b>utajona</b>; zapominanie to wyparcie. <b>Hobson i McCarley</b>: w REM <b>most</b> w pniu mózgu sam wysyła przypadkowe impulsy (aktywacja), a wyższe części mózgu nadają im sens z pamięci (synteza). REM przychodzi regularnie jak zegar, sen chroni fizjologia, ruch blokuje rdzeń, zapominanie jest chemiczne. Krytyka: Kahan, Hartmann; Hobson później przyznał snom osobiste znaczenie.</p>",
+      keys: ["nieświadome pragnienia", "cenzor", "jawna / utajona", "most, przypadkowe impulsy", "synteza", "krytyka"], src: "Hock s. 75–83" },
+    { q: "Czym jest hipnoza według Hilgarda, a czym według Spanosa? Podaj dowody Spanosa.",
+      a: "<p><b>Hilgard</b>: odmienny stan świadomości (sugestia, pamięć, dysocjacja, analgezja, „bariera amnezji”). <b>Spanos</b>: podwyższona <b>motywacja</b> i <b>oczekiwania</b>; zachowanie dobrowolne, ukierunkowane na cel. Dowody: sugestia daje poczucie niedobrowolności częściej niż polecenie (i łatwiej przy opadaniu ręki); wykład o sztywnych rękach wywołał sztywne ręce; różnica w wyobrażeniach znika między grupami; w komorze zimna oczekiwanie hipnozy zmienia ocenę bólu w czuwaniu.</p>",
+      keys: ["odmienny stan", "motywacja i oczekiwania", "sugestia vs polecenie", "sztywne ręce", "komora zimna"], src: "Hock s. 83–92" },
+    { q: "Co wynika z badań Spanosa dla codziennego myślenia o hipnozie?",
+      a: "<p>Spanos nie twierdzi, że hipnoza nie istnieje, tylko że nie jest magiczną siłą. Nie można zahipnotyzować kogoś wbrew woli, w hipnozie nie robi się rzeczy aspołecznych ani nadludzkich. Hipnoza może pomagać, bo ludzie chcą wierzyć w „ostatnią szansę”, ale nie jest panaceum (np. w rzucaniu palenia). Diaz i Alvarez: podatności można się nauczyć przez wzmacnianie.</p>",
+      keys: ["nie wbrew woli", "nie magia", "nie panaceum", "podatność wyuczalna"], src: "Hock s. 90–92" }
+  ],
+
+  table: {
+    title: "Wyniki Dementa (tab. 2.1, średnie)",
+    head: ["Etap", "Czas marzeń sennych", "Co to znaczy"],
+    rows: [
+      ["noce wzorcowe", "80 min (19,5% snu)", "tyle śnimy zwykle; różnice między badanymi tylko 7 min"],
+      ["pozbawianie REM", "budzenie 11 razy (1. noc) → 22 razy (ostatnia)", "presja na śnienie rośnie"],
+      ["1. noc przywracania", "112 min (26,6%); bez badanych 3 i 7: 127 min (29%)", "efekt odbicia REM"],
+      ["kontrolne przebudzenia w NREM", "88 min (20,1%)", "samo budzenie nie daje efektu"]
+    ]
+  },
+
+  story: { title: "Słowniczek rozdziału 2", intro: "Trudne słowa z Hocka po ludzku.", items: [
+    ["percepcja", "spostrzeganie, nadawanie sensu wrażeniom"],
+    ["stałość wielkości", "daleki autobus nadal jest duży"],
+    ["REM", "faza snu z szybkimi ruchami oczu, czas snów"],
+    ["NREM", "sen bez szybkich ruchów oczu, fazy 1–4"],
+    ["efekt odbicia REM", "po utracie snów śnimy więcej"],
+    ["delirium tremens", "halucynacje po odstawieniu alkoholu"],
+    ["treść jawna / utajona", "fabuła snu / jego ukryty sens (Freud)"],
+    ["pień mózgu, most", "„generator” snów według Hobsona"],
+    ["dysocjacja", "część zdarzeń poza świadomością"],
+    ["analgezja", "mniejsze odczuwanie bólu"],
+    ["mesmerize", "ang. hipnotyzować, od Mesmera"]
+  ] },
+
+  notes: [
+    { id: "s1", n: 1, title: "Wstęp: spostrzeganie i świadomość", html:
+      "<div class='plain'><p>Zmysły zasypują nas danymi. Mózg wybiera i porządkuje je tak, żeby miały sens. To, jak to robi, zależy też od tego, czy jesteśmy skupieni, śpimy, śnimy albo jesteśmy w hipnozie.</p></div>" +
+      "<div class='key'><p><b>Spostrzeganie</b>: mózg organizuje natłok danych ze zmysłów w jednostki, które nadają im formę i znaczenie. <b>Stan świadomości</b> wpływa na to, co spostrzegamy i jak mózg to organizuje (Hock, s. 60).</p></div>" +
+      "<p><b>Cztery prace rozdziału:</b></p><ol>" +
+      "<li><b>Turnbull</b> (1961): jak mózg uczy się widzieć (Pigmeje BaMbuti).</li>" +
+      "<li><b>Aserinsky i Kleitman</b> (1953) oraz <b>Dement</b> (1960): odkrycie snu REM i skutki pozbawiania snów.</li>" +
+      "<li><b>Hobson i McCarley</b> (1977): sny to nie przekazy z nieświadomości, lecz przypadkowe impulsy z mózgu.</li>" +
+      "<li><b>Spanos</b> (1982): hipnoza to nie wyjątkowy stan, tylko większa motywacja.</li></ol>" },
+    { id: "s2", n: 2, title: "Wrażenia, spostrzeganie i strategie mózgu", html:
+      "<div class='plain'><p>Wrażenia to surowiec, spostrzeganie to gotowy produkt. Mózg ma kilka sztuczek, dzięki którym świat jest uporządkowany.</p></div>" +
+      "<ul><li><b>Wrażenia</b>: informacje ze środowiska odbierane przez zmysły (światło, dźwięki, dotyk, zapachy, smaki). Większość filtrujemy; bez filtra bylibyśmy przytłoczeni.</li>" +
+      "<li><b>Spostrzeganie</b>: (1) wybór wrażeń, na które zwracamy uwagę; (2) organizowanie ich w wzorce i kształty; (3) interpretowanie, by wyjaśniać i oceniać świat. Czarne kształty na kartce stają się słowami.</li></ul>" +
+      "<!--fig:figura-->" +
+      "<ul><li><b>Figura i tło</b>: naturalnie dzielimy wrażenia na figurę i tło (ryc. 2.1: kielich albo dwa profile). Dzięki temu znajdujemy kogoś w tłumie; mundur maskujący zaciera tę różnicę.</li>" +
+      "<li><b>Stałość spostrzeżeń</b>: przedmioty mają niezmienne cechy, choć wrażenia się zmieniają. <b>Stałość kształtu</b>: krzesło oglądane z różnych stron. <b>Stałość wielkości</b>: autobus dwie przecznice dalej i osoba 30 m dalej mają normalne wymiary.</li></ul>" +
+      "<!--fig:stalosc-->" +
+      "<p><b>Złudzenia</b>: model statku w filmie wygląda na prawdziwy (brak porównania); w „Airplane” (1980) telefon przy kamerze wydaje się zwykły, a okazuje się prawie metrowy.</p>" },
+    { id: "s3", n: 3, title: "Hock 2.1: „Widzisz to, co znasz” (Turnbull, 1961)", html:
+      "<div class='plain'><p>Młody Pigmej, który całe życie spędził w gęstym lesie, pierwszy raz zobaczył otwartą równinę. Odległe bawoły wziął za owady.</p></div>" +
+      "<ul><li><b>Autor</b>: Colin Turnbull, <b>antropolog</b>. Artykuł nietypowy: bez ram teoretycznych i klarownej metody, ale często cytowany.</li>" +
+      "<li><b>Metoda</b>: <b>naturalna obserwacja</b>. Koniec lat 50. XX w., las Ituri (Zair, dziś Kongo), Pigmeje BaMbuti. Przewodnik: <b>Kenge</b> (ok. 22 lata).</li>" +
+      "<li><b>Wyniki</b>: ze wzgórza widok na góry Ruwenzori; Kenge pyta, czy to góry, czy chmury. W Parku Narodowym Ishango nad Jeziorem Edwarda: „zły kraj, bo nie ma drzew”; język bez słów na taki widok; ośnieżone szczyty wziął za skały.</li>" +
+      "<li><b>Bawoły</b> kilka km dalej: „co to za owady?”; porównywał je do żuków i mrówek. Gdy podjeżdżali, a zwierzęta „rosły”, szepnął, że to <b>czary</b>. Łódź 3–4 km od brzegu wziął za kawałek drewna.</li>" +
+      "<li>Pod koniec dnia przestał się bać i szybko się uczył. Następnego dnia poprosił o powrót do dżungli.</li></ul>" +
+      "<p><b>Omówienie</b>: stałość spostrzeżeń nabywamy przez doświadczenie, a wpływa na nią kultura i środowisko. W lesie widać na ok. <b>30 m</b>, więc BaMbuti nie potrzebowali stałości wielkości. Może za to lepiej odróżniają figurę od tła (zwierzęta ukryte w roślinności); tego nie badano. <b>Stałość wielkości jest wyuczona</b>.</p>" },
+    { id: "s4", n: 4, title: "Wrodzone czy wyuczone?", html:
+      "<div class='plain'><p>Część umiejętności widzenia mamy od urodzenia, a części uczymy się z doświadczenia.</p></div>" +
+      "<ul><li><b>Figura–tło</b>: osoby niewidome od urodzenia, które odzyskały wzrok, odróżniają figurę od tła, więc to przynajmniej częściowo wrodzone.</li>" +
+      "<li><b>Stałość wielkości</b>: dzieci do ok. 5 lat biorą odległe samochody za zabawki; stałość wielkości pojawia się ok. <b>7–8 lat</b>.</li>" +
+      "<li><b>Blakemore i Cooper (1970)</b>: kocięta widziały tylko pionowe albo poziome paski. Koty „pionowe” nie reagowały na poziome linie i odwrotnie; wzrok był zdrowy, ale zdolność się nie rozwinęła, trwale.</li>" +
+      "<li><b>Adams (1987)</b>: 3-dniowe noworodki dłużej patrzyły na kolorowe kwadraty niż na szare: zdolność wrodzona.</li></ul>" +
+      "<p><b>Wniosek Hocka</b>: nie ma jednej odpowiedzi; jedne zdolności są wyuczone, inne to „fabrycznie zainstalowane standardowe wyposażenie”. Artykuł Turnbulla dał argumenty behawiorystom i zbliżył antropologię do psychologii.</p>" },
+    { id: "s5", n: 5, title: "Hock 2.2: „Nie ma snu bez snów” – odkrycie REM (Aserinsky, Kleitman, 1953)", html:
+      "<div class='plain'><p>Student zauważył, że śpiące dzieci czasem szybko ruszają oczami. Okazało się, że to wtedy śnimy.</p></div>" +
+      "<ul><li><b>1952</b>: Eugene Aserinsky obserwuje u niemowląt okresy szybkich ruchów gałek ocznych. Hipoteza: to marzenia senne. Niemowlęta nie powiedzą, więc bada dorosłych.</li>" +
+      "<li><b>Metoda</b> (z Nathanielem Kleitmanem): 20 dorosłych, elektrody przy oczach, przewody do pokoju obok. Budzenie w okresach szybkich ruchów oczu i poza nimi; pytanie o sny.</li>" +
+      "<li><b>Wyniki</b>: w REM 27 przebudzeń – 20 wyrazistych opisów snów, 7 razy tylko „poczucie, że coś się śniło”. Poza REM 23 przebudzenia – 19 razy brak snów, 4 razy tylko poczucie. W 7 godzin snu 3–4 okresy REM.</li></ul>" +
+      "<!--fig:sen-->" +
+      "<p><b>Co wiemy dziś</b>: po zaśnięciu 4 fazy (od lekkiej do najgłębszej), potem powrót i <b>REM</b> zamiast fazy 1. W REM jest większość snów, a ciało jest <b>sparaliżowane</b> (mechanizm przetrwania; to mit, że się wtedy rzucamy). <b>5–6 cykli</b> na noc, pierwszy REM po ok. 90 min; nad ranem REM się wydłużają. Każdy śni, choć nie każdy pamięta.</p>" },
+    { id: "s6", n: 6, title: "Hock 2.2: pozbawianie marzeń sennych (Dement, 1960)", html:
+      "<div class='plain'><p>Co się stanie, jeśli ktoś przez kilka nocy nie będzie mógł śnić? Mózg zacznie się tego domagać, a potem nadrobi.</p></div>" +
+      "<ul><li><b>Pytanie</b>: czy można normalnie funkcjonować bez marzeń sennych? Czy są konieczne psychicznie lub fizjologicznie?</li>" +
+      "<li><b>Metoda</b>: 8 mężczyzn (23–32 lata), elektrody na głowie i przy oczach. (1) Noce wzorcowe. (2) <b>Pozbawianie</b>: 3–7 nocy budzenia przy każdym wejściu w REM; trzeba było usiąść i udowodnić, że się nie śpi. Zakaz drzemek. (3) <b>Przywracanie</b>: 1–6 nocy spokojnego snu. (4) Po przerwie 6 osób: <b>kontrolne przebudzenia</b> w NREM (tyle samo) i kontrolne przywracanie.</li></ul>" +
+      "<!--fig:dement-->" +
+      "<p><b>Wyniki</b> (tabela w sekcji „tab”): wzorcowo 6 h 50 min snu, w tym <b>80 min snów (19,5%)</b>, różnice tylko 7 min. Budzenie: z 7–22 razy (śr. 11) do 13–30 razy (śr. 22). Pierwsza noc przywracania: <b>112 min (26,6%)</b>, bez badanych 3 i 7 aż 127 min (29%), czyli +50%; przez 5 nocy nadal więcej. Kontrola: 88 min (20,1%), bez różnicy.</p>" +
+      "<p><b>Omówienie</b>: sny są potrzebne; nadrabiamy je, czyli <b>efekt odbicia REM</b> (tej nazwy Dement nie użył). Wyjątki: badany 7 wypił kilka drinków (alkohol wytłumił efekt); badany 3 miał niezwykle stabilny sen. Objawy: lekki lęk, irytacja, trudności z koncentracją; 5 osób większy apetyt, 3 przytyły 1,5–2,5 kg.</p>" },
+    { id: "s7", n: 7, title: "Efekt odbicia REM i dalsze badania", html:
+      "<div class='plain'><p>Odkrycie Dementa wyjaśnia, czemu tak trudno odstawić alkohol czy tabletki nasenne.</p></div>" +
+      "<ul><li>Wszyscy śnimy; jeśli jednej nocy nie śnimy, następnej śnimy więcej. Efekt odbicia ma wiele zwierząt.</li>" +
+      "<li><b>Alkohol, amfetamina, barbiturany</b> tłumią REM. Po odstawieniu silne, niepokojące odbicie, więc ludzie boją się zasnąć i wracają do środków.</li>" +
+      "<li><b>Alkoholicy</b> pozbawieni REM latami: odbicie może pojawić się na jawie, co tłumaczyłoby <b>delirium tremens</b> (przerażające halucynacje).</li>" +
+      "<li><b>Dement (1974)</b>: 10 lat badań nie wykazało poważnych szkód długiego pozbawiania REM.</li>" +
+      "<li>W REM większa synteza białek: może to integrowanie nowych informacji w pamięci (Rossi, 1973). Stickgold i in. (2000): REM poprawia wykonanie świeżo wyuczonych zadań.</li>" +
+      "<li>McNamara (1996): REM jako ewolucyjny mechanizm więzi (niemowlę–matka).</li></ul>" },
+    { id: "s8", n: 8, title: "Sny według Freuda", html:
+      "<div class='plain'><p>Przez dziesięciolecia dominował pogląd, że sny coś o nas mówią, bo wyrażają ukryte pragnienia.</p></div>" +
+      "<ul><li>Sny to wyraz <b>nieświadomych pragnień</b>, nieosiągalnych w świadomym życiu; dają wgląd w nieświadomość.</li>" +
+      "<li>Świadomy umysł by ich nie zaakceptował, więc zaburzyłyby sen i wywołały lęk. Dlatego hipotetyczny <b>cenzor</b> ukrywa je w obrazach i symbolach.</li>" +
+      "<li><b>Treść jawna</b>: pozorna fabuła snu. <b>Treść utajona</b>: prawdziwe znaczenie. Aby do niej dotrzeć, trzeba zinterpretować treść jawną.</li>" +
+      "<li>Zapominanie snów: <b>wyparcie</b> niepokojącej treści.</li></ul>" +
+      "<p>Behawioryści zakwestionowali wiele prac Freuda, ale jego koncepcja snów jest w kulturze Zachodu powszechnie akceptowana.</p>" },
+    { id: "s9", n: 9, title: "Hock 2.3: aktywacja i synteza (Hobson, McCarley, 1977)", html:
+      "<div class='plain'><p>Dwaj psychiatrzy z Harvardu: sen to mózg, który próbuje ułożyć historię z przypadkowych sygnałów. Żadnych ukrytych wiadomości.</p></div>" +
+      "<div class='key'><p><b>Hipoteza aktywacji i syntezy</b>: podczas REM pień mózgu sam wysyła przypadkowe impulsy (<b>aktywacja</b>), a wyższe części mózgu porównują je z pamięcią i składają w obrazy i fabułę (<b>synteza</b>). To REM jest przyczyną snów. Nie ma cenzora; dziwność to skutek fizjologii, nie kamuflaż.</p></div>" +
+      "<p><b>Metoda</b>: przegląd 37 prac + badania snu u <b>kotów</b> (stymulowanie i hamowanie obszarów mózgu).</p>" +
+      "<ol><li><b>Stan D</b> (dream): część pnia mózgu odpowiedzialna za ruch i dane zmysłowe jest aktywna jak na jawie, ale napływ danych i ruch są zablokowane. Sen chroni fizjologia, nie cenzor. Ruch blokuje <b>rdzeń kręgowy</b>, więc mózg wysyła polecenia ruchu, których ciało nie wykonuje (sny o ucieczce w zwolnionym tempie).</li>" +
+      "<li>Wyjątek: mięśnie oczu, stąd szybkie ruchy gałek.</li>" +
+      "<li>REM przychodzi <b>regularnie, jak zegar</b>, więc sny nie mogą być reakcją na pragnienia.</li>" +
+      "<li>Wszystkie ssaki mają REM/NREM; cykl zależy od wielkości (szczur 6 min, słoń 2,5 h); zagrożone drapieżnikami mają krótszy głęboki sen.</li>" +
+      "<li>Generator snów to <b>most</b> w pniu mózgu. U kotów: blokada – tygodnie bez REM; stymulacja – REM wcześniej i dłużej. Technikami psychologicznymi REM nie da się przedłużyć.</li>" +
+      "<li><b>Synteza</b>: (a) przyczyna snów jest fizjologiczna; (b) aktywacja nie zawiera idei, emocji ani pragnień, to tylko energia elektryczna; (c) sny to konstruktywna synteza, nie zniekształcanie; (d) zapominamy ok. <b>95%</b> snów, bo w REM brakuje związków chemicznych do zapisu w pamięci długotrwałej.</li></ol>" +
+      "<!--fig:aktywacja-->" },
+    { id: "s10", n: 10, title: "Spór o sny trwa", html:
+      "<div class='plain'><p>Teoria Hobsona i McCarleya zmieniła psychologię, ale nie zamknęła dyskusji.</p></div>" +
+      "<ul><li><b>Hobson, „Sen” (1989)</b>: sny są nonsensowne, ale mają głęboko osobiste znaczenie; mózg-umysł porządkuje chaos według naszych spraw, wspomnień, uczuć i przekonań, bez cenzury i symboliki.</li>" +
+      "<li><b>Foulkes (1985)</b>: sny nie mają ukrytych przekazów, ale mówią, jak działa nasz umysł. Mogą być „poznawczą próbą” („co bym zrobił, gdyby…?”) i dają wiedzę o sobie.</li>" +
+      "<li><b>Kahan, LaBerge, Levitan, Zimbardo (2000)</b>: myślenie we śnie jest podobne do myślenia na jawie; różnice bardziej ilościowe niż jakościowe.</li>" +
+      "<li><b>Mancia (1999)</b>: neuronauka bada struktury i organizację snów, psychoanaliza ich znaczenie w historii emocjonalnej osoby.</li>" +
+      "<li><b>Hartmann (2000)</b>: 456 opisów snów (240 osób): brak czytania i pisania, jedno liczenie; 90% nigdy lub prawie nigdy nie śni o tych czynnościach, choć poświęca im ok. 6 godzin dziennie. Skoro impulsy są przypadkowe, czemu nigdy nie aktywują tych czynności?</li></ul>" +
+      "<p><b>Wniosek Hocka</b>: naukowcy powinni być otwarci na nowe możliwości, nawet gdy ustalony porządek trwa od dziesięcioleci.</p>" },
+    { id: "s11", n: 11, title: "Hipnoza: odmienny stan świadomości?", html:
+      "<div class='plain'><p>Hipnozę zwykle wyobrażamy sobie jako tajemniczy trans, w którym ktoś kontroluje nasz umysł.</p></div>" +
+      "<ul><li>Powszechnie: hipnoza to tajemniczy proces kontrolowania umysłu, odrębny stan świadomości, inny niż jawa i sen („trans”, „poddać się”). Nazwa od Hypnosa, greckiego boga snu.</li>" +
+      "<li><b>Mesmer</b> (1733–1815): zaburzenia histeryczne miały wynikać z braku równowagi płynu magnetycznego w ciele, czyli <b>magnetyzmu zwierzęcego</b>. Seanse z muzyką, półmrokiem, żelaznymi prętami; czasem skuteczne. Ang. <i>mesmerize</i>.</li>" +
+      "<li>Hipnoza była ważna w leczeniu i stała się podstawą wczesnych technik Freuda.</li>" +
+      "<li><b>Hilgard (1978)</b>: hipnoza to odmienny stan. Cechy: zwiększona podatność na sugestie, zachowania niedobrowolne, lepsza pamięć, intensywniejsze wyobrażenia, <b>dysocjacja</b> (uświadamianie sobie części zdarzeń przy nieuświadamianiu innych), <b>analgezja</b> (mniejsza wrażliwość na ból).</li></ul>" },
+    { id: "s12", n: 12, title: "Hock 2.4: „Jak w hipnozie” (Spanos, 1982)", html:
+      "<div class='plain'><p>Spanos: w hipnozie nie ma magii. Ludzie robią to, czego oczekują od siebie i czego oczekuje od nich sytuacja, i tłumaczą to sobie tak, jakby robił to ktoś inny.</p></div>" +
+      "<div class='key'><p><b>Spanos</b>: hipnoza to <b>stan podwyższonej motywacji</b>, by zachowywać się w określony sposób. Zachowania hipnotyczne są „strategiczne i ukierunkowane na cel”, podobne do innych zachowań społecznych. Nie trzeba odwoływać się do transu.</p></div>" +
+      "<p><b>Metoda</b>: podsumowanie wielu badań sprzed 1982 roku (16 z udziałem Spanosa). Cel: podważyć tezę Hilgarda.</p>" +
+      "<p><b>1. Przekonanie, że zachowanie nie jest dobrowolne.</b> Testy („ręka ciężka”, „dłonie złączone”, „ręka sztywna jak pręt”) to dwa życzenia: zrób coś i uznaj, że dzieje się samo. Sugestia („ręka lekka, unosi się”) częściej daje poczucie niedobrowolności niż polecenie („unieś rękę”). Opadanie ręki łatwiej uznać za niedobrowolne niż unoszenie (grawitacja). Strategie wyobrażeniowe („ręka w gipsie”) silniej działają na osoby skłonne do zaabsorbowania (czytanie, muzyka, marzenia).</p>" +
+      "<p><b>2. Oczekiwania.</b> (a) Wykład z informacją, że w hipnozie sztywnieją ręce, sprawił, że część słuchaczy po hipnozie miała sztywne ręce, a nikt z drugiej grupy. (b) Ta sama osoba ocenia wyobrażenia w hipnozie jako intensywniejsze, ale dwie różne grupy wypadają podobnie. (c) <b>Komora zimna</b> (ręka w wodzie bliskiej 0 °C): Hilgard tłumaczył mniejszy ból „barierą amnezji”. Spanos: badani to osoby wysoko podatne, które „chcą wykazać, że są dobrymi badanymi”.</p>" +
+      "<!--fig:spanos-->" },
+    { id: "s13", n: 13, title: "Implikacje i dalsze badania nad hipnozą", html:
+      "<div class='plain'><p>Hipnoza istnieje, ale nie jest potężną siłą zmieniającą umysł.</p></div>" +
+      "<ul><li>Spanos nie twierdził, że hipnozy nie ma, tylko że to <b>umotywowane zachowanie społeczne</b>.</li>" +
+      "<li>Nie można zahipnotyzować nikogo wbrew woli; w hipnozie nie robi się rzeczy uznanych za aspołeczne ani wyczynów nadludzkiej siły.</li>" +
+      "<li>Hipnoza może pomagać zmieniać życie, bo ludzie chcą wierzyć w „ostatnią szansę”. Nie jest panaceum: nie bardziej skuteczna niż inne metody w rzucaniu alkoholu i palenia czy poprawie pamięci (Lazar, Dempster, 1981).</li>" +
+      "<li><b>Lynn (1997)</b>: osoby podatne spodziewają się niedobrowolności i chcą współpracować, co zwiększa gotowość do takich doświadczeń.</li>" +
+      "<li>Za Hilgardem: Kihlstrom (1998, 1999), Miller i Bowers (1993), Montgomery i in. (2000) – analgezja.</li>" +
+      "<li><b>Diaz i Alvarez (1997)</b>: warunkowanie (Skinner) – 6 z 10 osób o niskiej podatności zaczęło reagować na sugestie.</li>" +
+      "<li>Spanos zginął w katastrofie lotniczej w 1994 roku. Dał alternatywne wyjaśnienia zjawisk, których nikt nie podważał przez prawie 200 lat.</li></ul>" }
+  ]
+});
+
+</script>
 
     <!-- schematy (po modułach) -->
     <script>
@@ -18839,6 +19762,90 @@ Wykuj.registerModule({
       pigmalion: { n: "s9", c: ["oak", "pigmalion"], cap: "Wzrost IQ w Oak School (Hock, ryc. 4.1). Uczniów „o wielkim potencjale” wybrano losowo; efekt był wyraźny tylko w klasach 1 i 2.", fn: wjPigmalion },
       asch: { n: "s10", c: ["cieply-zimny", "centralne"], cap: "Wybrane wyniki Ascha (tab. 4.2 u Hocka). „Ciepły” zmienia ocenę hojności czy towarzyskości, ale prawie nie zmienia oceny uczciwości i siły.", fn: wjAsch },
       loftus: { n: "s11", c: ["rekonstrukcja", "presupozycja"], cap: "Dwa ujęcia pamięci (według ryc. 4.7 u Hocka). U Loftus po zapisaniu zdarzenia do wspomnienia dołączają nowe informacje, a przy pytaniu przywołujemy już zrekonstruowaną wersję.", fn: wjLoftus }
+    });
+  });
+
+  function wjFigura() {
+    var half = [[16, 56], [34, 44], [48, 30], [56, 22], [62, 30], [70, 26], [78, 32], [86, 27], [98, 18], [112, 13], [136, 15], [154, 36], [168, 50]];
+    var cx = 90, pts = half.map(function (p) { return (cx + p[1]) + "," + p[0]; });
+    var left = half.slice().reverse().map(function (p) { return (cx - p[1]) + "," + p[0]; });
+    var out = '<rect class="acf" x="20" y="10" width="140" height="164" rx="6"/>';
+    out += '<path class="bx" d="M' + pts.join(" L") + " L" + left.join(" L") + ' Z"/>';
+    out += T(186, 40, "figura: biały kielich", "tb", "start") + T(186, 58, "tło: boki", "ts", "start");
+    out += T(186, 104, "albo odwrotnie:", "ts ta", "start");
+    out += T(186, 122, "figura: dwa profile", "tb", "start") + T(186, 140, "tło: jasny środek", "ts", "start");
+    out += T(186, 168, ["obu naraz nie widać"], "ts", "start");
+    return { w: 340, h: 184, body: out };
+  }
+
+  function wjStalosc() {
+    var out = L(8, 128, 332, 128);
+    out += I("user", 18, 30, 96) + T(66, 146, "3 m", "tb");
+    out += I("user", 268, 104, 24) + T(280, 146, "30 m", "tb");
+    out += T(226, 22, "obraz na siatkówce:", "ts", "middle") + T(226, 38, ["duży ↔ ok. 10 razy", "mniejszy"], "ts", "middle");
+    out += T(226, 72, "spostrzegamy:", "ts ta", "middle") + T(226, 88, ["obie osoby", "normalnego wzrostu"], "tb ta", "middle");
+    out += T(170, 170, "stałość wielkości: wyuczona (Kenge jej nie miał)", "ts");
+    return { w: 340, h: 180, body: out };
+  }
+
+  function wjSen() {
+    var x0 = 54, x1 = 330, lv = { R: 24, 1: 46, 2: 66, 3: 86, 4: 106 };
+    var X = function (h) { return r1(x0 + h * (x1 - x0) / 7); };
+    var seq = [[0, 1], [0.15, 2], [0.35, 3], [0.55, 4], [1.0, 3], [1.15, 2], [1.35, "R"], [1.5, 2], [1.75, 3], [1.95, 4], [2.25, 3], [2.45, 2], [2.85, "R"], [3.15, 2], [3.45, 3], [3.75, 2], [4.2, "R"], [4.6, 2], [5.3, "R"], [5.85, 2], [6.3, "R"], [7, "R"]];
+    var out = "";
+    ["REM", "faza 1", "faza 2", "faza 3", "faza 4"].forEach(function (t, i) { out += T(x0 - 6, [24, 46, 66, 86, 106][i] + 4, t, i ? "ts" : "ts ta", "end"); });
+    out += L(x0, 16, x0, 114) + L(x0, 114, x1, 114);
+    var d = "M" + X(0) + "," + lv[1];
+    for (var i = 1; i < seq.length; i++) d += " H" + X(seq[i][0]) + " V" + lv[seq[i][1]];
+    out += '<path class="ln" d="' + d + '"/>';
+    for (var j = 0; j < seq.length - 1; j++) if (seq[j][1] === "R") out += '<line class="ln ln-a" style="stroke-width:5" x1="' + X(seq[j][0]) + '" y1="24" x2="' + X(seq[j + 1][0]) + '" y2="24"/>';
+    [0, 1, 2, 3, 4, 5, 6, 7].forEach(function (h) { out += T(X(h), 128, String(h), "ts"); });
+    out += T(192, 144, "godziny snu (schemat)", "ts");
+    out += T(170, 162, "pierwszy REM po ok. 90 min · REM coraz dłuższy", "ts ta");
+    return { w: 340, h: 170, body: out };
+  }
+
+  function wjDement() {
+    var rows = [["noce wzorcowe", 80, "bx"], ["1. noc przywracania", 112, "bx-a"], ["bez badanych 3 i 7", 127, "bx-a"], ["kontrola (NREM)", 88, "bx-x"]];
+    var out = T(8, 14, "minuty marzeń sennych na noc (średnio)", "tb", "start"), y = 28;
+    rows.forEach(function (r) {
+      var w = r[1] / 130 * 130;
+      out += T(8, y + 14, r[0], "ts", "start");
+      out += R(150, y, r1(w), 20, r[2]) + T(r1(156 + w), y + 14, r[1] + " min", "tb", "start");
+      y += 30;
+    });
+    out += T(170, y + 10, "po pozbawieniu REM śnimy więcej: efekt odbicia", "ts ta");
+    return { w: 340, h: y + 18, body: out };
+  }
+
+  function wjAktywacja() {
+    var left = ["sen", "nieświadome pragnienia", "ego chce spać, lęk", "cenzor tworzy symbole", "treść jawna + utajona"];
+    var right = ["sen", "most w pniu mózgu", "aktywacja: impulsy", "synteza z pamięcią", "marzenie senne"];
+    var out = T(87, 14, "Freud", "tb") + T(253, 14, "Hobson i McCarley", "tb ta");
+    [[left, 8, "bx-x"], [right, 174, "bx-a"]].forEach(function (c) {
+      c[0].forEach(function (t, i) {
+        var y = 24 + i * 40;
+        out += R(c[1], y, 158, 28, i === 3 ? c[2] : "bx") + Tc(c[1] + 79, y + 14, t, "ts");
+        if (i < c[0].length - 1) out += A(c[1] + 79, y + 28, c[1] + 79, y + 38);
+      });
+    });
+    return { w: 340, h: 24 + 5 * 40, body: out };
+  }
+
+  function wjSpanos() {
+    var p = wjPairs("ocena bólu w komorze zimna (ok., ryc. 2.3)", ["czuwanie", "hipnoza"],
+      [["oczekiwali", 93, 25], ["nie oczekiwali", 50, 50]], 100, "");
+    return { w: 340, h: p.y + 16, body: p.out + T(170, p.y + 6, "oczekiwanie hipnozy zmienia ocenę bólu w czuwaniu", "ts ta") };
+  }
+
+  W.registerFigs.push(function () {
+    W.addFigs("wj-z4", {
+      figura: { n: "s2", c: ["figura-tlo"], cap: "Podwójna figura (jak ryc. 2.1 u Hocka): jasny kielich albo dwa profile po bokach, zwrócone do siebie. Mózg zawsze wybiera jedną figurę i jedno tło.", fn: wjFigura },
+      stalosc: { n: "s2", c: ["stalosc", "stalosc-wielkosci"], cap: "Stałość wielkości: osoba 30 m dalej daje dużo mniejszy obraz na siatkówce, a i tak widzimy ją jako normalnego wzrostu. Kenge, który całe życie widział najdalej na ok. 30 m, tej umiejętności nie miał.", fn: wjStalosc },
+      sen: { n: "s5", c: ["rem", "nrem", "cykle"], cap: "Schemat jednej nocy (nie dane z badania). Schodzimy przez fazy 1–4, wracamy i wchodzimy w REM (grube odcinki). Głęboki sen jest głównie na początku nocy, a REM wydłuża się nad ranem.", fn: wjSen },
+      dement: { n: "s6", c: ["efekt-odbicia", "wzorcowe", "kontrola-dement"], cap: "Wyniki Dementa (tab. 2.1 u Hocka). Po nocach pozbawiania REM czas snów rośnie; samo budzenie w NREM tego nie daje.", fn: wjDement },
+      aktywacja: { n: "s9", c: ["aktywacja-synteza", "freud-sny", "cenzor"], cap: "Dwa modele snów (według ryc. 2.2 u Hocka). U Freuda sny ukrywają pragnienia, u Hobsona i McCarleya mózg nadaje sens przypadkowym impulsom.", fn: wjAktywacja },
+      spanos: { n: "s12", c: ["komora-zimna", "oczekiwania"], cap: "Wyniki Spanosa (odczytane w przybliżeniu z ryc. 2.3 u Hocka). Ci, którzy oczekiwali hipnozy, w czuwaniu oceniali ból wysoko, a w hipnozie nisko. Ci, którzy jej nie oczekiwali, oceniali tak samo w obu warunkach.", fn: wjSpanos }
     });
   });
 

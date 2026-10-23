@@ -47,7 +47,7 @@ Każdy przedmiot ma własny kolor i ikonę. Ekran startowy ma dwie zakładki:
 | Prowadzący | Półka | Moduły |
 | --- | --- | --- |
 | Dr Wioletta Ozga (grupy 1, 2, 3, 8, 10) | Lektury i czytanki – po ludzku | Czytanka 1: Jak widzimy (Kalat „Wzrok” + Francuz „Imagia”) |
-| mgr Natalia Wójcicka (Podstawy psychologii i historii myśli psychologicznej) | Zajęcia i lektury | Zajęcia 1: Jak bada się psychologię · Zajęcia 2: Uczenie się i warunkowanie (+ Hock, rozdz. 3) · Zajęcia 3: Procesy poznawcze i inteligencja (+ Hock, rozdz. 4) |
+| mgr Natalia Wójcicka (Podstawy psychologii i historii myśli psychologicznej) | Zajęcia i lektury | Zajęcia 1: Jak bada się psychologię · Zajęcia 2: Uczenie się i warunkowanie (+ Hock, rozdz. 3) · Zajęcia 3: Procesy poznawcze i inteligencja (+ Hock, rozdz. 4) · Zajęcia 4: Spostrzeganie i świadomość (na razie sama lektura: Hock, rozdz. 2) |
 
 Czytanka to zwykły moduł z `kind: "reading"` i kilkoma dodatkami:
 
