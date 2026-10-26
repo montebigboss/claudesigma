@@ -63,6 +63,14 @@
       );
     }
 
+    /* Numer pustej karty: pierwszy brakujący (np. 2, gdy są czytanki 1 i 3). */
+    function nextNo(list) {
+      var have = {}, i = 1;
+      list.forEach(function (m) { have[m.number] = true; });
+      while (have[i]) i++;
+      return i;
+    }
+
     function ghost(n, label, title, meta) {
       return (
         '<div class="modcard ghost"><span class="mc-num">' + n + '</span><span class="mc-body"><small>' + esc(label) +
@@ -83,14 +91,14 @@
         "</div>" +
         courses
           .map(function (c) {
-            var n = c.modules.length;
+            var n = c.modules.length, nx = nextNo(c.modules);
             return (
               '<section class="course theme-' + c.course.theme + '" data-course="' + c.course.id + '"' + (filter !== "all" && filter !== c.course.id ? " hidden" : "") + ">" +
               '<div class="course-h"><span class="course-ic">' + W.icon(c.course.icon) + "</span><div><h3>" + esc(c.course.name) + "</h3><small>" +
               n + (n === 1 ? " wykład" : n < 5 ? " wykłady" : " wykładów") + " · " + pct(coursePct(c)) + " opanowane</small></div>" +
               (W.guide(c.course.id) ? '<button class="guide-btn" data-guide="' + c.course.id + '">' + W.icon("target") + "Jak zdać</button>" : "") + "</div>" +
               '<div class="mods">' + c.modules.map(modCard).join("") +
-              ghost(n + 1, "Wykład " + (n + 1), "Kolejny wykład", "Pojawi się tu, gdy dodasz materiały z następnych zajęć.") +
+              ghost(nx, "Wykład " + nx, "Kolejny wykład", "Pojawi się tu, gdy dodasz materiały z następnych zajęć.") +
               "</div></section>"
             );
           })
@@ -117,13 +125,13 @@
             (c.course.groups ? esc(c.course.groups) + " · " : "") + pct(coursePct(c)) + " opanowane</small></div></div>" +
             shelves
               .map(function (k) {
-                var list = byShelf[k], n = list.length;
+                var list = byShelf[k], n = list.length, nx = nextNo(list);
                 return (
                   '<div class="shelf"><h4 class="shelf-h">' + W.icon("book") + "<span>" + esc(k) + "</span><small>" + n + "</small></h4>" +
                   '<div class="mods">' + list.map(modCard).join("") +
                   (list[0].ghost
-                    ? ghost(n + 1, list[0].ghost[0] + " " + (n + 1), list[0].ghost[1], list[0].ghost[2])
-                    : ghost(n + 1, "Czytanka " + (n + 1), "Kolejna czytanka", "Wrzuć zdjęcia następnego tekstu, a pojawi się tutaj ze streszczeniem i ćwiczeniami.")) +
+                    ? ghost(nx, list[0].ghost[0] + " " + nx, list[0].ghost[1], list[0].ghost[2])
+                    : ghost(nx, "Czytanka " + nx, "Kolejna czytanka", "Wrzuć zdjęcia następnego tekstu, a pojawi się tutaj ze streszczeniem i ćwiczeniami.")) +
                   "</div></div>"
                 );
               })

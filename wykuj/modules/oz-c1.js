@@ -37,7 +37,7 @@ Wykuj.registerModule({
   pageDir: "ozga",
   pages: [
     { short: "Kalat", title: "Kalat, „Biologiczne podstawy psychologii”, rozdz. 6 „Wzrok”",
-      note: "Na zdjęciach nie ma s. 145 ani s. 151–156 (dalszy ciąg o widzeniu barw). Jeśli były zadane, wrzuć je, a dopiszę je do streszczenia.",
+      note: "Na zdjęciach nie ma s. 145 ani s. 151–156. Dalszy ciąg o widzeniu barw (s. 150–155) jest w czytance 3.",
       items: [["k144", "s. 144", "s1"], ["k146", "s. 146", "s5"], ["k147", "s. 147", "s5"], ["k148", "s. 148", "s7"], ["k149", "s. 149", "s6"], ["k150", "s. 150", "s12"],
         ["k157", "s. 157", "s8"], ["k158", "s. 158", "s5"], ["k159", "s. 159", "s9"], ["k160", "s. 160", "s10"], ["k161", "s. 161", "s10"]] },
     { short: "Francuz", title: "Francuz, „Imagia”, „Neuropoznawcze podstawy widzenia”",
@@ -1493,7 +1493,7 @@ Wykuj.registerModule({
 
     { id: "s12", n: 12, title: "Kolory w czytance", html:
       "<div class='plain'><p>Kolor to nie „fala w oku”, tylko wynik porównania. Masz trzy typy czopków, które reagują na różne fale, a mózg porównuje, ile pobudził się każdy z nich. Jeden neuron sam nie powie „czerwone”.</p></div>" +
-      "<p class='srcline'>Kalat, <a data-page='k150'>s. 150</a> (dalszy ciąg, s. 151–156, nie jest na zdjęciach); Francuz, <a data-page='f47'>s. 47</a>, <a data-page='f56'>56</a></p>" +
+      "<p class='srcline'>Kalat, <a data-page='k150'>s. 150</a> (dalszy ciąg o barwach jest w czytance 3); Francuz, <a data-page='f47'>s. 47</a>, <a data-page='f56'>56</a></p>" +
       "<ul><li>Prawie wszystkie kręgowce mają pręciki i czopki, ale widzenie barw wymaga <b>porównywania aktywności różnych typów czopków</b>. Szczury mają jeden typ czopków i nie rozróżniają kolorów.</li>" +
       "<li>Najkrótsze widzialne fale (u Kalata ok. 350 nm, u Francuza zakres od ok. 400 nm) dają <b>fiolet</b>, dłuższe kolejno niebieski, zielony, żółty, pomarańczowy i przy ok. 700 nm <b>czerwień</b>. Francuz: między długością fali a barwą jest ścisła zależność.</li>" +
       "<li>Problem kodowania: neuron może tylko zmieniać częstotliwość impulsów (albo polaryzację błony). Jeśli sygnalizuje tak jasność, nie może naraz sygnalizować barwy. Wniosek: <b>pojedynczy neuron nie przekaże jednocześnie jasności i barwy</b>; spostrzeżenia opierają się na <b>wzorcach aktywności wielu neuronów</b>.</li></ul>" +
@@ -1501,7 +1501,7 @@ Wykuj.registerModule({
       "<h3>Teoria trichromatyczna (Younga–Helmholtza)</h3>" +
       "<p>Czy na każdy kolor jest osobny receptor? Nie. <b>Thomas Young</b> (1773–1829), brytyjski lekarz i geniusz od wszystkiego (częściowo odczytał kamień z Rosetty, położył podwaliny optyki), pierwszy uznał, że barwa wymaga wyjaśnienia <b>biologicznego</b>, a nie tylko fizycznego. Zaproponował, że widzenie barw to porównywanie aktywności <b>kilku typów receptorów</b>, każdy czuły na inny zakres fal. <b>Hermann von Helmholtz</b> rozwinął to na podstawie <b>obserwacji psychofizycznych</b> (relacji obserwatorów).</p>" +
       "<div class='key'><p><b>Teoria trichromatyczna:</b> percepcja barw opiera się na ocenie względnej siły pobudzeń <b>trzech typów czopków</b>, z których każdy jest najbardziej wrażliwy na inny zakres długości fal.</p></div>" +
-      "<p>Druga z dwóch najważniejszych XIX-wiecznych teorii to <b>teoria przeciwstawnych procesów</b>. Jej opis jest na brakujących stronach.</p>" +
+      "<p>Druga z dwóch najważniejszych XIX-wiecznych teorii to <b>teoria przeciwstawnych procesów</b>. Jej opis, razem z teorią retinex i ślepotą na barwy, jest w czytance 3.</p>" +
       "<aside class='extra'><p>Teoria przeciwstawnych procesów (Hering) mówi, że barwy są kodowane parami przeciwieństw: czerwony–zielony, niebieski–żółty, jasny–ciemny. To pasuje do Francuza: komórki karłowate różnicują czerwień i zieleń, a pyłkowe niebieski i żółty.</p></aside>" }
   ]
 });

@@ -1555,6 +1555,100 @@
     });
   });
 
+  /* ---------- Ozga, czytanka 3 ---------- */
+
+  function oz3Czopki() {
+    var x0 = 40, x1 = 326, y0 = 20, y1 = 150;
+    var X = function (nm) { return r1(x0 + (nm - 400) * (x1 - x0) / 250); };
+    var Y = function (v) { return r1(y1 - v * (y1 - y0)); };
+    var curve = function (peak, sd, cls, dash) {
+      var pts = [];
+      for (var nm = 400; nm <= 650; nm += 5) pts.push(X(nm) + "," + Y(Math.exp(-Math.pow(nm - peak, 2) / (2 * sd * sd))));
+      return '<polyline class="ln ' + cls + (dash ? " ln-d" : "") + '" points="' + pts.join(" ") + '"/>';
+    };
+    var out = L(x0, y0, x0, y1) + L(x0, y1, x1, y1);
+    out += T(x0 - 4, Y(1) + 4, "100%", "ts", "end") + T(x0 - 4, Y(0.5) + 4, "50%", "ts", "end") + T(x0 - 4, Y(0) + 4, "0", "ts", "end");
+    [400, 450, 500, 550, 600, 650].forEach(function (nm) { out += T(X(nm), y1 + 14, String(nm), "ts"); });
+    out += T(183, y1 + 28, "długość fali (nm), schemat", "ts");
+    out += curve(500, 40, "", true);
+    out += curve(440, 29, "ln-g") + curve(535, 37.7, "ln-a") + curve(565, 48, "");
+    out += T(X(440), Y(1) - 4, "krótkie", "ts tr") + T(X(528), Y(1) - 4, "średnie", "ts ta", "end") + T(X(572), Y(1) - 4, "długie", "ts", "start");
+    out += L(X(500), y0, X(500), y1, "ln-d");
+    [[0.65, "65%"], [0.40, "40%"], [0.12, "12%"]].forEach(function (p) {
+      out += '<circle class="acf" cx="' + X(500) + '" cy="' + Y(p[0]) + '" r="3.5"/>' + T(X(500) - 6, Y(p[0]) + 4, p[1], "tb", "end");
+    });
+    out += T(170, y1 + 46, "500 nm: proporcja 65/40/12 = niebieskozielony", "ts ta");
+    return { w: 340, h: y1 + 54, body: out };
+  }
+
+  function oz3Para() {
+    var pairs = [["#d33a2c", "czerwony", "#2e9e4f", "zielony"], ["#e7c21d", "żółty", "#2f6fd6", "niebieski"], ["#f4f4f4", "biały", "#1d1d1d", "czarny"]];
+    var out = T(8, 14, "trzy pary przeciwieństw (Hering)", "tb", "start");
+    pairs.forEach(function (p, i) {
+      var y = 26 + i * 34;
+      out += '<circle cx="24" cy="' + (y + 12) + '" r="11" fill="' + p[0] + '" stroke="#888"/>' + T(42, y + 16, p[1], "ts", "start");
+      out += A(118, y + 12, 210, y + 12) + A(210, y + 12, 118, y + 12);
+      out += '<circle cx="232" cy="' + (y + 12) + '" r="11" fill="' + p[2] + '" stroke="#888"/>' + T(250, y + 16, p[3], "ts", "start");
+    });
+    var yb = 136;
+    out += B(8, yb, 324, 74, ["komórka dwubiegunowa", "„niebieskie–żółte”"], ["aktywność ↑ = niebieski, ↓ = żółty;", "zmęczona niebieskim przy białym świetle → żółty"], "bx-a");
+    return { w: 340, h: yb + 80, body: out };
+  }
+
+  function oz3Strumienie() {
+    var out = "";
+    out += B(8, 8, 158, 56, "strumień brzuszny", ["kora skroniowa", "„CO to jest?”"], "bx-a");
+    out += B(174, 8, 158, 56, "strumień grzbietowy", ["kora ciemieniowa", "„GDZIE to jest?”"], "bx-x");
+    out += T(87, 84, "po uszkodzeniu:", "ts tr") + T(253, 84, "po uszkodzeniu:", "ts tr");
+    out += B(8, 92, 158, 64, "nie opisze kształtu", ["ale sięgnie po kubek", "i ominie przeszkodę"], "bx");
+    out += B(174, 92, 158, 64, "opisze dokładnie", ["ale nie chwyci", "precyzyjnie kubka"], "bx");
+    out += T(170, 176, "identyfikacja ≠ położenie", "tb ta");
+    return { w: 340, h: 184, body: out };
+  }
+
+  function oz3Komorki() {
+    var out = "", top = 22, s = 92;
+    var frame = function (x, title) { return R(x, top, s, s, "bx") + T(x + s / 2, 14, title, "tb"); };
+    /* prosta: pobudzeniowy pas w środku, hamulcowe po bokach */
+    out += frame(8, "prosta");
+    out += '<rect class="bx-r" x="16" y="' + (top + 8) + '" width="24" height="76" rx="4"/><rect class="bx-a" x="42" y="' + (top + 8) + '" width="24" height="76" rx="4"/><rect class="bx-r" x="68" y="' + (top + 8) + '" width="24" height="76" rx="4"/>';
+    out += T(28, top + 50, "−", "tb") + T(54, top + 50, "+", "tb") + T(80, top + 50, "−", "tb");
+    out += T(54, top + s + 16, ["jedno miejsce,", "sztywne strefy"], "ts");
+    /* złożona: pasek w dowolnym miejscu, ruch prostopadły */
+    out += frame(124, "złożona");
+    [146, 170, 194].forEach(function (x, i) { out += '<rect class="' + (i === 1 ? "acf" : "bx-x") + '" x="' + x + '" y="' + (top + 14) + '" width="8" height="64" rx="3"/>'; });
+    out += A(150, top + 84, 206, top + 84, "ln-a");
+    out += T(170, top + s + 16, ["dowolne miejsce,", "ruch w poprzek"], "ts");
+    /* z hamulcowym brzegiem */
+    out += frame(240, "hamulcowy brzeg");
+    out += '<rect class="bx-r" x="248" y="' + (top + 6) + '" width="76" height="20" rx="4"/>' + T(286, top + 20, "− koniec", "ts");
+    out += '<rect class="acf" x="282" y="' + (top + 30) + '" width="8" height="54" rx="3"/>';
+    out += T(286, top + s + 16, ["za długi pasek", "→ hamowanie"], "ts");
+    return { w: 340, h: top + s + 40, body: out };
+  }
+
+  function oz3Skroniowa() {
+    var items = [["oryginał", true], ["odbicie lustrzane", true], ["obraz negatywowy", true], ["odwrócenie figury i tła", false]];
+    var out = T(8, 14, "neuron dolnej kory skroniowej reaguje na…", "tb", "start");
+    items.forEach(function (it, i) {
+      var y = 26 + i * 38;
+      out += R(8, y, 324, 30, it[1] ? "bx-a" : "bx-r");
+      out += T(20, y + 20, it[0], "ts", "start") + T(320, y + 20, it[1] ? "tak, silnie" : "słabo", it[1] ? "tb ta" : "tb tr", "end");
+    });
+    out += T(170, 26 + 4 * 38 + 8, "rozpoznaje obiekt, a nie układ światła na siatkówce", "ts");
+    return { w: 340, h: 26 + 4 * 38 + 16, body: out };
+  }
+
+  W.registerFigs.push(function () {
+    W.addFigs("oz-c3", {
+      czopki: { n: "s2", c: ["trzy-czopki", "przyklad-500", "trichromatyczna"], cap: "Czułość trzech typów czopków (schemat według rys. 6.10 u Kalata; linia przerywana to pręciki). Każdy czopek reaguje na szeroki zakres fal. Przy 500 nm proporcja pobudzeń daje barwę niebieskozieloną.", fn: oz3Czopki },
+      para: { n: "s4", c: ["hering", "dwubiegunowa-barwa", "zmeczenie", "powidok"], cap: "Teoria przeciwstawnych procesów: barwy kodowane w parach. Zmęczenie jednej strony pary daje powidok w kolorze przeciwnym.", fn: oz3Para },
+      strumienie: { n: "s7", c: ["brzuszny", "grzbietowy", "co-gdzie"], cap: "Dwa strumienie analizy wzrokowej i skutki ich uszkodzenia (Kalat, s. 164).", fn: oz3Strumienie },
+      komorki: { n: "s9", c: ["prosta", "zlozona", "hamulcowy", "jak-odroznic"], cap: "Trzy typy komórek kory wzrokowej. Prosta: pobudzeniowy pas (+) między hamulcowymi (−). Złożona: pasek w dowolnym miejscu, najlepiej w ruchu w poprzek. Z hamulcowym brzegiem: zbyt długi pasek trafia w hamujący koniec.", fn: oz3Komorki },
+      skroniowa: { n: "s11", c: ["przeksztalcenia", "skroniowa", "stalosc-ksztaltu"], cap: "Reakcje neuronów dolnej kory skroniowej na przekształcenia kształtu (Baylis, Driver, 2001; rys. 6.27 u Kalata).", fn: oz3Skroniowa }
+    });
+  });
+
   /* Rysuje wszystkie schematy po załadowaniu modułów. */
   W.buildFigs = function () {
     W.registerFigs.forEach(function (fn) { fn(); });
