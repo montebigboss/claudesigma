@@ -1649,6 +1649,104 @@
     });
   });
 
+  /* ---------- Ozga, czytanka 2 ---------- */
+
+  function oz2Lgn() {
+    var rows = [[6, "P", "bx", "przeciwne"], [5, "P", "bx", "to samo"], [4, "P", "bx", "przeciwne"], [3, "P", "bx", "to samo"], ["K", "K", "bx-g", ""], [2, "M", "bx-a", "to samo"], [1, "M", "bx-a", "przeciwne"]];
+    var out = T(64, 14, "warstwa", "tb") + T(178, 14, "szlak", "tb") + T(290, 14, "oko", "tb");
+    var y = 22;
+    rows.forEach(function (r) {
+      var h = r[0] === "K" ? 18 : 26;
+      out += R(16, y, 316, h - 4, r[2]);
+      out += T(64, y + h / 2 + 2, r[0] === "K" ? "między 2 i 3" : String(r[0]), r[0] === "K" ? "ts" : "tb");
+      out += T(178, y + h / 2 + 2, r[1] === "P" ? "drobnokomórkowy (P)" : r[1] === "M" ? "wielkokomórkowy (M)" : "pyłkowy (K), ok. 10%", r[0] === "K" ? "ts" : "ts");
+      if (r[3]) out += T(290, y + h / 2 + 2, r[3], r[3] === "przeciwne" ? "ts ta" : "ts");
+      y += h;
+    });
+    out += T(170, y + 14, ["M: szybki, ruch, bez barw", "P: wolniejszy, szczegóły, barwy"], "ts");
+    return { w: 340, h: y + 36, body: out };
+  }
+
+  function oz2Onoff() {
+    var rows = [["#f4f4f4", "#1d1d1d", "centrum jasne", "silna", "brak"], ["#1d1d1d", "#f4f4f4", "centrum ciemne", "brak", "silna"], ["#9a9a9a", "#9a9a9a", "pole jednolite", "umiarkowana", "umiarkowana"]];
+    var out = T(100, 14, "bodziec", "tb") + T(206, 14, "ON", "tb") + T(294, 14, "OFF", "tb");
+    rows.forEach(function (r, i) {
+      var y = 24 + i * 52, cy = y + 22;
+      out += '<circle cx="30" cy="' + cy + '" r="20" fill="' + r[1] + '" stroke="#888"/><circle cx="30" cy="' + cy + '" r="9" fill="' + r[0] + '" stroke="#888"/>';
+      out += T(60, cy + 4, r[2], "ts", "start");
+      [[206, r[3]], [294, r[4]]].forEach(function (c) {
+        var cls = c[1] === "silna" ? "bx-a" : c[1] === "brak" ? "bx-r" : "bx";
+        out += R(c[0] - 42, y + 6, 84, 32, cls) + T(c[0], cy + 4, c[1], "ts");
+      });
+    });
+    out += T(170, 24 + 3 * 52 + 8, "ON = „tu jasno”, OFF = „tu ciemno”", "ts ta");
+    return { w: 340, h: 24 + 3 * 52 + 16, body: out };
+  }
+
+  function oz2Hamowanie() {
+    var inp = [100, 100, 100, 50, 50, 50], outv = [60, 60, 70, 20, 30, 30];
+    var out = T(8, 14, "światło na wejściu", "tb", "start");
+    var x0 = 14, w = 50, g = 2;
+    inp.forEach(function (v, i) {
+      var x = x0 + i * (w + g) + (i > 2 ? 6 : 0);
+      out += '<rect x="' + x + '" y="22" width="' + w + '" height="34" rx="6" fill="' + (v === 100 ? "#f4f4f4" : "#7a7a7a") + '" stroke="#888"/>';
+      out += '<text class="tb" x="' + (x + w / 2) + '" y="44" text-anchor="middle" style="fill:' + (v === 100 ? "#1d1d1d" : "#ffffff") + '">' + v + "</text>";
+      out += A(x + w / 2, 60, x + w / 2, 84);
+    });
+    out += T(8, 104, "sygnał do komórki zwojowej", "tb", "start");
+    outv.forEach(function (v, i) {
+      var x = x0 + i * (w + g) + (i > 2 ? 6 : 0);
+      var cls = v === 70 ? "bx-a" : v === 20 ? "bx-r" : "bx";
+      out += R(x, 112, w, 34, cls) + T(x + w / 2, 134, String(v), "tb");
+    });
+    out += L(170, 20, 170, 58, "ln-d") + L(170, 110, 170, 150, "ln-d");
+    out += T(164, 166, "jaśniejsze pasmo", "ts ta", "end") + T(176, 166, "ciemniejsze pasmo", "ts tr", "start");
+    out += T(170, 188, ["hamowanie: 20% światła od każdego sąsiada", "100 − 20 − 10 = 70  ·  50 − 20 − 10 = 20"], "ts");
+    return { w: 340, h: 210, body: out };
+  }
+
+  function oz2Wskazniki() {
+    var g = [["relacje", ["interpozycja", "transpozycja", "perspektywa"], "bx-a"], ["zacieranie", ["gradient tekstury", "ostrość detali"], "bx"], ["luminancja", ["światłocień", "perspektywa", "powietrzna", "separacja barw"], "bx-g"]];
+    var out = T(170, 14, "jednooczne wskaźniki głębi: 3 grupy", "tb");
+    g.forEach(function (c, i) {
+      var x = 8 + i * 110;
+      out += R(x, 24, 104, 112, c[2]) + T(x + 52, 44, c[0], "tb") + T(x + 52, 66, c[1], "ts");
+    });
+    out += T(170, 156, ["dwuoczne (do ok. 6 m): rozbieżność dwuoczna,", "konwergencja i dywergencja"], "ts");
+    return { w: 340, h: 180, body: out };
+  }
+
+  function oz2Skrzyzowania() {
+    var out = "";
+    /* T: przysłanianie */
+    out += T(56, 14, "typ T", "tb");
+    out += R(12, 30, 60, 50, "bx-g") + R(42, 54, 60, 50, "bx");
+    out += '<circle class="acf" cx="72" cy="54" r="4"/><circle class="acf" cx="42" cy="80" r="4"/>';
+    out += T(56, 124, ["przysłanianie:", "jeden obiekt", "przed drugim"], "ts");
+    /* X: przezroczystość */
+    out += T(170, 14, "typ X", "tb");
+    out += '<rect x="126" y="30" width="60" height="50" rx="10" fill="none" class="ln"/><rect x="156" y="54" width="60" height="50" rx="10" fill="none" class="ln"/>';
+    out += '<circle class="acf" cx="186" cy="54" r="4"/><circle class="acf" cx="156" cy="80" r="4"/>';
+    out += T(170, 124, ["przezroczystość:", "brak", "interpozycji"], "ts");
+    /* L: narożnik */
+    out += T(286, 14, "typ L", "tb");
+    out += '<rect class="bx" x="256" y="42" width="60" height="50" rx="2"/>';
+    out += '<circle class="acf" cx="256" cy="42" r="4"/><circle class="acf" cx="316" cy="92" r="4"/>';
+    out += T(286, 124, ["narożnik", "wewnątrz", "obiektu"], "ts");
+    out += T(170, 178, "kluczowe: międzyobiektowe skrzyżowania T (Kanizsa)", "ts ta");
+    return { w: 340, h: 186, body: out };
+  }
+
+  W.registerFigs.push(function () {
+    W.addFigs("oz-c2", {
+      lgn: { n: "s1", c: ["lgn", "warstwy-m", "warstwy-p", "warstwa-k", "skrzyzowanie-lgn"], cap: "Warstwy ciała kolankowatego bocznego (schemat, ryc. 18 u Francuza): 1–2 wielkokomórkowe, 3–6 drobnokomórkowe, między nimi komórki pyłkowe. Kolumna „oko” mówi, z którego oka przychodzi sygnał względem strony LGN.", fn: oz2Lgn },
+      onoff: { n: "s7", c: ["centrum-otoczka", "kanal-on", "kanal-off", "nieciekawe"], cap: "Reakcje komórek zwojowych ON i OFF na trzy układy światła w polu recepcyjnym (według ryc. 76 u Francuza).", fn: oz2Onoff },
+      hamowanie: { n: "s8", c: ["hamowanie-oboczne", "rachunek", "amakrynowe", "pasma-macha"], cap: "Hamowanie oboczne w liczbach (ryc. 77 u Francuza). Daleko od krawędzi zostaje 60 i 30, a przy samej krawędzi 70 i 20: to pasma Macha.", fn: oz2Hamowanie },
+      wskazniki: { n: "s9", c: ["jednooczne", "grupa1", "grupa2", "grupa3"], cap: "Trzy grupy jednoocznych wskaźników głębi u Francuza i wskaźniki dwuoczne.", fn: oz2Wskazniki },
+      skrzyzowania: { n: "s12", c: ["skrzyzowania", "interpozycja"], cap: "Skrzyżowania konturów według Kanizsy (schemat, por. ryc. 153). Kropki zaznaczają miejsca, w których stykają się kontury.", fn: oz2Skrzyzowania }
+    });
+  });
+
   /* Rysuje wszystkie schematy po załadowaniu modułów. */
   W.buildFigs = function () {
     W.registerFigs.forEach(function (fn) { fn(); });
