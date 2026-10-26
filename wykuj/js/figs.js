@@ -1474,6 +1474,87 @@
     });
   });
 
+  /* ---------- MPT, wykład 3 ---------- */
+
+  function mptw3Rola() {
+    var out = "";
+    out += B(8, 8, 140, 70, ["mistrz wiedzy", "obiektywnej"], ["zna jedyną", "poprawną odpowiedź"], "bx-x");
+    out += A(152, 43, 186, 43, "ln-a");
+    out += B(190, 8, 142, 70, ["partner", "w odkrywaniu"], ["odkrywa razem", "z dzieckiem"], "bx-a");
+    out += B(8, 96, 324, 44, "twórczość to potencjał każdego", "nie elitarny dar dla wybranych", "bx");
+    out += A(90, 140, 90, 162) + A(250, 140, 250, 162, "ln-a");
+    out += B(8, 164, 150, 56, "źle traktowana", "gaśnie", "bx-r");
+    out += B(166, 164, 166, 56, "mądrze wspierana", ["fundament dojrzałej,", "elastycznej osobowości"], "bx-a");
+    return { w: 340, h: 228, body: out };
+  }
+
+  function mptw3Rozwoj() {
+    var rows = [
+      ["Piaget", "dziecko samo konstruuje wiedzę", "asymilacja, akomodacja, zachwiana równowaga"],
+      ["Wygotski", "doświadczenie karmi wyobraźnię", "dorosły pyta, a nie podaje instrukcji"],
+      ["Bruner", "uczenie się przez odkrywanie", "proces ważniejszy niż produkt, intuicja"]
+    ];
+    var out = "", rowH = 60;
+    rows.forEach(function (r, i) {
+      var y = 6 + i * rowH;
+      out += R(8, y, 324, rowH - 8, i === 1 ? "bx-a" : "bx");
+      out += T(20, y + 20, r[0], "tb", "start") + T(100, y + 20, r[1], "ts", "start");
+      out += T(20, y + 38, r[2], "ts ta", "start");
+    });
+    return { w: 340, h: 6 + 3 * rowH, body: out };
+  }
+
+  function mptw3Necka() {
+    var c = [["ludyczność", "humor, śmiech"], ["odroczone wartościowanie", "najpierw bez oceny"], ["racjonalna irracjonalność", "intuicja, nonsens"],
+      ["kompetentna niekompetencja", "oczami laika"], ["aktualność", "tu i teraz"], ["różnorodność", "ilość rodzi jakość"]];
+    var out = "";
+    c.forEach(function (b, i) {
+      var x = 8 + (i % 2) * 166, y = 6 + Math.floor(i / 2) * 58;
+      out += R(x, y, 158, 50, i === 1 ? "bx-a" : "bx");
+      out += '<circle class="acf" cx="' + (x + 18) + '" cy="' + (y + 25) + '" r="11"/>' + T(x + 18, y + 29.5, String(i + 1), "num");
+      out += T(x + 36, b[0].length > 18 ? y + 21 : y + 21, b[0].length > 18 ? b[0].split(" ") : b[0], "tb", "start");
+      if (b[0].length <= 18) out += T(x + 36, y + 38, b[1], "ts", "start");
+    });
+    return { w: 340, h: 6 + 3 * 58, body: out };
+  }
+
+  function mptw3Odroczone() {
+    var out = "";
+    out += B(8, 8, 130, 80, "1. generowanie", ["zbieramy wszystko,", "bez krytyki"], "bx-a");
+    out += A(140, 48, 152, 48);
+    out += R(154, 30, 64, 36, "bx-x") + Tc(186, 48, "przerwa", "ts");
+    out += A(220, 48, 230, 48);
+    out += B(232, 8, 100, 80, "2. ocena", ["wybór", "najlepszych"], "bx");
+    out += T(8, 106, "zabijacze pomysłów w fazie 1:", "tb tr", "start");
+    ["„To za drogie”", "„To głupi pomysł”", "„Tego się nie da zrobić”", "„Jak na to wpadłeś?”"].forEach(function (t, i) {
+      out += R(8 + (i % 2) * 166, 116 + Math.floor(i / 2) * 36, 158, 28, "bx-r") + Tc(87 + (i % 2) * 166, 130 + Math.floor(i / 2) * 36, t, "ts");
+    });
+    return { w: 340, h: 192, body: out };
+  }
+
+  function mptw3Integracja() {
+    var steps = [["widzę", "i myślę"], ["myślę", "i czuję"], ["czuję", "i działam"]];
+    var out = "";
+    steps.forEach(function (s, i) {
+      var x = 8 + i * 112;
+      out += B(x, 8, 100, 56, s[0], s[1], i === 2 ? "bx-a" : "bx");
+      if (i < 2) out += A(x + 100, 36, x + 112, 36, "ln-a");
+    });
+    out += T(170, 88, "intelekt + emocje + ciało + wartości", "tb ta");
+    out += T(170, 106, "twórczość połączona z samopoznaniem i empatią", "ts");
+    return { w: 340, h: 114, body: out };
+  }
+
+  W.registerFigs.push(function () {
+    W.addFigs("mpt-w3", {
+      rola: { n: "s1", c: ["reorientacja", "mistrz", "potencjal", "wygaszenie"], cap: "Teza wykładu (slajd 3): dorosły z mistrza staje się partnerem, a twórczość to potencjał każdego, który można zgasić albo rozwinąć.", fn: mptw3Rola },
+      rozwoj: { n: "s3", c: ["piaget", "wygotski", "bruner", "osadzenie"], cap: "Trzech klasyków ze slajdu 6 i to, co z nich wynika dla zajęć twórczych.", fn: mptw3Rozwoj },
+      necka: { n: "s5", c: ["necka", "zwyczajny-umysl"], cap: "Sześć zasad Nęcki ze slajdów 10–15.", fn: mptw3Necka },
+      odroczone: { n: "s5", c: ["odroczone", "zabijacze"], cap: "Odroczone wartościowanie: najpierw zbieramy wszystko, oceniamy dopiero po przerwie. Zabijacze pomysłów ze slajdu 11 łamią tę zasadę.", fn: mptw3Odroczone },
+      integracja: { n: "s9", c: ["integracja", "etapy"], cap: "Zasada integracji i wielopoziomowości Szmidta (slajd 19): angażujemy całego ucznia, nie tylko intelekt.", fn: mptw3Integracja }
+    });
+  });
+
   /* Rysuje wszystkie schematy po załadowaniu modułów. */
   W.buildFigs = function () {
     W.registerFigs.forEach(function (fn) { fn(); });
