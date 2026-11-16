@@ -1747,6 +1747,44 @@
     });
   });
 
+  /* ---------- Lektorat: angielski, kolokwium 1 ---------- */
+
+  function angNs() {
+    var out = B(95, 6, 150, 34, "nervous system", null, "bx-a");
+    out += A(140, 40, 90, 58) + A(200, 40, 250, 58);
+    out += B(8, 60, 158, 52, "central (CNS)", ["brain + spinal cord"], "bx");
+    out += B(174, 60, 158, 52, "peripheral (PNS)", ["cranial + spinal nerves"], "bx");
+    out += A(225, 112, 200, 130) + A(281, 112, 300, 130);
+    out += B(120, 132, 100, 52, "somatic", ["senses, muscles", "voluntary"], "bx-g");
+    out += B(228, 132, 104, 52, "autonomic", ["heart rate,", "digestion"], "bx-g");
+    out += A(262, 184, 180, 202) + A(290, 184, 280, 202);
+    out += B(96, 204, 106, 46, "sympathetic", ["active states"], "bx-r");
+    out += B(208, 204, 126, 46, "parasympathetic", ["rest, digestion"], "bx-x");
+    out += T(56, 140, ["grey matter:", "cell bodies", "white matter:", "axons"], "ts");
+    return { w: 340, h: 258, body: out };
+  }
+
+  function angBrain() {
+    var out = T(170, 14, "the brain = three main parts", "tb");
+    out += B(8, 24, 104, 58, "cerebrum", ["higher mental", "functions"], "bx-a");
+    out += B(118, 24, 104, 58, "cerebellum", ["movement,", "balance"], "bx-g");
+    out += B(228, 24, 104, 58, "brainstem", ["midbrain, pons,", "medulla"], "bx");
+    var rows = [["amygdala", "emotions"], ["hippocampus", "long-term memory"], ["thalamus", "relays sensory information"], ["hypothalamus", "hunger, thirst, temperature, sleep"], ["olfactory bulbs", "smell"], ["pons", "sleep-wake cycles"], ["medulla oblongata", "heart rate, breathing"]];
+    rows.forEach(function (r, i) {
+      var y = 94 + i * 26;
+      out += R(8, y, 324, 22, i < 5 ? "bx-x" : "bx");
+      out += T(18, y + 15, r[0], "tb", "start") + T(322, y + 15, r[1], "ts", "end");
+    });
+    return { w: 340, h: 94 + rows.length * 26 + 4, body: out };
+  }
+
+  W.registerFigs.push(function () {
+    W.addFigs("ang-k1", {
+      ns: { n: "s6", c: ["nervous-system", "cns", "pns", "somatic", "autonomic", "sympathetic", "parasympathetic"], cap: "Organisation of the nervous system (według Fig. 2 z worksheetu).", fn: angNs },
+      brain: { n: "s7", c: ["cerebrum", "cerebellum", "brainstem", "amygdala", "hippocampus", "thalamus", "hypothalamus", "medulla"], cap: "Main parts of the brain and the functions of its structures (Psychology Vocabulary in Use). Pierwsze pięć wierszy to struktury podkorowe, dwa ostatnie należą do pnia mózgu.", fn: angBrain }
+    });
+  });
+
   /* Rysuje wszystkie schematy po załadowaniu modułów. */
   W.buildFigs = function () {
     W.registerFigs.forEach(function (fn) { fn(); });

@@ -4757,6 +4757,26 @@ a.pg-off {
   --accent-soft: #3d1621;
   --on-accent: #2a0710;
 }
+.theme-sky {
+  --accent: #1f6fc4;
+  --accent-2: #154f8f;
+  --accent-soft: #d9e9fa;
+  --on-accent: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-sky {
+    --accent: #7cb8ff;
+    --accent-2: #4a8ad6;
+    --accent-soft: #14283f;
+    --on-accent: #071626;
+  }
+}
+:root[data-theme="dark"] .theme-sky {
+  --accent: #7cb8ff;
+  --accent-2: #4a8ad6;
+  --accent-soft: #14283f;
+  --on-accent: #071626;
+}
 .reading.zaj aside.extra::before {
   content: "★ spoza materiałów z zajęć";
 }

@@ -230,7 +230,7 @@
         ex.a.forEach(function (a) {
           best = Math.min(best, W.lev(v, W.norm(a)));
         });
-        var tol = ex.a[0].length <= 5 ? 1 : 2;
+        var tol = ex.strict ? 0 : ex.a[0].length <= 5 ? 1 : 2;
         var ok = best <= tol;
         input.classList.add(ok ? "right" : "wrong");
         var note = ok && best > 0 ? "Drobna literówka. Poprawnie: „" + ex.a[0] + "”." : null;
