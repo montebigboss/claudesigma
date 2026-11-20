@@ -1747,6 +1747,69 @@
     });
   });
 
+  /* ---------- Wójcicka, zajęcia 5 ---------- */
+
+  function wjCykl() {
+    /* schemat poziomu pobudzenia w czterech fazach (nie dane z badania) */
+    var x0 = 16, x1 = 330, yb = 150;
+    var pts = [[16, 146], [60, 120], [96, 76], [130, 64], [166, 60], [192, 56], [204, 26], [214, 54], [240, 98], [280, 132], [330, 144]];
+    var out = L(x0, yb, x1, yb);
+    var bands = [[16, 96, "pobudzenie"], [96, 196, "plateau"], [196, 222, "orgazm"], [222, 330, "odprężenie"]];
+    bands.forEach(function (b, i) {
+      if (i) out += L(b[0], 20, b[0], yb, "ln-d");
+      out += T((b[0] + b[1]) / 2, yb + 16, b[2], i === 2 ? "ts ta" : "ts");
+    });
+    out += '<polyline class="ln ln-a" points="' + pts.map(function (p) { return p.join(","); }).join(" ") + '"/>';
+    out += T(222, 34, "skurcze co 0,8 s", "ts ta", "start");
+    out += T(276, 112, ["mężczyźni:", "okres refrakcji"], "ts", "start");
+    out += T(8, 14, "poziom pobudzenia (schemat)", "tb", "start");
+    return { w: 340, h: yb + 26, body: out };
+  }
+
+  function wjEkman() {
+    var p = wjPairs("% prawidłowych wyborów fotografii", ["dorośli (z 3 zdjęć)", "dzieci (z 2 zdjęć)"],
+      [["zadowolenie", 92.3, 92.8], ["gniew", 85.3, 85.3], ["smutek", 79, 81.5], ["obrzydzenie", 83, 86.5], ["zaskoczenie", 68, 98.3], ["strach", 80.5, 93.3]], 100, "%");
+    var out = p.out + T(8, p.y + 6, ["przypadek: 33% u dorosłych, 50% u dzieci;", "strach odróżniany od zaskoczenia: tylko 42,7%"], "ts", "start");
+    return { w: 340, h: p.y + 26, body: out };
+  }
+
+  function wjLcu() {
+    var bars = [["150–199", 37], ["200–299", 51], ["ponad 300", 79]];
+    var out = T(8, 14, "poważne zmiany stanu zdrowia (%)", "tb", "start"), yb = 160;
+    out += L(40, 26, 40, yb) + L(40, yb, 330, yb);
+    [0, 40, 80].forEach(function (v) { var y = yb - v * 1.6; out += T(34, y + 4, String(v), "ts", "end"); });
+    bars.forEach(function (b, i) {
+      var x = 70 + i * 90, h = b[1] * 1.6;
+      out += '<rect class="' + (i === 2 ? "bx-a" : "bx") + '" x="' + x + '" y="' + r1(yb - h) + '" width="60" height="' + r1(h) + '" rx="4"/>';
+      out += T(x + 30, yb - h - 6, "ok. " + b[1] + "%", "tb");
+      out += T(x + 30, yb + 16, b[0], "ts");
+    });
+    out += T(185, yb + 32, "liczba LCU w ostatnim roku", "ts");
+    return { w: 340, h: yb + 40, body: out };
+  }
+
+  function wjDysonans() {
+    var out = "";
+    [["mocne", ["uzasadnienie", "(20 $)"], "mały dysonans", "mała zmiana postaw", "bx"], ["słabe", ["uzasadnienie", "(1 $)"], "duży dysonans", "duża zmiana postaw", "bx-a"]].forEach(function (r, i) {
+      var y = 10 + i * 78;
+      out += B(4, y, 92, 60, ["zachowanie", "sprzeczne"], ["z postawami"], "bx");
+      out += A(96, y + 30, 112, y + 30);
+      out += B(112, y, 98, 60, r[0], r[1], r[4]);
+      out += A(210, y + 30, 224, y + 30);
+      out += B(224, y, 112, 60, r[2], r[3], r[4]);
+    });
+    return { w: 340, h: 166, body: out };
+  }
+
+  W.registerFigs.push(function () {
+    W.addFigs("wj-z5", {
+      cykl: { n: "s3", c: ["cykl", "pobudzenie", "plateau", "orgazm", "odprezenie", "refrakcja"], cap: "Schemat czterech faz cyklu reakcji seksualnych (nie dane z badania). Sami autorzy przyznali, że podział na fazy jest arbitralny.", fn: wjCykl },
+      ekman: { n: "s6", c: ["wyniki-ekman", "dzieci-lepiej", "strach-zaskoczenie"], cap: "Wyniki ludu Fore (tab. 6.4 i 6.5 u Hocka). Wszystkie wyniki są wyraźnie powyżej przypadku; dzieci miały łatwiej, bo wybierały z dwóch zdjęć.", fn: wjEkman },
+      lcu: { n: "s8", c: ["lcu", "lcu-choroby"], cap: "Związek między liczbą jednostek zmian w życiu a chorobami (wartości odczytane w przybliżeniu z ryc. 6.1 u Hocka).", fn: wjLcu },
+      dysonans: { n: "s10", c: ["wyjasnienie-fc", "uzasadnienie", "dysonans", "wyniki-fc"], cap: "Wyjaśnienie wyników Festingera i Carlsmitha (według schematu u Hocka, s. 230). Mocne uzasadnienie to u Hocka „wystarczające”, słabe to „niewystarczające”.", fn: wjDysonans }
+    });
+  });
+
   /* ---------- Lektorat: angielski, kolokwium 1 ---------- */
 
   function angNs() {
